@@ -1,0 +1,63 @@
+﻿<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Page
+    x:Class="TvTime.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TvTime.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WinUICommunity.SettingsUI.Controls"
+    xmlns:labs="using:WinUICommunity.SettingsUI.SettingsControls"
+    xmlns:settings="using:TvTime.Common"
+    mc:Ignorable="d">
+
+    <controls:OOBEPageControl Title="Settings"
+                              HeroImage="ms-appx:///Assets/Images/settingCover.jpg"
+                              Description="Change TvTime Settings based on your needs">
+        <controls:OOBEPageControl.PageContent>
+            <ScrollViewer>
+                <StackPanel MaxWidth="1000" HorizontalAlignment="Stretch" Spacing="3">
+                    <labs:SettingsExpander Description="Set Application Theme and Accent Color" Header="Appearance &amp; behavior">
+                        <labs:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE771;" />
+                        </labs:SettingsExpander.HeaderIcon>
+                        <ComboBox Name="cmbTheme" SelectionChanged="cmbTheme_SelectionChanged">
+                            <ComboBoxItem Tag="Light" Content="Light"/>
+                            <ComboBoxItem Tag="Dark" Content="Dark"/>
+                            <ComboBoxItem Tag="Default" Content="Default"/>
+                        </ComboBox>
+                        <labs:SettingsExpander.Items>
+                            <labs:SettingsCard Click="SettingsCard_Click" IsClickEnabled="True" Description="change windows accent color" Header="Windows color settings">
+                                <labs:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE8A7;" />
+                                </labs:SettingsCard.HeaderIcon>
+                            </labs:SettingsCard>
+                        </labs:SettingsExpander.Items>
+                    </labs:SettingsExpander>
+                    <labs:SettingsCard Description="If false is selected, the corresponding folder will be opened instead of the file itself" Header="Open the file in the browser">
+                        <labs:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE8A7;" />
+                        </labs:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind settings:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay}"/>
+                    </labs:SettingsCard>
+                    <labs:SettingsExpander IsExpanded="True" Description="backup and restore servers" Header="Backup &amp; Restore">
+                        <labs:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE78C;" />
+                        </labs:SettingsExpander.HeaderIcon>
+                        <Button Name="btnBackup" Click="btnBackup_Click" Content="Backup"/>
+                        <labs:SettingsExpander.Items>
+                            <labs:SettingsCard Name="btnRestore" Click="btnRestore_Click" IsClickEnabled="True" Description="You can import your saved servers to the app" Header="Restore">
+                                <labs:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE777;" />
+                                </labs:SettingsCard.HeaderIcon>
+                            </labs:SettingsCard>
+                            <InfoBar Name="infoBackup" IsOpen="True" IsClosable="False" Title="Status" Severity="Informational"/>
+                        </labs:SettingsExpander.Items>
+                    </labs:SettingsExpander>
+                </StackPanel>
+            </ScrollViewer>
+        </controls:OOBEPageControl.PageContent>
+    </controls:OOBEPageControl>
+</Page>

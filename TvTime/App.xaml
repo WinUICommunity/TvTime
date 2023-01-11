@@ -1,0 +1,25 @@
+﻿<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Application
+    x:Class="TvTime.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:TvTime.Common"
+    xmlns:controls="using:WinUICommunity.SettingsUI.Controls"
+    xmlns:local="using:TvTime">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="ms-appx:///SettingsUI/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Other app resources here -->
+            <common:Text2BitmapIconConverter x:Key="Text2BitmapIconConverter"/>
+            <common:ViewType2BitmapIconConverter x:Key="ViewType2BitmapIconConverter"/>
+            <common:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter"/>
+            <common:String2VisibilityConverter x:Key="String2VisibilityConverter"/>
+            <common:Ext2IconConverter x:Key="Ext2IconConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

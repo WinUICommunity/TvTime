@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TvTime (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TvTime (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

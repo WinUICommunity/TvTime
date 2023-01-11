@@ -48,14 +48,14 @@
                         </labs:SettingsExpander.HeaderIcon>
                         <Button Name="btnBackup" Click="btnBackup_Click" Content="Backup"/>
                         <labs:SettingsExpander.Items>
-                            <labs:SettingsCard Name="btnRestore" Click="btnRestore_Click" IsClickEnabled="True" Description="You can import your saved servers to the app" Header="Restore">
+                            <labs:SettingsCard x:Name="btnRestore" Click="btnRestore_Click" IsClickEnabled="True" Description="You can import your saved servers to the app" Header="Restore">
                                 <labs:SettingsCard.HeaderIcon>
                                     <FontIcon Glyph="&#xE777;" />
                                 </labs:SettingsCard.HeaderIcon>
                             </labs:SettingsCard>
-                            <InfoBar Name="infoBackup" IsOpen="True" IsClosable="False" Title="Status" Severity="Informational"/>
                         </labs:SettingsExpander.Items>
                     </labs:SettingsExpander>
+                    <InfoBar Name="infoBackup" IsOpen="True" IsClosable="False" Title="Status" Severity="Informational"/>
                 </StackPanel>
             </ScrollViewer>
         </controls:OOBEPageControl.PageContent>

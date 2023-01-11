@@ -9,7 +9,7 @@
   <Identity
     Name="1b404662-0d3f-4226-ba6e-3cc738af3118"
     Publisher="CN=mahdi"
-    Version="1.0.0.0" />
+    Version="1.0.2.0" />
 
   <Properties>
     <DisplayName>TvTime</DisplayName>

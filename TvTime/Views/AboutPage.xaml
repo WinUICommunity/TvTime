@@ -27,7 +27,7 @@
                             <ImageIcon Source="ms-appx:///Assets/Images/embtv.jpg"/>
                         </controls:Setting.Icon>
                     </controls:Setting>
-                    <ImageIcon Source="ms-appx:///Assets/Images/embtv.jpg"/>
+                    <ImageIcon HorizontalAlignment="Left" MaxWidth="200" Source="ms-appx:///Assets/Images/embtv.jpg"/>
                     
                 </StackPanel>
             </ScrollViewer>

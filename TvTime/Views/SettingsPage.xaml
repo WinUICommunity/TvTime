@@ -18,7 +18,7 @@
                               Description="Change TvTime Settings based on your needs">
         <controls:OOBEPageControl.PageContent>
             <ScrollViewer>
-                <StackPanel MaxWidth="1000" HorizontalAlignment="Stretch" Spacing="3">
+                <StackPanel HorizontalAlignment="Stretch" Spacing="3">
                     <labs:SettingsExpander Description="Set Application Theme and Accent Color" Header="Appearance &amp; behavior">
                         <labs:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE771;" />

@@ -18,7 +18,17 @@
                 <StackPanel Spacing="10" Margin="10">
                     <TextBlock Text="{x:Bind TvTimeVersion}" Style="{ThemeResource TitleTextBlockStyle}"/>
                     <TextBlock Text="TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities." Style="{ThemeResource SubtitleTextBlockStyle}"/>
-                    <HyperlinkButton Content="Source Code" NavigateUri="https://github.com/WinUICommunity/TvTime"/>
+                    <StackPanel Spacing="10" Orientation="Horizontal">
+                        <HyperlinkButton Content="Source Code" NavigateUri="https://github.com/WinUICommunity/TvTime"/>
+                        <HyperlinkButton Content="EmpireBestTv" NavigateUri="https://empirebesttv.com"/>
+                    </StackPanel>
+                    <controls:Setting Header="Thanks to EmpireBestTv" Description="We are grateful to Empire Best TV for preparing the archive of films and serials and providing them for free">
+                        <controls:Setting.Icon>
+                            <ImageIcon Source="ms-appx:///Assets/Images/embtv.jpg"/>
+                        </controls:Setting.Icon>
+                    </controls:Setting>
+                    <ImageIcon Source="ms-appx:///Assets/Images/embtv.jpg"/>
+                    
                 </StackPanel>
             </ScrollViewer>
         </controls:OOBEPageControl.PageContent>

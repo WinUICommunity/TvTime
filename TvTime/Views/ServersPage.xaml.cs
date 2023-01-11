@@ -95,26 +95,24 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         };
         var selectedItem = serverListView.SelectedItem as ServerModel;
 
-        var localServers = Settings.Servers;
-
-        var existItem = localServers.FirstOrDefault(x => x.Title.ToLower().Equals(selectedItem?.Title.ToLower()) && x.Server.ToLower().Equals(selectedItem?.Server.ToLower()));
+        var existItem = ServerList.FirstOrDefault(x => x.Title.ToLower().Equals(selectedItem?.Title.ToLower()) && x.Server.ToLower().Equals(selectedItem?.Server.ToLower()));
         if (existItem is not null && tgEdit.IsOn)
         {
-            var index = localServers.IndexOf(existItem);
-            localServers[index] = new ServerModel
+            var index = ServerList.IndexOf(existItem);
+            ServerList[index] = new ServerModel
             {
                 Title = txtTitle.Text,
                 Server = txtServer.Text,
                 ServerType = GeneralHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent())
             };
-            Settings.Servers = localServers;
         }
         else
         {
-            Settings.Servers.Add(server);
+            ServerList?.Add(server);
         }
 
-        ServerList = new(Settings.Servers);
+        Settings.Servers = ServerList;
+
         IsActive = false;
         infoStatus.Severity = InfoBarSeverity.Success;
         infoStatus.Title = "New Server Added Successfully";
@@ -126,13 +124,11 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
 
     private void btnRemove_Click(object sender, RoutedEventArgs e)
     {
-        var localServers = Settings.Servers;
-
         var selectedItem = serverListView.SelectedItem as ServerModel;
         if (selectedItem is not null)
         {
-            localServers.Remove(selectedItem);
-            Settings.Servers = localServers;
+            ServerList?.Remove(selectedItem);
+            Settings.Servers = ServerList;
             infoStatus.Severity = InfoBarSeverity.Success;
             infoStatus.Title = "Selected Server Removed Successfully";
             infoStatus.IsOpen = true;

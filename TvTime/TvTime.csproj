@@ -21,6 +21,7 @@
   <ItemGroup>
     <None Remove="Assets\Images\aboutCover.jpg" />
     <None Remove="Assets\Images\anime.png" />
+    <None Remove="Assets\Images\embtv.jpg" />
     <None Remove="Assets\Images\file.png" />
     <None Remove="Assets\Images\folder.png" />
     <None Remove="Assets\Images\icon.png" />

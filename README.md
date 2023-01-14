@@ -14,8 +14,6 @@ TV Time helps you find and search movies, series and anime from different server
 ## Install
 ```
 - Download frome Release
-- Install certificate
-- Install Msix file
 - Run TvTime
 - (Optional) Restore Servers Backup
 ```

@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml.Data;
+﻿using Microsoft.UI.Xaml.Data;
 
-namespace TvTime.Common
+namespace TvTime.Common;
+
+public class ViewType2BitmapIconConverter : IValueConverter
 {
-    public class ViewType2BitmapIconConverter : IValueConverter
+    private readonly (string, string)[] _viewTypes = new[]
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        ("Series", "ms-appx:///Assets/Images/series.png"),
+        ("Movie", "ms-appx:///Assets/Images/movie.png"),
+        ("Anime", "ms-appx:///Assets/Images/anime.png")
+    };
+    public object Convert(object value, Type targetType, object parameter, string language)
+    {
+        var viewType = value as string;
+        if (!string.IsNullOrEmpty(viewType))
         {
-            if (value is not null && value is string viewType)
+            var type = _viewTypes.FirstOrDefault(x => x.Item1.Equals(viewType, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrEmpty(type.Item2))
             {
-                switch (viewType)
-                {
-                    case "Series":
-                        return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Images/series.png"), ShowAsMonochrome = false };
-
-                    case "Movie":
-                        return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Images/movie.png"), ShowAsMonochrome = false };
-
-                    case "Anime":
-                        return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Images/anime.png"), ShowAsMonochrome = false };
-                }
+                return new BitmapIcon { UriSource = new Uri(type.Item2), ShowAsMonochrome = false };
             }
-            return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Images/series.png"), ShowAsMonochrome = false };
         }
+        return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Images/series.png"), ShowAsMonochrome = false };
+    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    {
+        throw new NotImplementedException();
     }
 }

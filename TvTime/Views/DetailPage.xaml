@@ -131,7 +131,7 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <BitmapIcon MaxWidth="32" ShowAsMonochrome="False" UriSource="{x:Bind Server, Converter={StaticResource Ext2IconConverter}}" />
+                                    <BitmapIcon MaxWidth="32" ShowAsMonochrome="False" UriSource="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}" />
                                     <controls:Setting Grid.Column="1" Icon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}" Style="{StaticResource ExpanderHeaderSettingStyle}">
                                         <controls:Setting.ActionContent>
                                             <StackPanel Orientation="Horizontal">

@@ -51,9 +51,9 @@
             <TextBox Name="txtTitle" PlaceholderText="Title"/>
             <TextBox Name="txtServer" PlaceholderText="Server Url"/>
             <ComboBox Name="cmbType" PlaceholderText="Serie\Movie\Anime" SelectedIndex="0" HorizontalAlignment="Stretch">
-                <ComboBoxItem Content="Series"/>
-                <ComboBoxItem Content="Movie"/>
-                <ComboBoxItem Content="Anime"/>
+                <ComboBoxItem Tag="0" Content="Series"/>
+                <ComboBoxItem Tag="1" Content="Movie"/>
+                <ComboBoxItem Tag="2" Content="Anime"/>
             </ComboBox>
             <StackPanel Orientation="Horizontal" Spacing="10">
                 <Button Name="btnSave" Click="btnSave_Click" MinWidth="170" Content="Save"/>

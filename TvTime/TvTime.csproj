@@ -20,9 +20,11 @@
   <ItemGroup>
     <None Remove="Assets\Images\aboutCover.jpg" />
     <None Remove="Assets\Images\anime.png" />
+    <None Remove="Assets\Images\audio.png" />
     <None Remove="Assets\Images\embtv.jpg" />
     <None Remove="Assets\Images\file.png" />
     <None Remove="Assets\Images\folder.png" />
+    <None Remove="Assets\Images\hardsub.png" />
     <None Remove="Assets\Images\icon.ico" />
     <None Remove="Assets\Images\icon.png" />
     <None Remove="Assets\Images\mkv.png" />
@@ -92,6 +94,9 @@
     <Content Update="Assets\Images\anime.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Images\audio.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Images\embtv.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -128,6 +133,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Images\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\Images\hardsub.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

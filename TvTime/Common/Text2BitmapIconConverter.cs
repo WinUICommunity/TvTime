@@ -1,23 +1,29 @@
 ﻿using Microsoft.UI.Xaml.Data;
 
-namespace TvTime.Common
+namespace TvTime.Common;
+public class Text2BitmapIconConverter : IValueConverter
 {
-    public class Text2BitmapIconConverter : IValueConverter
+    private readonly (string, string)[] _subtitles = new[]
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        ("softsub","ms-appx:///Assets/Images/softsub.png"),
+        ("hardsub","ms-appx:///Assets/Images/hardsub.png"),
+    };
+    public object Convert(object value, Type targetType, object parameter, string language)
+    {
+        var text = value as string;
+        if (!string.IsNullOrEmpty(text))
         {
-            var text = value is string ? (string) value : null;
-
-            if (!string.IsNullOrEmpty(text) && text.ToLower().Contains("softsub", StringComparison.OrdinalIgnoreCase))
+            var subtitleType = _subtitles.FirstOrDefault(x => text.ToLower().Contains(x.Item1, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrEmpty(subtitleType.Item2))
             {
-                return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Images/softsub.png"), ShowAsMonochrome = false };
+                return new BitmapIcon { UriSource = new Uri(subtitleType.Item2), ShowAsMonochrome = false };
             }
-            return null;
         }
+        return null;
+    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    {
+        throw new NotImplementedException();
     }
 }

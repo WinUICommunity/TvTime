@@ -3,17 +3,24 @@
 namespace TvTime.Common;
 public class Bool2VisibilityConverter : IValueConverter
 {
+    private readonly string[] _extensions = new[]
+    {
+        ".mp4",
+        ".mkv",
+        ".m4a",
+        ".mp3",
+        ".wav"
+    };
+
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        if (value is not null && value is string text)
+        var text = value as string;
+        if (!string.IsNullOrEmpty(text))
         {
-            if (text.ToLower().Contains(".mp4") || text.ToLower().Contains(".mkv"))
+            var extension = _extensions.FirstOrDefault(x => text.EndsWith(x, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrEmpty(extension))
             {
                 return Visibility.Visible;
-            }
-            else
-            {
-                return Visibility.Collapsed;
             }
         }
         return Visibility.Collapsed;

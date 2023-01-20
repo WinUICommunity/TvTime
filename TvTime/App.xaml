@@ -19,7 +19,7 @@
             <common:ViewType2BitmapIconConverter x:Key="ViewType2BitmapIconConverter"/>
             <common:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter"/>
             <common:String2VisibilityConverter x:Key="String2VisibilityConverter"/>
-            <common:Ext2IconConverter x:Key="Ext2IconConverter"/>
+            <common:FileExtension2IconConverter x:Key="FileExtension2IconConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

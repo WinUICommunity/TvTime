@@ -146,13 +146,13 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
 
     private void serverListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        btnRemove.IsEnabled = serverListView.SelectedItems.Count > 0 ? true : false;
+        btnRemove.IsEnabled = serverListView.SelectedItems.Count > 0;
         var selectedItem = serverListView.SelectedItem as ServerModel;
         if (selectedItem != null)
         {
             txtTitle.Text = selectedItem.Title;
             txtServer.Text = selectedItem.Server;
-            cmbType.SelectedItem = (int)selectedItem.ServerType;
+            cmbType.SelectedItem = cmbType.Items.OfType<ComboBoxItem>().FirstOrDefault(x => x.Tag.ToString() == ((int) selectedItem.ServerType).ToString());
         }
     }
 

@@ -5,7 +5,7 @@ public class String2VisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        var text = value is string ? (string)value : null;
+        var text = value as string;
         if (string.IsNullOrEmpty(text))
         {
             return Visibility.Collapsed;

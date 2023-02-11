@@ -159,7 +159,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             btnServerStatus.Visibility = Visibility.Collapsed;
             btnRefresh.IsEnabled = false;
             IsActive = true;
-            var urls = Settings.Servers.Where(x => x.ServerType == GeneralHelper.GetEnum<ServerType>(ViewType)).ToList();
+            var urls = Settings.Servers.Where(x => x.ServerType == GeneralHelper.GetEnum<ServerType>(ViewType) && x.IsActive == true).ToList();
             infoStatus.IsOpen = true;
             infoStatus.Severity = InfoBarSeverity.Informational;
             infoStatus.Title = "Please Wait...";
@@ -258,7 +258,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             }
 
             string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
-            i.Title = TvTimeHelper.RemoveSpecialWords(TvTimeHelper.GetDecodedStringFromHtml(t));
+            i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
 
             if (i.Server.Equals($"{server.Server}../") || i.Title.Equals("[To Parent Directory]"))
             {

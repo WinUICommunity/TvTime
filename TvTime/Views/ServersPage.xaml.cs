@@ -90,7 +90,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         {
             Title = txtTitle.Text,
             Server = txtServer.Text,
-
+            IsActive = tgActive.IsOn,
             ServerType = GeneralHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent())
         };
         var selectedItem = serverListView.SelectedItem as ServerModel;
@@ -103,7 +103,8 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
             {
                 Title = txtTitle.Text,
                 Server = txtServer.Text,
-                ServerType = GeneralHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent())
+                ServerType = GeneralHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent()),
+                IsActive = tgActive.IsOn
             };
         }
         else
@@ -120,6 +121,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
 
         txtServer.Text = string.Empty;
         txtTitle.Text = string.Empty;
+        tgActive.IsOn = true;
     }
 
     private void btnRemove_Click(object sender, RoutedEventArgs e)
@@ -135,6 +137,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
             ServerList = new(Settings.Servers);
             txtServer.Text = string.Empty;
             txtTitle.Text = string.Empty;
+            tgActive.IsOn = true;
         }
         else
         {
@@ -153,6 +156,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
             txtTitle.Text = selectedItem.Title;
             txtServer.Text = selectedItem.Server;
             cmbType.SelectedItem = cmbType.Items.OfType<ComboBoxItem>().FirstOrDefault(x => x.Tag.ToString() == ((int) selectedItem.ServerType).ToString());
+            tgActive.IsOn = selectedItem.IsActive;
         }
     }
 
@@ -176,5 +180,6 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
     {
         txtServer.Text = string.Empty;
         txtTitle.Text = string.Empty;
+        tgActive.IsOn = true;
     }
 }

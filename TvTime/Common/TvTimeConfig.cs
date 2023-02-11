@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Nucs.JsonSettings.Modulation;
-using Nucs.JsonSettings;
+﻿using Nucs.JsonSettings.Modulation;
 using System.Collections.ObjectModel;
 using TvTime.Models;
 using Nucs.JsonSettings.Examples;
@@ -12,8 +6,8 @@ using Nucs.JsonSettings.Examples;
 namespace TvTime.Common;
 public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
 {
-    [EnforcedVersion("1.0.0.0")]
-    public virtual Version Version { get; set; } = new Version(1, 0, 0, 0);
+    [EnforcedVersion("1.1.0.0")]
+    public virtual Version Version { get; set; } = new Version(1, 1, 0, 0);
     public override string FileName { get; set; } = Constants.AppConfigPath;
 
     private ObservableCollection<ServerModel> _Servers = new();

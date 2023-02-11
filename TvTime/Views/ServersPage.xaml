@@ -31,7 +31,10 @@
                     <StackPanel Margin="10" Spacing="10">
                         <TextBlock Text="{x:Bind Title}" Style="{ThemeResource BaseTextBlockStyle}"/>
                         <TextBlock Text="{x:Bind Server}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <TextBlock Text="{x:Bind ServerType}" Style="{ThemeResource BodyTextBlockStyle}"/>
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBlock Margin="0,10,0,0" Text="{x:Bind ServerType}" Style="{ThemeResource BodyTextBlockStyle}"/>
+                            <ToggleSwitch IsEnabled="False" IsOn="{x:Bind IsActive}" OnContent="Active" OffContent="DeActive"/>
+                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -55,6 +58,7 @@
                 <ComboBoxItem Tag="1" Content="Movie"/>
                 <ComboBoxItem Tag="2" Content="Anime"/>
             </ComboBox>
+            <ToggleSwitch Name="tgActive" IsOn="True" OnContent="Active" OffContent="DeActive"/>
             <StackPanel Orientation="Horizontal" Spacing="10">
                 <Button Name="btnSave" Click="btnSave_Click" MinWidth="170" Content="Save"/>
                 <Button Name="btnRemove" IsEnabled="False" Click="btnRemove_Click" MinWidth="170" Content="Remove"/>

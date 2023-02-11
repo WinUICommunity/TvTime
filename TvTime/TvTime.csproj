@@ -72,10 +72,10 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.UI" Version="7.1.2" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221209.1" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230118.102" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
-    <PackageReference Include="WinUICommunity.Common" Version="3.0.1" />
-    <PackageReference Include="WinUICommunity.SettingsUI" Version="3.0.1" />
+    <PackageReference Include="WinUICommunity.Common" Version="3.0.4" />
+    <PackageReference Include="WinUICommunity.SettingsUI" Version="3.0.3" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 

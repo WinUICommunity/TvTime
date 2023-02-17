@@ -18,6 +18,7 @@ TV Time helps you find and search movies, series and anime from different server
 - (Optional) Restore Servers Backup
 ```
 `
+![TvTime](https://raw.githubusercontent.com/ghost1372/Resources/main/TvTime/0.png)
 
 ![TvTime](https://raw.githubusercontent.com/ghost1372/Resources/main/TvTime/1.png)
 

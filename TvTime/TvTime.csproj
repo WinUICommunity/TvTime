@@ -15,7 +15,7 @@
     <ApplicationIcon>Assets\Images\icon.ico</ApplicationIcon>
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <WindowsPackageType>None</WindowsPackageType>
-    <Version>1.0.2-Stable</Version>
+    <Version>1.0.3-Stable</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\Images\aboutCover.jpg" />
@@ -24,6 +24,9 @@
     <None Remove="Assets\Images\embtv.jpg" />
     <None Remove="Assets\Images\file.png" />
     <None Remove="Assets\Images\folder.png" />
+    <None Remove="Assets\Images\GalleryHeaderImage.png" />
+    <None Remove="Assets\Images\gettingStarted.png" />
+    <None Remove="Assets\Images\githubTile.png" />
     <None Remove="Assets\Images\hardsub.png" />
     <None Remove="Assets\Images\icon.ico" />
     <None Remove="Assets\Images\icon.png" />
@@ -34,9 +37,12 @@
     <None Remove="Assets\Images\server.png" />
     <None Remove="Assets\Images\settingCover.jpg" />
     <None Remove="Assets\Images\softsub.png" />
+    <None Remove="Assets\Images\toolkit.png" />
+    <None Remove="DataModel\ControlInfoData.json" />
     <None Remove="Views\AboutPage.xaml" />
     <None Remove="Views\AnimesPage.xaml" />
     <None Remove="Views\DetailPage.xaml" />
+    <None Remove="Views\HomeLandingsPage.xaml" />
     <None Remove="Views\LocalUserControl.xaml" />
     <None Remove="Views\MoviesPage.xaml" />
     <None Remove="Views\SeriesPage.xaml" />
@@ -67,6 +73,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="DataModel\ControlInfoData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -75,7 +84,8 @@
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230118.102" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <PackageReference Include="WinUICommunity.Common" Version="3.0.4" />
-    <PackageReference Include="WinUICommunity.SettingsUI" Version="3.0.3" />
+    <PackageReference Include="WinUICommunity.LandingsPage" Version="1.0.3" />
+    <PackageReference Include="WinUICommunity.SettingsUI" Version="3.0.4" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -104,6 +114,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\folder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\GalleryHeaderImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\gettingStarted.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\githubTile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\icon.png">
@@ -140,6 +159,14 @@
     <Content Update="Assets\Images\hardsub.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Images\toolkit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\HomeLandingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\AboutPage.xaml">

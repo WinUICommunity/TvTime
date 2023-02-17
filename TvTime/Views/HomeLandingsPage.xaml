@@ -1,0 +1,42 @@
+﻿<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Page
+    x:Class="TvTime.Views.HomeLandingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TvTime.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WinUICommunity.LandingsPage.Controls"
+    mc:Ignorable="d">
+
+    <controls:MainLandingsPage x:Name="mainLandingsPage" Loaded="mainLandingsPage_Loaded"
+                HomePageHeaderImage="ms-appx:///Assets/Images/aboutCover.jpg"
+                Title="TvTime"
+                Description="Version 1.0.3"
+                OnItemClick="mainLandingsPage_OnItemClick">
+        <controls:MainLandingsPage.HeaderContent>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <controls:HeaderTile Title="Source Code" Description="Clone our Source Codes"
+                                     Link="https://github.com/WinUICommunity/TvTime">
+                    <controls:HeaderTile.Source>
+                        <Image Source="/Assets/Images/githubTile.png" />
+                    </controls:HeaderTile.Source>
+                </controls:HeaderTile>
+                <controls:HeaderTile Name="settingsTile" Title="Settings" Description="change TvTime Settings Based on your needs"
+                                     OnItemClick="settingsTile_OnItemClick">
+                    <controls:HeaderTile.Source>
+                        <Image Source="/Assets/Images/gettingStarted.png" />
+                    </controls:HeaderTile.Source>
+                </controls:HeaderTile>
+                <controls:HeaderTile Name="aboutTile" Title="About" Description="About TvTime"
+                                     OnItemClick="aboutTile_OnItemClick">
+                    <controls:HeaderTile.Source>
+                        <Image Source="/Assets/Images/icon.png" />
+                    </controls:HeaderTile.Source>
+                </controls:HeaderTile>
+            </StackPanel>
+        </controls:MainLandingsPage.HeaderContent>
+    </controls:MainLandingsPage>
+</Page>

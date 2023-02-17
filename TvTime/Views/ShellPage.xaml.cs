@@ -3,6 +3,8 @@
 
 
 
+using System.Reflection;
+
 namespace TvTime.Views;
 
 public sealed partial class ShellPage : Page
@@ -16,7 +18,7 @@ public sealed partial class ShellPage : Page
         Instance = this;
         ViewModel.InitializeNavigation(shellFrame, navigationView)
                     .WithKeyboardAccelerator(KeyboardAccelerators)
-                    .WithDefaultPage(typeof(SeriesPage))
+                    .WithDefaultPage(typeof(HomeLandingsPage))
                     .WithSettingsPage(typeof(SettingsPage));
         Loaded += ShellPage_Loaded;
     }

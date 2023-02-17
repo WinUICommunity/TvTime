@@ -14,6 +14,11 @@
 
     <NavigationView x:Name="navigationView" IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}" ItemInvoked="navigationView_ItemInvoked" SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
         <NavigationView.MenuItems>
+            <NavigationViewItem Margin="0,0,12,0" helpers:NavHelper.NavigateTo="views:HomeLandingsPage" Content="Home">
+                <NavigationViewItem.Icon>
+                    <ImageIcon Source="ms-appx:///Assets/Images/icon.png"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
             <NavigationViewItem Margin="0,0,12,0" helpers:NavHelper.NavigateTo="views:SeriesPage" Content="Series">
                 <NavigationViewItem.Icon>
                     <ImageIcon Source="ms-appx:///Assets/Images/series.png"/>

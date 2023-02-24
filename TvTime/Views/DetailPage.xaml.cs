@@ -17,6 +17,7 @@ using TvTime.Models;
 using Windows.System;
 using WinUICommunity.Common.Extensions;
 using WinUICommunity.SettingsUI.Controls;
+using WinUICommunity.Shared.Navigation;
 
 namespace TvTime.Views;
 
@@ -100,7 +101,8 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        var item = (LocalItem)e.Parameter;
+        var args = e.Parameter as NavigationArgs;
+        var item = (LocalItem)args.Parameter;
         rootLocalItem = item;
         breadcrumbBarList?.Clear();
         txtImdbDetail.Text = rootLocalItem.Title;

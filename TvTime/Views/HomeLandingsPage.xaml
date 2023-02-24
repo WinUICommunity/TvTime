@@ -24,13 +24,13 @@
                         <Image Source="/Assets/Images/githubTile.png" />
                     </controls:HeaderTile.Source>
                 </controls:HeaderTile>
-                <controls:HeaderTile Name="settingsTile" Title="Settings" Description="change TvTime Settings Based on your needs"
+                <controls:HeaderTile x:Name="settingsTile" Title="Settings" Description="change TvTime Settings Based on your needs"
                                      OnItemClick="settingsTile_OnItemClick">
                     <controls:HeaderTile.Source>
                         <Image Source="/Assets/Images/gettingStarted.png" />
                     </controls:HeaderTile.Source>
                 </controls:HeaderTile>
-                <controls:HeaderTile Name="aboutTile" Title="About" Description="About TvTime"
+                <controls:HeaderTile x:Name="aboutTile" Title="About" Description="About TvTime"
                                      OnItemClick="aboutTile_OnItemClick">
                     <controls:HeaderTile.Source>
                         <Image Source="/Assets/Images/icon.png" />

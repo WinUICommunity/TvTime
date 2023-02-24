@@ -336,7 +336,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             Title = setting?.Header,
             ServerType = GeneralHelper.GetEnum<ServerType>(ViewType)
         };
-        ShellPage.Instance.Navigate(typeof(DetailPage), item);
+        NavigationViewHelper.GetCurrent().Navigate(typeof(DetailPage), item);
     }
     private async void btnOpenDirectory_Click(object sender, RoutedEventArgs e)
     {

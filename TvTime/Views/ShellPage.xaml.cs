@@ -1,40 +1,33 @@
 ﻿// Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
-
-
-using System.Reflection;
+using WinUICommunity.LandingsPage.Controls;
 
 namespace TvTime.Views;
 
 public sealed partial class ShellPage : Page
 {
-    public static ShellPage Instance { get; private set; }
-    public ShellViewModel ViewModel { get; } = new ShellViewModel();
-
     public ShellPage()
     {
         this.InitializeComponent();
-        Instance = this;
-        ViewModel.InitializeNavigation(shellFrame, navigationView)
-                    .WithKeyboardAccelerator(KeyboardAccelerators)
-                    .WithDefaultPage(typeof(HomeLandingsPage))
-                    .WithSettingsPage(typeof(SettingsPage));
         Loaded += ShellPage_Loaded;
     }
 
     private void ShellPage_Loaded(object sender, RoutedEventArgs e)
     {
-        ViewModel.OnLoaded();
+        NavigationViewHelper.GetCurrent().
+                        Initialize("DataModel/ControlInfoData.json", rootFrame, NavigationViewControl)
+                        .WithAutoSuggestBox(controlsSearchBox)
+                        .WithSettingsPage(typeof(SettingsPage))
+                        .WithDefaultPage(typeof(HomeLandingsPage));
+    }
+    private void controlsSearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        NavigationViewHelper.GetCurrent().AutoSuggestBoxQuerySubmitted(args, typeof(ItemPage));
     }
 
-    private void navigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+    private void OnNavigationViewSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
     {
-        ViewModel.OnItemInvoked(args);
-    }
-
-    public void Navigate(Type page, object parameter)
-    {
-        shellFrame.Navigate(page, parameter);
+        NavigationViewHelper.GetCurrent().OnNavigationViewSelectionChanged(args, typeof(TvTimeSectionPage), typeof(ItemPage));
     }
 }

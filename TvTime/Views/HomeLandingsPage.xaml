@@ -12,9 +12,9 @@
     mc:Ignorable="d">
 
     <controls:MainLandingsPage x:Name="mainLandingsPage" Loaded="mainLandingsPage_Loaded"
-                HomePageHeaderImage="ms-appx:///Assets/Images/aboutCover.jpg"
-                Title="TvTime"
-                Description="Version 1.0.3"
+                HeaderImage="ms-appx:///Assets/Images/aboutCover.jpg"
+                HeaderText="TvTime"
+                HeaderSubtitleText="Version 1.0.3"
                 OnItemClick="mainLandingsPage_OnItemClick">
         <controls:MainLandingsPage.HeaderContent>
             <StackPanel Orientation="Horizontal" Spacing="10">

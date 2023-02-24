@@ -5,46 +5,44 @@
     x:Class="TvTime.Views.ShellPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TvTime.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:helpers="using:WinUICommunity.Common.Helpers"
-    xmlns:views="using:TvTime.Views"
+    xmlns:data="using:WinUICommunity.Shared.DataModel"
     mc:Ignorable="d">
 
-    <NavigationView x:Name="navigationView" IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}" ItemInvoked="navigationView_ItemInvoked" SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
-        <NavigationView.MenuItems>
-            <NavigationViewItem Margin="0,0,12,0" helpers:NavHelper.NavigateTo="views:HomeLandingsPage" Content="Home">
-                <NavigationViewItem.Icon>
-                    <ImageIcon Source="ms-appx:///Assets/Images/icon.png"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Margin="0,0,12,0" helpers:NavHelper.NavigateTo="views:SeriesPage" Content="Series">
-                <NavigationViewItem.Icon>
-                    <ImageIcon Source="ms-appx:///Assets/Images/series.png"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Margin="0,0,12,0" helpers:NavHelper.NavigateTo="views:MoviesPage" Content="Movies">
-                <NavigationViewItem.Icon>
-                    <ImageIcon Source="ms-appx:///Assets/Images/movie.png"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Margin="0,0,12,0" helpers:NavHelper.NavigateTo="views:AnimesPage" Content="Animes">
-                <NavigationViewItem.Icon>
-                    <ImageIcon Source="ms-appx:///Assets/Images/anime.png"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Margin="0,0,12,0" helpers:NavHelper.NavigateTo="views:ServersPage" Content="Servers">
-                <NavigationViewItem.Icon>
-                    <ImageIcon Source="ms-appx:///Assets/Images/server.png"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Margin="0,0,12,0" helpers:NavHelper.NavigateTo="views:AboutPage" Content="About">
-                <NavigationViewItem.Icon>
-                    <ImageIcon Source="ms-appx:///Assets/Images/icon.png"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-        </NavigationView.MenuItems>
-        <Frame x:Name="shellFrame"/>
-    </NavigationView>
+    <Grid>
+        <NavigationView
+        x:Name="NavigationViewControl"
+        Canvas.ZIndex="0"
+        IsTabStop="False"
+        PaneDisplayMode="Left"
+        SelectionChanged="OnNavigationViewSelectionChanged"
+        IsTitleBarAutoPaddingEnabled="True">
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox
+                x:Name="controlsSearchBox"
+                MinWidth="200"
+                VerticalAlignment="Center"
+                x:FieldModifier="public"
+                QuerySubmitted="controlsSearchBox_QuerySubmitted"
+                KeyboardAcceleratorPlacementMode="Hidden"
+                PlaceholderText="Search"
+                QueryIcon="Find">
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="data:ControlInfoDataItem">
+                            <Grid AutomationProperties.Name="{x:Bind Title}" ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{x:Bind ImagePath}" />
+                                <TextBlock Grid.Column="1" Text="{x:Bind Title}" />
+                            </Grid>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
+            </NavigationView.AutoSuggestBox>
+            <Frame x:Name="rootFrame"/>
+        </NavigationView>
+    </Grid>
 </Page>

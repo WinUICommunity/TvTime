@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
-using System.Xml;
-using WinUICommunity.LandingsPage.DataModel;
+using WinUICommunity.LandingsPage.Controls;
+using WinUICommunity.Shared.DataModel;
 
 namespace TvTime.Views;
 public sealed partial class HomeLandingsPage : Page
@@ -14,7 +14,7 @@ public sealed partial class HomeLandingsPage : Page
 
     private void mainLandingsPage_Loaded(object sender, RoutedEventArgs e)
     {
-        mainLandingsPage.GetControlInfoDataAsync("DataModel/ControlInfoData.json", IncludedInBuildMode.RealCheckBasedOnUniqeIdPath);
+        mainLandingsPage.GetDataAsync("DataModel/ControlInfoData.json", IncludedInBuildMode.CheckBasedOnIncludedInBuildProperty);
     }
 
     private void mainLandingsPage_OnItemClick(object sender, RoutedEventArgs e)
@@ -22,17 +22,16 @@ public sealed partial class HomeLandingsPage : Page
         var args = (ItemClickEventArgs) e;
         var item = (ControlInfoDataItem) args.ClickedItem;
 
-        Type pageType = Type.GetType(item.UniqueId);
-        ShellPage.Instance.Navigate(pageType, null);
+        NavigationViewHelper.GetCurrent().Navigate(typeof(ItemPage), item.UniqueId);
     }
 
     private void settingsTile_OnItemClick(object sender, RoutedEventArgs e)
     {
-        ShellPage.Instance.Navigate(typeof(SettingsPage), null);
+        NavigationViewHelper.GetCurrent().Navigate(typeof(SettingsPage));
     }
 
     private void aboutTile_OnItemClick(object sender, RoutedEventArgs e)
     {
-        ShellPage.Instance.Navigate(typeof(AboutPage), null);
+        NavigationViewHelper.GetCurrent().Navigate(typeof(AboutPage));
     }
 }

@@ -10,7 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DefaultBindMode="OneWay"
     xmlns:model="using:TvTime.Models"
-    xmlns:controls="using:WinUICommunity.SettingsUI.Controls"
+    xmlns:labs="using:WinUICommunity.SettingsUI.SettingsControls"
     mc:Ignorable="d">
 
     <Grid>
@@ -125,28 +125,17 @@
                     </ListView.Resources>
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:LocalItem">
-                            <Button Style="{StaticResource SettingButtonStyle}" Click="Button_Click">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <BitmapIcon MaxWidth="32" ShowAsMonochrome="False" UriSource="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}" />
-                                    <controls:Setting Grid.Column="1" Icon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}" Style="{StaticResource ExpanderHeaderSettingStyle}">
-                                        <controls:Setting.ActionContent>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Border Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource SystemAccentColor}">
-                                                    <TextBlock Text="{x:Bind DateTime}" Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0" Foreground="{ThemeResource SystemAltMediumHighColor}"/>
-                                                </Border>
-                                                <Border Visibility="{x:Bind FileSize, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource SystemAccentColor}">
-                                                    <TextBlock Text="{x:Bind FileSize}" Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0" Foreground="{ThemeResource SystemAltMediumHighColor}"/>
-                                                </Border>
-                                                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
-                                            </StackPanel>
-                                        </controls:Setting.ActionContent>
-                                    </controls:Setting>
-                                </Grid>
-                                <Button.ContextFlyout>
+                            <labs:SettingsCard IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource SystemAccentColor}">
+                                        <TextBlock Text="{x:Bind DateTime}" Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0" Foreground="{ThemeResource SystemAltMediumHighColor}"/>
+                                    </Border>
+                                    <Border Visibility="{x:Bind FileSize, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource SystemAccentColor}">
+                                        <TextBlock Text="{x:Bind FileSize}" Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0" Foreground="{ThemeResource SystemAltMediumHighColor}"/>
+                                    </Border>
+                                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
+                                </StackPanel>
+                                <labs:SettingsCard.ContextFlyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem Tag="{x:Bind}" Text="Open Directory" Click="btnOpenDirectory_Click">
                                             <MenuFlyoutItem.Icon>
@@ -159,13 +148,15 @@
                                             </MenuFlyoutItem.Icon>
                                         </MenuFlyoutItem>
                                     </MenuFlyout>
-                                </Button.ContextFlyout>
-                            </Button>
+                                </labs:SettingsCard.ContextFlyout>
+                                <labs:SettingsCard.ActionIcon>
+                                    <BitmapIcon MaxWidth="32" ShowAsMonochrome="False" UriSource="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}" />
+                                </labs:SettingsCard.ActionIcon>
+                            </labs:SettingsCard>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <ProgressRing IsActive="{x:Bind IsActive}" Grid.Row="1"/>
-
             </Grid>
         </ScrollViewer>
         

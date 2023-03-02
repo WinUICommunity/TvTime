@@ -17,6 +17,7 @@ using TvTime.Models;
 using Windows.System;
 using WinUICommunity.Common.Extensions;
 using WinUICommunity.SettingsUI.Controls;
+using WinUICommunity.SettingsUI.SettingsControls;
 using WinUICommunity.Shared.Navigation;
 
 namespace TvTime.Views;
@@ -258,35 +259,6 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
             || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 
-    private async void Button_Click(object sender, RoutedEventArgs e)
-    {
-        var grid = (sender as Button).Content as Grid;
-        var setting = grid.Children[1] as Setting;
-        var server = setting?.Description?.ToString();
-        if (Constants.FileExtensions.Any(server.Contains))
-        {
-            if (Settings.IsFileOpenInBrowser)
-            {
-                await Launcher.LaunchUriAsync(new Uri(server));
-            }
-            else
-            {
-                var fileName = Path.GetFileName(server);
-                await Launcher.LaunchUriAsync(new Uri(server.Replace(fileName, "")));
-            }
-        }
-        else
-        {
-            var localItem = new LocalItem
-            {
-                Server = setting?.Description?.ToString(),
-                Title = setting?.Header,
-                ServerType = rootLocalItem.ServerType
-            };
-            DownloadDetails(localItem);
-        }
-    }
-
     private void breadcrumbBar_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
     {
         var item = (LocalItem)args.Item;
@@ -386,6 +358,34 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
             {
                 await Launcher.LaunchUriAsync(new Uri(server));
             }
+        }
+    }
+
+    private async void SettingsCard_Click(object sender, RoutedEventArgs e)
+    {
+        var setting = (sender as SettingsCard);
+        var server = setting?.Description?.ToString();
+        if (Constants.FileExtensions.Any(server.Contains))
+        {
+            if (Settings.IsFileOpenInBrowser)
+            {
+                await Launcher.LaunchUriAsync(new Uri(server));
+            }
+            else
+            {
+                var fileName = Path.GetFileName(server);
+                await Launcher.LaunchUriAsync(new Uri(server.Replace(fileName, "")));
+            }
+        }
+        else
+        {
+            var localItem = new LocalItem
+            {
+                Server = setting?.Description?.ToString(),
+                Title = setting?.Header.ToString(),
+                ServerType = rootLocalItem.ServerType
+            };
+            DownloadDetails(localItem);
         }
     }
 }

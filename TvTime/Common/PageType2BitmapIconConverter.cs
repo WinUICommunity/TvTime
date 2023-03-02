@@ -2,7 +2,7 @@
 
 namespace TvTime.Common;
 
-public class ViewType2BitmapIconConverter : IValueConverter
+public class PageType2BitmapIconConverter : IValueConverter
 {
     private readonly (string, string)[] _viewTypes = new[]
     {
@@ -12,10 +12,10 @@ public class ViewType2BitmapIconConverter : IValueConverter
     };
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        var viewType = value as string;
-        if (!string.IsNullOrEmpty(viewType))
+        var pageType = ((PageOrDirectoryType) value).ToString();
+        if (!string.IsNullOrEmpty(pageType))
         {
-            var type = _viewTypes.FirstOrDefault(x => x.Item1.Equals(viewType, StringComparison.OrdinalIgnoreCase));
+            var type = _viewTypes.FirstOrDefault(x => x.Item1.Equals(pageType, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(type.Item2))
             {
                 return new BitmapIcon { UriSource = new Uri(type.Item2), ShowAsMonochrome = false };

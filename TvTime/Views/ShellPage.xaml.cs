@@ -15,11 +15,11 @@ public sealed partial class ShellPage : Page
 
     private void ShellPage_Loaded(object sender, RoutedEventArgs e)
     {
-        NavigationViewHelper.GetCurrent().
-                        Initialize("DataModel/ControlInfoData.json", rootFrame, NavigationViewControl)
+        NavigationViewHelper.GetCurrent()
                         .WithAutoSuggestBox(controlsSearchBox)
                         .WithSettingsPage(typeof(SettingsPage))
-                        .WithDefaultPage(typeof(HomeLandingsPage));
+                        .WithDefaultPage(typeof(HomeLandingsPage))
+                        .Build("DataModel/ControlInfoData.json", rootFrame, NavigationViewControl);
     }
     private void controlsSearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {

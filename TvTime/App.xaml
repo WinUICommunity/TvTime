@@ -17,7 +17,7 @@
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
             <common:Text2BitmapIconConverter x:Key="Text2BitmapIconConverter"/>
-            <common:ViewType2BitmapIconConverter x:Key="ViewType2BitmapIconConverter"/>
+            <common:PageType2BitmapIconConverter x:Key="PageType2BitmapIconConverter"/>
             <common:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter"/>
             <common:String2VisibilityConverter x:Key="String2VisibilityConverter"/>
             <common:FileExtension2IconConverter x:Key="FileExtension2IconConverter"/>

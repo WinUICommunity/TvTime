@@ -1,15 +1,13 @@
-﻿using Nucs.JsonSettings.Modulation.Recovery;
-using Nucs.JsonSettings.Modulation;
-using Nucs.JsonSettings;
-using Nucs.JsonSettings.Fluent;
-using Nucs.JsonSettings.Autosave;
-using System.Text;
-using Windows.Security.Cryptography.Core;
-using Windows.Security.Cryptography;
-using Windows.Storage.Streams;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Web;
-using TvTime.Models;
+using Nucs.JsonSettings;
+using Nucs.JsonSettings.Autosave;
+using Nucs.JsonSettings.Fluent;
+using Nucs.JsonSettings.Modulation;
+using Nucs.JsonSettings.Modulation.Recovery;
+using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.Core;
+using Windows.Storage.Streams;
 
 namespace TvTime.Common;
 public static class TvTimeHelper
@@ -74,24 +72,39 @@ public static class TvTimeHelper
         return cleaned.Trim();
     }
 
+    public static void DeleteDirectory(PageOrDirectoryType directoryType)
+    {
+        switch (directoryType)
+        {
+            case PageOrDirectoryType.Anime:
+                Directory.Delete(Constants.AnimesDirectoryPath, true);
+                CreateDirectory();
+                break;
+            case PageOrDirectoryType.Movie:
+                Directory.Delete(Constants.MoviesDirectoryPath, true);
+                CreateDirectory();
+                break;
+            case PageOrDirectoryType.Series:
+                Directory.Delete(Constants.SeriesDirectoryPath, true);
+                CreateDirectory();
+                break;
+        }
+    }
+
     public static void CreateDirectory()
     {
-        if (Directory.Exists(Constants.SeriesDirectoryPath))
+        if (!Directory.Exists(Constants.SeriesDirectoryPath))
         {
-            Directory.Delete(Constants.SeriesDirectoryPath, true);
+            Directory.CreateDirectory(Constants.SeriesDirectoryPath);
         }
-        if (Directory.Exists(Constants.MoviesDirectoryPath))
+        if (!Directory.Exists(Constants.MoviesDirectoryPath))
         {
-            Directory.Delete(Constants.MoviesDirectoryPath, true);
+            Directory.CreateDirectory(Constants.MoviesDirectoryPath);
         }
-        if (Directory.Exists(Constants.AnimesDirectoryPath))
+        if (!Directory.Exists(Constants.AnimesDirectoryPath))
         {
-            Directory.Delete(Constants.AnimesDirectoryPath, true);
+            Directory.CreateDirectory(Constants.AnimesDirectoryPath);
         }
-
-        Directory.CreateDirectory(Constants.SeriesDirectoryPath);
-        Directory.CreateDirectory(Constants.MoviesDirectoryPath);
-        Directory.CreateDirectory(Constants.AnimesDirectoryPath);
     }
 
     public static string GetFileSize(long size)

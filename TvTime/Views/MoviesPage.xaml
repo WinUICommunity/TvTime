@@ -11,6 +11,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <local:LocalUserControl ViewType="Movie"/>
+        <local:LocalUserControl PageType="Movie"/>
     </Grid>
 </Page>

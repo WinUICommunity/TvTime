@@ -3,28 +3,31 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using CommunityToolkit.WinUI.UI;
 using System.Runtime.CompilerServices;
-using TvTime.Models;
+using System.Text.RegularExpressions;
+using CommunityToolkit.WinUI.UI;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
-using System.Text.RegularExpressions;
-using WinUICommunity.Common.Extensions;
 using TvTime.Common;
-using WinUICommunity.SettingsUI.Controls;
+using TvTime.Models;
+using Windows.Storage;
+using Windows.Storage.Search;
 using Windows.System;
+using WinUICommunity.Common.Extensions;
+using WinUICommunity.SettingsUI.Controls;
+using WinUICommunity.SettingsUI.SettingsControls;
 
 namespace TvTime.Views;
 
 public sealed partial class LocalUserControl : UserControl, INotifyPropertyChanged
 {
-    public string ViewType
+    public PageOrDirectoryType PageType
     {
-        get { return (string) GetValue(ViewTypeProperty); }
-        set { SetValue(ViewTypeProperty, value); }
+        get { return (PageOrDirectoryType) GetValue(PageTypeProperty); }
+        set { SetValue(PageTypeProperty, value); }
     }
-    public static readonly DependencyProperty ViewTypeProperty =
-        DependencyProperty.Register("ViewType", typeof(string), typeof(LocalUserControl), new PropertyMetadata(string.Empty));
+    public static readonly DependencyProperty PageTypeProperty =
+        DependencyProperty.Register("PageType", typeof(PageOrDirectoryType), typeof(LocalUserControl), new PropertyMetadata(null));
 
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -88,10 +91,16 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         Loaded += LocalUserControl_Loaded;
     }
 
-    private void LocalUserControl_Loaded(object sender, RoutedEventArgs e)
+    public string GetPageType()
     {
-        var files = Directory.GetFiles(Path.Combine(Constants.ServerDirectoryPath, ViewType), "*.txt");
-        if (files.Count() > 0)
+        return PageType.ToString();
+    }
+
+    private async void LocalUserControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        var files = await GetTextFilesAsync(true);
+
+        if (files.Any())
         {
             LoadLocalStorage();
         }
@@ -108,22 +117,31 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             btnServerStatus.Visibility = Visibility.Collapsed;
         }
     }
+    public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync(bool returnSingleItem = false)
+    {
+        StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(Path.Combine(Constants.ServerDirectoryPath, GetPageType()));
+        QueryOptions queryOptions = new QueryOptions(CommonFileQuery.OrderBySearchRank, new string[] { ".txt" });
 
+        return returnSingleItem
+            ? await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync(0, 1)
+            : await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync();
+    }
     private async void LoadLocalStorage()
     {
         infoStatus.IsOpen = true;
         infoStatus.Severity = InfoBarSeverity.Informational;
-        infoStatus.Title = $"Loading Local {ViewType}...";
-        var files = Directory.GetFiles(Path.Combine(Constants.ServerDirectoryPath, ViewType), "*.txt");
-        if (files.Count() > 0)
+        infoStatus.Title = $"Loading Local {PageType}...";
+        var files = await GetTextFilesAsync();
+
+        if (files.Any())
         {
             List<LocalItem> temp = new List<LocalItem>();
             foreach (var file in files)
             {
-                using var streamReader = File.OpenText(file);
+                using var streamReader = File.OpenText(file.Path);
                 var json = await streamReader.ReadToEndAsync();
                 var contents = JsonConvert.DeserializeObject<List<LocalItem>>(json);
-                if (ViewType.Equals("Series"))
+                if (PageType.Equals("Series"))
                 {
                     var iranianSeries = contents.Where(x => x.Server.Contains("Series/Iranian")).
                     Select(i => new LocalItem
@@ -146,7 +164,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             DataListACV.SortDescriptions.Add(currentSortDescription);
             suggestList = DataListACV.Select(x => ((LocalItem) x).Title).ToList();
         }
-        infoStatus.Title = $"{DataListACV?.Count} Local {ViewType} Added";
+        infoStatus.Title = $"{DataListACV?.Count} Local {PageType} Added";
     }
     private string GetSeriesTitle(string title)
     {
@@ -159,7 +177,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             btnServerStatus.Visibility = Visibility.Collapsed;
             btnRefresh.IsEnabled = false;
             IsActive = true;
-            var urls = Settings.Servers.Where(x => x.ServerType == GeneralHelper.GetEnum<ServerType>(ViewType) && x.IsActive == true).ToList();
+            var urls = Settings.Servers.Where(x => x.ServerType == GeneralHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
             infoStatus.IsOpen = true;
             infoStatus.Severity = InfoBarSeverity.Informational;
             infoStatus.Title = "Please Wait...";
@@ -186,7 +204,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 var json = JsonConvert.SerializeObject(details);
                 infoStatus.Message = $"Serializing {item.Title}";
 
-                var filePath = Path.Combine(Constants.ServerDirectoryPath, ViewType, $"{GetMD5Hash(item.Server)}.txt");
+                var filePath = Path.Combine(Constants.ServerDirectoryPath, GetPageType(), $"{GetMD5Hash(item.Server)}.txt");
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
@@ -279,7 +297,8 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
     }
     private void btnRefresh_Click(object sender, RoutedEventArgs e)
     {
-        CreateDirectory();
+        DeleteDirectory(PageType);
+        
         DownloadServersOnLocalStorage();
     }
 
@@ -327,22 +346,23 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        var setting = (sender as Button).Content as Setting;
-        var item = new LocalItem
-        {
-            Server = setting?.Description?.ToString(),
-            Title = setting?.Header,
-            ServerType = GeneralHelper.GetEnum<ServerType>(ViewType)
-        };
-        NavigationViewHelper.GetCurrent().Navigate(typeof(DetailPage), item);
-    }
     private async void btnOpenDirectory_Click(object sender, RoutedEventArgs e)
     {
         var menuFlyout = (sender as MenuFlyoutItem);
         var localItem = (LocalItem) menuFlyout?.Tag;
         var server = localItem.Server?.ToString();
         await Launcher.LaunchUriAsync(new Uri(server));
+    }
+
+    private void SettingsCard_Click(object sender, RoutedEventArgs e)
+    {
+        var setting = (sender as SettingsCard);
+        var item = new LocalItem
+        {
+            Server = setting?.Description?.ToString(),
+            Title = setting?.Header.ToString(),
+            ServerType = GeneralHelper.GetEnum<ServerType>(GetPageType())
+        };
+        NavigationViewHelper.GetCurrent().Navigate(typeof(DetailPage), item);
     }
 }

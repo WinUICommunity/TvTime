@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
-using System.Reflection;
-
 namespace TvTime.Views;
 public sealed partial class AboutPage : Page
 {
@@ -11,6 +9,6 @@ public sealed partial class AboutPage : Page
     {
         this.InitializeComponent();
 
-        TvTimeVersion = $"TvTime v{Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}";
+        TvTimeVersion = $"TvTime v{VersionHelper.GetVersion()}";
     }
 }

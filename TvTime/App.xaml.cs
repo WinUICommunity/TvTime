@@ -13,10 +13,7 @@ public partial class App : Application
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
         this.InitializeComponent();
-        if (!Directory.Exists(Constants.ServerDirectoryPath))
-        {
-            CreateDirectory();
-        }
+        CreateDirectory();
     }
 
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)

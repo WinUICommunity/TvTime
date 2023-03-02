@@ -2,10 +2,8 @@
 // Licensed under the MIT License.
 
 using System.Collections.ObjectModel;
-using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using TvTime.Models;
-using Windows.Storage.Pickers;
 using Windows.System;
 
 namespace TvTime.Views;

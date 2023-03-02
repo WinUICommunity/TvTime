@@ -11,6 +11,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <local:LocalUserControl ViewType="Anime"/>
+        <local:LocalUserControl PageType="Anime"/>
     </Grid>
 </Page>

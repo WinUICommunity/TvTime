@@ -21,6 +21,7 @@
             <common:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter"/>
             <common:String2VisibilityConverter x:Key="String2VisibilityConverter"/>
             <common:FileExtension2IconConverter x:Key="FileExtension2IconConverter"/>
+            <common:FileSizeConverter x:Key="FileSizeConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

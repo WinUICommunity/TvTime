@@ -72,6 +72,21 @@ public static class TvTimeHelper
         return cleaned.Trim();
     }
 
+    public static bool ExistDirectory(PageOrDirectoryType directoryType)
+    {
+        switch (directoryType)
+        {
+            case PageOrDirectoryType.Anime:
+                return Directory.Exists(Constants.AnimesDirectoryPath);
+            case PageOrDirectoryType.Movie:
+                return Directory.Exists(Constants.MoviesDirectoryPath);
+            case PageOrDirectoryType.Series:
+                return Directory.Exists(Constants.SeriesDirectoryPath);
+            default:
+                return false;
+        }
+    }
+
     public static void DeleteDirectory(PageOrDirectoryType directoryType)
     {
         switch (directoryType)

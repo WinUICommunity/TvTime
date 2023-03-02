@@ -4,6 +4,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using CommunityToolkit.WinUI.UI;
 using HtmlAgilityPack;
@@ -14,7 +15,6 @@ using Windows.Storage;
 using Windows.Storage.Search;
 using Windows.System;
 using WinUICommunity.Common.Extensions;
-using WinUICommunity.SettingsUI.Controls;
 using WinUICommunity.SettingsUI.SettingsControls;
 
 namespace TvTime.Views;
@@ -83,6 +83,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
     private List<string> existServer = new List<string>();
 
     private SortDescription currentSortDescription;
+    JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
 
     public LocalUserControl()
     {
@@ -96,11 +97,9 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         return PageType.ToString();
     }
 
-    private async void LocalUserControl_Loaded(object sender, RoutedEventArgs e)
+    private void LocalUserControl_Loaded(object sender, RoutedEventArgs e)
     {
-        var files = await GetTextFilesAsync(true);
-
-        if (files.Any())
+        if (ExistDirectory(PageType))
         {
             LoadLocalStorage();
         }
@@ -117,54 +116,60 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             btnServerStatus.Visibility = Visibility.Collapsed;
         }
     }
-    public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync(bool returnSingleItem = false)
+    public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync()
     {
         StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(Path.Combine(Constants.ServerDirectoryPath, GetPageType()));
         QueryOptions queryOptions = new QueryOptions(CommonFileQuery.OrderBySearchRank, new string[] { ".txt" });
 
-        return returnSingleItem
-            ? await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync(0, 1)
-            : await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync();
+        return await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync();
     }
+
     private async void LoadLocalStorage()
     {
+        IsActive = true;
         infoStatus.IsOpen = true;
         infoStatus.Severity = InfoBarSeverity.Informational;
         infoStatus.Title = $"Loading Local {PageType}...";
         var files = await GetTextFilesAsync();
-
         if (files.Any())
         {
-            List<LocalItem> temp = new List<LocalItem>();
-            foreach (var file in files)
+            var tasks = files.Select(async file =>
             {
-                using var streamReader = File.OpenText(file.Path);
-                var json = await streamReader.ReadToEndAsync();
-                var contents = JsonConvert.DeserializeObject<List<LocalItem>>(json);
-                if (PageType.Equals("Series"))
-                {
-                    var iranianSeries = contents.Where(x => x.Server.Contains("Series/Iranian")).
-                    Select(i => new LocalItem
+                using FileStream openStream = File.OpenRead(file.Path);
+                return await System.Text.Json.JsonSerializer.DeserializeAsync<List<LocalItem>>(openStream, options);
+            });
+
+            var contentsList = await Task.WhenAll(tasks);
+            var contents = contentsList.SelectMany(x => x);
+
+            if (PageType == PageOrDirectoryType.Series)
+            {
+                var iranianSeries = contents.Where(x => x.Server.Contains("Series/Iranian"))
+                    .Select(i => new LocalItem
                     {
                         Server = i.Server.Replace(Path.GetFileName(i.Server), ""),
                         Title = GetSeriesTitle(i.Server.Replace(Path.GetFileName(i.Server), ""))
-                                .Replace("/480p/","")
-                                .Replace("/720p/","")
-                                .Replace("/1080p/",""), ServerType = i.ServerType}).Distinct().FirstOrDefault();
-                    contents.RemoveAll(u => u.Server.Contains("Series/Iranian"));
-                    contents.Add(iranianSeries);
-                }
-                temp.AddRange(contents);
-            }
-            temp.RemoveAll(x => x.Server is null);
-            DataList = new(temp);
+                            .Replace("/480p/", "")
+                            .Replace("/720p/", "")
+                            .Replace("/1080p/", ""),
+                        ServerType = i.ServerType
+                    })
+                    .Distinct()
+                    .FirstOrDefault();
 
+                contents.ToList().RemoveAll(u => u.Server.Contains("Series/Iranian"));
+                contents.ToList().Add(iranianSeries);
+            }
+            var dataList = contents.Where(x => x.Server != null);
+            DataList = new();
+            DataList.AddRange(dataList);
             DataListACV = new AdvancedCollectionView(DataList, true);
             currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
             DataListACV.SortDescriptions.Add(currentSortDescription);
-            suggestList = DataListACV.Select(x => ((LocalItem) x).Title).ToList();
+            suggestList = dataList.Select(x => ((LocalItem) x).Title).ToList();
         }
         infoStatus.Title = $"{DataListACV?.Count} Local {PageType} Added";
+        IsActive = false;
     }
     private string GetSeriesTitle(string title)
     {
@@ -201,7 +206,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 infoStatus.Message = $"Parsing {item.Title}";
 
                 var details = GetServerDetails(result, item);
-                var json = JsonConvert.SerializeObject(details);
+
                 infoStatus.Message = $"Serializing {item.Title}";
 
                 var filePath = Path.Combine(Constants.ServerDirectoryPath, GetPageType(), $"{GetMD5Hash(item.Server)}.txt");
@@ -209,13 +214,13 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 {
                     File.Delete(filePath);
                 }
-                using (var outfile = new StreamWriter(filePath))
-                {
-                    outfile.WriteLine(json);
-                }
+
+                using FileStream createStream = File.Create(filePath);
+                await System.Text.Json.JsonSerializer.SerializeAsync(createStream, details, options);
+                await createStream.DisposeAsync();
 
                 // make sure data exist
-                if (json.Length > 10)
+                if (details.Any())
                 {
                     existServer.Add(item.Server);
                 }

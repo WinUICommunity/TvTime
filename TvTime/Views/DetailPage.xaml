@@ -125,16 +125,13 @@
                     </ListView.Resources>
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:LocalItem">
-                            <labs:SettingsCard IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource SystemAccentColor}">
-                                        <TextBlock Text="{x:Bind DateTime}" Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0" Foreground="{ThemeResource SystemAltMediumHighColor}"/>
-                                    </Border>
-                                    <Border Visibility="{x:Bind FileSize, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource SystemAccentColor}">
-                                        <TextBlock Text="{x:Bind FileSize}" Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0" Foreground="{ThemeResource SystemAltMediumHighColor}"/>
-                                    </Border>
-                                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
-                                </StackPanel>
+                            <labs:SettingsCard ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}" IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
+                                <Border Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource LayerOnMicaBaseAltFillColorDefault}">
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0,5,2">
+                                        <Run Text="{x:Bind DateTime}"/>
+                                        <Run Text="{x:Bind FileSize, Converter={StaticResource FileSizeConverter}}"/>
+                                    </TextBlock>
+                                </Border>
                                 <labs:SettingsCard.ContextFlyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem Tag="{x:Bind}" Text="Open Directory" Click="btnOpenDirectory_Click">
@@ -149,9 +146,6 @@
                                         </MenuFlyoutItem>
                                     </MenuFlyout>
                                 </labs:SettingsCard.ContextFlyout>
-                                <labs:SettingsCard.ActionIcon>
-                                    <BitmapIcon MaxWidth="32" ShowAsMonochrome="False" UriSource="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}" />
-                                </labs:SettingsCard.ActionIcon>
                             </labs:SettingsCard>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -20,10 +20,10 @@ public class FileExtension2IconConverter : IValueConverter
             var extension = _extensions.FirstOrDefault(x => text.EndsWith(x.Item1, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(extension.Item2))
             {
-                return new Uri(extension.Item2);
+                return new BitmapIcon { ShowAsMonochrome = false, UriSource = new Uri(extension.Item2) };
             }
         }
-        return null;
+        return new FontIcon { Glyph = "\ue974" };
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)

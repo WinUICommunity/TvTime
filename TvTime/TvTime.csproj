@@ -49,7 +49,6 @@
     <None Remove="Views\ServersPage.xaml" />
     <None Remove="Views\SettingsPage.xaml" />
     <None Remove="Views\ShellPage.xaml" />
-    <None Remove="Views\TvTimeSectionPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -163,11 +162,6 @@
     <Content Update="Assets\Images\toolkit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\TvTimeSectionPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\HomeLandingsPage.xaml">

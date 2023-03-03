@@ -1,15 +1,18 @@
 ﻿// Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
-using WinUICommunity.LandingsPage.Controls;
+using System.Reflection;
 using WinUICommunity.Shared.DataModel;
 
 namespace TvTime.Views;
 public sealed partial class HomeLandingsPage : Page
 {
+    public string TvTimeVersion { get; set; }
+
     public HomeLandingsPage()
     {
         this.InitializeComponent();
+        TvTimeVersion = $"TvTime v{VersionHelper.GetVersion()}";
     }
 
     private void mainLandingsPage_Loaded(object sender, RoutedEventArgs e)
@@ -21,8 +24,8 @@ public sealed partial class HomeLandingsPage : Page
     {
         var args = (ItemClickEventArgs) e;
         var item = (ControlInfoDataItem) args.ClickedItem;
-
-        NavigationViewHelper.GetCurrent().Navigate(typeof(ItemPage), item.UniqueId);
+        var assembly = Assembly.Load(item.ApiNamespace);
+        NavigationViewHelper.GetCurrent().Navigate(assembly.GetType(item.UniqueId));
     }
 
     private void settingsTile_OnItemClick(object sender, RoutedEventArgs e)

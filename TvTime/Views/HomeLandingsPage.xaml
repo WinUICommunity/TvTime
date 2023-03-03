@@ -14,7 +14,7 @@
     <controls:MainLandingsPage x:Name="mainLandingsPage" Loaded="mainLandingsPage_Loaded"
                 HeaderImage="ms-appx:///Assets/Images/aboutCover.jpg"
                 HeaderText="TvTime"
-                HeaderSubtitleText="Version 1.0.3"
+                HeaderSubtitleText="{x:Bind TvTimeVersion}"
                 OnItemClick="mainLandingsPage_OnItemClick">
         <controls:MainLandingsPage.HeaderContent>
             <StackPanel Orientation="Horizontal" Spacing="10">

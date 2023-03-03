@@ -10,16 +10,15 @@
     xmlns:data="using:WinUICommunity.Shared.DataModel"
     mc:Ignorable="d">
 
-    <Grid>
-        <NavigationView
+    <NavigationView
         x:Name="NavigationViewControl"
         Canvas.ZIndex="0"
         IsTabStop="False"
         PaneDisplayMode="Left"
         SelectionChanged="OnNavigationViewSelectionChanged"
         IsTitleBarAutoPaddingEnabled="True">
-            <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox
+        <NavigationView.AutoSuggestBox>
+            <AutoSuggestBox
                 x:Name="controlsSearchBox"
                 MinWidth="200"
                 VerticalAlignment="Center"
@@ -28,21 +27,20 @@
                 KeyboardAcceleratorPlacementMode="Hidden"
                 PlaceholderText="Search"
                 QueryIcon="Find">
-                    <AutoSuggestBox.ItemTemplate>
-                        <DataTemplate x:DataType="data:ControlInfoDataItem">
-                            <Grid AutomationProperties.Name="{x:Bind Title}" ColumnSpacing="12">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="16" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="{x:Bind ImagePath}" />
-                                <TextBlock Grid.Column="1" Text="{x:Bind Title}" />
-                            </Grid>
-                        </DataTemplate>
-                    </AutoSuggestBox.ItemTemplate>
-                </AutoSuggestBox>
-            </NavigationView.AutoSuggestBox>
-            <Frame x:Name="rootFrame"/>
-        </NavigationView>
-    </Grid>
+                <AutoSuggestBox.ItemTemplate>
+                    <DataTemplate x:DataType="data:ControlInfoDataItem">
+                        <Grid AutomationProperties.Name="{x:Bind Title}" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{x:Bind ImagePath}" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Title}" />
+                        </Grid>
+                    </DataTemplate>
+                </AutoSuggestBox.ItemTemplate>
+            </AutoSuggestBox>
+        </NavigationView.AutoSuggestBox>
+        <Frame x:Name="rootFrame"/>
+    </NavigationView>
 </Page>

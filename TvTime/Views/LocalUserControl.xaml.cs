@@ -130,54 +130,45 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         infoStatus.Severity = InfoBarSeverity.Informational;
         infoStatus.Title = $"Loading Local {PageType}...";
         var files = await GetTextFilesAsync();
-        await Task.Run(async () =>
+        if (files.Any())
         {
-            if (files.Any())
+            var tasks = files.Select(async file =>
             {
-                var tasks = files.Select(async file =>
-                {
-                    using FileStream openStream = File.OpenRead(file.Path);
-                    return await System.Text.Json.JsonSerializer.DeserializeAsync<List<LocalItem>>(openStream, options);
-                });
-                var contentsList = await Task.WhenAll(tasks);
-                var contents = contentsList.SelectMany(x => x);
+                using FileStream openStream = File.OpenRead(file.Path);
+                return await System.Text.Json.JsonSerializer.DeserializeAsync<List<LocalItem>>(openStream, options);
+            });
+            var contentsList = await Task.WhenAll(tasks);
+            var contents = contentsList.SelectMany(x => x);
 
 
-                DispatcherQueue.TryEnqueue(() =>
-                {
-                    if (PageType == PageOrDirectoryType.Series)
+            if (PageType == PageOrDirectoryType.Series)
+            {
+                var iranianSeries = contents.Where(x => x.Server.Contains("Series/Iranian"))
+                    .Select(i => new LocalItem
                     {
-                        var iranianSeries = contents.Where(x => x.Server.Contains("Series/Iranian"))
-                            .Select(i => new LocalItem
-                            {
-                                Server = i.Server.Replace(Path.GetFileName(i.Server), ""),
-                                Title = GetSeriesTitle(i.Server.Replace(Path.GetFileName(i.Server), ""))
-                                    .Replace("/480p/", "")
-                                    .Replace("/720p/", "")
-                                    .Replace("/1080p/", ""),
-                                ServerType = i.ServerType
-                            })
-                            .Distinct()
-                            .FirstOrDefault();
+                        Server = i.Server.Replace(Path.GetFileName(i.Server), ""),
+                        Title = GetSeriesTitle(i.Server.Replace(Path.GetFileName(i.Server), ""))
+                            .Replace("/480p/", "")
+                            .Replace("/720p/", "")
+                            .Replace("/1080p/", ""),
+                        ServerType = i.ServerType
+                    })
+                    .Distinct()
+                    .FirstOrDefault();
 
-                        contents.ToList().RemoveAll(u => u.Server.Contains("Series/Iranian"));
-                        contents.ToList().Add(iranianSeries);
-                    }
-                });
-                var myDataList = contents.Where(x => x.Server != null);
-                DataList = new();
-                DataList.AddRange(myDataList);
-                currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
-                suggestList = myDataList.Select(x => ((LocalItem) x).Title).ToList();
-
-                DispatcherQueue.TryEnqueue(() =>
-                {
-                    DataListACV = new AdvancedCollectionView(DataList, true);
-                    DataListACV.SortDescriptions.Add(currentSortDescription);
-                });
+                contents.ToList().RemoveAll(u => u.Server.Contains("Series/Iranian"));
+                contents.ToList().Add(iranianSeries);
             }
-        });
-        
+            var myDataList = contents.Where(x => x.Server != null);
+            DataList = new();
+            DataList.AddRange(myDataList);
+            currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
+            suggestList = myDataList.Select(x => ((LocalItem) x).Title).ToList();
+
+            DataListACV = new AdvancedCollectionView(DataList, true);
+            DataListACV.SortDescriptions.Add(currentSortDescription);
+        }
+
         infoStatus.Title = $"{DataListACV?.Count} Local {PageType} Added";
         IsActive = false;
     }

@@ -84,7 +84,7 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230217.4" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
-    <PackageReference Include="WinUICommunity.Common" Version="3.2.3" />
+    <PackageReference Include="WinUICommunity.Common" Version="3.2.4" />
     <PackageReference Include="WinUICommunity.LandingsPage" Version="1.3.3" />
     <PackageReference Include="WinUICommunity.SettingsUI" Version="3.1.1" />
     <Manifest Include="$(ApplicationManifest)" />

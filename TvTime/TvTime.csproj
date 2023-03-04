@@ -48,7 +48,6 @@
     <None Remove="Views\SeriesPage.xaml" />
     <None Remove="Views\ServersPage.xaml" />
     <None Remove="Views\SettingsPage.xaml" />
-    <None Remove="Views\ShellPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -184,11 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\SeriesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\ShellPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

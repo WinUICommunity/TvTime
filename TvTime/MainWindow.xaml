@@ -8,9 +8,10 @@
     xmlns:local="using:TvTime.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:WinUICommunity.Shared.DataModel"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
@@ -29,7 +30,40 @@
             <TextBlock x:Name="TitleTextBlock" Text="{x:Bind TvTimeVersion}" Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="2" VerticalAlignment="Center" Margin="4,0,0,0"/>
         </Grid>
 
-        <local:ShellPage Grid.Row="1"/>
+        <NavigationView
+        x:Name="NavigationViewControl"
+        Canvas.ZIndex="0"
+        IsTabStop="False"
+        PaneDisplayMode="Left"
+        SelectionChanged="OnNavigationViewSelectionChanged"
+        Grid.Row="1"
+        IsTitleBarAutoPaddingEnabled="True">
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox
+                x:Name="controlsSearchBox"
+                MinWidth="200"
+                VerticalAlignment="Center"
+                x:FieldModifier="public"
+                QuerySubmitted="controlsSearchBox_QuerySubmitted"
+                KeyboardAcceleratorPlacementMode="Hidden"
+                PlaceholderText="Search"
+                QueryIcon="Find">
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="data:ControlInfoDataItem">
+                            <Grid AutomationProperties.Name="{x:Bind Title}" ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{x:Bind ImagePath}" />
+                                <TextBlock Grid.Column="1" Text="{x:Bind Title}" />
+                            </Grid>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
+            </NavigationView.AutoSuggestBox>
+            <Frame x:Name="rootFrame"/>
+        </NavigationView>
 
     </Grid>
 </Window>

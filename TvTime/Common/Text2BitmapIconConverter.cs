@@ -43,7 +43,7 @@ public class Text2BitmapIconConverter : IValueConverter
                 return new BitmapIcon { UriSource = new Uri(subtitleType.Item2), ShowAsMonochrome = false };
             }
 
-            var seasonNumber = _seasons.FirstOrDefault(x => text.ToLower().Equals(x.Item1, StringComparison.OrdinalIgnoreCase));
+            var seasonNumber = _seasons.FirstOrDefault(x => text.ToLower().StartsWith(x.Item1, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(seasonNumber.Item2))
             {
                 return new FontIcon { Glyph = seasonNumber.Item2};

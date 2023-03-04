@@ -274,7 +274,7 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
             Cover.Source = null;
             txtImdbDetail.Visibility = Visibility.Collapsed;
 
-            var url = $"{Constants.IMDBTitleAPI}{title}";
+            var url = string.Format(Constants.IMDBTitleAPI, title);
 
             using var client = new HttpClient();
             var response = await client.GetAsync(url);
@@ -288,7 +288,7 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
                 var json = await response.Content.ReadFromJsonAsync<IMDBModel>();
                 if (json.Response.Contains("true", StringComparison.OrdinalIgnoreCase))
                 {
-                    txtImdbId.Text = $"{Constants.IMDBBaseUrl}{json.imdbID}";
+                    txtImdbId.Text = string.Format(Constants.IMDBBaseUrl, json.imdbID);
                     if (json.imdbRating.Contains("N/A") || string.IsNullOrEmpty(json.imdbRating))
                     {
                         rate.Value = 0;

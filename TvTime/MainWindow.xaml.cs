@@ -14,5 +14,6 @@ public sealed partial class MainWindow : Window
         Instance = this;
         TitleBarHelper.Initialize(this, TitleTextBlock, AppTitleBar, LeftPaddingColumn, IconColumn, TitleColumn, LeftDragColumn, SearchColumn, RightDragColumn, RightPaddingColumn);
         TvTimeVersion = $"TvTime v{VersionHelper.GetVersion()}";
+        var m_AppWindow = WindowHelper.GetAppWindowForCurrentWindow(this).TitleBar.ExtendsContentIntoTitleBar = true;
     }
 }

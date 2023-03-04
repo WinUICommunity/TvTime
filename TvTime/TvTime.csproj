@@ -20,23 +20,23 @@
   <ItemGroup>
     <None Remove="Assets\Images\aboutCover.jpg" />
     <None Remove="Assets\Images\anime.png" />
-    <None Remove="Assets\Images\audio.png" />
     <None Remove="Assets\Images\embtv.jpg" />
     <None Remove="Assets\Images\file.png" />
-    <None Remove="Assets\Images\folder.png" />
+    <None Remove="Assets\Images\FilePicker.png" />
     <None Remove="Assets\Images\GalleryHeaderImage.png" />
     <None Remove="Assets\Images\gettingStarted.png" />
     <None Remove="Assets\Images\githubTile.png" />
     <None Remove="Assets\Images\hardsub.png" />
     <None Remove="Assets\Images\icon.ico" />
     <None Remove="Assets\Images\icon.png" />
-    <None Remove="Assets\Images\mkv.png" />
+    <None Remove="Assets\Images\media.png" />
     <None Remove="Assets\Images\movie.png" />
-    <None Remove="Assets\Images\mp4.png" />
     <None Remove="Assets\Images\series.png" />
     <None Remove="Assets\Images\server.png" />
     <None Remove="Assets\Images\settingCover.jpg" />
     <None Remove="Assets\Images\softsub.png" />
+    <None Remove="Assets\Images\Sound.png" />
+    <None Remove="Assets\Images\subtitle.png" />
     <None Remove="Assets\Images\toolkit.png" />
     <None Remove="DataModel\ControlInfoData.json" />
     <None Remove="Views\AboutPage.xaml" />
@@ -104,16 +104,7 @@
     <Content Update="Assets\Images\anime.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\audio.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="Assets\Images\embtv.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\file.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\folder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\GalleryHeaderImage.png">
@@ -128,13 +119,7 @@
     <Content Update="Assets\Images\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\mkv.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="Assets\Images\movie.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\mp4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\series.png">
@@ -146,9 +131,6 @@
     <Content Update="Assets\Images\settingCover.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\softsub.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Images\icon.ico">
@@ -156,9 +138,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Assets\Images\hardsub.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="Assets\Images\toolkit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

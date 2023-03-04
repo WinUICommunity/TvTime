@@ -51,7 +51,7 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Tag="{x:Bind}" Text="Open Directory" Click="btnOpenDirectory_Click">
                                     <MenuFlyoutItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Images/folder.png"/>
+                                        <ImageIcon Source="ms-appx:///Assets/Images/FilePicker.png"/>
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                             </MenuFlyout>

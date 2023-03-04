@@ -3,17 +3,17 @@
 namespace TvTime.Common;
 public class Text2BitmapIconConverter : IValueConverter
 {
-    private readonly string defaultIcon = "ms-appx:///Assets/Images/media.png";
+    private readonly string defaultIcon = "ms-appx:///Assets/Images/Fluent/media.png";
     private readonly (string, string)[] _subtitles = new[]
     {
-        ("softsub","ms-appx:///Assets/Images/softsub.png"),
-        ("hardsub","ms-appx:///Assets/Images/hardsub.png"),
-        ("srt","ms-appx:///Assets/Images/subtitle.png"),
-        ("Dub","ms-appx:///Assets/Images/Sound.png"),
-        ("Audio","ms-appx:///Assets/Images/Sound.png")
+        ("softsub","ms-appx:///Assets/Images/Fluent/softsub.png"),
+        ("hardsub","ms-appx:///Assets/Images/Fluent/hardsub.png"),
+        ("srt","ms-appx:///Assets/Images/Fluent/subtitle.png"),
+        ("Dub","ms-appx:///Assets/Images/Fluent/sound.png"),
+        ("Audio","ms-appx:///Assets/Images/Fluent/sound.png")
     };
 
-    private readonly (string, string)[] _seasons = new[]
+    private readonly (string, string)[] _seasonGlyph = new[]
     {
         ("S01","\uF146"),
         ("S02","\uF147"),
@@ -32,6 +32,20 @@ public class Text2BitmapIconConverter : IValueConverter
         ("S15","\uF154"),
         ("S16","\uF155")
     };
+    private readonly (string, string)[] _seasonFluent = new[]
+    {
+        ("S00","ms-appx:///Assets/Images/Fluent/0.png"),
+        ("S01","ms-appx:///Assets/Images/Fluent/1.png"),
+        ("S02","ms-appx:///Assets/Images/Fluent/2.png"),
+        ("S03","ms-appx:///Assets/Images/Fluent/3.png"),
+        ("S04","ms-appx:///Assets/Images/Fluent/4.png"),
+        ("S05","ms-appx:///Assets/Images/Fluent/5.png"),
+        ("S06","ms-appx:///Assets/Images/Fluent/6.png"),
+        ("S07","ms-appx:///Assets/Images/Fluent/7.png"),
+        ("S08","ms-appx:///Assets/Images/Fluent/8.png"),
+        ("S09","ms-appx:///Assets/Images/Fluent/9.png"),
+        ("S10","ms-appx:///Assets/Images/Fluent/10.png")
+    };
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         var text = value as string;
@@ -43,11 +57,25 @@ public class Text2BitmapIconConverter : IValueConverter
                 return new BitmapIcon { UriSource = new Uri(subtitleType.Item2), ShowAsMonochrome = false };
             }
 
-            var seasonNumber = _seasons.FirstOrDefault(x => text.ToLower().StartsWith(x.Item1, StringComparison.OrdinalIgnoreCase));
-            if (!string.IsNullOrEmpty(seasonNumber.Item2))
+            switch (Settings.IconPack)
             {
-                return new FontIcon { Glyph = seasonNumber.Item2};
+                case IconPack.Glyph:
+                    var seasonNumberGlyph = _seasonGlyph.FirstOrDefault(x => text.ToLower().StartsWith(x.Item1, StringComparison.OrdinalIgnoreCase));
+                    if (!string.IsNullOrEmpty(seasonNumberGlyph.Item2))
+                    {
+                        return new FontIcon { Glyph = seasonNumberGlyph.Item2 };
+                    }
+                    break;
+                case IconPack.Fluent:
+                    var seasonNumberFluent = _seasonFluent.FirstOrDefault(x => text.ToLower().StartsWith(x.Item1, StringComparison.OrdinalIgnoreCase));
+                    if (!string.IsNullOrEmpty(seasonNumberFluent.Item2))
+                    {
+                        return new BitmapIcon { UriSource = new Uri(seasonNumberFluent.Item2), ShowAsMonochrome = false };
+                    }
+                    break;
             }
+
+            
         }
         return new BitmapIcon { UriSource = new Uri(defaultIcon), ShowAsMonochrome = false };
     }

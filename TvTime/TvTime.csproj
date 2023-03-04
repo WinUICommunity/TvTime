@@ -18,26 +18,45 @@
     <Version>1.2.0-Stable</Version>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\backup.png" />
+    <None Remove="Assets\Images\0.png" />
+    <None Remove="Assets\Images\1.png" />
+    <None Remove="Assets\Images\10.png" />
+    <None Remove="Assets\Images\2.png" />
+    <None Remove="Assets\Images\3.png" />
+    <None Remove="Assets\Images\4.png" />
+    <None Remove="Assets\Images\5.png" />
+    <None Remove="Assets\Images\6.png" />
+    <None Remove="Assets\Images\7.png" />
+    <None Remove="Assets\Images\8.png" />
+    <None Remove="Assets\Images\9.png" />
     <None Remove="Assets\Images\aboutCover.jpg" />
     <None Remove="Assets\Images\anime.png" />
+    <None Remove="Assets\Images\code.png" />
+    <None Remove="Assets\Images\color.png" />
     <None Remove="Assets\Images\embtv.jpg" />
     <None Remove="Assets\Images\file.png" />
     <None Remove="Assets\Images\FilePicker.png" />
-    <None Remove="Assets\Images\GalleryHeaderImage.png" />
     <None Remove="Assets\Images\gettingStarted.png" />
     <None Remove="Assets\Images\githubTile.png" />
     <None Remove="Assets\Images\hardsub.png" />
     <None Remove="Assets\Images\icon.ico" />
     <None Remove="Assets\Images\icon.png" />
+    <None Remove="Assets\Images\iconPack.png" />
     <None Remove="Assets\Images\media.png" />
     <None Remove="Assets\Images\movie.png" />
+    <None Remove="Assets\Images\open.png" />
     <None Remove="Assets\Images\series.png" />
     <None Remove="Assets\Images\server.png" />
     <None Remove="Assets\Images\settingCover.jpg" />
+    <None Remove="Assets\Images\settings.png" />
     <None Remove="Assets\Images\softsub.png" />
     <None Remove="Assets\Images\Sound.png" />
     <None Remove="Assets\Images\subtitle.png" />
+    <None Remove="Assets\Images\theme.png" />
     <None Remove="Assets\Images\toolkit.png" />
+    <None Remove="Assets\restore.png" />
+    <None Remove="Assets\server.png" />
     <None Remove="DataModel\ControlInfoData.json" />
     <None Remove="Views\AboutPage.xaml" />
     <None Remove="Views\AnimesPage.xaml" />
@@ -97,22 +116,61 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Assets\Images\Fluent\backup.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Images\aboutCover.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\anime.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Images\Fluent\code.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\color.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Images\embtv.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\file.png">
+    <Content Update="Assets\Images\Fluent\file.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\FilePicker.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\GalleryHeaderImage.png">
+    <Content Update="Assets\Images\Fluent\filePicker.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\gettingStarted.png">
@@ -121,22 +179,28 @@
     <Content Update="Assets\Images\githubTile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\hardsub.png">
+    <Content Update="Assets\Images\Fluent\hardsub.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\media.png">
+    <Content Update="Assets\Images\Fluent\iconPack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\movie.png">
+    <Content Update="Assets\Images\Fluent\media.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\series.png">
+    <Content Update="Assets\Images\Fluent\movie.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\server.png">
+    <Content Update="Assets\Images\Fluent\open.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\series.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\server.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\settingCover.jpg">
@@ -147,18 +211,27 @@
     <Content Update="Assets\Images\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\softsub.png">
+    <Content Update="Assets\Images\Fluent\settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Sound.png">
+    <Content Update="Assets\Images\Fluent\softsub.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\subtitle.png">
+    <Content Update="Assets\Images\Fluent\sound.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\subtitle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\theme.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Images\toolkit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\restore.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

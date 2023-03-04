@@ -5,11 +5,11 @@ public class FileExtension2IconConverter : IValueConverter
 {
     private readonly (string, string)[] _extensions = new[]
     {
-        (".mp4", "ms-appx:///Assets/Images/media.png"),
-        (".mkv", "ms-appx:///Assets/Images/media.png"),
-        (".mp3", "ms-appx:///Assets/Images/Sound.png"),
-        (".m4a", "ms-appx:///Assets/Images/Sound.png"),
-        (".wav", "ms-appx:///Assets/Images/Sound.png")
+        (".mp4", "ms-appx:///Assets/Images/Fluent/media.png"),
+        (".mkv", "ms-appx:///Assets/Images/Fluent/media.png"),
+        (".mp3", "ms-appx:///Assets/Images/Fluent/sound.png"),
+        (".m4a", "ms-appx:///Assets/Images/Fluent/sound.png"),
+        (".wav", "ms-appx:///Assets/Images/Fluent/sound.png")
     };
     public object Convert(object value, Type targetType, object parameter, string language)
     {

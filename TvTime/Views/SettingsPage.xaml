@@ -27,7 +27,7 @@
                 <StackPanel HorizontalAlignment="Stretch" Spacing="3">
                     <labs:SettingsExpander Description="Set Application Theme and Accent Color" Header="Appearance &amp; behavior">
                         <labs:SettingsExpander.HeaderIcon>
-                            <FontIcon Glyph="&#xE771;" />
+                            <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/theme.png" ShowAsMonochrome="False" />
                         </labs:SettingsExpander.HeaderIcon>
                         <ComboBox Name="cmbTheme" SelectionChanged="cmbTheme_SelectionChanged">
                             <ComboBoxItem Tag="Light" Content="Light"/>
@@ -37,26 +37,35 @@
                         <labs:SettingsExpander.Items>
                             <labs:SettingsCard Click="SettingsCard_Click" IsClickEnabled="True" Description="change windows accent color" Header="Windows color settings">
                                 <labs:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE8A7;" />
+                                    <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/color.png" ShowAsMonochrome="False" />
                                 </labs:SettingsCard.HeaderIcon>
                             </labs:SettingsCard>
                         </labs:SettingsExpander.Items>
                     </labs:SettingsExpander>
                     <labs:SettingsCard Description="If false is selected, the corresponding folder will be opened instead of the file itself" Header="Open the file in the browser">
                         <labs:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE8A7;" />
+                            <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/open.png" ShowAsMonochrome="False" />
                         </labs:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind settings:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay}"/>
                     </labs:SettingsCard>
+                    <labs:SettingsCard Description="Choose Icon Pack to display for the season number" Header="Icon Pack">
+                        <labs:SettingsCard.HeaderIcon>
+                            <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/iconPack.png" ShowAsMonochrome="False" />
+                        </labs:SettingsCard.HeaderIcon>
+                        <ComboBox Name="cmbIconPack" SelectionChanged="cmbIconPack_SelectionChanged">
+                            <ComboBoxItem Tag="Glyph" Content="Glyph"/>
+                            <ComboBoxItem Tag="Fluent" Content="Fluent"/>
+                        </ComboBox>
+                    </labs:SettingsCard>
                     <labs:SettingsExpander IsExpanded="True" Description="backup and restore servers" Header="Backup &amp; Restore">
                         <labs:SettingsExpander.HeaderIcon>
-                            <FontIcon Glyph="&#xE78C;" />
+                            <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/backup.png" ShowAsMonochrome="False" />
                         </labs:SettingsExpander.HeaderIcon>
                         <Button Name="btnBackup" Click="btnBackup_Click" Content="Backup"/>
                         <labs:SettingsExpander.Items>
                             <labs:SettingsCard x:Name="btnRestore" Click="btnRestore_Click" IsClickEnabled="True" Description="You can import your saved servers to the app" Header="Restore">
                                 <labs:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE777;" />
+                                    <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/restore.png" ShowAsMonochrome="False" />
                                 </labs:SettingsCard.HeaderIcon>
                             </labs:SettingsCard>
                         </labs:SettingsExpander.Items>

@@ -3,6 +3,7 @@
 
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
+using TvTime.Common;
 using TvTime.Models;
 using Windows.System;
 
@@ -13,6 +14,9 @@ public sealed partial class SettingsPage : Page
     {
         this.InitializeComponent();
         ThemeHelper.SetComboBoxDefaultItem(cmbTheme);
+
+        var iconPack = Settings.IconPack;
+        cmbIconPack.SelectedItem = cmbIconPack.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == iconPack.ToString());
     }
 
     private void cmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -87,5 +91,12 @@ public sealed partial class SettingsPage : Page
             infoBackup.Message = ex.Message;
             infoBackup.Severity = InfoBarSeverity.Error;
         }
+    }
+
+    private void cmbIconPack_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var selectedItem = cmbIconPack.SelectedItem as ComboBoxItem;
+        var iconPack = GeneralHelper.GetEnum<IconPack>(selectedItem?.Tag?.ToString());
+        Settings.IconPack = iconPack;
     }
 }

@@ -31,13 +31,14 @@
         </Grid>
 
         <NavigationView
-        x:Name="NavigationViewControl"
-        Canvas.ZIndex="0"
-        IsTabStop="False"
-        PaneDisplayMode="Left"
-        SelectionChanged="OnNavigationViewSelectionChanged"
-        Grid.Row="1"
-        IsTitleBarAutoPaddingEnabled="True">
+            x:Name="NavigationViewControl"
+            Canvas.ZIndex="0"
+            Loaded="NavigationViewControl_Loaded"
+            IsTabStop="False"
+            PaneDisplayMode="Left"
+            SelectionChanged="OnNavigationViewSelectionChanged"
+            Grid.Row="1"
+            IsTitleBarAutoPaddingEnabled="True">
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox
                 x:Name="controlsSearchBox"
@@ -64,6 +65,5 @@
             </NavigationView.AutoSuggestBox>
             <Frame x:Name="rootFrame"/>
         </NavigationView>
-
     </Grid>
 </Window>

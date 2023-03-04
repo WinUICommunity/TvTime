@@ -136,12 +136,12 @@
                                     <MenuFlyout>
                                         <MenuFlyoutItem Tag="{x:Bind}" Text="Open Directory" Click="btnOpenDirectory_Click">
                                             <MenuFlyoutItem.Icon>
-                                                <ImageIcon Source="ms-appx:///Assets/Images/FilePicker.png"/>
+                                                <ImageIcon Source="ms-appx:///Assets/Images/Fluent/filePicker.png"/>
                                             </MenuFlyoutItem.Icon>
                                         </MenuFlyoutItem>
                                         <MenuFlyoutItem Tag="{x:Bind}" Visibility="{x:Bind Server, Converter={StaticResource Bool2VisibilityConverter}}" Text="Open File" Click="btnOpenDirectory_Click">
                                             <MenuFlyoutItem.Icon>
-                                                <ImageIcon Source="ms-appx:///Assets/Images/file.png"/>
+                                                <ImageIcon Source="ms-appx:///Assets/Images/Fluent/file.png"/>
                                             </MenuFlyoutItem.Icon>
                                         </MenuFlyoutItem>
                                     </MenuFlyout>

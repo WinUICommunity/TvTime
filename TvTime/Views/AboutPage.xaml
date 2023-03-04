@@ -9,24 +9,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:WinUICommunity.SettingsUI.Controls"
+    xmlns:labs="using:WinUICommunity.SettingsUI.SettingsControls"
     mc:Ignorable="d">
     <controls:OOBEPageControl Title="About US"
                               HeroImage="ms-appx:///Assets/Images/aboutCover.jpg"
                               Description="About TvTime">
         <controls:OOBEPageControl.PageContent>
             <ScrollViewer>
-                <StackPanel Spacing="10" Margin="10">
+                <StackPanel Spacing="10" Margin="10" ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
                     <TextBlock Text="{x:Bind TvTimeVersion}" Style="{ThemeResource TitleTextBlockStyle}"/>
                     <TextBlock Text="TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities." Style="{ThemeResource SubtitleTextBlockStyle}"/>
                     <StackPanel Spacing="10" Orientation="Horizontal">
                         <HyperlinkButton Content="Source Code" NavigateUri="https://github.com/WinUICommunity/TvTime"/>
                         <HyperlinkButton Content="EmpireBestTv" NavigateUri="https://empirebesttv.com"/>
                     </StackPanel>
-                    <controls:Setting Header="Thanks to EmpireBestTv" Description="We are grateful to Empire Best TV for preparing the archive of films and serials and providing them for free">
-                        <controls:Setting.Icon>
+                    <labs:SettingsCard Header="Thanks to EmpireBestTv" Description="We are grateful to Empire Best TV for preparing the archive of films and serials and providing them for free">
+                        <labs:SettingsCard.HeaderIcon>
                             <ImageIcon Source="ms-appx:///Assets/Images/embtv.jpg"/>
-                        </controls:Setting.Icon>
-                    </controls:Setting>
+                        </labs:SettingsCard.HeaderIcon>
+                    </labs:SettingsCard>
                     <ImageIcon HorizontalAlignment="Left" MaxWidth="200" Source="ms-appx:///Assets/Images/embtv.jpg"/>
                     
                 </StackPanel>

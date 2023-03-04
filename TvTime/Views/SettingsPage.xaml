@@ -8,17 +8,23 @@
     xmlns:local="using:TvTime.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:WinUICommunity.SettingsUI.Controls"
+    xmlns:controls="using:WinUICommunity.LandingsPage.Controls"
     xmlns:labs="using:WinUICommunity.SettingsUI.SettingsControls"
     xmlns:settings="using:TvTime.Common"
     mc:Ignorable="d">
-
-    <controls:OOBEPageControl Title="Settings"
-                              HeroImage="ms-appx:///Assets/Images/settingCover.jpg"
-                              Description="Change TvTime Settings based on your needs">
-        <controls:OOBEPageControl.PageContent>
-            <ScrollViewer>
-                <StackPanel ChildrenTransitions="{StaticResource SettingsCardsAnimations}" HorizontalAlignment="Stretch" Spacing="3">
+    <ScrollViewer>
+        <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="280"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <controls:HomePageHeaderImage
+                        HeaderImage="ms-appx:///Assets/Images/settingCover.jpg"
+                        Grid.RowSpan="2"
+                        VerticalAlignment="Top" />
+            <StackPanel Grid.Row="1" Spacing="10" Margin="10">
+                <TextBlock TextWrapping="Wrap" Text="Change TvTime Settings based on your needs" Style="{ThemeResource TitleTextBlockStyle}"/>
+                <StackPanel HorizontalAlignment="Stretch" Spacing="3">
                     <labs:SettingsExpander Description="Set Application Theme and Accent Color" Header="Appearance &amp; behavior">
                         <labs:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE771;" />
@@ -57,7 +63,7 @@
                     </labs:SettingsExpander>
                     <InfoBar Name="infoBackup" IsOpen="True" IsClosable="False" Title="Status" Severity="Informational"/>
                 </StackPanel>
-            </ScrollViewer>
-        </controls:OOBEPageControl.PageContent>
-    </controls:OOBEPageControl>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>

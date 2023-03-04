@@ -17,20 +17,21 @@
                 HeaderSubtitleText="{x:Bind TvTimeVersion}"
                 OnItemClick="mainLandingsPage_OnItemClick">
         <controls:MainLandingsPage.HeaderContent>
-            <StackPanel Orientation="Horizontal" Spacing="10">
+            <StackPanel Orientation="Horizontal" Spacing="10" ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
                 <controls:HeaderTile Title="Source Code" Description="Clone our Source Codes"
+                                     Height="180"
                                      Link="https://github.com/WinUICommunity/TvTime">
                     <controls:HeaderTile.Source>
                         <Image Source="/Assets/Images/githubTile.png" />
                     </controls:HeaderTile.Source>
                 </controls:HeaderTile>
-                <controls:HeaderTile x:Name="settingsTile" Title="Settings" Description="change TvTime Settings Based on your needs"
+                <controls:HeaderTile x:Name="settingsTile" Title="Settings" Description="change TvTime Settings Based on your needs" Height="180"
                                      OnItemClick="settingsTile_OnItemClick">
                     <controls:HeaderTile.Source>
                         <Image Source="/Assets/Images/gettingStarted.png" />
                     </controls:HeaderTile.Source>
                 </controls:HeaderTile>
-                <controls:HeaderTile x:Name="aboutTile" Title="About" Description="About TvTime"
+                <controls:HeaderTile x:Name="aboutTile" Title="About" Description="About TvTime" Height="180"
                                      OnItemClick="aboutTile_OnItemClick">
                     <controls:HeaderTile.Source>
                         <Image Source="/Assets/Images/icon.png" />

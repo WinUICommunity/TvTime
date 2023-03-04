@@ -126,7 +126,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:LocalItem">
                             <labs:SettingsCard ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}" IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
-                                <Border Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource LayerOnMicaBaseAltFillColorDefault}">
+                                <Border Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
                                     <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0,5,2">
                                         <Run Text="{x:Bind DateTime}"/>
                                         <Run Text="{x:Bind FileSize, Converter={StaticResource FileSizeConverter}}"/>

@@ -122,42 +122,79 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
 
         return await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync();
     }
+    public string GetBaseUrl(string url)
+    {
+        string[] qualityValues = { "/1080p/", "/720p/", "/480p/" };
+        string quality = string.Empty;
+        foreach (string value in qualityValues)
+        {
+            if (url.Contains(value, StringComparison.OrdinalIgnoreCase))
+            {
+                quality = value;
+                break;
+            }
+        }
+        int idx = url.IndexOf(quality);
+        if (idx >= 0)
+            return url.Substring(0, idx + quality.Length);
+        else
+            return url;
+    }
 
+    public string GetBaseTitle(string title)
+    {
+        return Regex.Replace(title, @"S\d{2}E\d{2}.*", "").Trim();
+    }
     private async void LoadLocalStorage()
     {
         IsActive = true;
         infoStatus.IsOpen = true;
         infoStatus.Severity = InfoBarSeverity.Informational;
         infoStatus.Title = $"Loading Local {PageType}...";
-        var files = await GetTextFilesAsync();
+        var files = Directory.GetFiles(Path.Combine(Constants.ServerDirectoryPath, GetPageType()), "*.txt");
         if (files.Any())
         {
             var tasks = files.Select(async file =>
             {
-                using FileStream openStream = File.OpenRead(file.Path);
+                using FileStream openStream = File.OpenRead(file);
                 return await System.Text.Json.JsonSerializer.DeserializeAsync<List<LocalItem>>(openStream, options);
             });
             var contentsList = await Task.WhenAll(tasks);
             var contents = contentsList.SelectMany(x => x);
 
-
             if (PageType == PageOrDirectoryType.Series)
             {
-                var iranianSeries = contents.Where(x => x.Server.Contains("Series/Iranian"))
-                    .Select(i => new LocalItem
-                    {
-                        Server = i.Server.Replace(Path.GetFileName(i.Server), ""),
-                        Title = GetSeriesTitle(i.Server.Replace(Path.GetFileName(i.Server), ""))
-                            .Replace("/480p/", "")
-                            .Replace("/720p/", "")
-                            .Replace("/1080p/", ""),
-                        ServerType = i.ServerType
-                    })
-                    .Distinct()
-                    .FirstOrDefault();
+                // Find the items containing "Iranian/Series" and extract the base URL, and Remove duplicates from the filtered list
+                var filteredContents = contents.Where(c => c.Server.Contains("Series/Iranian"))
+                               .Select(c => new LocalItem {
+                                   Server = GetBaseUrl(c.Server),
+                                   Title = GetBaseTitle(c.Title),
+                                   FileSize = c.FileSize,
+                                   DateTime = c.DateTime,
+                                   ServerType = c.ServerType
+                               }).DistinctBy(x=>x.Server);
 
-                contents.ToList().RemoveAll(u => u.Server.Contains("Series/Iranian"));
-                contents.ToList().Add(iranianSeries);
+                // Merge the unique and non-filtered items
+
+                var finalContents = contents.Where(c => !c.Server.Contains("Series/Iranian"))
+                            .Concat(filteredContents.Select(u => new LocalItem {
+                                Server = u.Server,
+                                Title = u.Title,
+                                FileSize = u.FileSize,
+                                DateTime = u.DateTime,
+                                ServerType = u.ServerType
+                            }));
+
+                // Update the LocalItem list
+                var updatedList = finalContents.Select(c => new LocalItem
+                {
+                    Server = c.Server,
+                    Title = c.Title,
+                    FileSize = c.FileSize,
+                    DateTime = c.DateTime,
+                    ServerType = ServerType.Series
+                }).ToList();
+                contents = updatedList;
             }
             var myDataList = contents.Where(x => x.Server != null);
             DataList = new();

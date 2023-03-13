@@ -16,7 +16,6 @@ using TvTime.Common;
 using TvTime.Models;
 using Windows.System;
 using WinUICommunity.Common.Extensions;
-using WinUICommunity.SettingsUI.Controls;
 using WinUICommunity.SettingsUI.SettingsControls;
 using WinUICommunity.Shared.Navigation;
 
@@ -160,66 +159,93 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
     {
         List<LocalItem> list = new List<LocalItem>();
 
-        MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline);
-
-        Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
-        Regex fileSizeRegex = new Regex("<br>(.*?)<", RegexOptions.IgnoreCase);
-        MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
-
-        var fileSizeContent = content.Replace("<br><br>", "<br>");
-        MatchCollection fileSizeMatches = fileSizeRegex.Matches(fileSizeContent);
-        int index = 0;
-        foreach (Match m in m1)
+        if (localItem.Server.Contains("DonyayeSerial"))
         {
-            string value = m.Groups[1].Value;
-            LocalItem i = new LocalItem();
-            
-            Match m2 = Regex.Match(value, @"href=\""(.*?)\""",
-            RegexOptions.Singleline);
-            if (m2.Success)
-            {
-                if (localItem.Server.Contains("freelecher"))
-                {
-                    var url = new Uri(localItem.Server).GetLeftPart(UriPartial.Authority);
-                    i.Server = $"{url}{m2.Groups[1].Value}";
-                }
-                else
-                {
-                    i.Server = $"{localItem.Server}{m2.Groups[1].Value}";
-                }
-            }
+            var doc = new HtmlDocument();
+            doc.LoadHtml(content);
+            var rows = doc.DocumentNode.SelectNodes("//table[@class='table']/tbody/tr");
+            var ignoreLinks = new List<string> { "../"};
 
-            string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
-
-            i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
-            if (i.Server.Equals($"{localItem.Server}../") || i.Title.Equals("[To Parent Directory]"))
+            foreach (var row in rows)
             {
-                continue;
-            }
-            if (dateTimeMatches.Count > 0 && index <= dateTimeMatches.Count)
-            {
-                var matchDate = dateTimeMatches[index].Value;
-                i.DateTime = matchDate;
-            }
-            if (Constants.FileExtensions.Any(i.Server.Contains) && fileSizeMatches.Count > 0 && index <= fileSizeMatches.Count)
-            {
-                var filesize = fileSizeMatches[index].Value;
-                if (index <= fileSizeMatches.Count)
+                var nameNode = row.SelectSingleNode("./td[@class='n']/a/code");
+                var dateNode = row.SelectSingleNode("./td[@class='m']/code");
+                var linkNode = row.SelectSingleNode("./td[@class='n']/a");
+                var sizeNode = row.SelectSingleNode("./td[@class='s']");
+                if (linkNode != null && !ignoreLinks.Contains(linkNode.Attributes["href"].Value))
                 {
-                    if (filesize.Contains("<br><", StringComparison.OrdinalIgnoreCase))
-                    {
-                        filesize = fileSizeMatches[index + 1].Value;
-                    }
-                    filesize = ReplaceForFileSize(filesize, i.DateTime);
-                    i.FileSize = GetFileSize((long)Convert.ToDouble(filesize));
+                    var title = nameNode?.InnerText?.Trim();
+                    var date = dateNode?.InnerText?.Trim();
+                    var serverUrl = $"{localItem.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
+                    var size = sizeNode?.InnerText?.Trim();
+                    list.Add(new LocalItem { Title = title, DateTime = date, Server = serverUrl, FileSize = size, ServerType = ServerType.Series });
                 }
             }
-            index++;
-
-            i.ServerType = localItem.ServerType;
-            list.Add(i);
+            return list;
         }
-        return list;
+        else
+        {
+            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline);
+
+            Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
+            Regex fileSizeRegex = new Regex("<br>(.*?)<", RegexOptions.IgnoreCase);
+            MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
+
+            var fileSizeContent = content.Replace("<br><br>", "<br>");
+            MatchCollection fileSizeMatches = fileSizeRegex.Matches(fileSizeContent);
+            int index = 0;
+            foreach (Match m in m1)
+            {
+                string value = m.Groups[1].Value;
+                LocalItem i = new LocalItem();
+
+                Match m2 = Regex.Match(value, @"href=\""(.*?)\""",
+                RegexOptions.Singleline);
+                if (m2.Success)
+                {
+                    if (localItem.Server.Contains("freelecher"))
+                    {
+                        var url = new Uri(localItem.Server).GetLeftPart(UriPartial.Authority);
+                        i.Server = $"{url}{m2.Groups[1].Value}";
+                    }
+                    else
+                    {
+                        i.Server = $"{localItem.Server}{m2.Groups[1].Value}";
+                    }
+                }
+
+                string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
+
+                i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
+                if (i.Server.Equals($"{localItem.Server}../") || i.Title.Equals("[To Parent Directory]"))
+                {
+                    continue;
+                }
+                if (dateTimeMatches.Count > 0 && index <= dateTimeMatches.Count)
+                {
+                    var matchDate = dateTimeMatches[index].Value;
+                    i.DateTime = matchDate;
+                }
+                if (Constants.FileExtensions.Any(i.Server.Contains) && fileSizeMatches.Count > 0 && index <= fileSizeMatches.Count)
+                {
+                    var filesize = fileSizeMatches[index].Value;
+                    if (index <= fileSizeMatches.Count)
+                    {
+                        if (filesize.Contains("<br><", StringComparison.OrdinalIgnoreCase))
+                        {
+                            filesize = fileSizeMatches[index + 1].Value;
+                        }
+                        filesize = ReplaceForFileSize(filesize, i.DateTime);
+                        i.FileSize = GetFileSize((long) Convert.ToDouble(filesize));
+                    }
+                }
+                index++;
+
+                i.ServerType = localItem.ServerType;
+                list.Add(i);
+            }
+            return list;
+        }
     }
 
     private string ReplaceForFileSize(string fileSize, string dateTime)

@@ -291,52 +291,79 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
     {
         List<LocalItem> list = new List<LocalItem>();
 
-        MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)",
-            RegexOptions.Singleline);
-
-        Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
-        MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
-
-        int index = 0;
-        foreach (Match m in m1)
+        if (server.Server.Contains("DonyayeSerial"))
         {
-            string value = m.Groups[1].Value;
-            LocalItem i = new LocalItem();
+            var doc = new HtmlDocument();
+            doc.LoadHtml(content);
+            var rows = doc.DocumentNode.SelectNodes("//table[@class='table']/tbody/tr");
+            var ignoreLinks = new List<string> { "../", "Home", "DonyayeSerial", "series", "movie" };
 
-            Match m2 = Regex.Match(value, @"href=\""(.*?)\""",
-            RegexOptions.Singleline);
-            if (m2.Success)
+            foreach (var row in rows)
             {
-                if (server.Server.Contains("freelecher"))
+                var nameNode = row.SelectSingleNode("./td[@class='n']/a/code");
+                var dateNode = row.SelectSingleNode("./td[@class='m']/code");
+                var linkNode = row.SelectSingleNode("./td[@class='n']/a");
+                var sizeNode = row.SelectSingleNode("./td[@class='s']");
+                if (linkNode != null && !ignoreLinks.Contains(linkNode.Attributes["href"].Value))
                 {
-                    var url = new Uri(server.Server).GetLeftPart(UriPartial.Authority);
-                    i.Server = $"{url}{m2.Groups[1].Value}";
+                    var title = nameNode?.InnerText?.Trim();
+                    var date = dateNode?.InnerText?.Trim();
+                    var serverUrl = $"{server.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
+                    var size = sizeNode?.InnerText?.Trim();
+                    list.Add(new LocalItem { Title = title, DateTime = date, Server = serverUrl, FileSize = size, ServerType = ServerType.Series });
                 }
-                else
-                {
-                    i.Server = $"{server.Server}{m2.Groups[1].Value}";
-                }
             }
-
-            string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
-            i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
-
-            if (i.Server.Equals($"{server.Server}../") || i.Title.Equals("[To Parent Directory]"))
-            {
-                continue;
-            }
-
-            if (dateTimeMatches.Count > 0 && index <= dateTimeMatches.Count)
-            {
-                var matchDate = dateTimeMatches[index].Value;
-                i.DateTime = matchDate;
-            }
-
-            index++;
-            i.ServerType = server.ServerType;
-            list.Add(i);
+            return list;
         }
-        return list;
+        else
+        {
+            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)",
+            RegexOptions.Singleline);
+
+            Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
+            MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
+
+            int index = 0;
+            foreach (Match m in m1)
+            {
+                string value = m.Groups[1].Value;
+                LocalItem i = new LocalItem();
+
+                Match m2 = Regex.Match(value, @"href=\""(.*?)\""",
+                RegexOptions.Singleline);
+                if (m2.Success)
+                {
+                    if (server.Server.Contains("freelecher"))
+                    {
+                        var url = new Uri(server.Server).GetLeftPart(UriPartial.Authority);
+                        i.Server = $"{url}{m2.Groups[1].Value}";
+                    }
+                    else
+                    {
+                        i.Server = $"{server.Server}{m2.Groups[1].Value}";
+                    }
+                }
+
+                string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
+                i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
+
+                if (i.Server.Equals($"{server.Server}../") || i.Title.Equals("[To Parent Directory]"))
+                {
+                    continue;
+                }
+
+                if (dateTimeMatches.Count > 0 && index <= dateTimeMatches.Count)
+                {
+                    var matchDate = dateTimeMatches[index].Value;
+                    i.DateTime = matchDate;
+                }
+
+                index++;
+                i.ServerType = server.ServerType;
+                list.Add(i);
+            }
+            return list;
+        }
     }
     private void btnRefresh_Click(object sender, RoutedEventArgs e)
     {

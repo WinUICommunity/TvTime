@@ -15,7 +15,7 @@
     <ApplicationIcon>Assets\Images\icon.ico</ApplicationIcon>
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <WindowsPackageType>None</WindowsPackageType>
-    <Version>1.3.0-Stable</Version>
+    <Version>1.3.1-Stable</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\backup.png" />
@@ -37,8 +37,7 @@
     <None Remove="Assets\Images\embtv.jpg" />
     <None Remove="Assets\Images\file.png" />
     <None Remove="Assets\Images\FilePicker.png" />
-    <None Remove="Assets\Images\gettingStarted.png" />
-    <None Remove="Assets\Images\githubTile.png" />
+    <None Remove="Assets\Images\Fluent\movie.png" />
     <None Remove="Assets\Images\hardsub.png" />
     <None Remove="Assets\Images\icon.ico" />
     <None Remove="Assets\Images\icon.png" />
@@ -49,7 +48,7 @@
     <None Remove="Assets\Images\series.png" />
     <None Remove="Assets\Images\server.png" />
     <None Remove="Assets\Images\settingCover.jpg" />
-    <None Remove="Assets\Images\settings.png" />
+    <None Remove="Assets\Images\Settings.png" />
     <None Remove="Assets\Images\softsub.png" />
     <None Remove="Assets\Images\Sound.png" />
     <None Remove="Assets\Images\subtitle.png" />
@@ -173,13 +172,10 @@
     <Content Update="Assets\Images\Fluent\filePicker.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\gettingStarted.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\githubTile.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="Assets\Images\Fluent\hardsub.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\movie.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\icon.png">
@@ -189,9 +185,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\Fluent\media.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\movie.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\Fluent\open.png">
@@ -224,6 +217,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\Fluent\theme.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

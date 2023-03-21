@@ -22,13 +22,20 @@
                                      Height="180"
                                      Link="https://github.com/WinUICommunity/TvTime">
                     <controls:HeaderTile.Source>
-                        <Image Source="/Assets/Images/githubTile.png" />
+                        <PathIcon Data="{StaticResource GitHubIconPath}" Foreground="{ThemeResource TextFillColorPrimaryBrush}">
+                            <PathIcon.RenderTransform>
+                                <CompositeTransform
+                                        ScaleX="2.05"
+                                        ScaleY="2.05"
+                                        TranslateX="-20" />
+                            </PathIcon.RenderTransform>
+                        </PathIcon>
                     </controls:HeaderTile.Source>
                 </controls:HeaderTile>
                 <controls:HeaderTile x:Name="settingsTile" Title="Settings" Description="change TvTime Settings Based on your needs" Height="180"
                                      OnItemClick="settingsTile_OnItemClick">
                     <controls:HeaderTile.Source>
-                        <Image Source="/Assets/Images/gettingStarted.png" />
+                        <Image Source="/Assets/Images/settings.png" />
                     </controls:HeaderTile.Source>
                 </controls:HeaderTile>
                 <controls:HeaderTile x:Name="aboutTile" Title="About" Description="About TvTime" Height="180"

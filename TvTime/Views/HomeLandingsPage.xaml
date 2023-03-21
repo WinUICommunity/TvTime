@@ -35,7 +35,7 @@
                 <controls:HeaderTile x:Name="settingsTile" Title="Settings" Description="change TvTime Settings Based on your needs" Height="180"
                                      OnItemClick="settingsTile_OnItemClick">
                     <controls:HeaderTile.Source>
-                        <Image Source="/Assets/Images/settings.png" />
+                        <Image Source="/Assets/Images/Fluent/settings.png" />
                     </controls:HeaderTile.Source>
                 </controls:HeaderTile>
                 <controls:HeaderTile x:Name="aboutTile" Title="About" Description="About TvTime" Height="180"

@@ -4,14 +4,15 @@ public sealed partial class SettingsPage : Page
     public SettingsPage()
     {
         this.InitializeComponent();
-        App.themeManager.SetComboBoxDefaultItem(cmbTheme);
+        App.themeManager.SetThemeComboBoxDefaultItem(cmbTheme);
+        App.themeManager.SetBackdropComboBoxDefaultItem(cmbBackdrop);
         var iconPack = Settings.IconPack;
         cmbIconPack.SelectedItem = cmbIconPack.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == iconPack.ToString());
     }
 
     private void cmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        App.themeManager.OnComboBoxSelectionChanged(sender);
+        App.themeManager.OnThemeComboBoxSelectionChanged(sender);
     }
 
     private async void SettingsCard_Click(object sender, RoutedEventArgs e)
@@ -29,7 +30,7 @@ public sealed partial class SettingsPage : Page
             savePicker.SuggestedFileName = "Servers";
             WinRT.Interop.InitializeWithWindow.Initialize(savePicker, WindowHelper.GetWindowHandleForCurrentWindow(MainWindow.Instance));
 
-            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+            StorageFile file = await savePicker.PickSaveFileAsync();
 
             if (file != null)
             {
@@ -60,7 +61,7 @@ public sealed partial class SettingsPage : Page
             picker.FileTypeFilter.Add(".json");
             WinRT.Interop.InitializeWithWindow.Initialize(picker, WindowHelper.GetWindowHandleForCurrentWindow(MainWindow.Instance));
 
-            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
                 using (var streamReader = File.OpenText(file.Path))
@@ -88,5 +89,10 @@ public sealed partial class SettingsPage : Page
         var selectedItem = cmbIconPack.SelectedItem as ComboBoxItem;
         var iconPack = GeneralHelper.GetEnum<IconPack>(selectedItem?.Tag?.ToString());
         Settings.IconPack = iconPack;
+    }
+
+    private void cmbBackdrop_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        App.themeManager.OnBackdropComboBoxSelectionChanged(sender);
     }
 }

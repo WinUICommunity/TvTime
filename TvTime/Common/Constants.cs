@@ -1,7 +1,7 @@
 ﻿namespace TvTime.Common;
 public class Constants
 {
-    public static readonly string AppName = "TvTimeV1.0";
+    public static readonly string AppName = ApplicationHelper.GetProjectNameAndVersion();
     public static readonly string RootDirectoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppName);
     public static readonly string ServerDirectoryPath = Path.Combine(RootDirectoryPath, "Servers");
     public static readonly string SeriesDirectoryPath = Path.Combine(ServerDirectoryPath, "Series");

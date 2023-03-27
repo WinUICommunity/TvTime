@@ -25,7 +25,7 @@
             <StackPanel Grid.Row="1" Spacing="10" Margin="10">
                 <TextBlock TextWrapping="Wrap" Text="Change TvTime Settings based on your needs" Style="{ThemeResource TitleTextBlockStyle}"/>
                 <StackPanel HorizontalAlignment="Stretch" Spacing="3">
-                    <labs:SettingsExpander Description="Set Application Theme and Accent Color" Header="Appearance &amp; behavior">
+                    <labs:SettingsExpander IsExpanded="True" Description="Set Application Theme, Backdrop and Accent Color" Header="Appearance &amp; behavior">
                         <labs:SettingsExpander.HeaderIcon>
                             <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/theme.png" ShowAsMonochrome="False" />
                         </labs:SettingsExpander.HeaderIcon>
@@ -35,6 +35,16 @@
                             <ComboBoxItem Tag="Default" Content="Default"/>
                         </ComboBox>
                         <labs:SettingsExpander.Items>
+                            <labs:SettingsCard Description="change application backdrop" Header="Backdrop">
+                                <labs:SettingsCard.HeaderIcon>
+                                    <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/backdrop.png" ShowAsMonochrome="False" />
+                                </labs:SettingsCard.HeaderIcon>
+                                <ComboBox Name="cmbBackdrop" SelectionChanged="cmbBackdrop_SelectionChanged">
+                                    <ComboBoxItem Tag="Mica" Content="Mica"/>
+                                    <ComboBoxItem Tag="MicaAlt" Content="MicaAlt"/>
+                                    <ComboBoxItem Tag="DesktopAcrylic" Content="Acrylic"/>
+                                </ComboBox>
+                            </labs:SettingsCard>
                             <labs:SettingsCard Click="SettingsCard_Click" IsClickEnabled="True" Description="change windows accent color" Header="Windows color settings">
                                 <labs:SettingsCard.HeaderIcon>
                                     <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/color.png" ShowAsMonochrome="False" />

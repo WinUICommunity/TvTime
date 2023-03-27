@@ -1,9 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation and Contributors.
-// Licensed under the MIT License.
-
-using TvTime.Views;
-
-namespace TvTime;
+﻿namespace TvTime;
 
 public sealed partial class MainWindow : Window
 {
@@ -22,7 +17,7 @@ public sealed partial class MainWindow : Window
         NavigationViewHelper.GetCurrent().AutoSuggestBoxQuerySubmitted(args);
     }
 
-    private void OnNavigationViewSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+    private void OnNavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         NavigationViewHelper.GetCurrent().OnNavigationViewSelectionChanged(args);
     }

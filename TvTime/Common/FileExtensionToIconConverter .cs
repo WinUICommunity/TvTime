@@ -1,6 +1,4 @@
-﻿using Microsoft.UI.Xaml.Data;
-
-namespace TvTime.Common;
+﻿namespace TvTime.Common;
 public class FileExtension2IconConverter : IValueConverter
 {
     private readonly (string, string)[] _extensions = new[]

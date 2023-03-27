@@ -1,6 +1,4 @@
-﻿using Microsoft.UI.Xaml.Data;
-
-namespace TvTime.Common;
+﻿namespace TvTime.Common;
 public class Text2BitmapIconConverter : IValueConverter
 {
     private readonly string defaultIcon = "ms-appx:///Assets/Images/Fluent/media.png";

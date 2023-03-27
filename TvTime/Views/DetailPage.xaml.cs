@@ -1,25 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation and Contributors.
-// Licensed under the MIT License.
-
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
-using System.Net;
-using System.Net.Http.Json;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-using CommunityToolkit.WinUI.UI;
-using HtmlAgilityPack;
-using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
-using TvTime.Common;
-using TvTime.Models;
-using Windows.System;
-using WinUICommunity.Common.Extensions;
-using WinUICommunity.SettingsUI.SettingsControls;
-using WinUICommunity.Shared.Navigation;
-
-namespace TvTime.Views;
+﻿namespace TvTime.Views;
 
 public sealed partial class DetailPage : Page, INotifyPropertyChanged
 {
@@ -199,25 +178,26 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
                 string value = m.Groups[1].Value;
                 LocalItem i = new LocalItem();
 
-                Match m2 = Regex.Match(value, @"href=\""(.*?)\""",
-                RegexOptions.Singleline);
+                Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline);
+                string link = string.Empty;
                 if (m2.Success)
                 {
+                    link = m2.Groups[1].Value;
                     if (localItem.Server.Contains("freelecher"))
                     {
                         var url = new Uri(localItem.Server).GetLeftPart(UriPartial.Authority);
-                        i.Server = $"{url}{m2.Groups[1].Value}";
+                        i.Server = $"{url}{link}";
                     }
                     else
                     {
-                        i.Server = $"{localItem.Server}{m2.Groups[1].Value}";
+                        i.Server = $"{localItem.Server}{link}";
                     }
                 }
 
                 string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
 
                 i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
-                if (i.Server.Equals($"{localItem.Server}../") || i.Title.Equals("[To Parent Directory]"))
+                if (i.Server.Equals($"{localItem.Server}../") || i.Title.Equals("[To Parent Directory]") || (i.Server.Contains("aiocdn") && link.Contains("?C=")))
                 {
                     continue;
                 }

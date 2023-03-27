@@ -1,27 +1,17 @@
-﻿// Copyright (c) Microsoft Corporation and Contributors.
-// Licensed under the MIT License.
-
-using System.Collections.ObjectModel;
-using Newtonsoft.Json;
-using TvTime.Common;
-using TvTime.Models;
-using Windows.System;
-
-namespace TvTime.Views;
+﻿namespace TvTime.Views;
 public sealed partial class SettingsPage : Page
 {
     public SettingsPage()
     {
         this.InitializeComponent();
-        ThemeHelper.SetComboBoxDefaultItem(cmbTheme);
-
+        App.themeManager.SetComboBoxDefaultItem(cmbTheme);
         var iconPack = Settings.IconPack;
         cmbIconPack.SelectedItem = cmbIconPack.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == iconPack.ToString());
     }
 
     private void cmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ThemeHelper.ComboBoxSelectionChanged(sender);
+        App.themeManager.OnComboBoxSelectionChanged(sender);
     }
 
     private async void SettingsCard_Click(object sender, RoutedEventArgs e)

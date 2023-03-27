@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using Nucs.JsonSettings.Examples;
+﻿using Nucs.JsonSettings.Examples;
 using Nucs.JsonSettings.Modulation;
-using TvTime.Models;
 
 namespace TvTime.Common;
 public class TvTimeConfig : NotifiyingJsonSettings, IVersionable

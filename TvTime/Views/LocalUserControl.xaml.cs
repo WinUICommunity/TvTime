@@ -1,22 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation and Contributors.
-// Licensed under the MIT License.
-
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-using CommunityToolkit.WinUI.UI;
-using HtmlAgilityPack;
-using TvTime.Common;
-using TvTime.Models;
-using Windows.Storage;
-using Windows.Storage.Search;
-using Windows.System;
-using WinUICommunity.Common.Extensions;
-using WinUICommunity.SettingsUI.SettingsControls;
-
-namespace TvTime.Views;
+﻿namespace TvTime.Views;
 
 public sealed partial class LocalUserControl : UserControl, INotifyPropertyChanged
 {
@@ -329,25 +311,28 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 string value = m.Groups[1].Value;
                 LocalItem i = new LocalItem();
 
-                Match m2 = Regex.Match(value, @"href=\""(.*?)\""",
-                RegexOptions.Singleline);
+                Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline);
+
+                string link = string.Empty;
+
                 if (m2.Success)
                 {
+                    link = m2.Groups[1].Value;
                     if (server.Server.Contains("freelecher"))
                     {
                         var url = new Uri(server.Server).GetLeftPart(UriPartial.Authority);
-                        i.Server = $"{url}{m2.Groups[1].Value}";
+                        i.Server = $"{url}{link}";
                     }
                     else
                     {
-                        i.Server = $"{server.Server}{m2.Groups[1].Value}";
+                        i.Server = $"{server.Server}{link}";
                     }
                 }
 
                 string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
                 i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
 
-                if (i.Server.Equals($"{server.Server}../") || i.Title.Equals("[To Parent Directory]"))
+                if (i.Server.Equals($"{server.Server}../") || i.Title.Equals("[To Parent Directory]") || (i.Server.Contains("aiocdn") && link.Contains("?C=")))
                 {
                     continue;
                 }

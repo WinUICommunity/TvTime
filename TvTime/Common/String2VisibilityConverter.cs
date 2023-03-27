@@ -1,6 +1,4 @@
-﻿using Microsoft.UI.Xaml.Data;
-
-namespace TvTime.Common;
+﻿namespace TvTime.Common;
 public class String2VisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)

@@ -1,14 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation and Contributors.
-// Licensed under the MIT License.
-
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using CommunityToolkit.WinUI.UI;
-using TvTime.Common;
-using TvTime.Models;
-
-namespace TvTime.Views;
+﻿namespace TvTime.Views;
 public sealed partial class ServersPage : Page, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;

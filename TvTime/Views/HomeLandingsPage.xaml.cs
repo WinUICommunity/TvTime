@@ -1,10 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation and Contributors.
-// Licensed under the MIT License.
-
-using System.Reflection;
-using WinUICommunity.Shared.DataModel;
-
-namespace TvTime.Views;
+﻿namespace TvTime.Views;
 public sealed partial class HomeLandingsPage : Page
 {
     public string TvTimeVersion { get; set; }

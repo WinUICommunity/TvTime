@@ -4,13 +4,18 @@ public sealed partial class MainWindow : Window
 {
     public static MainWindow Instance { get; private set; }
     public string TvTimeVersion { get; set; }
-
     public MainWindow()
     {
         this.InitializeComponent();
         Instance = this;
         TitleBarHelper.Initialize(this, TitleTextBlock, AppTitleBar, LeftPaddingColumn, IconColumn, TitleColumn, LeftDragColumn, SearchColumn, RightDragColumn, RightPaddingColumn);
         TvTimeVersion = $"TvTime v{VersionHelper.GetVersion()}";
+
+        NavigationViewHelper.GetCurrent()
+                                .WithAutoSuggestBox(controlsSearchBox)
+                                .WithSettingsPage(typeof(SettingsPage))
+                                .WithDefaultPage(typeof(HomeLandingsPage))
+                                .Build("DataModel/ControlInfoData.json", rootFrame, NavigationViewControl);
     }
     private void controlsSearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
@@ -21,16 +26,6 @@ public sealed partial class MainWindow : Window
     {
         NavigationViewHelper.GetCurrent().OnNavigationViewSelectionChanged(args);
     }
-
-    private void Grid_Loaded(object sender, RoutedEventArgs e)
-    {
-        NavigationViewHelper.GetCurrent()
-                                .WithAutoSuggestBox(controlsSearchBox)
-                                .WithSettingsPage(typeof(SettingsPage))
-                                .WithDefaultPage(typeof(HomeLandingsPage))
-                                .Build("DataModel/ControlInfoData.json", rootFrame, NavigationViewControl);
-    }
-
     private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
     {
         var settings = (NavigationViewItem) NavigationViewControl.SettingsItem;

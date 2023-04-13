@@ -8,7 +8,7 @@
     x:DefaultBindMode="OneWay"
     xmlns:model="using:TvTime.Models"
     Name="rootView"
-    xmlns:labs="using:WinUICommunity.SettingsUI.SettingsControls"
+    xmlns:wuc="using:WinUICommunity"
     mc:Ignorable="d">
 
     <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
@@ -40,11 +40,11 @@
             </ListView.Resources>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:LocalItem">
-                    <labs:SettingsCard IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{Binding ElementName=rootView, Path=DataContext.PageType, Converter={StaticResource PageType2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
+                    <wuc:SettingsCard IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{Binding ElementName=rootView, Path=DataContext.PageType, Converter={StaticResource PageType2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
                         <Border Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
                             <TextBlock Text="{x:Bind DateTime}" Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0,5,2" />
                         </Border>
-                        <labs:SettingsCard.ContextFlyout>
+                        <wuc:SettingsCard.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Tag="{x:Bind}" Text="Open Directory" Click="btnOpenDirectory_Click">
                                     <MenuFlyoutItem.Icon>
@@ -52,8 +52,8 @@
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                             </MenuFlyout>
-                        </labs:SettingsCard.ContextFlyout>
-                    </labs:SettingsCard>
+                        </wuc:SettingsCard.ContextFlyout>
+                    </wuc:SettingsCard>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -5,8 +5,7 @@
     xmlns:local="using:TvTime.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:WinUICommunity.LandingsPage.Controls"
-    xmlns:labs="using:WinUICommunity.SettingsUI.SettingsControls"
+    xmlns:wuc="using:WinUICommunity"
     mc:Ignorable="d">
     <ScrollViewer>
         <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
@@ -14,7 +13,7 @@
                 <RowDefinition Height="320"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <controls:HomePageHeaderImage
+            <wuc:HomePageHeaderImage
                         HeaderImage="ms-appx:///Assets/Images/aboutCover.jpg"
                         Grid.RowSpan="2"
                         VerticalAlignment="Top" />
@@ -31,11 +30,11 @@
                 <StackPanel Grid.ColumnSpan="2" Spacing="10" Margin="10">
                     <TextBlock Text="{x:Bind TvTimeVersion}" Style="{ThemeResource TitleTextBlockStyle}"/>
                     <TextBlock TextWrapping="Wrap" Text="TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities." Style="{ThemeResource SubtitleTextBlockStyle}"/>
-                    <labs:SettingsCard Margin="0,30,0,10" Header="Thanks to EmpireBestTv" Description="We are grateful to Empire Best TV for preparing the archive of films and serials and providing them for free">
-                        <labs:SettingsCard.HeaderIcon>
+                    <wuc:SettingsCard Margin="0,30,0,10" Header="Thanks to EmpireBestTv" Description="We are grateful to Empire Best TV for preparing the archive of films and serials and providing them for free">
+                        <wuc:SettingsCard.HeaderIcon>
                             <ImageIcon Source="ms-appx:///Assets/Images/embtv.jpg"/>
-                        </labs:SettingsCard.HeaderIcon>
-                    </labs:SettingsCard>
+                        </wuc:SettingsCard.HeaderIcon>
+                    </wuc:SettingsCard>
                 </StackPanel>
                 <StackPanel Spacing="3" Grid.Row="2" Margin="0, 10">
                     <TextBlock x:Name="LearnMore" Text="Learn More" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,0,0,12" />
@@ -43,9 +42,9 @@
                     <HyperlinkButton MinWidth="150" Content="EmpireBestTv" NavigateUri="https://empirebesttv.com"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10" Grid.Row="2" Grid.Column="1" Spacing="10">
-                    <controls:HeaderTile Title="Source Code" Description="Clone our Source Codes" Height="180"
+                    <wuc:HeaderTile Title="Source Code" Description="Clone our Source Codes" Height="180"
                                      Link="https://github.com/WinUICommunity/TvTime">
-                        <controls:HeaderTile.Source>
+                        <wuc:HeaderTile.Source>
                             <PathIcon Data="{StaticResource GitHubIconPath}" Foreground="{ThemeResource TextFillColorPrimaryBrush}">
                                 <PathIcon.RenderTransform>
                                     <CompositeTransform
@@ -54,14 +53,14 @@
                                         TranslateX="-20" />
                                 </PathIcon.RenderTransform>
                             </PathIcon>
-                        </controls:HeaderTile.Source>
-                    </controls:HeaderTile>
-                    <controls:HeaderTile Title="EmpireBestTv" Description="Thanks to EmpireBestTv" Height="180"
+                        </wuc:HeaderTile.Source>
+                    </wuc:HeaderTile>
+                    <wuc:HeaderTile Title="EmpireBestTv" Description="Thanks to EmpireBestTv" Height="180"
                                      Link="https://empirebesttv.com">
-                        <controls:HeaderTile.Source>
+                        <wuc:HeaderTile.Source>
                             <Image Source="ms-appx:///Assets/Images/embtv.jpg" />
-                        </controls:HeaderTile.Source>
-                    </controls:HeaderTile>
+                        </wuc:HeaderTile.Source>
+                    </wuc:HeaderTile>
                 </StackPanel>
             </Grid>
         </Grid>

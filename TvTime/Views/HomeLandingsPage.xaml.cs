@@ -11,24 +11,24 @@ public sealed partial class HomeLandingsPage : Page
 
     private void mainLandingsPage_Loaded(object sender, RoutedEventArgs e)
     {
-        mainLandingsPage.GetDataAsync("DataModel/ControlInfoData.json", IncludedInBuildMode.CheckBasedOnIncludedInBuildProperty);
+        mainLandingsPage.GetDataAsync("DataModel/ControlInfoData.json", PathType.Relative);
     }
 
     private void mainLandingsPage_OnItemClick(object sender, RoutedEventArgs e)
     {
         var args = (ItemClickEventArgs) e;
         var item = (ControlInfoDataItem) args.ClickedItem;
-        var assembly = Assembly.Load(item.ApiNamespace);
-        NavigationViewHelper.GetCurrent().Navigate(assembly.GetType(item.UniqueId));
+        var assembly = Application.Current.GetType().Assembly;
+        MainWindow.Instance.navigationManager.NavigateForJson(assembly.GetType(item.UniqueId));
     }
 
     private void settingsTile_OnItemClick(object sender, RoutedEventArgs e)
     {
-        NavigationViewHelper.GetCurrent().Navigate(typeof(SettingsPage));
+        MainWindow.Instance.navigationManager.NavigateForJson(typeof(SettingsPage));
     }
 
     private void aboutTile_OnItemClick(object sender, RoutedEventArgs e)
     {
-        NavigationViewHelper.GetCurrent().Navigate(typeof(AboutPage));
+        MainWindow.Instance.navigationManager.NavigateForJson(typeof(AboutPage));
     }
 }

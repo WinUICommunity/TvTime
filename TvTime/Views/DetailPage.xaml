@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DefaultBindMode="OneWay"
     xmlns:model="using:TvTime.Models"
-    xmlns:labs="using:WinUICommunity.SettingsUI.SettingsControls"
+    xmlns:wuc="using:WinUICommunity"
     mc:Ignorable="d">
 
     <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
@@ -122,14 +122,14 @@
                     </ListView.Resources>
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:LocalItem">
-                            <labs:SettingsCard ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}" IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
+                            <wuc:SettingsCard ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}" IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
                                 <Border Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
                                     <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0,5,2">
                                         <Run Text="{x:Bind DateTime}"/>
                                         <Run Text="{x:Bind FileSize, Converter={StaticResource FileSizeConverter}}"/>
                                     </TextBlock>
                                 </Border>
-                                <labs:SettingsCard.ContextFlyout>
+                                <wuc:SettingsCard.ContextFlyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem Tag="{x:Bind}" Text="Open Directory" Click="btnOpenDirectory_Click">
                                             <MenuFlyoutItem.Icon>
@@ -142,15 +142,13 @@
                                             </MenuFlyoutItem.Icon>
                                         </MenuFlyoutItem>
                                     </MenuFlyout>
-                                </labs:SettingsCard.ContextFlyout>
-                            </labs:SettingsCard>
+                                </wuc:SettingsCard.ContextFlyout>
+                            </wuc:SettingsCard>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <ProgressRing IsActive="{x:Bind IsActive}" Grid.Row="1"/>
             </Grid>
         </ScrollViewer>
-        
     </Grid>
-
 </Page>

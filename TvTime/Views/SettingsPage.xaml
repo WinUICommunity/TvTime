@@ -5,8 +5,7 @@
     xmlns:local="using:TvTime.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:WinUICommunity.LandingsPage.Controls"
-    xmlns:labs="using:WinUICommunity.SettingsUI.SettingsControls"
+    xmlns:wuc="using:WinUICommunity"
     xmlns:settings="using:TvTime.Common"
     mc:Ignorable="d">
     <ScrollViewer>
@@ -15,68 +14,68 @@
                 <RowDefinition Height="280"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <controls:HomePageHeaderImage
+            <wuc:HomePageHeaderImage
                         HeaderImage="ms-appx:///Assets/Images/settingCover.jpg"
                         Grid.RowSpan="2"
                         VerticalAlignment="Top" />
             <StackPanel Grid.Row="1" Spacing="10" Margin="10">
                 <TextBlock TextWrapping="Wrap" Text="Change TvTime Settings based on your needs" Style="{ThemeResource TitleTextBlockStyle}"/>
                 <StackPanel HorizontalAlignment="Stretch" Spacing="3">
-                    <labs:SettingsExpander IsExpanded="True" Description="Set Application Theme, Backdrop and Accent Color" Header="Appearance &amp; behavior">
-                        <labs:SettingsExpander.HeaderIcon>
+                    <wuc:SettingsExpander IsExpanded="True" Description="Set Application Theme, Backdrop and Accent Color" Header="Appearance &amp; behavior">
+                        <wuc:SettingsExpander.HeaderIcon>
                             <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/theme.png" ShowAsMonochrome="False" />
-                        </labs:SettingsExpander.HeaderIcon>
+                        </wuc:SettingsExpander.HeaderIcon>
                         <ComboBox Name="cmbTheme" SelectionChanged="cmbTheme_SelectionChanged">
                             <ComboBoxItem Tag="Light" Content="Light"/>
                             <ComboBoxItem Tag="Dark" Content="Dark"/>
                             <ComboBoxItem Tag="Default" Content="Default"/>
                         </ComboBox>
-                        <labs:SettingsExpander.Items>
-                            <labs:SettingsCard Description="change application backdrop" Header="Backdrop">
-                                <labs:SettingsCard.HeaderIcon>
+                        <wuc:SettingsExpander.Items>
+                            <wuc:SettingsCard Description="change application backdrop" Header="Backdrop">
+                                <wuc:SettingsCard.HeaderIcon>
                                     <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/backdrop.png" ShowAsMonochrome="False" />
-                                </labs:SettingsCard.HeaderIcon>
+                                </wuc:SettingsCard.HeaderIcon>
                                 <ComboBox Name="cmbBackdrop" SelectionChanged="cmbBackdrop_SelectionChanged">
                                     <ComboBoxItem Tag="Mica" Content="Mica"/>
                                     <ComboBoxItem Tag="MicaAlt" Content="MicaAlt"/>
                                     <ComboBoxItem Tag="DesktopAcrylic" Content="Acrylic"/>
                                 </ComboBox>
-                            </labs:SettingsCard>
-                            <labs:SettingsCard Click="SettingsCard_Click" IsClickEnabled="True" Description="change windows accent color" Header="Windows color settings">
-                                <labs:SettingsCard.HeaderIcon>
+                            </wuc:SettingsCard>
+                            <wuc:SettingsCard Click="SettingsCard_Click" IsClickEnabled="True" Description="change windows accent color" Header="Windows color settings">
+                                <wuc:SettingsCard.HeaderIcon>
                                     <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/color.png" ShowAsMonochrome="False" />
-                                </labs:SettingsCard.HeaderIcon>
-                            </labs:SettingsCard>
-                        </labs:SettingsExpander.Items>
-                    </labs:SettingsExpander>
-                    <labs:SettingsCard Description="If false is selected, the corresponding folder will be opened instead of the file itself" Header="Open the file in the browser">
-                        <labs:SettingsCard.HeaderIcon>
+                                </wuc:SettingsCard.HeaderIcon>
+                            </wuc:SettingsCard>
+                        </wuc:SettingsExpander.Items>
+                    </wuc:SettingsExpander>
+                    <wuc:SettingsCard Description="If false is selected, the corresponding folder will be opened instead of the file itself" Header="Open the file in the browser">
+                        <wuc:SettingsCard.HeaderIcon>
                             <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/open.png" ShowAsMonochrome="False" />
-                        </labs:SettingsCard.HeaderIcon>
+                        </wuc:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind settings:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay}"/>
-                    </labs:SettingsCard>
-                    <labs:SettingsCard Description="Choose Icon Pack to display for the season number" Header="Icon Pack">
-                        <labs:SettingsCard.HeaderIcon>
+                    </wuc:SettingsCard>
+                    <wuc:SettingsCard Description="Choose Icon Pack to display for the season number" Header="Icon Pack">
+                        <wuc:SettingsCard.HeaderIcon>
                             <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/iconPack.png" ShowAsMonochrome="False" />
-                        </labs:SettingsCard.HeaderIcon>
+                        </wuc:SettingsCard.HeaderIcon>
                         <ComboBox Name="cmbIconPack" SelectionChanged="cmbIconPack_SelectionChanged">
                             <ComboBoxItem Tag="Glyph" Content="Glyph"/>
                             <ComboBoxItem Tag="Fluent" Content="Fluent"/>
                         </ComboBox>
-                    </labs:SettingsCard>
-                    <labs:SettingsExpander IsExpanded="True" Description="backup and restore servers" Header="Backup &amp; Restore">
-                        <labs:SettingsExpander.HeaderIcon>
+                    </wuc:SettingsCard>
+                    <wuc:SettingsExpander IsExpanded="True" Description="backup and restore servers" Header="Backup &amp; Restore">
+                        <wuc:SettingsExpander.HeaderIcon>
                             <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/backup.png" ShowAsMonochrome="False" />
-                        </labs:SettingsExpander.HeaderIcon>
+                        </wuc:SettingsExpander.HeaderIcon>
                         <Button Name="btnBackup" Click="btnBackup_Click" Content="Backup"/>
-                        <labs:SettingsExpander.Items>
-                            <labs:SettingsCard x:Name="btnRestore" Click="btnRestore_Click" IsClickEnabled="True" Description="You can import your saved servers to the app" Header="Restore">
-                                <labs:SettingsCard.HeaderIcon>
+                        <wuc:SettingsExpander.Items>
+                            <wuc:SettingsCard x:Name="btnRestore" Click="btnRestore_Click" IsClickEnabled="True" Description="You can import your saved servers to the app" Header="Restore">
+                                <wuc:SettingsCard.HeaderIcon>
                                     <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/restore.png" ShowAsMonochrome="False" />
-                                </labs:SettingsCard.HeaderIcon>
-                            </labs:SettingsCard>
-                        </labs:SettingsExpander.Items>
-                    </labs:SettingsExpander>
+                                </wuc:SettingsCard.HeaderIcon>
+                            </wuc:SettingsCard>
+                        </wuc:SettingsExpander.Items>
+                    </wuc:SettingsExpander>
                     <InfoBar Name="infoBackup" IsOpen="True" IsClosable="False" Title="Status" Severity="Informational"/>
                 </StackPanel>
             </StackPanel>

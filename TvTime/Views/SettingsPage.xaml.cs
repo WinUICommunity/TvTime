@@ -4,15 +4,15 @@ public sealed partial class SettingsPage : Page
     public SettingsPage()
     {
         this.InitializeComponent();
-        App.themeManager.SetThemeComboBoxDefaultItem(cmbTheme);
-        App.themeManager.SetBackdropComboBoxDefaultItem(cmbBackdrop);
+        (Application.Current as App).themeManager.SetThemeComboBoxDefaultItem(cmbTheme);
+        (Application.Current as App).themeManager.SetBackdropComboBoxDefaultItem(cmbBackdrop);
         var iconPack = Settings.IconPack;
         cmbIconPack.SelectedItem = cmbIconPack.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == iconPack.ToString());
     }
 
     private void cmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        App.themeManager.OnThemeComboBoxSelectionChanged(sender);
+        (Application.Current as App).themeManager.OnThemeComboBoxSelectionChanged(sender);
     }
 
     private async void SettingsCard_Click(object sender, RoutedEventArgs e)
@@ -87,12 +87,12 @@ public sealed partial class SettingsPage : Page
     private void cmbIconPack_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selectedItem = cmbIconPack.SelectedItem as ComboBoxItem;
-        var iconPack = GeneralHelper.GetEnum<IconPack>(selectedItem?.Tag?.ToString());
+        var iconPack = ApplicationHelper.GetEnum<IconPack>(selectedItem?.Tag?.ToString());
         Settings.IconPack = iconPack;
     }
 
     private void cmbBackdrop_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        App.themeManager.OnBackdropComboBoxSelectionChanged(sender);
+        (Application.Current as App).themeManager.OnBackdropComboBoxSelectionChanged(sender);
     }
 }

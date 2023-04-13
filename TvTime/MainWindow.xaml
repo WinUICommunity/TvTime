@@ -5,7 +5,7 @@
     xmlns:local="using:TvTime.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:data="using:WinUICommunity.Shared.DataModel"
+    xmlns:wuc="using:WinUICommunity"
     mc:Ignorable="d">
 
     <Grid>
@@ -30,10 +30,8 @@
         <NavigationView
             x:Name="NavigationViewControl"
             Canvas.ZIndex="0"
-            Loaded="NavigationViewControl_Loaded"
             IsTabStop="False"
             PaneDisplayMode="Left"
-            SelectionChanged="OnNavigationViewSelectionChanged"
             Grid.Row="1"
             IsTitleBarAutoPaddingEnabled="True">
             <NavigationView.AutoSuggestBox>
@@ -42,19 +40,18 @@
                 MinWidth="200"
                 VerticalAlignment="Center"
                 x:FieldModifier="public"
-                QuerySubmitted="controlsSearchBox_QuerySubmitted"
                 KeyboardAcceleratorPlacementMode="Hidden"
                 PlaceholderText="Search"
                 QueryIcon="Find">
                     <AutoSuggestBox.ItemTemplate>
-                        <DataTemplate x:DataType="data:ControlInfoDataItem">
-                            <Grid AutomationProperties.Name="{x:Bind Title}" ColumnSpacing="12">
+                        <DataTemplate x:DataType="wuc:ControlInfoDataItem">
+                            <Grid ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="16" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{x:Bind ImagePath}" />
-                                <TextBlock Grid.Column="1" Text="{x:Bind Title}" />
+                                <Image Source="{x:Bind ImagePath,Mode=OneWay}" />
+                                <TextBlock Grid.Column="1" Text="{x:Bind Title,Mode=OneWay}" />
                             </Grid>
                         </DataTemplate>
                     </AutoSuggestBox.ItemTemplate>

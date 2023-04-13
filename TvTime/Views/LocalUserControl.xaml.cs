@@ -202,7 +202,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             btnServerStatus.Visibility = Visibility.Collapsed;
             btnRefresh.IsEnabled = false;
             IsActive = true;
-            var urls = Settings.Servers.Where(x => x.ServerType == GeneralHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
+            var urls = Settings.Servers.Where(x => x.ServerType == ApplicationHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
             infoStatus.IsOpen = true;
             infoStatus.Severity = InfoBarSeverity.Informational;
             infoStatus.Title = "Please Wait...";
@@ -421,8 +421,8 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         {
             Server = setting?.Description?.ToString(),
             Title = setting?.Header.ToString(),
-            ServerType = GeneralHelper.GetEnum<ServerType>(GetPageType())
+            ServerType = ApplicationHelper.GetEnum<ServerType>(GetPageType())
         };
-        NavigationViewHelper.GetCurrent().Navigate(typeof(DetailPage), item);
+        MainWindow.Instance.navigationManager.NavigateForJson(typeof(DetailPage), item);
     }
 }

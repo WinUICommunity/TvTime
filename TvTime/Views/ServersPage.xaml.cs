@@ -81,7 +81,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
             Title = txtTitle.Text,
             Server = txtServer.Text,
             IsActive = tgActive.IsOn,
-            ServerType = GeneralHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent())
+            ServerType = ApplicationHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent())
         };
         var selectedItem = serverListView.SelectedItem as ServerModel;
 
@@ -93,7 +93,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
             {
                 Title = txtTitle.Text,
                 Server = txtServer.Text,
-                ServerType = GeneralHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent()),
+                ServerType = ApplicationHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent()),
                 IsActive = tgActive.IsOn
             };
         }

@@ -494,6 +494,7 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
             {
                 var localItem = (LocalItem) item;
                 Process.Start(GetIDMFilePath(), $"/d \"{localItem.Server?.ToString()}\"");
+                await Task.Delay(300);
             }
         }
     }

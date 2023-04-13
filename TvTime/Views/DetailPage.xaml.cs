@@ -1,4 +1,8 @@
-﻿namespace TvTime.Views;
+﻿using System.Diagnostics;
+using System.Text;
+using Windows.ApplicationModel.DataTransfer;
+
+namespace TvTime.Views;
 
 public sealed partial class DetailPage : Page, INotifyPropertyChanged
 {
@@ -357,7 +361,7 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
         {
             if (Constants.FileExtensions.Any(server.Contains))
             {
-                var fileName = Path.GetFileName(server);
+                var fileName = System.IO.Path.GetFileName(server);
                 await Launcher.LaunchUriAsync(new Uri(server.Replace(fileName, "")));
             }
             else
@@ -379,7 +383,7 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
             }
             else
             {
-                var fileName = Path.GetFileName(server);
+                var fileName = System.IO.Path.GetFileName(server);
                 await Launcher.LaunchUriAsync(new Uri(server.Replace(fileName, "")));
             }
         }
@@ -392,6 +396,105 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
                 ServerType = rootLocalItem.ServerType
             };
             DownloadDetails(localItem);
+        }
+    }
+    private void btnCopyDownloadLink_Click(object sender, RoutedEventArgs e)
+    {
+        var menuFlyout = (sender as MenuFlyoutItem);
+        var localItem = (LocalItem) menuFlyout?.Tag;
+        var server = localItem.Server?.ToString();
+        var package = new DataPackage();
+        package.SetText(server);
+        Clipboard.SetContent(package);
+    }
+    private void btnCopyAllDownloadLinks_Click(object sender, RoutedEventArgs e)
+    {
+        var items = listView.Items;
+        var package = new DataPackage();
+        StringBuilder urls = new StringBuilder();
+        foreach ( var item in items )
+        {
+            var localItem = (LocalItem) item;
+            urls.AppendLine(localItem.Server?.ToString());
+        }
+        package.SetText(urls?.ToString());
+        Clipboard.SetContent(package);
+    }
+    private string GetIDMFilePath()
+    {
+        string idmPathX86 = @"C:\Program Files (x86)\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable
+        string idmPathX64 = @"C:\Program Files\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable
+        if (File.Exists(idmPathX64))
+        {
+            return idmPathX64;
+        }
+        else if (File.Exists(idmPathX86))
+        {
+            return idmPathX86;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    private async void btnDownloadWithIDM_Click(object sender, RoutedEventArgs e)
+    {
+        var idmPath = GetIDMFilePath();
+        if (string.IsNullOrEmpty(idmPath))
+        {
+            ContentDialog contentDialog = new ContentDialog
+            {
+                XamlRoot = MainWindow.Instance.Content.XamlRoot,
+                Title = "IDM not found",
+                Content = new InfoBar
+                {
+                    Margin = new Thickness(10),
+                    Severity = InfoBarSeverity.Error,
+                    Title = "IDM was not found on your system, please install it first",
+                    IsOpen = true,
+                    IsClosable = false
+                },
+                PrimaryButtonText = "Ok"
+            };
+            await contentDialog.ShowAsyncQueue();
+        }
+        else
+        {
+            var menuFlyout = (sender as MenuFlyoutItem);
+            var localItem = (LocalItem) menuFlyout?.Tag;
+            var server = localItem.Server?.ToString();
+            Process.Start(GetIDMFilePath(), $"/d \"{server?.ToString()}\"");
+        }
+    }
+    private async void btnDownloadAllLinksWithIDM_Click(object sender, RoutedEventArgs e)
+    {
+        var idmPath = GetIDMFilePath();
+        if (string.IsNullOrEmpty(idmPath))
+        {
+            ContentDialog contentDialog = new ContentDialog
+            {
+                XamlRoot = MainWindow.Instance.Content.XamlRoot,
+                Title = "IDM not found",
+                Content = new InfoBar
+                {
+                    Margin = new Thickness(10),
+                    Severity = InfoBarSeverity.Error,
+                    Title = "IDM was not found on your system, please install it first",
+                    IsOpen = true,
+                    IsClosable = false
+                },
+                PrimaryButtonText = "Ok"
+            };
+           await contentDialog.ShowAsyncQueue();
+        }
+        else
+        {
+            var items = listView.Items;
+            foreach (var item in items)
+            {
+                var localItem = (LocalItem) item;
+                Process.Start(GetIDMFilePath(), $"/d \"{localItem.Server?.ToString()}\"");
+            }
         }
     }
 }

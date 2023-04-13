@@ -38,6 +38,8 @@
     <None Remove="Assets\Images\file.png" />
     <None Remove="Assets\Images\FilePicker.png" />
     <None Remove="Assets\Images\Fluent\backdrop.png" />
+    <None Remove="Assets\Images\Fluent\copy.png" />
+    <None Remove="Assets\Images\Fluent\idm.png" />
     <None Remove="Assets\Images\Fluent\movie.png" />
     <None Remove="Assets\Images\hardsub.png" />
     <None Remove="Assets\Images\icon.ico" />
@@ -116,6 +118,12 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Assets\Images\Fluent\copy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Fluent\idm.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Images\settingCover.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

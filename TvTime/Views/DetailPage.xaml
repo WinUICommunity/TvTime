@@ -116,7 +116,7 @@
                         </Grid>
                     </ScrollViewer>
                 </Expander>
-                <ListView Grid.Row="1" Margin="10" HorizontalAlignment="Stretch" ItemsSource="{x:Bind DataListACV}" SelectionMode="None">
+                <ListView Name="listView" Grid.Row="1" Margin="10" HorizontalAlignment="Stretch" ItemsSource="{x:Bind DataListACV}" SelectionMode="None">
                     <ListView.Resources>
                         <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemSettingStyle}"/>
                     </ListView.Resources>
@@ -141,6 +141,36 @@
                                                 <ImageIcon Source="ms-appx:///Assets/Images/Fluent/file.png"/>
                                             </MenuFlyoutItem.Icon>
                                         </MenuFlyoutItem>
+                                        <MenuFlyoutSubItem Tag="{x:Bind}" Text="Copy Link(s)">
+                                            <MenuFlyoutSubItem.Icon>
+                                                <ImageIcon Source="ms-appx:///Assets/Images/Fluent/copy.png"/>
+                                            </MenuFlyoutSubItem.Icon>
+                                            <MenuFlyoutItem Tag="{x:Bind}" Text="Copy Selected Item Link" Click="btnCopyDownloadLink_Click">
+                                                <MenuFlyoutItem.Icon>
+                                                    <ImageIcon Source="ms-appx:///Assets/Images/Fluent/copy.png"/>
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem Tag="{x:Bind}" Text="Copy All Links" Click="btnCopyAllDownloadLinks_Click">
+                                                <MenuFlyoutItem.Icon>
+                                                    <ImageIcon Source="ms-appx:///Assets/Images/Fluent/copy.png"/>
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyoutSubItem>
+                                        <MenuFlyoutSubItem Tag="{x:Bind}" Text="Download With IDM">
+                                            <MenuFlyoutSubItem.Icon>
+                                                <ImageIcon Source="ms-appx:///Assets/Images/Fluent/idm.png"/>
+                                            </MenuFlyoutSubItem.Icon>
+                                            <MenuFlyoutItem Tag="{x:Bind}" Text="Download Selected Item With IDM" Click="btnDownloadWithIDM_Click">
+                                                <MenuFlyoutItem.Icon>
+                                                    <ImageIcon Source="ms-appx:///Assets/Images/Fluent/idm.png"/>
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem Tag="{x:Bind}" Text="Download All Items With IDM" Click="btnDownloadAllLinksWithIDM_Click">
+                                                <MenuFlyoutItem.Icon>
+                                                    <ImageIcon Source="ms-appx:///Assets/Images/Fluent/idm.png"/>
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyoutSubItem>
                                     </MenuFlyout>
                                 </wuc:SettingsCard.ContextFlyout>
                             </wuc:SettingsCard>

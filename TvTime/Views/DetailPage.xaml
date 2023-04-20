@@ -18,7 +18,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <InfoBar Name="infoStatus" Severity="Informational" IsOpen="True">
+        <InfoBar Name="infoStatus" Margin="10" Severity="Informational" IsOpen="True">
             <InfoBar.ActionButton>
                 <Button MinWidth="220" Content="Update" Name="btnRefresh" Click="btnRefresh_Click"/>
             </InfoBar.ActionButton>

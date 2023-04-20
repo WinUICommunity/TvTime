@@ -9,7 +9,10 @@ public sealed partial class MainWindow : Window
     {
         this.InitializeComponent();
         Instance = this;
-        TitleBarHelper.Initialize(this, TitleTextBlock, AppTitleBar, LeftPaddingColumn, IconColumn, TitleColumn, LeftDragColumn, SearchColumn, RightDragColumn, RightPaddingColumn);
+        var titleBarHelper = TitleBarHelper.Initialize(this, TitleTextBlock, AppTitleBar, LeftPaddingColumn, IconColumn, TitleColumn, LeftDragColumn, SearchColumn, RightDragColumn, RightPaddingColumn);
+        titleBarHelper.LeftPadding = 48;
+        titleBarHelper.RightPadding = -100;
+
         TvTimeVersion = $"TvTime v{VersionHelper.GetVersion()}";
 
         navigationManager = NavigationManager.Initialize(NavigationViewControl, new NavigationViewOptions

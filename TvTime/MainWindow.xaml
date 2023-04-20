@@ -9,11 +9,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid x:Name="AppTitleBar" Height="48">
+        <Grid x:Name="AppTitleBar" VerticalAlignment="Top" IsHitTestVisible="True" Canvas.ZIndex="1" Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
                 <ColumnDefinition x:Name="IconColumn" Width="Auto"/>
@@ -32,7 +28,6 @@
             Canvas.ZIndex="0"
             IsTabStop="False"
             PaneDisplayMode="Left"
-            Grid.Row="1"
             IsTitleBarAutoPaddingEnabled="True">
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox

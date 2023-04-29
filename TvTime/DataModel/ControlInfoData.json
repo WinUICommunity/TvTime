@@ -11,8 +11,8 @@
       "Description": "",
       "IsSpecialSection": false,
       "HideGroup": false,
-      "IsSingleGroup": true,
-      "IsExpanded" : false,
+      "ShowItemsWithoutGroup": true,
+      "IsExpanded": false,
       "Items": [
         {
           "UniqueId": "TvTime.Views.HomeLandingsPage",

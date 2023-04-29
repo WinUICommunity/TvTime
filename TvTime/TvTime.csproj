@@ -15,97 +15,17 @@
     <ApplicationIcon>Assets\Images\icon.ico</ApplicationIcon>
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <WindowsPackageType>None</WindowsPackageType>
-    <Version>1.4.2-Stable</Version>
+    <Version>1.4.3-Stable</Version>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Assets\backup.png" />
-    <None Remove="Assets\Images\0.png" />
-    <None Remove="Assets\Images\1.png" />
-    <None Remove="Assets\Images\10.png" />
-    <None Remove="Assets\Images\2.png" />
-    <None Remove="Assets\Images\3.png" />
-    <None Remove="Assets\Images\4.png" />
-    <None Remove="Assets\Images\5.png" />
-    <None Remove="Assets\Images\6.png" />
-    <None Remove="Assets\Images\7.png" />
-    <None Remove="Assets\Images\8.png" />
-    <None Remove="Assets\Images\9.png" />
-    <None Remove="Assets\Images\aboutCover.jpg" />
-    <None Remove="Assets\Images\anime.png" />
-    <None Remove="Assets\Images\code.png" />
-    <None Remove="Assets\Images\color.png" />
-    <None Remove="Assets\Images\embtv.jpg" />
-    <None Remove="Assets\Images\file.png" />
-    <None Remove="Assets\Images\FilePicker.png" />
-    <None Remove="Assets\Images\Fluent\backdrop.png" />
-    <None Remove="Assets\Images\Fluent\copy.png" />
-    <None Remove="Assets\Images\Fluent\idm.png" />
-    <None Remove="Assets\Images\Fluent\movie.png" />
-    <None Remove="Assets\Images\hardsub.png" />
-    <None Remove="Assets\Images\icon.ico" />
-    <None Remove="Assets\Images\icon.png" />
-    <None Remove="Assets\Images\iconPack.png" />
-    <None Remove="Assets\Images\media.png" />
-    <None Remove="Assets\Images\movie.png" />
-    <None Remove="Assets\Images\open.png" />
-    <None Remove="Assets\Images\series.png" />
-    <None Remove="Assets\Images\server.png" />
-    <None Remove="Assets\Images\settingCover.jpg" />
-    <None Remove="Assets\Images\Settings.png" />
-    <None Remove="Assets\Images\softsub.png" />
-    <None Remove="Assets\Images\Sound.png" />
-    <None Remove="Assets\Images\subtitle.png" />
-    <None Remove="Assets\Images\theme.png" />
-    <None Remove="Assets\Images\toolkit.png" />
-    <None Remove="Assets\restore.png" />
-    <None Remove="Assets\server.png" />
-    <None Remove="DataModel\ControlInfoData.json" />
-    <None Remove="Views\AboutPage.xaml" />
-    <None Remove="Views\AnimesPage.xaml" />
-    <None Remove="Views\DetailPage.xaml" />
-    <None Remove="Views\HomeLandingsPage.xaml" />
-    <None Remove="Views\LocalUserControl.xaml" />
-    <None Remove="Views\MoviesPage.xaml" />
-    <None Remove="Views\SeriesPage.xaml" />
-    <None Remove="Views\ServersPage.xaml" />
-    <None Remove="Views\SettingsPage.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Assets\SplashScreen.scale-200.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\LockScreenLogo.scale-200.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Square150x150Logo.scale-200.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Square44x44Logo.scale-200.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\StoreLogo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Wide310x150Logo.scale-200.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DataModel\ControlInfoData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.UI" Version="7.1.2" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230331000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
-    <PackageReference Include="WinUICommunity.LandingsPage" Version="2.0.4" />
-    <PackageReference Include="WinUICommunity.SettingsUI" Version="4.0.2" /> 
-    <PackageReference Include="WinUICommunity.Common" Version="4.0.4" /> 
+    <PackageReference Include="WinUICommunity.LandingsPage" Version="2.0.5" />
+    <PackageReference Include="WinUICommunity.SettingsUI" Version="4.0.5" /> 
+    <PackageReference Include="WinUICommunity.Common" Version="4.0.6" /> 
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -118,177 +38,15 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Assets\Images\Fluent\copy.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\idm.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\settingCover.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\backdrop.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\backup.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\10.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\4.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\5.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\6.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\7.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\8.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\9.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\anime.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\code.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\color.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\embtv.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\file.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\filePicker.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\hardsub.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\movie.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\iconPack.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\media.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\open.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\series.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\server.png">
+    <Content Include="DataModel\ControlInfoData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Assets\Images\icon.ico">
+    <None Include="Assets\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\settings.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\softsub.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\sound.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\subtitle.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\theme.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\aboutCover.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Settings.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Content Update="Assets\Images\toolkit.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Fluent\restore.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\HomeLandingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\AboutPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\DetailPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\LocalUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\ServersPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\AnimesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\SettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\MoviesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\SeriesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
   <!-- 
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
     Explorer "Package and Publish" context menu entry to be enabled for this project even if 

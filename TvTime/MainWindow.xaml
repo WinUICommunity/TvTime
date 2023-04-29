@@ -42,11 +42,11 @@
                         <DataTemplate x:DataType="wuc:ControlInfoDataItem">
                             <Grid ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="16" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{x:Bind ImagePath,Mode=OneWay}" />
-                                <TextBlock Grid.Column="1" Text="{x:Bind Title,Mode=OneWay}" />
+                                <Image Source="{x:Bind ImagePath, Mode=OneWay}"/>
+                                <TextBlock Grid.Column="1" Text="{x:Bind Title, Mode=OneWay}"/>
                             </Grid>
                         </DataTemplate>
                     </AutoSuggestBox.ItemTemplate>

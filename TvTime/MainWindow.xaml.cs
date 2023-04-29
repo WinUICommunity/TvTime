@@ -23,7 +23,10 @@ public sealed partial class MainWindow : Window
             {
                 JsonFilePath = "DataModel/ControlInfoData.json"
             }
-        }, rootFrame, controlsSearchBox);
+        }, rootFrame, controlsSearchBox, new AutoSuggestBoxOptions
+        {
+            NoResultImage = "ms-appx:///Assets/Images/icon.png"
+        });
     }
     private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
     {

@@ -109,6 +109,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         txtServer.Text = string.Empty;
         
         inputDialog.XamlRoot = MainWindow.Instance.Content.XamlRoot;
+        inputDialog.Title = "Add new Server";
         inputDialog.PrimaryButtonClick += (s, e) =>
         {
             var currentComboBoxItem = cmbType.SelectedItem as ComboBoxItem;
@@ -135,7 +136,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
                 infoStatus.IsOpen = true;
             }
         };
-        await inputDialog.ShowAsyncQueue();
+        await inputDialog.ShowAsyncQueueDraggable();
     }
 
     private async void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -145,6 +146,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         {
             var item = btn.DataContext as ServerModel;
             inputDialog.XamlRoot = MainWindow.Instance.Content.XamlRoot;
+            inputDialog.Title = "Update Server";
             txtTitle.Text = item.Title;
             txtServer.Text = item.Server;
             tgActive.IsOn = item.IsActive;
@@ -175,7 +177,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
                     infoStatus.IsOpen = true;
                 }
             };
-            await inputDialog.ShowAsyncQueue();
+            await inputDialog.ShowAsyncQueueDraggable();
         }
     }
 }

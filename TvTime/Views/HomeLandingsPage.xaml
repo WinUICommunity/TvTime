@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <wuc:MainLandingsPage x:Name="mainLandingsPage" Loaded="mainLandingsPage_Loaded"
-                HeaderImage="ms-appx:///Assets/Images/aboutCover.jpg"
+                HeaderImage="ms-appx:///Assets/Images/cover1.jpg"
                 HeaderText="TvTime"
                 HeaderSubtitleText="{x:Bind TvTimeVersion}"
                 OnItemClick="mainLandingsPage_OnItemClick">

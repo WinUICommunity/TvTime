@@ -15,8 +15,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <wuc:HomePageHeaderImage
-                        HeaderImage="ms-appx:///Assets/Images/settingCover.jpg"
-                        Grid.RowSpan="2"
+                        HeaderImage="ms-appx:///Assets/Images/cover1.jpg"
                         VerticalAlignment="Top" />
             <StackPanel Grid.Row="1" Spacing="10" Margin="10">
                 <TextBlock TextWrapping="Wrap" Text="Change TvTime Settings based on your needs" Style="{ThemeResource TitleTextBlockStyle}"/>

@@ -21,6 +21,7 @@
             </Grid.ColumnDefinitions>
             <Image x:Name="TitleBarIcon" Source="ms-appx:///Assets/Images/icon.png" Grid.Column="1" Width="16" Height="16" Margin="8,0,0,0"/>
             <TextBlock x:Name="TitleTextBlock" Text="{x:Bind TvTimeVersion}" Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="2" VerticalAlignment="Center" Margin="4,0,0,0"/>
+            <AutoSuggestBox Name="txtSearch" Width="450" VerticalAlignment="Center" QueryIcon="Find" TextChanged="txtSearch_TextChanged" PlaceholderText="Search Movies, Series, Anime and more" Grid.Column="4"/>
         </Grid>
 
         <NavigationView

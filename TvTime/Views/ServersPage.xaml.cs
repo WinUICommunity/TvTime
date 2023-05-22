@@ -7,28 +7,28 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    private ObservableCollection<ServerModel> serverList;
-    public ObservableCollection<ServerModel> ServerList
+    private ObservableCollection<ServerModel> dataList;
+    public ObservableCollection<ServerModel> DataList
     {
-        get { return serverList; }
+        get { return dataList; }
         set
         {
-            if (value != this.serverList)
+            if (value != this.dataList)
             {
-                this.serverList = value;
+                this.dataList = value;
                 OnPropertyChanged();
             }
         }
     }
-    private AdvancedCollectionView serverListACV;
-    public AdvancedCollectionView ServerListACV
+    private AdvancedCollectionView dataListACV;
+    public AdvancedCollectionView DataListACV
     {
-        get { return serverListACV; }
+        get { return dataListACV; }
         set
         {
-            if (value != this.serverListACV)
+            if (value != this.dataListACV)
             {
-                this.serverListACV = value;
+                this.dataListACV = value;
                 OnPropertyChanged();
             }
         }
@@ -47,7 +47,7 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         }
     }
 
-    private List<string> suggestList = new List<string>();
+    public List<string> suggestList = new List<string>();
     private SortDescription currentSortDescription;
 
     public ServersPage()
@@ -59,12 +59,18 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
     private void ServersPage_Loaded(object sender, RoutedEventArgs e)
     {
         IsActive = true;
-        ServerList = new(Settings.Servers);
-        ServerListACV = new AdvancedCollectionView(ServerList, true);
+        DataList = new(Settings.Servers);
+        DataListACV = new AdvancedCollectionView(DataList, true);
         currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
-        ServerListACV.SortDescriptions.Add(currentSortDescription);
-        suggestList = ServerListACV.Select(x => ((ServerModel) x).Title).ToList();
+        DataListACV.SortDescriptions.Add(currentSortDescription);
+        suggestList = DataListACV.Select(x => ((ServerModel) x).Title).ToList();
         IsActive = false;
+    }
+    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
+        DataListACV.Filter = _ => true;
+        DataListACV.Filter = DataListFilter;
     }
 
     private string GetCurrentComboBoxItemContent()
@@ -85,11 +91,11 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         };
         var selectedItem = serverListView.SelectedItem as ServerModel;
 
-        var existItem = ServerList.FirstOrDefault(x => x.Title.ToLower().Equals(selectedItem?.Title.ToLower()) && x.Server.ToLower().Equals(selectedItem?.Server.ToLower()));
+        var existItem = DataList.FirstOrDefault(x => x.Title.ToLower().Equals(selectedItem?.Title.ToLower()) && x.Server.ToLower().Equals(selectedItem?.Server.ToLower()));
         if (existItem is not null && tgEdit.IsOn)
         {
-            var index = ServerList.IndexOf(existItem);
-            ServerList[index] = new ServerModel
+            var index = DataList.IndexOf(existItem);
+            DataList[index] = new ServerModel
             {
                 Title = txtTitle.Text,
                 Server = txtServer.Text,
@@ -99,10 +105,10 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         }
         else
         {
-            ServerList?.Add(server);
+            DataList?.Add(server);
         }
 
-        Settings.Servers = ServerList;
+        Settings.Servers = DataList;
 
         IsActive = false;
         infoStatus.Severity = InfoBarSeverity.Success;
@@ -119,12 +125,12 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         var selectedItem = serverListView.SelectedItem as ServerModel;
         if (selectedItem is not null)
         {
-            ServerList?.Remove(selectedItem);
-            Settings.Servers = ServerList;
+            DataList?.Remove(selectedItem);
+            Settings.Servers = DataList;
             infoStatus.Severity = InfoBarSeverity.Success;
             infoStatus.Title = "Selected Server Removed Successfully";
             infoStatus.IsOpen = true;
-            ServerList = new(Settings.Servers);
+            DataList = new(Settings.Servers);
             txtServer.Text = string.Empty;
             txtTitle.Text = string.Empty;
             tgActive.IsOn = true;
@@ -150,18 +156,12 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         }
     }
 
-    private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
-        ServerListACV.Filter = _ => true;
-        ServerListACV.Filter = DataListFilter;
-    }
-    private bool DataListFilter(object item)
+    public bool DataListFilter(object item)
     {
         var query = (ServerModel) item;
         var name = query.Title ?? "";
         var tName = query.Server ?? "";
-
+        var txtSearch = MainWindow.Instance.GetTxtSearch();
         return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
             || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }

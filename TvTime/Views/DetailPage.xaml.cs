@@ -70,7 +70,7 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
     }
 
 
-    private List<string> suggestList = new List<string>();
+    public List<string> suggestList = new List<string>();
 
     private SortDescription currentSortDescription;
 
@@ -88,15 +88,18 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
         var item = (LocalItem)args.Parameter;
         rootLocalItem = item;
         breadcrumbBarList?.Clear();
-        txtImdbDetail.Text = rootLocalItem.Title;
     }
 
     private void DetailPage_Loaded(object sender, RoutedEventArgs e)
     {
         DownloadDetails(rootLocalItem);
-        GetIMDBDetails(rootLocalItem.Title);
     }
-
+    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
+        DataListACV.Filter = _ => true;
+        DataListACV.Filter = DataListFilter;
+    }
     private async void DownloadDetails(LocalItem localItem)
     {
         try
@@ -252,19 +255,12 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
         DownloadDetails(rootLocalItem);
     }
 
-    private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
-    }
-
-    private bool DataListFilter(object item)
+    public bool DataListFilter(object item)
     {
         var query = (LocalItem) item;
         var name = query.Title ?? "";
         var tName = query.Server ?? "";
-
+        var txtSearch = MainWindow.Instance.GetTxtSearch();
         return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
             || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
@@ -274,78 +270,6 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
         var item = (LocalItem)args.Item;
         breadcrumbBarList.RemoveAt(args.Index + 1);
         DownloadDetails(item);
-    }
-
-    private async void GetIMDBDetails(string title)
-    {
-        try
-        {
-            expander.Header = "Details (Loading)";
-            Cover.Source = null;
-            txtImdbDetail.Visibility = Visibility.Collapsed;
-
-            var url = string.Format(Constants.IMDBTitleAPI, title);
-
-            using var client = new HttpClient();
-            var response = await client.GetAsync(url);
-            if (response.StatusCode == HttpStatusCode.NoContent || response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.TooManyRequests || response.StatusCode == HttpStatusCode.ServiceUnavailable || response.StatusCode == HttpStatusCode.RequestTimeout || response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                expander.Header = "Details (Not available)";
-                return;
-            }
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadFromJsonAsync<IMDBModel>();
-                if (json.Response.Contains("true", StringComparison.OrdinalIgnoreCase))
-                {
-                    txtImdbId.Text = string.Format(Constants.IMDBBaseUrl, json.imdbID);
-                    if (json.imdbRating.Contains("N/A") || string.IsNullOrEmpty(json.imdbRating))
-                    {
-                        rate.Value = 0;
-                    }
-                    else
-                    {
-                        rate.Value = Convert.ToDouble(json.imdbRating, CultureInfo.InvariantCulture);
-                    }
-                    txtTitle.Text = json.Title;
-                    txtYear.Text = json.Year;
-                    txtReleased.Text = json.Released;
-                    txtType.Text = json.Type;
-                    txtTotalSeason.Text = json.totalSeasons;
-                    txtLanguage.Text = json.Language;
-                    txtCountry.Text = json.Country;
-                    txtRated.Text = json.Rated;
-                    txtGenre.Text = json.Genre;
-                    txtDirector.Text = json.Director;
-                    txtWriter.Text = json.Writer;
-                    txtActors.Text = json.Actors;
-                    txtPlot.Text = json.Plot;
-                    if (!json.Poster.Contains("N/A"))
-                    {
-                        Cover.Source = new BitmapImage(new Uri(json.Poster));
-                    }
-                    InfoPanel.Visibility = Visibility.Visible;
-                    expander.Header = "Details (Available)";
-                }
-                else
-                {
-                    InfoPanel.Visibility = Visibility.Collapsed;
-                    txtImdbDetail.Visibility = Visibility.Visible;
-                    expander.Header = $"Details (Not available - {json.Error})";
-                }
-            }
-        }
-        catch (Exception)
-        {
-            InfoPanel.Visibility = Visibility.Collapsed;
-            txtImdbDetail.Visibility = Visibility.Visible;
-            expander.Header = "Details (Not available - Search manually)";
-        }
-    }
-
-    private void txtImdbDetail_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-        GetIMDBDetails(txtImdbDetail.Text);
     }
 
     private async void btnOpenDirectory_Click(object sender, RoutedEventArgs e)
@@ -497,5 +421,13 @@ public sealed partial class DetailPage : Page, INotifyPropertyChanged
                 await Task.Delay(400);
             }
         }
+    }
+
+    private void btnDetails_Click(object sender, RoutedEventArgs e)
+    {
+        var window = new IMDBDetailsWindow();
+        window.Title = rootLocalItem.Title;
+        new ThemeManager(window, (Application.Current as App).themeManager.ThemeOptions);
+        window.Activate();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace TvTime;
+﻿using WinUICommunity;
+
+namespace TvTime;
 
 public sealed partial class MainWindow : Window
 {
@@ -32,5 +34,32 @@ public sealed partial class MainWindow : Window
     {
         var settings = (NavigationViewItem) NavigationViewControl.SettingsItem;
         settings.Icon = new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Images/Fluent/settings.png"), ShowAsMonochrome = false };
+    }
+
+    private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        dynamic root = rootFrame.Content;
+        dynamic currentPage = null;
+        if (root is AnimesPage || root is MoviesPage || root is SeriesPage)
+        {
+            currentPage = root.Content as LocalUserControl;
+        }
+        else if (rootFrame.Content is DetailPage)
+        {
+            currentPage = root as DetailPage;
+        }
+        else if (rootFrame.Content is ServersPage)
+        {
+            currentPage = root as ServersPage;
+        }
+        if (currentPage != null)
+        {
+            currentPage.Search(sender, args);
+        }
+    }
+
+    public AutoSuggestBox GetTxtSearch()
+    {
+        return txtSearch;
     }
 }

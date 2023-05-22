@@ -60,17 +60,25 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         }
     }
 
-    private List<string> suggestList = new List<string>();
+    public List<string> suggestList = new List<string>();
     private List<string> existServer = new List<string>();
 
     private SortDescription currentSortDescription;
     JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
+    private int totalServerCount = 0;
 
     public LocalUserControl()
     {
         this.InitializeComponent();
         DataContext = this;
         Loaded += LocalUserControl_Loaded;
+    }
+
+    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
+        DataListACV.Filter = _ => true;
+        DataListACV.Filter = DataListFilter;
     }
 
     public string GetPageType()
@@ -187,7 +195,10 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             DataListACV = new AdvancedCollectionView(DataList, true);
             DataListACV.SortDescriptions.Add(currentSortDescription);
         }
-
+        if (totalServerCount > 0)
+        {
+            infoStatus.Message = $"Added {existServer.Count}/{totalServerCount} Servers";
+        }
         infoStatus.Title = $"{DataListACV?.Count} Local {PageType} Added";
         IsActive = false;
     }
@@ -207,6 +218,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             infoStatus.Severity = InfoBarSeverity.Informational;
             infoStatus.Title = "Please Wait...";
             infoStatus.Message = "";
+            totalServerCount = urls.Count;
 
             int index = 0;
             existServer.Clear();
@@ -248,7 +260,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 infoStatus.Message = $"{item.Title} Saved";
             }
             IsActive = false;
-            infoStatus.Title = "Updated Successfully";
+            infoStatus.Title = $"Updated Successfully: Added {existServer.Count}/{totalServerCount} Servers";
             infoStatus.Message = "We Updated our Local Storage";
             infoStatus.Severity = InfoBarSeverity.Success;
             btnServerStatus.Visibility = Visibility.Visible;
@@ -260,7 +272,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             btnRefresh.IsEnabled = true;
             buttonInfoBadge.Value = existServer.Count;
             IsActive = false;
-            infoStatus.Title = "Error";
+            infoStatus.Title = $"Error: Added {existServer.Count}/{totalServerCount} Servers";
             infoStatus.Message = ex.Message;
             infoStatus.Severity = InfoBarSeverity.Error;
             btnServerStatus.Visibility = Visibility.Visible;
@@ -389,19 +401,12 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         contentDialog.ShowAsyncQueue();
     }
 
-    private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
-    }
-
-    private bool DataListFilter(object item)
+    public bool DataListFilter(object item)
     {
         var query = (LocalItem) item;
         var name = query.Title ?? "";
         var tName = query.Server ?? "";
-
+        var txtSearch = MainWindow.Instance.GetTxtSearch();
         return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
             || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }

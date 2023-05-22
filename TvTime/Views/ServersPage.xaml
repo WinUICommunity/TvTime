@@ -15,13 +15,9 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <AutoSuggestBox Name="txtSearch" Margin="10" Grid.ColumnSpan="2" PlaceholderText="Search" TextChanged="txtSearch_TextChanged" QueryIcon="Find"/>
-        <InfoBar Name="infoStatus" Margin="10,0" Grid.Row="1" Grid.ColumnSpan="2" IsClosable="True"/>
-
-        <ListView Name="serverListView" SelectionChanged="serverListView_SelectionChanged" Margin="10" Grid.Row="2" ItemsSource="{x:Bind ServerListACV, Mode=OneWay}">
+        <ListView Name="serverListView" SelectionChanged="serverListView_SelectionChanged" Margin="10" Grid.Row="1" ItemsSource="{x:Bind DataListACV, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:ServerModel">
                     <StackPanel Margin="10" Spacing="10">
@@ -35,9 +31,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ProgressRing Grid.Row="2" Grid.ColumnSpan="2" IsActive="{x:Bind IsActive, Mode=OneWay}"/>
+        <ProgressRing Grid.Row="1" Grid.ColumnSpan="2" IsActive="{x:Bind IsActive, Mode=OneWay}"/>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Spacing="10" Margin="10">
+        <StackPanel Grid.Row="1" Grid.Column="1" Spacing="10" Margin="10">
             <StackPanel Orientation="Horizontal">
                 <Button Name="btnAddNew" Click="btnAddNew_Click">
                     <StackPanel Orientation="Horizontal">
@@ -60,6 +56,7 @@
                 <Button Name="btnRemove" IsEnabled="False" Click="btnRemove_Click" MinWidth="170" Content="Remove"/>
             </StackPanel>
         </StackPanel>
+        <InfoBar Name="infoStatus" Margin="10,0" Grid.ColumnSpan="2" IsClosable="True"/>
 
     </Grid>
 </Page>

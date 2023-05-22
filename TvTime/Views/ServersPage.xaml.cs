@@ -1,4 +1,6 @@
-﻿namespace TvTime.Views;
+﻿using System.Data;
+
+namespace TvTime.Views;
 public sealed partial class ServersPage : Page, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
@@ -73,86 +75,21 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         DataListACV.Filter = DataListFilter;
     }
 
-    private string GetCurrentComboBoxItemContent()
-    {
-        var currentComboBoxItem = cmbType.SelectedItem as ComboBoxItem;
-        return currentComboBoxItem.Content?.ToString();
-    }
-
-    private void btnSave_Click(object sender, RoutedEventArgs e)
-    {
-        IsActive = true;
-        var server = new ServerModel
-        {
-            Title = txtTitle.Text,
-            Server = txtServer.Text,
-            IsActive = tgActive.IsOn,
-            ServerType = ApplicationHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent())
-        };
-        var selectedItem = serverListView.SelectedItem as ServerModel;
-
-        var existItem = DataList.FirstOrDefault(x => x.Title.ToLower().Equals(selectedItem?.Title.ToLower()) && x.Server.ToLower().Equals(selectedItem?.Server.ToLower()));
-        if (existItem is not null && tgEdit.IsOn)
-        {
-            var index = DataList.IndexOf(existItem);
-            DataList[index] = new ServerModel
-            {
-                Title = txtTitle.Text,
-                Server = txtServer.Text,
-                ServerType = ApplicationHelper.GetEnum<ServerType>(GetCurrentComboBoxItemContent()),
-                IsActive = tgActive.IsOn
-            };
-        }
-        else
-        {
-            DataList?.Add(server);
-        }
-
-        Settings.Servers = DataList;
-
-        IsActive = false;
-        infoStatus.Severity = InfoBarSeverity.Success;
-        infoStatus.Title = "New Server Added Successfully";
-        infoStatus.IsOpen = true;
-
-        txtServer.Text = string.Empty;
-        txtTitle.Text = string.Empty;
-        tgActive.IsOn = true;
-    }
-
     private void btnRemove_Click(object sender, RoutedEventArgs e)
     {
-        var selectedItem = serverListView.SelectedItem as ServerModel;
-        if (selectedItem is not null)
+        var btn = sender as Button;
+        if (btn.DataContext != null)
         {
-            DataList?.Remove(selectedItem);
-            Settings.Servers = DataList;
-            infoStatus.Severity = InfoBarSeverity.Success;
-            infoStatus.Title = "Selected Server Removed Successfully";
-            infoStatus.IsOpen = true;
-            DataList = new(Settings.Servers);
-            txtServer.Text = string.Empty;
-            txtTitle.Text = string.Empty;
-            tgActive.IsOn = true;
-        }
-        else
-        {
-            infoStatus.Severity = InfoBarSeverity.Error;
-            infoStatus.Title = "Selected Server Cant be Removed";
-            infoStatus.IsOpen = true;
-        }
-    }
-
-    private void serverListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        btnRemove.IsEnabled = serverListView.SelectedItems.Count > 0;
-        var selectedItem = serverListView.SelectedItem as ServerModel;
-        if (selectedItem != null)
-        {
-            txtTitle.Text = selectedItem.Title;
-            txtServer.Text = selectedItem.Server;
-            cmbType.SelectedItem = cmbType.Items.OfType<ComboBoxItem>().FirstOrDefault(x => x.Tag.ToString() == ((int) selectedItem.ServerType).ToString());
-            tgActive.IsOn = selectedItem.IsActive;
+            var item = btn.DataContext as ServerModel;
+            if (item != null)
+            {
+                DataList?.Remove(item);
+                Settings.Servers = DataList;
+                infoStatus.Severity = InfoBarSeverity.Success;
+                infoStatus.Title = "Selected Server Removed Successfully";
+                infoStatus.IsOpen = true;
+                DataList = new(Settings.Servers);
+            }
         }
     }
 
@@ -166,10 +103,79 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
             || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 
-    private void btnAddNew_Click(object sender, RoutedEventArgs e)
+    private async void btnAddNew_Click(object sender, RoutedEventArgs e)
     {
-        txtServer.Text = string.Empty;
         txtTitle.Text = string.Empty;
-        tgActive.IsOn = true;
+        txtServer.Text = string.Empty;
+        
+        inputDialog.XamlRoot = MainWindow.Instance.Content.XamlRoot;
+        inputDialog.PrimaryButtonClick += (s, e) =>
+        {
+            var currentComboBoxItem = cmbType.SelectedItem as ComboBoxItem;
+            if (!string.IsNullOrEmpty(txtTitle.Text) && !string.IsNullOrEmpty(txtServer.Text) && currentComboBoxItem !=null)
+            {
+                var server = new ServerModel
+                {
+                    Title = txtTitle.Text.Trim(),
+                    Server = txtServer.Text.Trim(),
+                    IsActive = tgActive.IsOn,
+                    ServerType = ApplicationHelper.GetEnum<ServerType>(currentComboBoxItem.Content?.ToString())
+                };
+
+                DataList?.Add(server);
+                Settings.Servers = DataList;
+                infoStatus.Severity = InfoBarSeverity.Success;
+                infoStatus.Title = "New Server Added Successfully";
+                infoStatus.IsOpen = true;
+            }
+            else
+            {
+                infoStatus.Severity = InfoBarSeverity.Error;
+                infoStatus.Title = "Server Can not be Added";
+                infoStatus.IsOpen = true;
+            }
+        };
+        await inputDialog.ShowAsyncQueue();
+    }
+
+    private async void btnUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        var btn = sender as Button;
+        if (btn.DataContext != null)
+        {
+            var item = btn.DataContext as ServerModel;
+            inputDialog.XamlRoot = MainWindow.Instance.Content.XamlRoot;
+            txtTitle.Text = item.Title;
+            txtServer.Text = item.Server;
+            tgActive.IsOn = item.IsActive;
+            cmbType.SelectedIndex = (int) item.ServerType;
+            inputDialog.PrimaryButtonClick += (s, e) =>
+            {
+                var currentComboBoxItem = cmbType.SelectedItem as ComboBoxItem;
+                var index = DataList.IndexOf(item);
+                if (index > -1 && !string.IsNullOrEmpty(txtTitle.Text) && !string.IsNullOrEmpty(txtServer.Text) && currentComboBoxItem != null)
+                {
+
+                    DataList[index] = new ServerModel
+                    {
+                        Title = txtTitle.Text.Trim(),
+                        Server = txtServer.Text.Trim(),
+                        IsActive = tgActive.IsOn,
+                        ServerType = ApplicationHelper.GetEnum<ServerType>(currentComboBoxItem.Content?.ToString())
+                    };
+                    Settings.Servers = DataList;
+                    infoStatus.Severity = InfoBarSeverity.Success;
+                    infoStatus.Title = "Server Changed Successfully";
+                    infoStatus.IsOpen = true;
+                }
+                else
+                {
+                    infoStatus.Severity = InfoBarSeverity.Error;
+                    infoStatus.Title = "Server Can not be Updated";
+                    infoStatus.IsOpen = true;
+                }
+            };
+            await inputDialog.ShowAsyncQueue();
+        }
     }
 }

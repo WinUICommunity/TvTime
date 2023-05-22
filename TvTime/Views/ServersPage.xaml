@@ -6,57 +6,59 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:TvTime.Models"
+    xmlns:wuc="using:WinUICommunity"
     mc:Ignorable="d">
-
-    <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+    <Page.Resources>
+        <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemSettingStyle}"/>
+    </Page.Resources>
+    <Grid Margin="10,0,10,10" ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Name="serverListView" SelectionChanged="serverListView_SelectionChanged" Margin="10" Grid.Row="1" ItemsSource="{x:Bind DataListACV, Mode=OneWay}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="model:ServerModel">
-                    <StackPanel Margin="10" Spacing="10">
-                        <TextBlock Text="{x:Bind Title}" Style="{ThemeResource BaseTextBlockStyle}"/>
-                        <TextBlock Text="{x:Bind Server}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <TextBlock Margin="0,10,0,0" Text="{x:Bind ServerType}" Style="{ThemeResource BodyTextBlockStyle}"/>
-                            <ToggleSwitch IsEnabled="False" IsOn="{x:Bind IsActive}" OnContent="Active" OffContent="DeActive"/>
-                        </StackPanel>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <ProgressRing Grid.Row="1" Grid.ColumnSpan="2" IsActive="{x:Bind IsActive, Mode=OneWay}"/>
-
-        <StackPanel Grid.Row="1" Grid.Column="1" Spacing="10" Margin="10">
-            <StackPanel Orientation="Horizontal">
-                <Button Name="btnAddNew" Click="btnAddNew_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Add New"/>
-                        <SymbolIcon Symbol="Add" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <ToggleSwitch Margin="10,0" Name="tgEdit" OnContent="Edit Mode" OffContent="Edit Mode"/>
-            </StackPanel>
-            <TextBox Name="txtTitle" PlaceholderText="Title"/>
-            <TextBox Name="txtServer" PlaceholderText="Server Url"/>
-            <ComboBox Name="cmbType" PlaceholderText="Serie\Movie\Anime" SelectedIndex="0" HorizontalAlignment="Stretch">
-                <ComboBoxItem Tag="0" Content="Series"/>
-                <ComboBoxItem Tag="1" Content="Movie"/>
-                <ComboBoxItem Tag="2" Content="Anime"/>
-            </ComboBox>
-            <ToggleSwitch Name="tgActive" IsOn="True" OnContent="Active" OffContent="DeActive"/>
-            <StackPanel Orientation="Horizontal" Spacing="10">
-                <Button Name="btnSave" Click="btnSave_Click" MinWidth="170" Content="Save"/>
-                <Button Name="btnRemove" IsEnabled="False" Click="btnRemove_Click" MinWidth="170" Content="Remove"/>
-            </StackPanel>
-        </StackPanel>
-        <InfoBar Name="infoStatus" Margin="10,0" Grid.ColumnSpan="2" IsClosable="True"/>
-
+        <ScrollViewer>
+            <wuc:SettingsGroup Header="TvTime Servers">
+                <wuc:SettingsCard Header="Servers" Description="Manage Servers that can be used in the TvTime" HeaderIcon="{wuc:FontIcon FontFamily={StaticResource SymbolThemeFontFamily}, Glyph=&#xE792;}">
+                    <Button Name="btnAddNew" Click="btnAddNew_Click" Content="Add new server" Style="{ThemeResource AccentButtonStyle}" />
+                </wuc:SettingsCard>
+                <ListView x:Name="serverListView" ItemsSource="{x:Bind DataListACV, Mode=TwoWay}" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:Name="SingleLineDataTemplate" x:DataType="model:ServerModel">
+                            <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}" HeaderIcon="{x:Bind IsActive, Converter={StaticResource ActiveServerConverter}}">
+                                <wuc:SettingsCard.Resources>
+                                    <x:Double x:Key="SettingsCardLeftIndention">42</x:Double>
+                                </wuc:SettingsCard.Resources>
+                                <wuc:SettingsCard.Description>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Margin="0,0,4,0" FontWeight="SemiBold" Style="{ThemeResource SecondaryTextStyle}" Text="{x:Bind ServerType, Mode=OneWay}"/>
+                                        <TextBlock Margin="0,0,4,0" Style="{ThemeResource SecondaryTextStyle}" Text="{x:Bind Server}"/>
+                                    </StackPanel>
+                                </wuc:SettingsCard.Description>
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="8">
+                                    <Button x:Name="btnUpdate" Click="btnUpdate_Click" Width="40" Height="36" Content="&#xE70F;" FontFamily="{ThemeResource SymbolThemeFontFamily}" Style="{StaticResource SubtleButtonStyle}"/>
+                                    <Button x:Name="RemoveButton" Click="btnRemove_Click" Width="40" Height="36" Content="&#xE74D;" FontFamily="{ThemeResource SymbolThemeFontFamily}" Style="{StaticResource SubtleButtonStyle}"/>
+                                </StackPanel>
+                            </wuc:SettingsCard>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </wuc:SettingsGroup>
+        </ScrollViewer>
+        <ProgressRing IsActive="{x:Bind IsActive, Mode=OneWay}"/>
+        <InfoBar Name="infoStatus" Grid.Row="1" CornerRadius="4,4,0,0" IsClosable="True"/>
+        <ContentDialog Name="inputDialog" DefaultButton="Primary" PrimaryButtonText="Save Changes" CloseButtonText="Cancel">
+            <Grid Padding="10" Style="{ThemeResource GridPanel}">
+                <StackPanel Spacing="16">
+                    <TextBox Name="txtTitle" PlaceholderText="Server Title" Header="Title" Width="360" HorizontalAlignment="Left"/>
+                    <TextBox Name="txtServer" PlaceholderText="Server Url" Header="Server Url" Width="360" HorizontalAlignment="Left"/>
+                    <ComboBox Name="cmbType" Header="Choose Series, Movie or Anime" PlaceholderText="Choose Series, Movie or Anime" HorizontalAlignment="Left" Width="360">
+                        <ComboBoxItem Content="Series"/>
+                        <ComboBoxItem Content="Movie"/>
+                        <ComboBoxItem Content="Anime"/>
+                    </ComboBox>
+                    <ToggleSwitch Name="tgActive" Header="Activate Server" IsOn="True" OnContent="Active" OffContent="DeActive"/>
+                </StackPanel>
+            </Grid>
+        </ContentDialog>
     </Grid>
 </Page>

@@ -4,6 +4,11 @@ public sealed partial class SettingsPage : Page
     public SettingsPage()
     {
         this.InitializeComponent();
+        Loaded += SettingsPage_Loaded;
+    }
+
+    private void SettingsPage_Loaded(object sender, RoutedEventArgs e)
+    {
         (Application.Current as App).themeManager.SetThemeComboBoxDefaultItem(cmbTheme);
         (Application.Current as App).themeManager.SetBackdropComboBoxDefaultItem(cmbBackdrop);
         var iconPack = Settings.IconPack;

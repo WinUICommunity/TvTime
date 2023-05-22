@@ -58,9 +58,10 @@ public sealed partial class ServersPage : Page, INotifyPropertyChanged
         Loaded += ServersPage_Loaded;
     }
 
-    private void ServersPage_Loaded(object sender, RoutedEventArgs e)
+    private async void ServersPage_Loaded(object sender, RoutedEventArgs e)
     {
         IsActive = true;
+        await Task.Delay(150);
         DataList = new(Settings.Servers);
         DataListACV = new AdvancedCollectionView(DataList, true);
         currentSortDescription = new SortDescription("Title", SortDirection.Ascending);

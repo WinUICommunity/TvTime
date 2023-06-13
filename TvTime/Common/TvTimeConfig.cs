@@ -21,5 +21,6 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     }
 
     public virtual bool IsFileOpenInBrowser { get; set; }
+    public virtual string LastUpdateCheck { get; set; }
     public virtual IconPack IconPack { get; set; } = IconPack.Glyph;
 }

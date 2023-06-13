@@ -1,43 +1,58 @@
-﻿<UserControl
-    x:Class="TvTime.Views.LocalUserControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TvTime.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:DefaultBindMode="OneWay"
-    xmlns:model="using:TvTime.Models"
-    Name="rootView"
-    xmlns:wuc="using:WinUICommunity"
-    mc:Ignorable="d">
+﻿<UserControl x:Class="TvTime.Views.LocalUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:model="using:TvTime.Models"
+             xmlns:wuc="using:WinUICommunity"
+             Name="rootView"
+             x:DefaultBindMode="OneWay"
+             mc:Ignorable="d">
 
     <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <Button Margin="10,10,0,0" Name="btnRefresh" Click="btnRefresh_Click">
-            <StackPanel Spacing="10" Orientation="Horizontal">
-                <SymbolIcon Symbol="Refresh"/>
-                <TextBlock Text="Refresh"/>
+        <Button Name="btnRefresh"
+                Margin="10,10,0,0"
+                Click="btnRefresh_Click">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <SymbolIcon Symbol="Refresh" />
+                <TextBlock Text="Refresh" />
             </StackPanel>
         </Button>
-        <ListView Grid.Row="1" Margin="5,10,5,5" HorizontalAlignment="Stretch" ItemsSource="{x:Bind DataListACV}" SelectionMode="None">
+        <ListView Grid.Row="1"
+                  Margin="5,10,5,5"
+                  HorizontalAlignment="Stretch"
+                  ItemsSource="{x:Bind DataListACV}"
+                  SelectionMode="None">
             <ListView.Resources>
-                <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemSettingStyle}"/>
+                <Style BasedOn="{StaticResource ListViewItemSettingStyle}" TargetType="ListViewItem" />
             </ListView.Resources>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:LocalItem">
-                    <wuc:SettingsCard IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{Binding ElementName=rootView, Path=DataContext.PageType, Converter={StaticResource PageType2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
-                        <Border Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}" Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
-                            <TextBlock Text="{x:Bind DateTime}" Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0,5,2" />
+                    <wuc:SettingsCard Click="SettingsCard_Click"
+                                      Description="{x:Bind Server}"
+                                      Header="{x:Bind Title}"
+                                      HeaderIcon="{Binding ElementName=rootView, Path=DataContext.PageType, Converter={StaticResource PageType2BitmapIconConverter}}"
+                                      IsClickEnabled="True">
+                        <Border Margin="5,0"
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                                CornerRadius="{ThemeResource ControlCornerRadius}"
+                                Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}">
+                            <TextBlock Margin="5,0,5,2"
+                                       Style="{ThemeResource BaseTextBlockStyle}"
+                                       Text="{x:Bind DateTime}" />
                         </Border>
                         <wuc:SettingsCard.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Tag="{x:Bind}" Text="Open Directory" Click="btnOpenDirectory_Click">
+                                <MenuFlyoutItem Click="btnOpenDirectory_Click"
+                                                Tag="{x:Bind}"
+                                                Text="Open Directory">
                                     <MenuFlyoutItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Images/Fluent/filePicker.png"/>
+                                        <ImageIcon Source="ms-appx:///Assets/Fluent/explorer.png" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                             </MenuFlyout>
@@ -46,14 +61,25 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ProgressRing IsActive="{x:Bind IsActive}" Grid.Row="1"/>
-        <InfoBar Name="infoStatus" CornerRadius="4,4,0,0" Grid.Row="2" Severity="Informational" IsOpen="True">
+        <ProgressRing Grid.Row="1" IsActive="{x:Bind IsActive}" />
+        <InfoBar Name="infoStatus"
+                 Grid.Row="2"
+                 CornerRadius="4,4,0,0"
+                 IsOpen="True"
+                 Severity="Informational">
             <InfoBar.ActionButton>
-                <HyperlinkButton HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="btnServerStatus_Click" Name="btnServerStatus" Visibility="Collapsed">
-                    <StackPanel Spacing="5" Orientation="Horizontal">
-                        <SymbolIcon Symbol="Admin"/>
-                        <TextBlock Margin="5,0,0,0" Text="Server Status"/>
-                        <InfoBadge x:Name="buttonInfoBadge" Value="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <HyperlinkButton Name="btnServerStatus"
+                                 HorizontalContentAlignment="Stretch"
+                                 VerticalContentAlignment="Stretch"
+                                 Click="btnServerStatus_Click"
+                                 Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="Admin" />
+                        <TextBlock Margin="5,0,0,0" Text="Server Status" />
+                        <InfoBadge x:Name="buttonInfoBadge"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Top"
+                                   Value="0" />
                     </StackPanel>
                 </HyperlinkButton>
             </InfoBar.ActionButton>

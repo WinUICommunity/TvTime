@@ -1,95 +1,151 @@
-﻿<Page
-    x:Class="TvTime.Views.DetailPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TvTime.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:DefaultBindMode="OneWay"
-    xmlns:model="using:TvTime.Models"
-    xmlns:wuc="using:WinUICommunity"
-    mc:Ignorable="d">
-
+﻿<Page x:Class="TvTime.Views.DetailPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:model="using:TvTime.Models"
+      xmlns:wuc="using:WinUICommunity"
+      Name="rootPage"
+      x:DefaultBindMode="OneWay"
+      mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:EventTriggerBehavior.Actions>
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.PageLoadedCommand}" />
+            </ic:EventTriggerBehavior.Actions>
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
     <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <StackPanel Margin="10,10,0,0" Spacing="10" Orientation="Horizontal">
-            <Button Name="btnRefresh" Click="btnRefresh_Click">
-                <StackPanel Spacing="10" Orientation="Horizontal">
-                    <SymbolIcon Symbol="Refresh"/>
-                    <TextBlock Text="Refresh"/>
+        <StackPanel Margin="10,10,0,0"
+                    Orientation="Horizontal"
+                    Spacing="10">
+            <Button Command="{x:Bind ViewModel.RefreshCommand}" IsEnabled="{x:Bind ViewModel.IsRefreshEnabled, Mode=OneWay}">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <SymbolIcon Symbol="Refresh" />
+                    <TextBlock Text="Refresh" />
                 </StackPanel>
             </Button>
-            <Button Name="btnDetails" Click="btnDetails_Click">
-                <StackPanel Spacing="10" Orientation="Horizontal">
-                    <SymbolIcon Symbol="PostUpdate"/>
-                    <TextBlock Text="Details"/>
+            <Button Command="{x:Bind ViewModel.DetailCommand}">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <SymbolIcon Symbol="PostUpdate" />
+                    <TextBlock Text="Details" />
                 </StackPanel>
             </Button>
         </StackPanel>
-        <BreadcrumbBar Name="breadcrumbBar" ItemClicked="breadcrumbBar_ItemClicked" ItemsSource="{x:Bind BreadcrumbBarList}" Margin="10,5,5,5" Grid.Row="1">
+        <BreadcrumbBar Name="breadcrumbBar"
+                       Grid.Row="1"
+                       Margin="10,5,5,5"
+                       ItemsSource="{x:Bind ViewModel.BreadcrumbBarList, Mode=OneWay}">
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="ItemClicked">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.BreadCrumbBarItemCommand}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
             <BreadcrumbBar.ItemTemplate>
                 <DataTemplate x:DataType="model:LocalItem">
-                    <TextBlock Text="{x:Bind Title}"/>
+                    <TextBlock FontWeight="ExtraLight"
+                               Style="{ThemeResource TitleTextBlockStyle}"
+                               Text="{x:Bind Title}" />
                 </DataTemplate>
             </BreadcrumbBar.ItemTemplate>
         </BreadcrumbBar>
-        <ListView Name="listView" Grid.Row="2" Margin="5,0,5,5" HorizontalAlignment="Stretch" ItemsSource="{x:Bind DataListACV}" SelectionMode="None">
+        <ListView Name="listView"
+                  Grid.Row="2"
+                  Margin="5,0,5,5"
+                  HorizontalAlignment="Stretch"
+                  ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}"
+                  SelectionMode="None">
             <ListView.Resources>
-                <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemSettingStyle}"/>
+                <Style BasedOn="{StaticResource ListViewItemSettingStyle}" TargetType="ListViewItem" />
             </ListView.Resources>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:LocalItem">
-                    <wuc:SettingsCard ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}" IsClickEnabled="True" Click="SettingsCard_Click" HeaderIcon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}" Description="{x:Bind Server}" Header="{x:Bind Title}">
-                        <Border Margin="5,0" CornerRadius="{ThemeResource ControlCornerRadius}" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="5,0,5,2">
-                                        <Run Text="{x:Bind DateTime}"/>
-                                        <Run Text="{x:Bind FileSize, Converter={StaticResource FileSizeConverter}}"/>
+                    <wuc:SettingsCard Name="settingsCard"
+                                      ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
+                                      Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
+                                      CommandParameter="{Binding ElementName=settingsCard}"
+                                      Description="{x:Bind Server}"
+                                      Header="{x:Bind Title}"
+                                      HeaderIcon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}"
+                                      IsClickEnabled="True">
+                        <Border Margin="5,0"
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                                CornerRadius="{ThemeResource ControlCornerRadius}">
+                            <TextBlock Margin="5,0,5,2" Style="{ThemeResource BaseTextBlockStyle}">
+                                <Run Text="{x:Bind DateTime}" />
+                                <Run Text="{x:Bind FileSize, Converter={StaticResource FileSizeConverter}}" />
                             </TextBlock>
                         </Border>
                         <wuc:SettingsCard.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Tag="{x:Bind}" Text="Open Directory" Click="btnOpenDirectory_Click">
+                                <MenuFlyoutItem Name="menuDirectory"
+                                                Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.OpenDirectoryCommand}"
+                                                CommandParameter="{Binding ElementName=menuDirectory}"
+                                                Tag="{x:Bind}"
+                                                Text="Open Directory">
                                     <MenuFlyoutItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Images/Fluent/filePicker.png"/>
+                                        <ImageIcon Source="ms-appx:///Assets/Fluent/explorer.png" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Tag="{x:Bind}" Visibility="{x:Bind Server, Converter={StaticResource Bool2VisibilityConverter}}" Text="Open File" Click="btnOpenDirectory_Click">
+                                <MenuFlyoutItem Name="menuFile"
+                                                Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.OpenDirectoryCommand}"
+                                                CommandParameter="{Binding ElementName=menuFile}"
+                                                Tag="{x:Bind}"
+                                                Text="Open File"
+                                                Visibility="{x:Bind Server, Converter={StaticResource Bool2VisibilityConverter}}">
                                     <MenuFlyoutItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Images/Fluent/file.png"/>
+                                        <ImageIcon Source="ms-appx:///Assets/Fluent/external.png" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutSubItem Tag="{x:Bind}" Text="Copy Link(s)">
                                     <MenuFlyoutSubItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Images/Fluent/copy.png"/>
+                                        <ImageIcon Source="ms-appx:///Assets/Fluent/copy.png" />
                                     </MenuFlyoutSubItem.Icon>
-                                    <MenuFlyoutItem Tag="{x:Bind}" Text="Copy Selected Item Link" Click="btnCopyDownloadLink_Click">
+                                    <MenuFlyoutItem Name="menuCopy"
+                                                    Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.CopyCommand}"
+                                                    CommandParameter="{Binding ElementName=menuCopy}"
+                                                    Tag="{x:Bind}"
+                                                    Text="Copy Selected Item Link">
                                         <MenuFlyoutItem.Icon>
-                                            <ImageIcon Source="ms-appx:///Assets/Images/Fluent/copy.png"/>
+                                            <ImageIcon Source="ms-appx:///Assets/Fluent/copy.png" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem Tag="{x:Bind}" Text="Copy All Links" Click="btnCopyAllDownloadLinks_Click">
+                                    <MenuFlyoutItem Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.CopyAllCommand}"
+                                                    Tag="{x:Bind}"
+                                                    Text="Copy All Links">
                                         <MenuFlyoutItem.Icon>
-                                            <ImageIcon Source="ms-appx:///Assets/Images/Fluent/copy.png"/>
+                                            <ImageIcon Source="ms-appx:///Assets/Fluent/copy.png" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyoutSubItem>
                                 <MenuFlyoutSubItem Tag="{x:Bind}" Text="Download With IDM">
                                     <MenuFlyoutSubItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Images/Fluent/idm.png"/>
+                                        <ImageIcon Source="ms-appx:///Assets/Fluent/download.png" />
                                     </MenuFlyoutSubItem.Icon>
-                                    <MenuFlyoutItem Tag="{x:Bind}" Text="Download Selected Item With IDM" Click="btnDownloadWithIDM_Click">
+                                    <MenuFlyoutItem Name="menuDownload"
+                                                    Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.DownloadCommand}"
+                                                    CommandParameter="{Binding ElementName=menuDownload}"
+                                                    Tag="{x:Bind}"
+                                                    Text="Download Selected Item With IDM">
                                         <MenuFlyoutItem.Icon>
-                                            <ImageIcon Source="ms-appx:///Assets/Images/Fluent/idm.png"/>
+                                            <ImageIcon Source="ms-appx:///Assets/Fluent/download.png" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem Tag="{x:Bind}" Text="Download All Items With IDM" Click="btnDownloadAllLinksWithIDM_Click">
+                                    <MenuFlyoutItem Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.DownloadAllCommand}"
+                                                    Tag="{x:Bind}"
+                                                    Text="Download All Items With IDM">
                                         <MenuFlyoutItem.Icon>
-                                            <ImageIcon Source="ms-appx:///Assets/Images/Fluent/idm.png"/>
+                                            <ImageIcon Source="ms-appx:///Assets/Fluent/download.png" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyoutSubItem>
@@ -99,7 +155,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ProgressRing Grid.Row="2" IsActive="{x:Bind IsActive}"/>
-        <InfoBar Grid.Row="3" Name="infoStatus" CornerRadius="4,4,0,0" Severity="Informational" IsOpen="True"/>
+        <ProgressRing Grid.Row="2" IsActive="{x:Bind ViewModel.IsActive}" />
+        <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
+                 Grid.Row="3"
+                 CornerRadius="4,4,0,0"
+                 IsOpen="{x:Bind ViewModel.IsStatusOpen, Mode=OneWay}"
+                 Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                 Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
     </Grid>
 </Page>

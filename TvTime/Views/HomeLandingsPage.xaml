@@ -1,47 +1,23 @@
-﻿<Page
-    x:Class="TvTime.Views.HomeLandingsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TvTime.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:wuc="using:WinUICommunity"
-    mc:Ignorable="d">
+﻿<Page x:Class="TvTime.Views.HomeLandingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:wuc="using:WinUICommunity"
+      mc:Ignorable="d">
 
-    <wuc:MainLandingsPage x:Name="mainLandingsPage" Loaded="mainLandingsPage_Loaded"
-                HeaderImage="ms-appx:///Assets/Images/cover1.jpg"
-                HeaderText="TvTime"
-                HeaderSubtitleText="{x:Bind TvTimeVersion}"
-                OnItemClick="mainLandingsPage_OnItemClick">
-        <wuc:MainLandingsPage.HeaderContent>
-            <StackPanel Orientation="Horizontal" Spacing="10" ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
-                <wuc:HeaderTile Title="Source Code" Description="Clone our Source Codes"
-                                     Height="180"
-                                     Link="https://github.com/WinUICommunity/TvTime">
-                    <wuc:HeaderTile.Source>
-                        <PathIcon Data="{StaticResource GitHubIconPath}" Foreground="{ThemeResource TextFillColorPrimaryBrush}">
-                            <PathIcon.RenderTransform>
-                                <CompositeTransform
-                                        ScaleX="2.05"
-                                        ScaleY="2.05"
-                                        TranslateX="-20" />
-                            </PathIcon.RenderTransform>
-                        </PathIcon>
-                    </wuc:HeaderTile.Source>
-                </wuc:HeaderTile>
-                <wuc:HeaderTile x:Name="settingsTile" Title="Settings" Description="change TvTime Settings Based on your needs" Height="180"
-                                     OnItemClick="settingsTile_OnItemClick">
-                    <wuc:HeaderTile.Source>
-                        <Image Source="/Assets/Images/Fluent/settings.png" />
-                    </wuc:HeaderTile.Source>
-                </wuc:HeaderTile>
-                <wuc:HeaderTile x:Name="aboutTile" Title="About" Description="About TvTime" Height="180"
-                                     OnItemClick="aboutTile_OnItemClick">
-                    <wuc:HeaderTile.Source>
-                        <Image Source="/Assets/Images/icon.png" />
-                    </wuc:HeaderTile.Source>
-                </wuc:HeaderTile>
-            </StackPanel>
-        </wuc:MainLandingsPage.HeaderContent>
-    </wuc:MainLandingsPage>
+    <wuc:AllLandingsPage x:Name="allLandingsPage"
+                         HeaderImage="ms-appx:///Assets/Fluent/Cover1.jpg"
+                         HeaderOverlayImage="ms-appx:///Assets/Fluent/Cover1.jpg"
+                         HeaderText="{x:Bind TvTimeVersion}">
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="OnItemClick">
+                <ic:EventTriggerBehavior.Actions>
+                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand}" />
+                </ic:EventTriggerBehavior.Actions>
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+    </wuc:AllLandingsPage>
 </Page>

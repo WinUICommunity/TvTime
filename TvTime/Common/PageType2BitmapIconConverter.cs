@@ -4,9 +4,9 @@ public class PageType2BitmapIconConverter : IValueConverter
 {
     private readonly (string, string)[] _viewTypes = new[]
     {
-        ("Series", "ms-appx:///Assets/Images/Fluent/series.png"),
-        ("Movie", "ms-appx:///Assets/Images/Fluent/movie.png"),
-        ("Anime", "ms-appx:///Assets/Images/anime.png")
+        ("Series", "ms-appx:///Assets/Fluent/series.png"),
+        ("Movie", "ms-appx:///Assets/Fluent/movie.png"),
+        ("Anime", "ms-appx:///Assets/Fluent/anime.png")
     };
     public object Convert(object value, Type targetType, object parameter, string language)
     {
@@ -19,7 +19,7 @@ public class PageType2BitmapIconConverter : IValueConverter
                 return new BitmapIcon { UriSource = new Uri(type.Item2), ShowAsMonochrome = false };
             }
         }
-        return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Images/Fluent/series.png"), ShowAsMonochrome = false };
+        return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/series.png"), ShowAsMonochrome = false };
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)

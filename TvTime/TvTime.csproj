@@ -12,10 +12,10 @@
     <EnableMsixTooling>true</EnableMsixTooling>
 	  <ImplicitUsings>true</ImplicitUsings>
 	  <LangVersion>latest</LangVersion>
-    <ApplicationIcon>Assets\Images\icon.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\Fluent\icon.ico</ApplicationIcon>
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <WindowsPackageType>None</WindowsPackageType>
-    <Version>1.5.0</Version>
+    <Version>1.6.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +25,12 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
     <PackageReference Include="WinUICommunity.Common" Version="4.0.9" />
     <PackageReference Include="WinUICommunity.LandingsPage" Version="2.0.6" />
-    <PackageReference Include="WinUICommunity.SettingsUI" Version="4.0.6" /> 
+    <PackageReference Include="WinUICommunity.SettingsUI" Version="4.0.6" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+    <PackageReference Include="CommunityToolkit.Labs.WinUI.SegmentedControl" Version="0.0.3" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 

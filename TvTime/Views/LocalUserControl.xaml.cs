@@ -406,7 +406,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         var query = (LocalItem) item;
         var name = query.Title ?? "";
         var tName = query.Server ?? "";
-        var txtSearch = MainWindow.Instance.GetTxtSearch();
+        var txtSearch = MainPage.Instance.GetTxtSearch();
         return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
             || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
@@ -428,6 +428,6 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             Title = setting?.Header.ToString(),
             ServerType = ApplicationHelper.GetEnum<ServerType>(GetPageType())
         };
-        MainWindow.Instance.navigationManager.NavigateForJson(typeof(DetailPage), item);
+        App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), item);
     }
 }

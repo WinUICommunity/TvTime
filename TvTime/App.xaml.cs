@@ -1,21 +1,60 @@
-﻿namespace TvTime;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Media;
+
+using TvTime.ViewModels;
+
+namespace TvTime;
 
 public partial class App : Application
 {
-    public ThemeManager themeManager { get; private set; }
+    public NavigationManager NavigationManager { get; set; }
+    public ThemeManager ThemeManager { get; set; }
+    public string TvTimeVersion { get; set; }
+    public Window Window { get; set; }
+    public IServiceProvider Services { get; }
+    public new static App Current => (App) Application.Current;
+
     public App()
     {
+        Services = ConfigureServices();
+
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
         this.InitializeComponent();
+        TvTimeVersion = VersionHelper.GetVersion();
+
         CreateDirectory();
+    }
+
+    private static IServiceProvider ConfigureServices()
+    {
+        var services = new ServiceCollection();
+
+        services.AddTransient<HomeLandingsViewModel>();
+        services.AddTransient<SettingsViewModel>();
+        services.AddTransient<ServerViewModel>();
+        services.AddTransient<DetailsViewModel>();
+
+        //Settings
+        services.AddTransient<AppUpdateSettingViewModel>();
+        services.AddTransient<AboutUsSettingViewModel>();
+        services.AddTransient<BackupSettingViewModel>();
+        services.AddTransient<ThemeSettingViewModel>();
+        services.AddTransient<GeneralSettingViewModel>();
+
+        return services.BuildServiceProvider();
     }
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         m_window = new MainWindow();
-        themeManager = ThemeManager.Initialize(m_window, new ThemeOptions
+        this.Window = m_window;
+        Frame rootFrame = new Frame();
+        m_window.Content = rootFrame;
+        rootFrame.Navigate(typeof(MainPage));
+        ThemeManager = ThemeManager.Initialize(m_window, new ThemeOptions
         {
+            BackdropFallBackColorForWindows10 = Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush,
             TitleBarCustomization = new TitleBarCustomization
             {
                 TitleBarType = TitleBarType.AppWindow

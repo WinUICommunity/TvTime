@@ -1,83 +1,54 @@
-﻿<Page
-    x:Class="TvTime.Views.SettingsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TvTime.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:wuc="using:WinUICommunity"
-    xmlns:settings="using:TvTime.Common"
-    mc:Ignorable="d">
-    <ScrollViewer>
-        <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="280"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <wuc:HomePageHeaderImage
-                        HeaderImage="ms-appx:///Assets/Images/cover1.jpg"
-                        VerticalAlignment="Top" />
-            <StackPanel Grid.Row="1" Spacing="10" Margin="10">
-                <TextBlock TextWrapping="Wrap" Text="Change TvTime Settings based on your needs" Style="{ThemeResource TitleTextBlockStyle}"/>
-                <StackPanel HorizontalAlignment="Stretch" Spacing="3">
-                    <wuc:SettingsExpander IsExpanded="True" Description="Set Application Theme, Backdrop and Accent Color" Header="Appearance &amp; behavior">
-                        <wuc:SettingsExpander.HeaderIcon>
-                            <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/theme.png" ShowAsMonochrome="False" />
-                        </wuc:SettingsExpander.HeaderIcon>
-                        <ComboBox Name="cmbTheme" SelectionChanged="cmbTheme_SelectionChanged">
-                            <ComboBoxItem Tag="Light" Content="Light"/>
-                            <ComboBoxItem Tag="Dark" Content="Dark"/>
-                            <ComboBoxItem Tag="Default" Content="Default"/>
-                        </ComboBox>
-                        <wuc:SettingsExpander.Items>
-                            <wuc:SettingsCard Description="change application backdrop" Header="Backdrop">
-                                <wuc:SettingsCard.HeaderIcon>
-                                    <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/backdrop.png" ShowAsMonochrome="False" />
-                                </wuc:SettingsCard.HeaderIcon>
-                                <ComboBox Name="cmbBackdrop" SelectionChanged="cmbBackdrop_SelectionChanged">
-                                    <ComboBoxItem Tag="Mica" Content="Mica"/>
-                                    <ComboBoxItem Tag="MicaAlt" Content="MicaAlt"/>
-                                    <ComboBoxItem Tag="DesktopAcrylic" Content="Acrylic"/>
-                                </ComboBox>
-                            </wuc:SettingsCard>
-                            <wuc:SettingsCard Click="SettingsCard_Click" IsClickEnabled="True" Description="change windows accent color" Header="Windows color settings">
-                                <wuc:SettingsCard.HeaderIcon>
-                                    <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/color.png" ShowAsMonochrome="False" />
-                                </wuc:SettingsCard.HeaderIcon>
-                            </wuc:SettingsCard>
-                        </wuc:SettingsExpander.Items>
-                    </wuc:SettingsExpander>
-                    <wuc:SettingsCard Description="If false is selected, the corresponding folder will be opened instead of the file itself" Header="Open the file in the browser">
-                        <wuc:SettingsCard.HeaderIcon>
-                            <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/open.png" ShowAsMonochrome="False" />
-                        </wuc:SettingsCard.HeaderIcon>
-                        <ToggleSwitch IsOn="{x:Bind settings:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay}"/>
-                    </wuc:SettingsCard>
-                    <wuc:SettingsCard Description="Choose Icon Pack to display for the season number" Header="Icon Pack">
-                        <wuc:SettingsCard.HeaderIcon>
-                            <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/iconPack.png" ShowAsMonochrome="False" />
-                        </wuc:SettingsCard.HeaderIcon>
-                        <ComboBox Name="cmbIconPack" SelectionChanged="cmbIconPack_SelectionChanged">
-                            <ComboBoxItem Tag="Glyph" Content="Glyph"/>
-                            <ComboBoxItem Tag="Fluent" Content="Fluent"/>
-                        </ComboBox>
-                    </wuc:SettingsCard>
-                    <wuc:SettingsExpander IsExpanded="True" Description="backup and restore servers" Header="Backup &amp; Restore">
-                        <wuc:SettingsExpander.HeaderIcon>
-                            <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/backup.png" ShowAsMonochrome="False" />
-                        </wuc:SettingsExpander.HeaderIcon>
-                        <Button Name="btnBackup" Click="btnBackup_Click" Content="Backup"/>
-                        <wuc:SettingsExpander.Items>
-                            <wuc:SettingsCard x:Name="btnRestore" Click="btnRestore_Click" IsClickEnabled="True" Description="You can import your saved servers to the app" Header="Restore">
-                                <wuc:SettingsCard.HeaderIcon>
-                                    <BitmapIcon UriSource="ms-appx:///Assets/Images/Fluent/restore.png" ShowAsMonochrome="False" />
-                                </wuc:SettingsCard.HeaderIcon>
-                            </wuc:SettingsCard>
-                        </wuc:SettingsExpander.Items>
-                    </wuc:SettingsExpander>
-                    <InfoBar Name="infoBackup" IsOpen="True" IsClosable="False" Title="Status" Severity="Informational"/>
-                </StackPanel>
-            </StackPanel>
-        </Grid>
+﻿<Page x:Class="TvTime.Views.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:wuc="using:WinUICommunity"
+      mc:Ignorable="d">
+    <ScrollViewer Margin="{ThemeResource ContentPageMargin}"
+                  HorizontalAlignment="Stretch"
+                  VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10" Spacing="5">
+            <wuc:SettingsCard Name="appUpdateSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=appUpdateSetting}"
+                              Description="Check for TvTime Update and Download it."
+                              Header="Update App"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/update.png}"
+                              IsClickEnabled="True"
+                              Tag="AppUpdateSettingPage" />
+            <wuc:SettingsCard Name="generalSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=generalSetting}"
+                              Description="TvTime General Settings"
+                              Header="General"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}"
+                              IsClickEnabled="True"
+                              Tag="GeneralSettingPage" />
+            <wuc:SettingsCard Name="themeSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=themeSetting}"
+                              Description="Select your Theme and Material"
+                              Header="Appearance &amp; behavior"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}"
+                              IsClickEnabled="True"
+                              Tag="ThemeSettingPage" />
+            <wuc:SettingsCard Name="backupSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=backupSetting}"
+                              Description="Back up and Restore TvTime Servers and Settings"
+                              Header="Backup &amp; restore"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
+                              IsClickEnabled="True"
+                              Tag="BackupSettingPage" />
+            <wuc:SettingsCard Name="aboutSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=aboutSetting}"
+                              Description="About TvTime and Developer"
+                              Header="About us"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/info.png}"
+                              IsClickEnabled="True"
+                              Tag="AboutUsSettingPage" />
+        </StackPanel>
     </ScrollViewer>
 </Page>

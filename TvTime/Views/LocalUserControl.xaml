@@ -56,8 +56,14 @@
                 <wuc:SettingsCard.Description>
                     <HyperlinkButton Margin="0,5,0,0"
                                      Padding="2,1,2,1"
-                                     Content="{x:Bind Server}"
-                                     NavigateUri="{x:Bind Server}" />
+                                     NavigateUri="{x:Bind Server}">
+                        <HyperlinkButton.Content>
+                            <TextBlock FontSize="12"
+                                       Style="{ThemeResource BaseTextBlockStyle}"
+                                       Text="{x:Bind Server}"
+                                       TextWrapping="Wrap" />
+                        </HyperlinkButton.Content>
+                    </HyperlinkButton>
                 </wuc:SettingsCard.Description>
                 <Border Margin="5,0"
                         Background="{ThemeResource CardBackgroundFillColorDefault}"

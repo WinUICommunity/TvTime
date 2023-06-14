@@ -429,7 +429,8 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 break;
             case DescriptionType.HyperLink:
                 var hyperLink = setting?.Description as HyperlinkButton;
-                server = hyperLink?.Content?.ToString();
+                var hyperLinkContent = hyperLink?.Content as TextBlock;
+                server = hyperLinkContent?.Text;
                 break;
         }
 

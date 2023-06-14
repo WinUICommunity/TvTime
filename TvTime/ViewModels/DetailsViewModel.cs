@@ -78,7 +78,8 @@ public partial class DetailsViewModel : ObservableRecipient
                 break;
             case DescriptionType.HyperLink:
                 var hyperLink = setting?.Description as HyperlinkButton;
-                server = hyperLink?.Content?.ToString();
+                var hyperLinkContent = hyperLink?.Content as TextBlock;
+                server = hyperLinkContent?.Text;
                 break;
         }
 

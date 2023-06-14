@@ -1,5 +1,5 @@
 ﻿namespace TvTime.Common;
-public class Text2BitmapIconConverter : IValueConverter
+public class String2BitmapIconConverter : IValueConverter
 {
     private readonly string defaultIcon = "ms-appx:///Assets/Fluent/media.png";
     private readonly (string, string)[] _subtitles = new[]
@@ -57,14 +57,14 @@ public class Text2BitmapIconConverter : IValueConverter
 
             switch (Settings.IconPack)
             {
-                case IconPack.Glyph:
+                case IconPackType.Glyph:
                     var seasonNumberGlyph = _seasonGlyph.FirstOrDefault(x => text.ToLower().StartsWith(x.Item1, StringComparison.OrdinalIgnoreCase));
                     if (!string.IsNullOrEmpty(seasonNumberGlyph.Item2))
                     {
                         return new FontIcon { Glyph = seasonNumberGlyph.Item2 };
                     }
                     break;
-                case IconPack.Fluent:
+                case IconPackType.Fluent:
                     var seasonNumberFluent = _seasonFluent.FirstOrDefault(x => text.ToLower().StartsWith(x.Item1, StringComparison.OrdinalIgnoreCase));
                     if (!string.IsNullOrEmpty(seasonNumberFluent.Item2))
                     {

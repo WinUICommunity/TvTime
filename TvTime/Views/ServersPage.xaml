@@ -37,7 +37,7 @@
                 <ListView ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate x:Name="SingleLineDataTemplate" x:DataType="model:ServerModel">
-                            <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}" HeaderIcon="{x:Bind IsActive, Converter={StaticResource ActiveServerConverter}}">
+                            <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}" HeaderIcon="{x:Bind IsActive, Converter={StaticResource Bool2FontIconConverter}}">
                                 <wuc:SettingsCard.Resources>
                                     <x:Double x:Key="SettingsCardLeftIndention">42</x:Double>
                                 </wuc:SettingsCard.Resources>

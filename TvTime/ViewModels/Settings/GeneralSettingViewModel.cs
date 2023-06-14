@@ -8,7 +8,7 @@ public partial class GeneralSettingViewModel : ObservableObject
         if (cmbIconPack != null)
         {
             var selectedItem = cmbIconPack.SelectedItem as ComboBoxItem;
-            var iconPack = ApplicationHelper.GetEnum<IconPack>(selectedItem?.Tag?.ToString());
+            var iconPack = ApplicationHelper.GetEnum<IconPackType>(selectedItem?.Tag?.ToString());
             Settings.IconPack = iconPack;
         }
     }

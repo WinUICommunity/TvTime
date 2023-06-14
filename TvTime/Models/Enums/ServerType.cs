@@ -1,4 +1,4 @@
-﻿namespace TvTime.Common;
+﻿namespace TvTime.Models;
 public enum ServerType
 {
     Series = 0,

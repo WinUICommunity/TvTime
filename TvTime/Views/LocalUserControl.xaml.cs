@@ -419,7 +419,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
     {
         var setting = (sender as SettingsCard);
         var textBlock = setting?.Header as TextBlock;
-        var title = textBlock.Text.Trim();
+        var title = textBlock.Text?.Trim();
         var server = string.Empty;
 
         switch (Settings.DescriptionType)

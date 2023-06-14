@@ -68,7 +68,20 @@ public partial class DetailsViewModel : ObservableRecipient
     private async void OnSettingsCard(object sender)
     {
         var setting = (sender as SettingsCard);
-        var server = setting?.Description?.ToString();
+        var textBlock = setting?.Header as TextBlock;
+        var title = textBlock.Text?.Trim();
+        var server = string.Empty;
+        switch (Settings.DescriptionType)
+        {
+            case DescriptionType.TextBlock:
+                server = setting?.Description?.ToString();
+                break;
+            case DescriptionType.HyperLink:
+                var hyperLink = setting?.Description as HyperlinkButton;
+                server = hyperLink?.Content?.ToString();
+                break;
+        }
+
         if (Constants.FileExtensions.Any(server.Contains))
         {
             if (Settings.IsFileOpenInBrowser)
@@ -85,8 +98,8 @@ public partial class DetailsViewModel : ObservableRecipient
         {
             var localItem = new LocalItem
             {
-                Server = setting?.Description?.ToString(),
-                Title = setting?.Header.ToString(),
+                Server = server,
+                Title = title,
                 ServerType = rootLocalItem.ServerType
             };
             DownloadDetails(localItem);
@@ -134,7 +147,7 @@ public partial class DetailsViewModel : ObservableRecipient
         else
         {
             var menuFlyout = (sender as MenuFlyoutItem);
-            var localItem = (LocalItem) menuFlyout?.Tag;
+            var localItem = (LocalItem) menuFlyout?.DataContext;
             var server = localItem.Server?.ToString();
             Process.Start(GetIDMFilePath(), $"/d \"{server?.ToString()}\"");
         }
@@ -177,7 +190,7 @@ public partial class DetailsViewModel : ObservableRecipient
     private void OnCopy(object sender)
     {
         var menuFlyout = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) menuFlyout?.Tag;
+        var localItem = (LocalItem) menuFlyout?.DataContext;
         var server = localItem.Server?.ToString();
         var package = new DataPackage();
         package.SetText(server);
@@ -202,7 +215,7 @@ public partial class DetailsViewModel : ObservableRecipient
     private async void OnOpenDirectory(object sender)
     {
         var menuFlyout = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) menuFlyout?.Tag;
+        var localItem = (LocalItem) menuFlyout?.DataContext;
         var server = localItem.Server?.ToString();
         if (menuFlyout.Text.Contains("File"))
         {

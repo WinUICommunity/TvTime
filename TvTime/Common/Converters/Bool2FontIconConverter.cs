@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Media;
 
 namespace TvTime.Common;
-public class ActiveServerConverter : IValueConverter
+public class Bool2FontIconConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {

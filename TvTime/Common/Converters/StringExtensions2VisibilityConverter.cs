@@ -1,5 +1,5 @@
 ﻿namespace TvTime.Common;
-public class Bool2VisibilityConverter : IValueConverter
+public class StringExtensions2VisibilityConverter : IValueConverter
 {
     private readonly string[] _extensions = new[]
     {

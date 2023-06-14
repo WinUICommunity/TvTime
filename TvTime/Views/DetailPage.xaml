@@ -5,12 +5,136 @@
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+      xmlns:local="using:TvTime.Common"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:TvTime.Models"
       xmlns:wuc="using:WinUICommunity"
       Name="rootPage"
       x:DefaultBindMode="OneWay"
       mc:Ignorable="d">
+    <Page.Resources>
+        <MenuFlyout x:Key="menuFlyout">
+            <MenuFlyoutItem Name="menuDirectory"
+                            Command="{x:Bind ViewModel.OpenDirectoryCommand}"
+                            CommandParameter="{Binding ElementName=menuDirectory}"
+                            Tag="{x:Bind}"
+                            Text="Open Web Directory">
+                <MenuFlyoutItem.Icon>
+                    <ImageIcon Source="ms-appx:///Assets/Fluent/explorer.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Name="menuFile"
+                            Command="{x:Bind ViewModel.OpenDirectoryCommand}"
+                            CommandParameter="{Binding ElementName=menuFile}"
+                            Tag="{x:Bind}"
+                            Text="Open File">
+                <MenuFlyoutItem.Icon>
+                    <ImageIcon Source="ms-appx:///Assets/Fluent/external.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutSubItem Tag="{x:Bind}" Text="Copy Link(s)">
+                <MenuFlyoutSubItem.Icon>
+                    <ImageIcon Source="ms-appx:///Assets/Fluent/copy.png" />
+                </MenuFlyoutSubItem.Icon>
+                <MenuFlyoutItem Name="menuCopy"
+                                Command="{x:Bind ViewModel.CopyCommand}"
+                                CommandParameter="{Binding ElementName=menuCopy}"
+                                Tag="{x:Bind}"
+                                Text="Copy Selected Item Link">
+                    <MenuFlyoutItem.Icon>
+                        <ImageIcon Source="ms-appx:///Assets/Fluent/copy.png" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Command="{x:Bind ViewModel.CopyAllCommand}"
+                                Tag="{x:Bind}"
+                                Text="Copy All Links">
+                    <MenuFlyoutItem.Icon>
+                        <ImageIcon Source="ms-appx:///Assets/Fluent/copy.png" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Tag="{x:Bind}" Text="Download With IDM">
+                <MenuFlyoutSubItem.Icon>
+                    <ImageIcon Source="ms-appx:///Assets/Fluent/download.png" />
+                </MenuFlyoutSubItem.Icon>
+                <MenuFlyoutItem Name="menuDownload"
+                                Command="{x:Bind ViewModel.DownloadCommand}"
+                                CommandParameter="{Binding ElementName=menuDownload}"
+                                Tag="{x:Bind}"
+                                Text="Download Selected Item With IDM">
+                    <MenuFlyoutItem.Icon>
+                        <ImageIcon Source="ms-appx:///Assets/Fluent/download.png" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Command="{x:Bind ViewModel.DownloadAllCommand}"
+                                Tag="{x:Bind}"
+                                Text="Download All Items With IDM">
+                    <MenuFlyoutItem.Icon>
+                        <ImageIcon Source="ms-appx:///Assets/Fluent/download.png" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyoutSubItem>
+        </MenuFlyout>
+
+        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:LocalItem">
+            <wuc:SettingsCard Name="settingsCard"
+                              ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
+                              Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
+                              CommandParameter="{Binding ElementName=settingsCard}"
+                              ContextFlyout="{StaticResource menuFlyout}"
+                              Description="{x:Bind Server}"
+                              HeaderIcon="{x:Bind Title, Converter={StaticResource String2BitmapIconConverter}}"
+                              IsClickEnabled="True">
+                <wuc:SettingsCard.Header>
+                    <TextBlock FontWeight="Normal"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind Title}" />
+                </wuc:SettingsCard.Header>
+                <Border Margin="5,0"
+                        Background="{ThemeResource CardBackgroundFillColorDefault}"
+                        CornerRadius="{ThemeResource ControlCornerRadius}">
+                    <TextBlock Margin="5,0,5,2" Style="{ThemeResource BaseTextBlockStyle}">
+                        <Run Text="{x:Bind DateTime}" />
+                        <Run Text="{x:Bind FileSize, Converter={StaticResource String2FileSizeConverter}}" />
+                    </TextBlock>
+                </Border>
+            </wuc:SettingsCard>
+        </DataTemplate>
+
+        <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:LocalItem">
+            <wuc:SettingsCard Name="settingsCard"
+                              ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
+                              Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
+                              CommandParameter="{Binding ElementName=settingsCard}"
+                              ContextFlyout="{StaticResource menuFlyout}"
+                              HeaderIcon="{x:Bind Title, Converter={StaticResource String2BitmapIconConverter}}"
+                              IsClickEnabled="True">
+                <wuc:SettingsCard.Header>
+                    <TextBlock FontWeight="Normal"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind Title}" />
+                </wuc:SettingsCard.Header>
+                <wuc:SettingsCard.Description>
+                    <HyperlinkButton Margin="0,5,0,0"
+                                     Padding="2,1,2,1"
+                                     Content="{x:Bind Server}"
+                                     NavigateUri="{x:Bind Server}" />
+                </wuc:SettingsCard.Description>
+                <Border Margin="5,0"
+                        Background="{ThemeResource CardBackgroundFillColorDefault}"
+                        CornerRadius="{ThemeResource ControlCornerRadius}">
+                    <TextBlock Margin="5,0,5,2" Style="{ThemeResource BaseTextBlockStyle}">
+                        <Run Text="{x:Bind DateTime}" />
+                        <Run Text="{x:Bind FileSize, Converter={StaticResource String2FileSizeConverter}}" />
+                    </TextBlock>
+                </Border>
+            </wuc:SettingsCard>
+        </DataTemplate>
+
+        <local:ListViewItemTemplateSelector x:Key="ListViewItemTemplateSelector"
+                                            HyperLinkTemplate="{StaticResource HyperLinkTemplate}"
+                                            TextBlockTemplate="{StaticResource TextBlockTemplate}" />
+    </Page.Resources>
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
             <ic:EventTriggerBehavior.Actions>
@@ -64,97 +188,12 @@
                   Grid.Row="2"
                   Margin="5,0,5,5"
                   HorizontalAlignment="Stretch"
+                  ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
                   ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}"
                   SelectionMode="None">
             <ListView.Resources>
                 <Style BasedOn="{StaticResource ListViewItemSettingStyle}" TargetType="ListViewItem" />
             </ListView.Resources>
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="model:LocalItem">
-                    <wuc:SettingsCard Name="settingsCard"
-                                      ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
-                                      Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                      CommandParameter="{Binding ElementName=settingsCard}"
-                                      Description="{x:Bind Server}"
-                                      Header="{x:Bind Title}"
-                                      HeaderIcon="{x:Bind Title, Converter={StaticResource Text2BitmapIconConverter}}"
-                                      IsClickEnabled="True">
-                        <Border Margin="5,0"
-                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-                                CornerRadius="{ThemeResource ControlCornerRadius}">
-                            <TextBlock Margin="5,0,5,2" Style="{ThemeResource BaseTextBlockStyle}">
-                                <Run Text="{x:Bind DateTime}" />
-                                <Run Text="{x:Bind FileSize, Converter={StaticResource FileSizeConverter}}" />
-                            </TextBlock>
-                        </Border>
-                        <wuc:SettingsCard.ContextFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Name="menuDirectory"
-                                                Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.OpenDirectoryCommand}"
-                                                CommandParameter="{Binding ElementName=menuDirectory}"
-                                                Tag="{x:Bind}"
-                                                Text="Open Directory">
-                                    <MenuFlyoutItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Fluent/explorer.png" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-                                <MenuFlyoutItem Name="menuFile"
-                                                Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.OpenDirectoryCommand}"
-                                                CommandParameter="{Binding ElementName=menuFile}"
-                                                Tag="{x:Bind}"
-                                                Text="Open File"
-                                                Visibility="{x:Bind Server, Converter={StaticResource Bool2VisibilityConverter}}">
-                                    <MenuFlyoutItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Fluent/external.png" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-                                <MenuFlyoutSubItem Tag="{x:Bind}" Text="Copy Link(s)">
-                                    <MenuFlyoutSubItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Fluent/copy.png" />
-                                    </MenuFlyoutSubItem.Icon>
-                                    <MenuFlyoutItem Name="menuCopy"
-                                                    Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.CopyCommand}"
-                                                    CommandParameter="{Binding ElementName=menuCopy}"
-                                                    Tag="{x:Bind}"
-                                                    Text="Copy Selected Item Link">
-                                        <MenuFlyoutItem.Icon>
-                                            <ImageIcon Source="ms-appx:///Assets/Fluent/copy.png" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-                                    <MenuFlyoutItem Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.CopyAllCommand}"
-                                                    Tag="{x:Bind}"
-                                                    Text="Copy All Links">
-                                        <MenuFlyoutItem.Icon>
-                                            <ImageIcon Source="ms-appx:///Assets/Fluent/copy.png" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-                                </MenuFlyoutSubItem>
-                                <MenuFlyoutSubItem Tag="{x:Bind}" Text="Download With IDM">
-                                    <MenuFlyoutSubItem.Icon>
-                                        <ImageIcon Source="ms-appx:///Assets/Fluent/download.png" />
-                                    </MenuFlyoutSubItem.Icon>
-                                    <MenuFlyoutItem Name="menuDownload"
-                                                    Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.DownloadCommand}"
-                                                    CommandParameter="{Binding ElementName=menuDownload}"
-                                                    Tag="{x:Bind}"
-                                                    Text="Download Selected Item With IDM">
-                                        <MenuFlyoutItem.Icon>
-                                            <ImageIcon Source="ms-appx:///Assets/Fluent/download.png" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-                                    <MenuFlyoutItem Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.DownloadAllCommand}"
-                                                    Tag="{x:Bind}"
-                                                    Text="Download All Items With IDM">
-                                        <MenuFlyoutItem.Icon>
-                                            <ImageIcon Source="ms-appx:///Assets/Fluent/download.png" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-                                </MenuFlyoutSubItem>
-                            </MenuFlyout>
-                        </wuc:SettingsCard.ContextFlyout>
-                    </wuc:SettingsCard>
-                </DataTemplate>
-            </ListView.ItemTemplate>
         </ListView>
         <ProgressRing Grid.Row="2" IsActive="{x:Bind ViewModel.IsActive}" />
         <InfoBar Title="{x:Bind ViewModel.StatusTitle}"

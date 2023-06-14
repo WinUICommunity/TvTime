@@ -33,9 +33,9 @@
                 </wuc:SettingsCard.Header>
 
                 <Border Margin="5,0"
-                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                        Background="{ThemeResource CardBackgroundFillColorDefault}"
                         CornerRadius="{ThemeResource ControlCornerRadius}"
-                        Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}">
+                        Visibility="{x:Bind DateTime, Converter={StaticResource StringVisibilityConverter}}">
                     <TextBlock Margin="5,0,5,2"
                                Style="{ThemeResource BaseTextBlockStyle}"
                                Text="{x:Bind DateTime}" />
@@ -60,9 +60,9 @@
                                      NavigateUri="{x:Bind Server}" />
                 </wuc:SettingsCard.Description>
                 <Border Margin="5,0"
-                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                        Background="{ThemeResource CardBackgroundFillColorDefault}"
                         CornerRadius="{ThemeResource ControlCornerRadius}"
-                        Visibility="{x:Bind DateTime, Converter={StaticResource String2VisibilityConverter}}">
+                        Visibility="{x:Bind DateTime, Converter={StaticResource StringVisibilityConverter}}">
                     <TextBlock Margin="5,0,5,2"
                                Style="{ThemeResource BaseTextBlockStyle}"
                                Text="{x:Bind DateTime}" />

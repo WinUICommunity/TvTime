@@ -1,17 +1,14 @@
 ﻿namespace TvTime.Common;
-public class String2VisibilityConverter : IValueConverter
+
+public class String2FileSizeConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        var text = value as string;
-        if (string.IsNullOrEmpty(text))
+        if (value is not null && value is string fileSize)
         {
-            return Visibility.Collapsed;
+            return $" - {fileSize}";
         }
-        else
-        {
-            return Visibility.Visible;
-        }
+        return null;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)

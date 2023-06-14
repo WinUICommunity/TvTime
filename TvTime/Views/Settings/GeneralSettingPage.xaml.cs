@@ -15,7 +15,9 @@ public sealed partial class GeneralSettingPage : Page
     private void GeneralSettingPage_Loaded(object sender, RoutedEventArgs e)
     {
         var iconPack = Settings.IconPack;
+        var descType = Settings.DescriptionType;
         cmbIconPack.SelectedItem = cmbIconPack.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == iconPack.ToString());
+        cmbDescriptionType.SelectedItem = cmbDescriptionType.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == descType.ToString());
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)

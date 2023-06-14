@@ -38,6 +38,21 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
+            <wuc:SettingsCard Description="Choose which control to use to display the description in the listview"
+                              Header="Description Type"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
+                <ComboBox Name="cmbDescriptionType">
+                    <ComboBoxItem Content="TextBlock" Tag="TextBlock" />
+                    <ComboBoxItem Content="HyperLink" Tag="HyperLink" />
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="SelectionChanged">
+                            <ic:EventTriggerBehavior.Actions>
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.DescriptionTypeChangedCommand}" CommandParameter="{Binding ElementName=cmbDescriptionType}" />
+                            </ic:EventTriggerBehavior.Actions>
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+            </wuc:SettingsCard>
         </StackPanel>
     </ScrollViewer>
 </Page>

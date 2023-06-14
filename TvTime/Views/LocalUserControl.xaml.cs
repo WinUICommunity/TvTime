@@ -410,7 +410,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
     private async void btnOpenDirectory_Click(object sender, RoutedEventArgs e)
     {
         var menuFlyout = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) menuFlyout?.Tag;
+        var localItem = (LocalItem) menuFlyout?.DataContext;
         var server = localItem.Server?.ToString();
         await Launcher.LaunchUriAsync(new Uri(server));
     }
@@ -418,12 +418,28 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
     private void SettingsCard_Click(object sender, RoutedEventArgs e)
     {
         var setting = (sender as SettingsCard);
+        var textBlock = setting?.Header as TextBlock;
+        var title = textBlock.Text.Trim();
+        var server = string.Empty;
+
+        switch (Settings.DescriptionType)
+        {
+            case DescriptionType.TextBlock:
+                server = setting?.Description?.ToString();
+                break;
+            case DescriptionType.HyperLink:
+                var hyperLink = setting?.Description as HyperlinkButton;
+                server = hyperLink?.Content?.ToString();
+                break;
+        }
+
         var item = new LocalItem
         {
-            Server = setting?.Description?.ToString(),
-            Title = setting?.Header.ToString(),
+            Server = server,
+            Title = title,
             ServerType = ApplicationHelper.GetEnum<ServerType>(GetPageType())
         };
+
         App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), item);
     }
 

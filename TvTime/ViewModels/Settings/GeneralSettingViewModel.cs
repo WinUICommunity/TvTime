@@ -12,4 +12,16 @@ public partial class GeneralSettingViewModel : ObservableObject
             Settings.IconPack = iconPack;
         }
     }
+
+    [RelayCommand]
+    private void OnDescriptionTypeChanged(object sender)
+    {
+        var cmbDescriptionType = sender as ComboBox;
+        if (cmbDescriptionType != null)
+        {
+            var selectedItem = cmbDescriptionType.SelectedItem as ComboBoxItem;
+            var descType = ApplicationHelper.GetEnum<DescriptionType>(selectedItem?.Tag?.ToString());
+            Settings.DescriptionType = descType;
+        }
+    }
 }

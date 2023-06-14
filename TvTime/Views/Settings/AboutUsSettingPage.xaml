@@ -8,31 +8,30 @@
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
 
-    <ScrollViewer>
+    <ScrollViewer Margin="{ThemeResource ContentPageMargin}" VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
             <views:BreadcrumbBarUserControl ItemText="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard Description="TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities."
-                              Header="{x:Bind ViewModel.TvTimeVersion}"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/icon.png}"
-                              IsClickEnabled="True" />
+            <wuc:SettingsExpander Description="TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities."
+                                  Header="TvTime"
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/icon.png}"
+                                  IsExpanded="True">
 
-            <wuc:SettingsCard Command="{x:Bind ViewModel.GoToGithubCommand}"
-                              Description="Clone our source codes from github"
-                              Header="Source Code"
-                              IsClickEnabled="True">
-                <wuc:SettingsCard.HeaderIcon>
-                    <PathIcon Data="{StaticResource GitHubIconPath}" Foreground="{ThemeResource TextFillColorPrimaryBrush}">
-                        <PathIcon.RenderTransform>
-                            <CompositeTransform ScaleX="2.05"
-                                                ScaleY="2.05"
-                                                TranslateX="-20" />
-                        </PathIcon.RenderTransform>
-                    </PathIcon>
-                </wuc:SettingsCard.HeaderIcon>
-            </wuc:SettingsCard>
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           IsTextSelectionEnabled="True"
+                           Text="{x:Bind ViewModel.TvTimeVersion, Mode=OneWay}" />
+                <wuc:SettingsExpander.Items>
+                    <wuc:SettingsCard HorizontalContentAlignment="Left" ContentAlignment="Left">
+                        <StackPanel Orientation="Vertical" Spacing="5">
+                            <TextBlock Text="Related Links" />
+                            <HyperlinkButton Content="Source Code" NavigateUri="https://github.com/winUICommunity/TvTime" />
+                            <HyperlinkButton Content="Release Notes" NavigateUri="https://github.com/WinUICommunity/TvTime/releases" />
+                        </StackPanel>
+                    </wuc:SettingsCard>
+                </wuc:SettingsExpander.Items>
+            </wuc:SettingsExpander>
         </StackPanel>
     </ScrollViewer>
 </Page>

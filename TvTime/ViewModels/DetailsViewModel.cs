@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text;
 
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Labs.WinUI;
 
 using Windows.ApplicationModel.DataTransfer;
 
@@ -33,7 +32,6 @@ public partial class DetailsViewModel : ObservableRecipient
     [ObservableProperty]
     public InfoBarSeverity statusSeverity;
 
-
     public List<string> suggestList = new List<string>();
     private SortDescription currentSortDescription;
 
@@ -46,9 +44,24 @@ public partial class DetailsViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private void OnRefresh()
+    private void OnSegmentedItemChanged(object sender)
     {
-        DownloadDetails(rootLocalItem);
+        var segmented = sender as Segmented;
+        var selectedItem = segmented.SelectedItem as SegmentedItem;
+        if (selectedItem != null)
+        {
+            switch (selectedItem.Tag?.ToString())
+            {
+                case "Refresh":
+                    DownloadDetails(rootLocalItem);
+                    segmented.SelectedIndex = -1;
+                    break;
+                case "Details":
+                    GoToDetails();
+                    segmented.SelectedIndex = -1;
+                    break;
+            }
+        }
     }
 
     [RelayCommand]
@@ -80,8 +93,7 @@ public partial class DetailsViewModel : ObservableRecipient
         }
     }
 
-    [RelayCommand]
-    private void OnDetail()
+    private void GoToDetails()
     {
         var window = new IMDBDetailsWindow();
         window.Title = rootLocalItem.Title;

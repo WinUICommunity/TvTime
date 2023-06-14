@@ -9,7 +9,7 @@
                   HorizontalAlignment="Stretch"
                   VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10" Spacing="5">
-            <wuc:SettingsCard Name="appUpdateSetting"
+            <wuc:SettingsCard x:Name="appUpdateSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
                               CommandParameter="{Binding ElementName=appUpdateSetting}"
                               Description="Check for TvTime Update and Download it."
@@ -17,7 +17,7 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/update.png}"
                               IsClickEnabled="True"
                               Tag="AppUpdateSettingPage" />
-            <wuc:SettingsCard Name="generalSetting"
+            <wuc:SettingsCard x:Name="generalSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
                               CommandParameter="{Binding ElementName=generalSetting}"
                               Description="TvTime General Settings"
@@ -25,7 +25,7 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}"
                               IsClickEnabled="True"
                               Tag="GeneralSettingPage" />
-            <wuc:SettingsCard Name="themeSetting"
+            <wuc:SettingsCard x:Name="themeSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
                               CommandParameter="{Binding ElementName=themeSetting}"
                               Description="Select your Theme and Material"
@@ -33,7 +33,7 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}"
                               IsClickEnabled="True"
                               Tag="ThemeSettingPage" />
-            <wuc:SettingsCard Name="backupSetting"
+            <wuc:SettingsCard x:Name="backupSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
                               CommandParameter="{Binding ElementName=backupSetting}"
                               Description="Back up and Restore TvTime Servers and Settings"
@@ -41,7 +41,7 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
                               IsClickEnabled="True"
                               Tag="BackupSettingPage" />
-            <wuc:SettingsCard Name="aboutSetting"
+            <wuc:SettingsCard x:Name="aboutSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
                               CommandParameter="{Binding ElementName=aboutSetting}"
                               Description="About TvTime and Developer"

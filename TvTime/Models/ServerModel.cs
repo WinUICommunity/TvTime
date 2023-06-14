@@ -1,6 +1,4 @@
-﻿using TvTime.Common;
-
-namespace TvTime.Models;
+﻿namespace TvTime.Models;
 
 public class ServerModel
 {

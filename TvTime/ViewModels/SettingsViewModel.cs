@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-
-using Microsoft.UI.Xaml.Media.Animation;
+﻿using Microsoft.UI.Xaml.Media.Animation;
 
 namespace TvTime.ViewModels;
 public partial class SettingsViewModel : ObservableRecipient

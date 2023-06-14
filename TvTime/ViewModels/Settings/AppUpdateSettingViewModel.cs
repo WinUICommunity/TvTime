@@ -1,8 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.WinUI.UI.Controls;
-
-namespace TvTime.ViewModels;
+﻿namespace TvTime.ViewModels;
 public partial class AppUpdateSettingViewModel : ObservableObject
 {
     [ObservableProperty]

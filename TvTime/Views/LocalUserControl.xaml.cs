@@ -1,4 +1,6 @@
-﻿namespace TvTime.Views;
+﻿using CommunityToolkit.Labs.WinUI;
+
+namespace TvTime.Views;
 
 public sealed partial class LocalUserControl : UserControl, INotifyPropertyChanged
 {
@@ -211,7 +213,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         try
         {
             btnServerStatus.Visibility = Visibility.Collapsed;
-            btnRefresh.IsEnabled = false;
+            segRefresh.IsEnabled = false;
             IsActive = true;
             var urls = Settings.Servers.Where(x => x.ServerType == ApplicationHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
             infoStatus.IsOpen = true;
@@ -265,11 +267,11 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             infoStatus.Severity = InfoBarSeverity.Success;
             btnServerStatus.Visibility = Visibility.Visible;
             buttonInfoBadge.Value = existServer.Count;
-            btnRefresh.IsEnabled = true;
+            segRefresh.IsEnabled = true;
         }
         catch (Exception ex)
         {
-            btnRefresh.IsEnabled = true;
+            segRefresh.IsEnabled = true;
             buttonInfoBadge.Value = existServer.Count;
             IsActive = false;
             infoStatus.Title = $"Error: Added {existServer.Count}/{totalServerCount} Servers";
@@ -367,13 +369,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             return list;
         }
     }
-    private void btnRefresh_Click(object sender, RoutedEventArgs e)
-    {
-        DeleteDirectory(PageType);
-        
-        DownloadServersOnLocalStorage();
-    }
-
+    
     private void btnServerStatus_Click(object sender, RoutedEventArgs e)
     {
         ContentDialog contentDialog = new ContentDialog();
@@ -429,5 +425,21 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             ServerType = ApplicationHelper.GetEnum<ServerType>(GetPageType())
         };
         App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), item);
+    }
+
+    private void segmented_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var item = segmented.SelectedItem as SegmentedItem;
+        if (item != null)
+        {
+            switch (item.Tag?.ToString())
+            {
+                case "Refresh":
+                    DeleteDirectory(PageType);
+                    DownloadServersOnLocalStorage();
+                    segmented.SelectedIndex = -1;
+                    break;
+            }
+        }
     }
 }

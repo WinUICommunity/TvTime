@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-
-namespace TvTime.ViewModels;
+﻿namespace TvTime.ViewModels;
 public partial class BackupSettingViewModel : ObservableObject
 {
     [ObservableProperty]

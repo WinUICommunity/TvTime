@@ -36,7 +36,7 @@
                        Text="{x:Bind TvTimeVersion}" />
             <AutoSuggestBox Name="txtSearch"
                             Grid.Column="4"
-                            Width="450"
+                            Width="350"
                             VerticalAlignment="Center"
                             PlaceholderText="Search Movies, Series, Anime and more"
                             QueryIcon="Find"

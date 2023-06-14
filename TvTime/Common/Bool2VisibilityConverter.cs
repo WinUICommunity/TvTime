@@ -1,6 +1,4 @@
-﻿using Microsoft.UI.Xaml.Data;
-
-namespace TvTime.Common;
+﻿namespace TvTime.Common;
 public class Bool2VisibilityConverter : IValueConverter
 {
     private readonly string[] _extensions = new[]

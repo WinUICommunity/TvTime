@@ -4,6 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:labs="using:CommunityToolkit.Labs.WinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:TvTime.Models"
       xmlns:wuc="using:WinUICommunity"
@@ -24,22 +25,22 @@
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <StackPanel Margin="10,10,0,0"
-                    Orientation="Horizontal"
-                    Spacing="10">
-            <Button Command="{x:Bind ViewModel.RefreshCommand}" IsEnabled="{x:Bind ViewModel.IsRefreshEnabled, Mode=OneWay}">
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                    <SymbolIcon Symbol="Refresh" />
-                    <TextBlock Text="Refresh" />
-                </StackPanel>
-            </Button>
-            <Button Command="{x:Bind ViewModel.DetailCommand}">
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                    <SymbolIcon Symbol="PostUpdate" />
-                    <TextBlock Text="Details" />
-                </StackPanel>
-            </Button>
-        </StackPanel>
+        <labs:Segmented Name="segmented" Margin="10,10,0,0">
+            <labs:SegmentedItem Content="Refresh"
+                                Icon="{wuc:SymbolIcon Symbol=Refresh}"
+                                IsEnabled="{x:Bind ViewModel.IsRefreshEnabled, Mode=OneWay}"
+                                Tag="Refresh" />
+            <labs:SegmentedItem Content="Details"
+                                Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
+                                Tag="Details" />
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}" CommandParameter="{Binding ElementName=segmented}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </labs:Segmented>
         <BreadcrumbBar Name="breadcrumbBar"
                        Grid.Row="1"
                        Margin="10,5,5,5"

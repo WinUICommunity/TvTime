@@ -10,6 +10,7 @@
              Name="rootView"
              x:DefaultBindMode="OneWay"
              mc:Ignorable="d">
+
     <UserControl.Resources>
         <MenuFlyout x:Key="menuFlyout">
             <MenuFlyoutItem Click="btnOpenDirectory_Click"
@@ -80,6 +81,7 @@
                                             HyperLinkTemplate="{StaticResource HyperLinkTemplate}"
                                             TextBlockTemplate="{StaticResource TextBlockTemplate}" />
     </UserControl.Resources>
+
     <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />

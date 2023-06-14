@@ -57,14 +57,14 @@
                                 PlaceholderText="Search"
                                 QueryIcon="Find">
                     <AutoSuggestBox.ItemTemplate>
-                        <DataTemplate x:DataType="wuc:ControlInfoDataItem">
-                            <Grid ColumnSpacing="12">
+                        <DataTemplate x:DataType="wuc:ControlInfoDataItem" x:DefaultBindMode="OneWay">
+                            <Grid Margin="10,0" ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="16" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{x:Bind ImagePath, Mode=OneWay}" />
-                                <TextBlock Grid.Column="1" Text="{x:Bind Title, Mode=OneWay}" />
+                                <Image Source="{x:Bind ImagePath}" />
+                                <TextBlock Grid.Column="1" Text="{x:Bind Title}" />
                             </Grid>
                         </DataTemplate>
                     </AutoSuggestBox.ItemTemplate>

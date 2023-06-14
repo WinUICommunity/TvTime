@@ -35,6 +35,7 @@
             <common:FileExtension2IconConverter x:Key="FileExtension2IconConverter" />
             <common:String2FileSizeConverter x:Key="String2FileSizeConverter" />
             <common:Bool2FontIconConverter x:Key="Bool2FontIconConverter" />
+            <common:String2StyleConverter x:Key="String2StyleConverter" />
 
             <converter:BoolNegationConverter x:Key="BoolNegationConverter" />
             <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" />

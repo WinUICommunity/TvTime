@@ -22,6 +22,9 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
 
     public virtual bool IsFileOpenInBrowser { get; set; }
     public virtual string LastUpdateCheck { get; set; }
+    public virtual string SettingsCardDescriptionStyle { get; set; } = "BaseTextBlockStyle";
+    public virtual double SettingsCardDescriptionFontSize { get; set; } = 12;
+    public virtual string SettingsCardHeaderStyle { get; set; } = "SubtitleTextBlockStyle";
     public virtual DescriptionType DescriptionType { get; set; } = DescriptionType.HyperLink;
     public virtual IconPackType IconPack { get; set; } = IconPackType.Glyph;
 }

@@ -23,9 +23,11 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch IsOn="{x:Bind settings:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
-            <wuc:SettingsCard Description="Choose Icon Pack to display for the season number"
-                              Header="Icon Pack"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}">
+
+            <wuc:SettingsExpander Description="Choose Icon Pack to display for the season number"
+                                  Header="Icon Pack"
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}"
+                                  IsExpanded="False">
                 <ComboBox Name="cmbIconPack">
                     <ComboBoxItem Content="Glyph" Tag="Glyph" />
                     <ComboBoxItem Content="Fluent" Tag="Fluent" />
@@ -37,22 +39,66 @@
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </ComboBox>
-            </wuc:SettingsCard>
-            <wuc:SettingsCard Description="Choose which control to use to display the description in the listview"
-                              Header="Description Type"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
-                <ComboBox Name="cmbDescriptionType">
-                    <ComboBoxItem Content="TextBlock" Tag="TextBlock" />
-                    <ComboBoxItem Content="HyperLink" Tag="HyperLink" />
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.DescriptionTypeChangedCommand}" CommandParameter="{Binding ElementName=cmbDescriptionType}" />
-                            </ic:EventTriggerBehavior.Actions>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ComboBox>
-            </wuc:SettingsCard>
+            </wuc:SettingsExpander>
+            <wuc:SettingsExpander Description="Specify Styles and Font Size"
+                                  Header="TvTime Layout"
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}"
+                                  IsExpanded="True">
+                <wuc:SettingsExpander.Items>
+                    <wuc:SettingsCard Name="settingCardDescType"
+                                      Description="Choose which control to use to display the description in the listview"
+                                      Header="Description Type"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
+                        <ComboBox Name="cmbDescriptionType">
+                            <ComboBoxItem Content="TextBlock" Tag="TextBlock" />
+                            <ComboBoxItem Content="HyperLink" Tag="HyperLink" />
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                                    <ic:EventTriggerBehavior.Actions>
+                                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.DescriptionTypeChangedCommand}" CommandParameter="{Binding ElementName=cmbDescriptionType}" />
+                                    </ic:EventTriggerBehavior.Actions>
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </ComboBox>
+                    </wuc:SettingsCard>
+                    <wuc:SettingsCard Description="Specify the style of the header"
+                                      Header="Header Text Style"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
+                        <ComboBox Name="cmbHeaderStyle" ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}">
+
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                                    <ic:EventTriggerBehavior.Actions>
+                                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.HeaderStyleChangedCommand}" CommandParameter="{Binding ElementName=cmbHeaderStyle}" />
+                                    </ic:EventTriggerBehavior.Actions>
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </ComboBox>
+                    </wuc:SettingsCard>
+                    <wuc:SettingsCard Description="Specify the style of the description"
+                                      Header="Description Text Style"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
+                        <ComboBox Name="cmbDescriptionStyle" ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}">
+
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                                    <ic:EventTriggerBehavior.Actions>
+                                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.DescriptionStyleChangedCommand}" CommandParameter="{Binding ElementName=cmbDescriptionStyle}" />
+                                    </ic:EventTriggerBehavior.Actions>
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </ComboBox>
+                    </wuc:SettingsCard>
+                    <wuc:SettingsCard Description="Specify the font size of the description"
+                                      Header="Description Text Font Size"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}">
+                        <NumberBox Minimum="8"
+                                   SpinButtonPlacementMode="Inline"
+                                   Value="{x:Bind settings:TvTimeHelper.Settings.SettingsCardDescriptionFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wuc:SettingsCard>
+                </wuc:SettingsExpander.Items>
+            </wuc:SettingsExpander>
+
         </StackPanel>
     </ScrollViewer>
 </Page>

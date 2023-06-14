@@ -6,55 +6,25 @@
              xmlns:local="using:TvTime.Common"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:model="using:TvTime.Models"
+             xmlns:views="using:TvTime.Views"
              xmlns:wuc="using:WinUICommunity"
              Name="rootView"
              x:DefaultBindMode="OneWay"
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <MenuFlyout x:Key="menuFlyout">
-            <MenuFlyoutItem Click="btnOpenDirectory_Click"
-                            Tag="{x:Bind}"
-                            Text="Open Web Directory">
-                <MenuFlyoutItem.Icon>
-                    <ImageIcon Source="ms-appx:///Assets/Fluent/explorer.png" />
-                </MenuFlyoutItem.Icon>
-            </MenuFlyoutItem>
-        </MenuFlyout>
-        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:LocalItem">
-            <wuc:SettingsCard Click="SettingsCard_Click"
-                              ContextFlyout="{StaticResource menuFlyout}"
-                              Description="{x:Bind Server}"
-                              HeaderIcon="{Binding ElementName=rootView, Path=DataContext.PageType, Converter={StaticResource PageType2BitmapIconConverter}}"
-                              IsClickEnabled="True">
-                <wuc:SettingsCard.Header>
-                    <TextBlock FontWeight="Normal"
-                               Style="{ThemeResource SubtitleTextBlockStyle}"
-                               Text="{x:Bind Title}" />
-                </wuc:SettingsCard.Header>
 
-                <Border Margin="5,0"
-                        Background="{ThemeResource CardBackgroundFillColorDefault}"
-                        CornerRadius="{ThemeResource ControlCornerRadius}"
-                        Visibility="{x:Bind DateTime, Converter={StaticResource StringVisibilityConverter}}">
-                    <TextBlock Margin="5,0,5,2"
-                               Style="{ThemeResource BaseTextBlockStyle}"
-                               Text="{x:Bind DateTime}" />
-                </Border>
-            </wuc:SettingsCard>
+        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:LocalItem">
+
+            <views:LocalSettingsCardUserControl Description="{x:Bind Server}"
+                                                LocalItem="{x:Bind}"
+                                                PageType="{Binding ElementName=rootView, Path=DataContext.PageType}" />
+
         </DataTemplate>
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:LocalItem">
-            <wuc:SettingsCard Click="SettingsCard_Click"
-                              ContextFlyout="{StaticResource menuFlyout}"
-                              HeaderIcon="{Binding ElementName=rootView, Path=DataContext.PageType, Converter={StaticResource PageType2BitmapIconConverter}}"
-                              IsClickEnabled="True">
-                <wuc:SettingsCard.Header>
-                    <TextBlock FontWeight="Normal"
-                               Style="{ThemeResource SubtitleTextBlockStyle}"
-                               Text="{x:Bind Title}" />
-                </wuc:SettingsCard.Header>
-                <wuc:SettingsCard.Description>
+            <views:LocalSettingsCardUserControl LocalItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
+                <views:LocalSettingsCardUserControl.Description>
                     <HyperlinkButton Margin="0,5,0,0"
                                      Padding="2,1,2,1"
                                      NavigateUri="{x:Bind Server}">
@@ -65,16 +35,8 @@
                                        TextWrapping="Wrap" />
                         </HyperlinkButton.Content>
                     </HyperlinkButton>
-                </wuc:SettingsCard.Description>
-                <Border Margin="5,0"
-                        Background="{ThemeResource CardBackgroundFillColorDefault}"
-                        CornerRadius="{ThemeResource ControlCornerRadius}"
-                        Visibility="{x:Bind DateTime, Converter={StaticResource StringVisibilityConverter}}">
-                    <TextBlock Margin="5,0,5,2"
-                               Style="{ThemeResource BaseTextBlockStyle}"
-                               Text="{x:Bind DateTime}" />
-                </Border>
-            </wuc:SettingsCard>
+                </views:LocalSettingsCardUserControl.Description>
+            </views:LocalSettingsCardUserControl>
         </DataTemplate>
 
         <local:ListViewItemTemplateSelector x:Key="ListViewItemTemplateSelector"

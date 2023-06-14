@@ -107,6 +107,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             btnServerStatus.Visibility = Visibility.Collapsed;
         }
     }
+
     public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync()
     {
         StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(Path.Combine(Constants.ServerDirectoryPath, GetPageType()));
@@ -114,6 +115,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
 
         return await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync();
     }
+
     public string GetBaseUrl(string url)
     {
         string[] qualityValues = { "/1080p/", "/720p/", "/480p/" };
@@ -137,6 +139,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
     {
         return Regex.Replace(title, @"S\d{2}E\d{2}.*", "").Trim();
     }
+
     private async void LoadLocalStorage()
     {
         IsActive = true;
@@ -204,10 +207,12 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         infoStatus.Title = $"{DataListACV?.Count} Local {PageType} Added";
         IsActive = false;
     }
+
     private string GetSeriesTitle(string title)
     {
         return title.Remove(0, title.IndexOf("Iranian/"))?.Replace("Iranian/", "")?.Replace("%20", " ");
     }
+
     private async void DownloadServersOnLocalStorage()
     {
         try
@@ -405,43 +410,6 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         var txtSearch = MainPage.Instance.GetTxtSearch();
         return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
             || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private async void btnOpenDirectory_Click(object sender, RoutedEventArgs e)
-    {
-        var menuFlyout = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) menuFlyout?.DataContext;
-        var server = localItem.Server?.ToString();
-        await Launcher.LaunchUriAsync(new Uri(server));
-    }
-
-    private void SettingsCard_Click(object sender, RoutedEventArgs e)
-    {
-        var setting = (sender as SettingsCard);
-        var textBlock = setting?.Header as TextBlock;
-        var title = textBlock.Text?.Trim();
-        var server = string.Empty;
-
-        switch (Settings.DescriptionType)
-        {
-            case DescriptionType.TextBlock:
-                server = setting?.Description?.ToString();
-                break;
-            case DescriptionType.HyperLink:
-                var hyperLink = setting?.Description as HyperlinkButton;
-                var hyperLinkContent = hyperLink?.Content as TextBlock;
-                server = hyperLinkContent?.Text;
-                break;
-        }
-
-        var item = new LocalItem
-        {
-            Server = server,
-            Title = title,
-            ServerType = ApplicationHelper.GetEnum<ServerType>(GetPageType())
-        };
-
-        App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), item);
     }
 
     private void segmented_SelectionChanged(object sender, SelectionChangedEventArgs e)

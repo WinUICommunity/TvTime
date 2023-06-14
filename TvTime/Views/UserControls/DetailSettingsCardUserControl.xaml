@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="TvTime.Views.DetailSettingsCardUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="using:TvTime.Views"
+             xmlns:wuc="using:WinUICommunity"
+             x:DefaultBindMode="OneWay"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <MenuFlyout x:Key="menuFlyout">
+            <MenuFlyoutItem Name="menuDirectory"
+                            Command="{x:Bind ViewModel.OpenDirectoryCommand}"
+                            CommandParameter="{Binding ElementName=menuDirectory}"
+                            Icon="{wuc:BitmapIcon Source=Assets/Fluent/explorer.png}"
+                            Tag="{x:Bind}"
+                            Text="Open Web Directory" />
+            <MenuFlyoutItem Name="menuFile"
+                            Command="{x:Bind ViewModel.OpenDirectoryCommand}"
+                            CommandParameter="{Binding ElementName=menuFile}"
+                            Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
+                            Tag="{x:Bind}"
+                            Text="Open File"
+                            Visibility="{x:Bind LocalItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
+            <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
+                               Tag="{x:Bind}"
+                               Text="Copy Link(s)">
+
+                <MenuFlyoutItem Name="menuCopy"
+                                Command="{x:Bind ViewModel.CopyCommand}"
+                                CommandParameter="{Binding ElementName=menuCopy}"
+                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
+                                Tag="{x:Bind}"
+                                Text="Copy Selected Item Link" />
+                <MenuFlyoutItem Command="{x:Bind ViewModel.CopyAllCommand}"
+                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
+                                Tag="{x:Bind}"
+                                Text="Copy All Links" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}"
+                               Tag="{x:Bind}"
+                               Text="Download With IDM"
+                               Visibility="{x:Bind LocalItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
+
+                <MenuFlyoutItem Name="menuDownload"
+                                Command="{x:Bind ViewModel.DownloadCommand}"
+                                CommandParameter="{Binding ElementName=menuDownload}"
+                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}"
+                                Tag="{x:Bind}"
+                                Text="Download Selected Item With IDM" />
+                <MenuFlyoutItem Command="{x:Bind ViewModel.DownloadAllCommand}"
+                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}"
+                                Tag="{x:Bind}"
+                                Text="Download All Items With IDM" />
+            </MenuFlyoutSubItem>
+        </MenuFlyout>
+
+    </UserControl.Resources>
+
+    <wuc:SettingsCard Name="settingsCard"
+                      ActionIcon="{x:Bind LocalItem.Server, Converter={StaticResource FileExtension2IconConverter}}"
+                      Command="{x:Bind SettingsCardCommand}"
+                      CommandParameter="{Binding ElementName=settingsCard}"
+                      ContextFlyout="{StaticResource menuFlyout}"
+                      Description="{x:Bind Description}"
+                      HeaderIcon="{x:Bind LocalItem.Title, Converter={StaticResource String2BitmapIconConverter}}"
+                      IsClickEnabled="True">
+        <wuc:SettingsCard.Header>
+            <TextBlock FontWeight="Normal"
+                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                       Text="{x:Bind LocalItem.Title}" />
+        </wuc:SettingsCard.Header>
+
+        <views:DateAndFileSizeUserControl Margin="5,0"
+                                          DateTime="{x:Bind LocalItem.DateTime}"
+                                          FileSize="{x:Bind LocalItem.FileSize}" />
+
+    </wuc:SettingsCard>
+</UserControl>

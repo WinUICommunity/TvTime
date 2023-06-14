@@ -16,9 +16,6 @@
             </ic:EventTriggerBehavior.Actions>
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
-    <Page.Resources>
-        <Style BasedOn="{StaticResource ListViewItemSettingStyle}" TargetType="ListViewItem" />
-    </Page.Resources>
     <Grid Margin="10,0,10,10" ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
         <Grid.RowDefinitions>
             <RowDefinition />

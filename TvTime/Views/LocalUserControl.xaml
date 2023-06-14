@@ -99,11 +99,7 @@
                   HorizontalAlignment="Stretch"
                   ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
                   ItemsSource="{x:Bind DataListACV}"
-                  SelectionMode="None">
-            <ListView.Resources>
-                <Style BasedOn="{StaticResource ListViewItemSettingStyle}" TargetType="ListViewItem" />
-            </ListView.Resources>
-        </ListView>
+                  SelectionMode="None" />
         <ProgressRing Grid.Row="1" IsActive="{x:Bind IsActive}" />
         <InfoBar Name="infoStatus"
                  Grid.Row="2"

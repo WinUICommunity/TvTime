@@ -347,11 +347,13 @@ public partial class DetailsViewModel : ObservableRecipient
             MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline);
 
             Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
+
             Regex fileSizeRegex = new Regex("<br>(.*?)<", RegexOptions.IgnoreCase);
             MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
 
             var fileSizeContent = content.Replace("<br><br>", "<br>");
-            MatchCollection fileSizeMatches = fileSizeRegex.Matches(fileSizeContent);
+            var fileSizeMatches = fileSizeRegex.Matches(fileSizeContent);
+
             int index = 0;
             foreach (Match m in m1)
             {
@@ -377,10 +379,12 @@ public partial class DetailsViewModel : ObservableRecipient
                 string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
 
                 i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
-                if (i.Server.Equals($"{localItem.Server}../") || i.Title.Equals("[To Parent Directory]") || (i.Server.Contains("aiocdn") && link.Contains("?C=")))
+                if (i.Server.Equals($"{localItem.Server}../") || i.Title.Equals("[To Parent Directory]") ||
+                    ((i.Server.Contains("aiocdn") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
                 {
                     continue;
                 }
+
                 if (dateTimeMatches.Count > 0 && index <= dateTimeMatches.Count)
                 {
                     var matchDate = dateTimeMatches[index].Value;

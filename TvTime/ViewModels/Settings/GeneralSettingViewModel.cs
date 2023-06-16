@@ -1,5 +1,5 @@
 ﻿namespace TvTime.ViewModels;
-public partial class GeneralSettingViewModel : ObservableObject
+public partial class GeneralSettingViewModel : ObservableRecipient
 {
     [ObservableProperty]
     public ObservableCollection<string> textBlockStyles = new ObservableCollection<string>

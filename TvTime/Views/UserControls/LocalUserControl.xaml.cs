@@ -356,7 +356,9 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
                 i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
 
-                if (i.Server.Equals($"{server.Server}/../") || i.Server.Equals($"{server.Server}../") || i.Title.Equals("[To Parent Directory]") || (i.Server.Contains("aiocdn") && link.Contains("?C=")))
+                if (i.Server.Equals($"{server.Server}/../") || i.Server.Equals($"{server.Server}../") ||
+                    i.Title.Equals("[To Parent Directory]") ||
+                    ((i.Server.Contains("aiocdn") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
                 {
                     continue;
                 }

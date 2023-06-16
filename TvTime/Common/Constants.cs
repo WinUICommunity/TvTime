@@ -16,7 +16,7 @@ public class Constants
     public const string IMDBBaseUrl = "https://www.imdb.com/title/{0}";
     public const string TVTIME_REPO = "https://github.com/winUICommunity/TvTime";
 
-    public const string DateTimeRegex = @"(?<date>(?:\d{1,2}\/\d{1,2}\/\d{4}|\d{1,4}\/\d{1,2}\/\d{2}|\d{1,2}-(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}|(?:January|February|March|April|May|June|Jule|August|September|October|November|December) \d{1,2}, \d{4}))(?:\s+(?<time>\d{1,2}:\d{1,2}(?:[^\S\r\n]{0,}(?:AM|PM))?))?";
+    public const string DateTimeRegex = @"(?<date>(?:\d{1,2}\/\d{1,2}\/\d{4}|\d{1,4}\/\d{1,2}\/\d{2}|\d{1,2}-(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}|(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}|\d{4}-[A-Za-z]{3}-\d{2} \d{2}:\d{2}))(?:\s+(?<time>\d{1,2}:\d{1,2}(?:[^\S\r\n]{0,}(?:AM|PM))?))?";
 
     public static readonly string[] FileExtensions = new string[] { ".mp4", ".wav", ".m4a", ".mp3", ".mkv" };
 }

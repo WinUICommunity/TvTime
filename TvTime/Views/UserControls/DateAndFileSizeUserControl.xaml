@@ -10,7 +10,7 @@
     <Border Background="{ThemeResource CardBackgroundFillColorDefault}"
             CornerRadius="{ThemeResource ControlCornerRadius}"
             Visibility="{x:Bind DateTime, Converter={StaticResource StringVisibilityConverter}}">
-        <StackPanel Margin="5,0,5,2"
+        <StackPanel Padding="5,0,0,2"
                     Orientation="Horizontal"
                     Spacing="5">
             <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind DateTime}" />

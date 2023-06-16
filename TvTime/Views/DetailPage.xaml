@@ -30,7 +30,8 @@
                                                  SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
                                                  ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
                 <views:DetailSettingsCardUserControl.Description>
-                    <HyperlinkButton Margin="0,5,0,0"
+                    <HyperlinkButton Name="serverHyperLink"
+                                     Margin="0,5,0,0"
                                      Padding="2,1,2,1"
                                      NavigateUri="{x:Bind Server}">
                         <HyperlinkButton.Content>
@@ -39,6 +40,18 @@
                                        Text="{x:Bind Server}"
                                        TextWrapping="Wrap" />
                         </HyperlinkButton.Content>
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=OneTime}" Value="True">
+                                <ic:ChangePropertyAction PropertyName="BorderThickness"
+                                                         TargetObject="{Binding ElementName=serverHyperLink}"
+                                                         Value="1" />
+                            </ic:DataTriggerBehavior>
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=OneTime}" Value="False">
+                                <ic:ChangePropertyAction PropertyName="BorderThickness"
+                                                         TargetObject="{Binding ElementName=serverHyperLink}"
+                                                         Value="0" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
                     </HyperlinkButton>
                 </views:DetailSettingsCardUserControl.Description>
             </views:DetailSettingsCardUserControl>

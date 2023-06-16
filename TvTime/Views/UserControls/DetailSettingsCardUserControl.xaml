@@ -74,9 +74,7 @@
                        Text="{x:Bind LocalItem.Title}" />
         </wuc:SettingsCard.Header>
 
-        <views:DateAndFileSizeUserControl Margin="5,0"
-                                          DateTime="{x:Bind LocalItem.DateTime}"
-                                          FileSize="{x:Bind LocalItem.FileSize}" />
+        <views:DateAndFileSizeUserControl DateTime="{x:Bind LocalItem.DateTime}" FileSize="{x:Bind LocalItem.FileSize}" />
 
     </wuc:SettingsCard>
 </UserControl>

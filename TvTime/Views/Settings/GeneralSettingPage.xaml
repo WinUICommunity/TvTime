@@ -42,7 +42,7 @@
             </wuc:SettingsExpander>
             <wuc:SettingsExpander Description="Specify Styles and Font Size"
                                   Header="TvTime Layout"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}"
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/layout.png}"
                                   IsExpanded="True">
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard Name="settingCardDescType"
@@ -61,9 +61,29 @@
                             </i:Interaction.Behaviors>
                         </ComboBox>
                     </wuc:SettingsCard>
+                    <wuc:SettingsCard Description="Specify the borderThickness of the hyperlink"
+                                      Header="HyperLink BorderThickness"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/border.png}">
+                        <ToggleSwitch Name="tgHyperLinkBorderThickness"
+                                      IsEnabled="False"
+                                      IsOn="{x:Bind settings:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Behaviors>
+                                <ic:DataTriggerBehavior Binding="{Binding SelectedIndex, ElementName=cmbDescriptionType}" Value="1">
+                                    <ic:ChangePropertyAction PropertyName="IsEnabled"
+                                                             TargetObject="{Binding ElementName=tgHyperLinkBorderThickness}"
+                                                             Value="True" />
+                                </ic:DataTriggerBehavior>
+                                <ic:DataTriggerBehavior Binding="{Binding SelectedIndex, ElementName=cmbDescriptionType}" Value="0">
+                                    <ic:ChangePropertyAction PropertyName="IsEnabled"
+                                                             TargetObject="{Binding ElementName=tgHyperLinkBorderThickness}"
+                                                             Value="False" />
+                                </ic:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </ToggleSwitch>
+                    </wuc:SettingsCard>
                     <wuc:SettingsCard Description="Specify the style of the header"
                                       Header="Header Text Style"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
                         <ComboBox Name="cmbHeaderStyle" ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}">
 
                             <i:Interaction.Behaviors>
@@ -75,9 +95,16 @@
                             </i:Interaction.Behaviors>
                         </ComboBox>
                     </wuc:SettingsCard>
+                    <wuc:SettingsCard Description="Specify the font size of the header"
+                                      Header="Header Text Font Size"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}">
+                        <NumberBox Minimum="8"
+                                   SpinButtonPlacementMode="Inline"
+                                   Value="{x:Bind settings:TvTimeHelper.Settings.SettingsCardHeaderFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wuc:SettingsCard>
                     <wuc:SettingsCard Description="Specify the style of the description"
                                       Header="Description Text Style"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
                         <ComboBox Name="cmbDescriptionStyle" ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}">
 
                             <i:Interaction.Behaviors>

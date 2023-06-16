@@ -36,7 +36,7 @@
                        Text="{x:Bind TvTimeVersion}" />
             <AutoSuggestBox Name="txtSearch"
                             Grid.Column="4"
-                            Width="350"
+                            Width="400"
                             VerticalAlignment="Center"
                             PlaceholderText="Search Movies, Series, Anime and more"
                             QueryIcon="Find"
@@ -58,7 +58,7 @@
                                 QueryIcon="Find">
                     <AutoSuggestBox.ItemTemplate>
                         <DataTemplate x:DataType="wuc:ControlInfoDataItem" x:DefaultBindMode="OneWay">
-                            <Grid Margin="10,0" ColumnSpacing="12">
+                            <Grid ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="16" />
                                     <ColumnDefinition Width="*" />

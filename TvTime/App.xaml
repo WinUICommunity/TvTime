@@ -40,8 +40,23 @@
             <converter:BoolNegationConverter x:Key="BoolNegationConverter" />
             <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" />
 
+            <x:Double x:Key="ControlContentThemeFontSize">16</x:Double>
+
             <Style BasedOn="{StaticResource ListViewItemSettingStyle}" TargetType="ListViewItem" />
 
+            <!--
+                Due to the fact that we have overwritten all the styles of the ListViewItem, therefore,
+                the styles of every control that uses the ListView are messed up, like the AutoSuggestBox.
+                So we have to set the default style of ListViewItem for them again
+            -->
+
+            <Style BasedOn="{StaticResource DefaultAutoSuggestBoxStyle}" TargetType="AutoSuggestBox">
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -318,8 +318,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         }
         else
         {
-            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)",
-            RegexOptions.Singleline);
+            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline|RegexOptions.IgnoreCase);
 
             Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
             MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
@@ -330,7 +329,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 string value = m.Groups[1].Value;
                 LocalItem i = new LocalItem();
 
-                Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline);
+                Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline|RegexOptions.IgnoreCase);
 
                 string link = string.Empty;
 
@@ -338,6 +337,11 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 {
                     link = m2.Groups[1].Value;
                     if (server.Server.Contains("freelecher"))
+                    {
+                        var url = new Uri(server.Server).GetLeftPart(UriPartial.Authority);
+                        i.Server = $"{url}{link}";
+                    }
+                    else if (server.Server.Contains("dl3.dl1acemovies") || server.Server.Contains("dl4.dl1acemovies"))
                     {
                         var url = new Uri(server.Server).GetLeftPart(UriPartial.Authority);
                         i.Server = $"{url}{link}";

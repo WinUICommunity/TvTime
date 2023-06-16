@@ -64,11 +64,14 @@ public static class TvTimeHelper
     }
     public static string RemoveSpecialWords(string stringToClean)
     {
-        Regex wordFilter = new Regex(Constants.FileNameRegex, RegexOptions.IgnoreCase);
-        var cleaned = wordFilter.Replace(stringToClean, " ").Trim();
-        cleaned = Regex.Replace(cleaned, "[ ]{2,}", " "); // remove space [More than 2 space] and replace with one space
+        if (!string.IsNullOrEmpty(stringToClean))
+        {
+            Regex wordFilter = new Regex(Constants.FileNameRegex, RegexOptions.IgnoreCase);
+            var cleaned = wordFilter.Replace(stringToClean, " ").Trim();
+            cleaned = Regex.Replace(cleaned, "[ ]{2,}", " "); // remove space [More than 2 space] and replace with one space
 
-        return cleaned.Trim();
+            return cleaned.Trim();
+        }else { return stringToClean; }
     }
 
     public static bool ExistDirectory(PageOrDirectoryType directoryType)

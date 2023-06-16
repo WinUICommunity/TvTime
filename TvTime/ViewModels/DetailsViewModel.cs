@@ -344,7 +344,7 @@ public partial class DetailsViewModel : ObservableRecipient
         }
         else
         {
-            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline);
+            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline|RegexOptions.IgnoreCase);
 
             Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
 
@@ -366,6 +366,11 @@ public partial class DetailsViewModel : ObservableRecipient
                 {
                     link = m2.Groups[1].Value;
                     if (localItem.Server.Contains("freelecher"))
+                    {
+                        var url = new Uri(localItem.Server).GetLeftPart(UriPartial.Authority);
+                        i.Server = $"{url}{link}";
+                    }
+                    else if (localItem.Server.Contains("dl3.dl1acemovies") || localItem.Server.Contains("dl4.dl1acemovies"))
                     {
                         var url = new Uri(localItem.Server).GetLeftPart(UriPartial.Authority);
                         i.Server = $"{url}{link}";

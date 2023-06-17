@@ -40,6 +40,8 @@ public partial class App : Application
         services.AddTransient<BackupSettingViewModel>();
         services.AddTransient<ThemeSettingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
+        services.AddTransient<HeaderStyleSettingViewModel>();
+        services.AddTransient<DescriptionStyleSettingViewModel>();
 
         return services.BuildServiceProvider();
     }

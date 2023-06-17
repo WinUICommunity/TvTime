@@ -39,6 +39,7 @@
 
             <converter:BoolNegationConverter x:Key="BoolNegationConverter" />
             <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" />
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
             <x:Double x:Key="ControlContentThemeFontSize">16</x:Double>
 

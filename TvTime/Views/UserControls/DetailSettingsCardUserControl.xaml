@@ -69,7 +69,8 @@
                       HeaderIcon="{x:Bind LocalItem.Title, Converter={StaticResource String2BitmapIconConverter}}"
                       IsClickEnabled="True">
         <wuc:SettingsCard.Header>
-            <TextBlock FontWeight="Normal"
+            <TextBlock FontSize="{x:Bind local:TvTimeHelper.Settings.SettingsCardHeaderFontSize}"
+                       FontWeight="Normal"
                        Style="{x:Bind local:TvTimeHelper.Settings.SettingsCardHeaderStyle, Converter={StaticResource String2StyleConverter}}"
                        Text="{x:Bind LocalItem.Title}" />
         </wuc:SettingsCard.Header>

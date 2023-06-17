@@ -38,12 +38,12 @@
                                        TextWrapping="Wrap" />
                         </HyperlinkButton.Content>
                         <i:Interaction.Behaviors>
-                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=OneTime}" Value="True">
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness}" Value="True">
                                 <ic:ChangePropertyAction PropertyName="BorderThickness"
                                                          TargetObject="{Binding ElementName=serverHyperLink}"
                                                          Value="1" />
                             </ic:DataTriggerBehavior>
-                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=OneTime}" Value="False">
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness}" Value="False">
                                 <ic:ChangePropertyAction PropertyName="BorderThickness"
                                                          TargetObject="{Binding ElementName=serverHyperLink}"
                                                          Value="0" />

@@ -53,6 +53,7 @@ public static class TvTimeHelper
 
         return hex;
     }
+
     public static string GetDecodedStringFromHtml(string text)
     {
         if (string.IsNullOrEmpty(text))
@@ -62,6 +63,7 @@ public static class TvTimeHelper
         var result = decoded != text;
         return result ? decoded : text;
     }
+
     public static string RemoveSpecialWords(string stringToClean)
     {
         if (!string.IsNullOrEmpty(stringToClean))
@@ -145,5 +147,40 @@ public static class TvTimeHelper
         return string.Format(
             formatTemplate,
             size < 0 ? "-" : null, normSize, sizeSuffixes[iUnit]);
-    } 
+    }
+
+    public static ObservableCollection<string> GenerateTextBlockStyles()
+    {
+        return new ObservableCollection<string>
+        {
+            "BaseTextBlockStyle",
+            "BodyStrongTextBlockStyle",
+            "BodyTextBlockStyle",
+            "CaptionTextBlockStyle",
+            "DisplayTextBlockStyle",
+            "HeaderTextBlockStyle",
+            "SubheaderTextBlockStyle",
+            "SubtitleTextBlockStyle",
+            "TitleLargeTextBlockStyle",
+            "TitleTextBlockStyle"
+        };
+    }
+
+    public static double GetFontSizeBasedOnTextBlockStyle(string styleName)
+    {
+        return styleName switch
+        {
+            "BaseTextBlockStyle" => (double) Application.Current.Resources["BodyTextBlockFontSize"],
+            "BodyStrongTextBlockStyle" => (double) Application.Current.Resources["BodyTextBlockFontSize"],
+            "BodyTextBlockStyle" => (double) Application.Current.Resources["BodyTextBlockFontSize"],
+            "CaptionTextBlockStyle" => (double) Application.Current.Resources["CaptionTextBlockFontSize"],
+            "DisplayTextBlockStyle" => (double) Application.Current.Resources["DisplayTextBlockFontSize"],
+            "HeaderTextBlockStyle" => 46,
+            "SubheaderTextBlockStyle" => 34,
+            "SubtitleTextBlockStyle" => (double) Application.Current.Resources["SubtitleTextBlockFontSize"],
+            "TitleLargeTextBlockStyle" => (double) Application.Current.Resources["TitleLargeTextBlockFontSize"],
+            "TitleTextBlockStyle" => (double) Application.Current.Resources["TitleTextBlockFontSize"],
+            _ => 14
+        };
+    }
 }

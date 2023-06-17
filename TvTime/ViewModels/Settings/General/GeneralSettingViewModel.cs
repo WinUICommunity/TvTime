@@ -1,10 +1,22 @@
 ﻿using Microsoft.UI.Xaml.Media.Animation;
 
 namespace TvTime.ViewModels;
-public partial class SettingsViewModel : ObservableObject
+public partial class GeneralSettingViewModel : ObservableObject
 {
     [RelayCommand]
-    private void GoToSettingPage(object sender)
+    private void OnIconPackChanged(object sender)
+    {
+        var cmbIconPack = sender as ComboBox;
+        if (cmbIconPack != null)
+        {
+            var selectedItem = cmbIconPack.SelectedItem as ComboBoxItem;
+            var iconPack = ApplicationHelper.GetEnum<IconPackType>(selectedItem?.Tag?.ToString());
+            Settings.IconPack = iconPack;
+        }
+    }
+
+    [RelayCommand]
+    private void GoToStyleSettingPage(object sender)
     {
         var settingCard = sender as SettingsCard;
         if (settingCard.Tag != null)

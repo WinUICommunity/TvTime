@@ -24,8 +24,10 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual string LastUpdateCheck { get; set; }
     public virtual string SettingsCardDescriptionStyle { get; set; } = "BaseTextBlockStyle";
     public virtual double SettingsCardDescriptionFontSize { get; set; } = 12;
+    public virtual bool UseDescriptionCustomFontSize { get; set; } = false;
     public virtual string SettingsCardHeaderStyle { get; set; } = "SubtitleTextBlockStyle";
-    public virtual double SettingsCardHeaderFontSize { get; set; } = 14;
+    public virtual double SettingsCardHeaderFontSize { get; set; } = 20;
+    public virtual bool UseHeaderCustomFontSize { get; set; } = false;
     public virtual bool HasHyperLinkBorderThickness { get; set; } = false;
     public virtual DescriptionType DescriptionType { get; set; } = DescriptionType.HyperLink;
     public virtual IconPackType IconPack { get; set; } = IconPackType.Glyph;

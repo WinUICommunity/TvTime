@@ -19,6 +19,14 @@
                                   Header="Backup &amp; Restore TvTime Servers"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
                                   IsExpanded="True">
+                <wuc:SettingsExpander.ItemsHeader>
+                    <InfoBar Title="{x:Bind ViewModel.StatusText, Mode=OneWay}"
+                             BorderThickness="0"
+                             CornerRadius="0"
+                             IsClosable="False"
+                             IsOpen="True"
+                             Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
+                </wuc:SettingsExpander.ItemsHeader>
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard Command="{x:Bind ViewModel.BackupServerCommand}"
                                       Description="You can export your saved servers to any location"
@@ -32,10 +40,7 @@
                                       IsClickEnabled="True" />
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
-            <InfoBar Title="{x:Bind ViewModel.StatusText, Mode=OneWay}"
-                     IsClosable="False"
-                     IsOpen="True"
-                     Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
+
         </StackPanel>
     </ScrollViewer>
 </Page>

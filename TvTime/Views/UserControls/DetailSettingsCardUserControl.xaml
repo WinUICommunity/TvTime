@@ -60,7 +60,7 @@
 
     </UserControl.Resources>
 
-    <wuc:SettingsCard Name="settingsCard"
+    <wuc:SettingsCard x:Name="settingsCard"
                       ActionIcon="{x:Bind LocalItem.Server, Converter={StaticResource FileExtension2IconConverter}}"
                       Command="{x:Bind SettingsCardCommand}"
                       CommandParameter="{Binding ElementName=settingsCard}"

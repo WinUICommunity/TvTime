@@ -78,7 +78,7 @@
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <labs:Segmented Name="segmented" Margin="10,10,0,0">
+        <labs:Segmented x:Name="segmented" Margin="10,10,0,0">
             <labs:SegmentedItem Content="Refresh"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"

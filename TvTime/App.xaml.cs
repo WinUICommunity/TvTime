@@ -32,6 +32,7 @@ public partial class App : Application
         services.AddTransient<HomeLandingsViewModel>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<ServerViewModel>();
+        services.AddTransient<MediaViewModel>();
         services.AddTransient<DetailsViewModel>();
 
         //Settings

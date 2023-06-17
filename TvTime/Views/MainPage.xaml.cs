@@ -44,7 +44,7 @@ public sealed partial class MainPage : Page
         txtSearch.ItemsSource = null;
         if (root is AnimesPage || root is MoviesPage || root is SeriesPage)
         {
-            viewModel = root.Content as LocalUserControl;
+            viewModel = MediaUserControl.Instance.ViewModel;
         }
         else if (rootFrame.Content is DetailPage)
         {

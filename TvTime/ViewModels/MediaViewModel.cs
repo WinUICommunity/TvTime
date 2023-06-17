@@ -1,95 +1,45 @@
 ﻿using CommunityToolkit.Labs.WinUI;
 
-namespace TvTime.Views;
-
-public sealed partial class LocalUserControl : UserControl, INotifyPropertyChanged
+namespace TvTime.ViewModels;
+public partial class MediaViewModel : ObservableRecipient
 {
-    public PageOrDirectoryType PageType
-    {
-        get { return (PageOrDirectoryType) GetValue(PageTypeProperty); }
-        set { SetValue(PageTypeProperty, value); }
-    }
-    public static readonly DependencyProperty PageTypeProperty =
-        DependencyProperty.Register("PageType", typeof(PageOrDirectoryType), typeof(LocalUserControl), new PropertyMetadata(null));
+    [ObservableProperty]
+    public ObservableCollection<LocalItem> dataList;
 
+    [ObservableProperty]
+    public AdvancedCollectionView dataListACV;
 
-    public event PropertyChangedEventHandler PropertyChanged;
-    private void OnPropertyChanged([CallerMemberName] String propertyName = "")
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    [ObservableProperty]
+    public bool isStatusOpen;
 
-    private bool isActive;
-    public bool IsActive
-    {
-        get { return isActive; }
-        set
-        {
-            if (value != this.isActive)
-            {
-                this.isActive = value;
-                OnPropertyChanged();
-            }
-        }
-    }
+    [ObservableProperty]
+    public string statusMessage;
 
-    private ObservableCollection<LocalItem> dataList;
-    public ObservableCollection<LocalItem> DataList
-    {
-        get { return dataList; }
-        set
-        {
-            if (value != this.dataList)
-            {
-                this.dataList = value;
-                OnPropertyChanged();
-            }
-        }
-    }
+    [ObservableProperty]
+    public string statusTitle;
 
+    [ObservableProperty]
+    public InfoBarSeverity statusSeverity;
 
-    private AdvancedCollectionView dataListACV;
-    public AdvancedCollectionView DataListACV
-    {
-        get { return dataListACV; }
-        set
-        {
-            if (value != this.dataListACV)
-            {
-                this.dataListACV = value;
-                OnPropertyChanged();
-            }
-        }
-    }
+    [ObservableProperty]
+    public bool isServerStatusOpen;
+
+    [ObservableProperty]
+    public int infoBadgeValue;
 
     public List<string> suggestList = new List<string>();
     private List<string> existServer = new List<string>();
 
     private SortDescription currentSortDescription;
-    JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
+    private PageOrDirectoryType PageType;
     private int totalServerCount = 0;
 
-    public LocalUserControl()
-    {
-        this.InitializeComponent();
-        DataContext = this;
-        Loaded += LocalUserControl_Loaded;
-    }
+    JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
 
-    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    [RelayCommand]
+    private void OnPageLoaded()
     {
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
-    }
-
-    public string GetPageType()
-    {
-        return PageType.ToString();
-    }
-
-    private void LocalUserControl_Loaded(object sender, RoutedEventArgs e)
-    {
+        PageType = MediaUserControl.Instance.PageType;
         if (ExistDirectory(PageType))
         {
             LoadLocalStorage();
@@ -101,11 +51,75 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
 
         if (Settings.Servers.Count == 0)
         {
-            infoStatus.Title = "Server not found";
-            infoStatus.Message = "Please add some Servers";
-            infoStatus.Severity = InfoBarSeverity.Warning;
-            btnServerStatus.Visibility = Visibility.Collapsed;
+            IsStatusOpen = true;
+            StatusTitle = "Server not found";
+            StatusMessage = "Please add some Servers";
+            StatusSeverity = InfoBarSeverity.Warning;
+            IsServerStatusOpen = false;
         }
+    }
+
+    [RelayCommand]
+    private void OnSegmentedItemChanged(object sender)
+    {
+        var segmented = sender as Segmented;
+        var selectedItem = segmented.SelectedItem as SegmentedItem;
+        if (selectedItem != null)
+        {
+            switch (selectedItem.Tag?.ToString())
+            {
+                case "Refresh":
+                    DeleteDirectory(PageType);
+                    DownloadServersOnLocalStorage();
+                    segmented.SelectedIndex = -1;
+                    break;
+            }
+        }
+    }
+
+    [RelayCommand]
+    private void OnServerStatus()
+    {
+        ContentDialog contentDialog = new ContentDialog();
+        contentDialog.XamlRoot = App.Current.Window.Content.XamlRoot;
+        contentDialog.Title = $"Server Status - {existServer.Count} Server(s) Added";
+        var stck = new StackPanel
+        {
+            Spacing = 10,
+            Margin = new Thickness(10)
+        };
+
+        foreach (var item in existServer)
+        {
+            var infoBar = new InfoBar();
+            infoBar.Severity = InfoBarSeverity.Success;
+            infoBar.Title = item;
+            infoBar.IsOpen = true;
+            infoBar.IsClosable = false;
+            stck.Children.Add(infoBar);
+        }
+
+        contentDialog.Content = new ScrollViewer { Content = stck };
+
+        contentDialog.PrimaryButtonText = "OK";
+        contentDialog.ShowAsyncQueue();
+    }
+
+    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
+        DataListACV.Filter = _ => true;
+        DataListACV.Filter = DataListFilter;
+    }
+
+    public bool DataListFilter(object item)
+    {
+        var query = (LocalItem) item;
+        var name = query.Title ?? "";
+        var tName = query.Server ?? "";
+        var txtSearch = MainPage.Instance.GetTxtSearch();
+        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
+            || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 
     public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync()
@@ -140,12 +154,17 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         return Regex.Replace(title, @"S\d{2}E\d{2}.*", "").Trim();
     }
 
+    public string GetPageType()
+    {
+        return PageType.ToString();
+    }
+
     private async void LoadLocalStorage()
     {
         IsActive = true;
-        infoStatus.IsOpen = true;
-        infoStatus.Severity = InfoBarSeverity.Informational;
-        infoStatus.Title = $"Loading Local {PageType}...";
+        IsStatusOpen = true;
+        StatusSeverity = InfoBarSeverity.Informational;
+        StatusTitle = $"Loading Local {PageType}...";
         var files = Directory.GetFiles(Path.Combine(Constants.ServerDirectoryPath, GetPageType()), "*.txt");
         if (files.Any())
         {
@@ -161,18 +180,20 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
             {
                 // Find the items containing "Iranian/Series" and extract the base URL, and Remove duplicates from the filtered list
                 var filteredContents = contents.Where(c => c.Server.Contains("Series/Iranian"))
-                               .Select(c => new LocalItem {
+                               .Select(c => new LocalItem
+                               {
                                    Server = GetBaseUrl(c.Server),
                                    Title = GetBaseTitle(c.Title),
                                    FileSize = c.FileSize,
                                    DateTime = c.DateTime,
                                    ServerType = c.ServerType
-                               }).DistinctBy(x=>x.Server);
+                               }).DistinctBy(x => x.Server);
 
                 // Merge the unique and non-filtered items
 
                 var finalContents = contents.Where(c => !c.Server.Contains("Series/Iranian"))
-                            .Concat(filteredContents.Select(u => new LocalItem {
+                            .Concat(filteredContents.Select(u => new LocalItem
+                            {
                                 Server = u.Server,
                                 Title = u.Title,
                                 FileSize = u.FileSize,
@@ -202,29 +223,23 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         }
         if (totalServerCount > 0)
         {
-            infoStatus.Message = $"Added {existServer.Count}/{totalServerCount} Servers";
+            StatusMessage = $"Added {existServer.Count}/{totalServerCount} Servers";
         }
-        infoStatus.Title = $"{DataListACV?.Count} Local {PageType} Added";
+        StatusTitle = $"{DataListACV?.Count} Local {PageType} Added";
         IsActive = false;
-    }
-
-    private string GetSeriesTitle(string title)
-    {
-        return title.Remove(0, title.IndexOf("Iranian/"))?.Replace("Iranian/", "")?.Replace("%20", " ");
     }
 
     private async void DownloadServersOnLocalStorage()
     {
         try
         {
-            btnServerStatus.Visibility = Visibility.Collapsed;
-            segRefresh.IsEnabled = false;
+            IsServerStatusOpen = false;
             IsActive = true;
             var urls = Settings.Servers.Where(x => x.ServerType == ApplicationHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
-            infoStatus.IsOpen = true;
-            infoStatus.Severity = InfoBarSeverity.Informational;
-            infoStatus.Title = "Please Wait...";
-            infoStatus.Message = "";
+            IsStatusOpen = true;
+            StatusSeverity = InfoBarSeverity.Informational;
+            StatusTitle = "Please Wait...";
+            StatusMessage = "";
             totalServerCount = urls.Count;
 
             int index = 0;
@@ -236,17 +251,17 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 HtmlWeb web = new HtmlWeb();
                 HtmlDocument doc = await web.LoadFromWebAsync(item.Server);
 
-                infoStatus.Message = $"Working on {item.Title} - {index}/{urls.Count()}";
+                StatusMessage = $"Working on {item.Title} - {index}/{urls.Count()}";
                 if (doc.DocumentNode.InnerHtml is null)
                 {
                     continue;
                 }
                 string result = doc.DocumentNode?.InnerHtml?.ToString();
-                infoStatus.Message = $"Parsing {item.Title}";
+                StatusMessage = $"Parsing {item.Title}";
 
                 var details = GetServerDetails(result, item);
 
-                infoStatus.Message = $"Serializing {item.Title}";
+                StatusMessage = $"Serializing {item.Title}";
 
                 var filePath = Path.Combine(Constants.ServerDirectoryPath, GetPageType(), $"{GetMD5Hash(item.Server)}.txt");
                 if (File.Exists(filePath))
@@ -264,25 +279,23 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                     existServer.Add(item.Server);
                 }
 
-                infoStatus.Message = $"{item.Title} Saved";
+                StatusMessage = $"{item.Title} Saved";
             }
             IsActive = false;
-            infoStatus.Title = $"Updated Successfully: Added {existServer.Count}/{totalServerCount} Servers";
-            infoStatus.Message = "We Updated our Local Storage";
-            infoStatus.Severity = InfoBarSeverity.Success;
-            btnServerStatus.Visibility = Visibility.Visible;
-            buttonInfoBadge.Value = existServer.Count;
-            segRefresh.IsEnabled = true;
+            StatusTitle = $"Updated Successfully: Added {existServer.Count}/{totalServerCount} Servers";
+            StatusMessage = "We Updated our Local Storage";
+            StatusSeverity = InfoBarSeverity.Success;
+            IsServerStatusOpen = true;
+            InfoBadgeValue = existServer.Count;
         }
         catch (Exception ex)
         {
-            segRefresh.IsEnabled = true;
-            buttonInfoBadge.Value = existServer.Count;
+            InfoBadgeValue = existServer.Count;
             IsActive = false;
-            infoStatus.Title = $"Error: Added {existServer.Count}/{totalServerCount} Servers";
-            infoStatus.Message = ex.Message;
-            infoStatus.Severity = InfoBarSeverity.Error;
-            btnServerStatus.Visibility = Visibility.Visible;
+            StatusTitle = $"Error: Added {existServer.Count}/{totalServerCount} Servers";
+            StatusMessage = ex.Message;
+            StatusSeverity = InfoBarSeverity.Error;
+            IsServerStatusOpen = true;
         }
 
         LoadLocalStorage();
@@ -318,7 +331,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
         }
         else
         {
-            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline|RegexOptions.IgnoreCase);
+            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
             Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
             MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
@@ -329,7 +342,7 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 string value = m.Groups[1].Value;
                 LocalItem i = new LocalItem();
 
-                Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline|RegexOptions.IgnoreCase);
+                Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
                 string link = string.Empty;
 
@@ -378,59 +391,6 @@ public sealed partial class LocalUserControl : UserControl, INotifyPropertyChang
                 list.Add(i);
             }
             return list;
-        }
-    }
-    
-    private void btnServerStatus_Click(object sender, RoutedEventArgs e)
-    {
-        ContentDialog contentDialog = new ContentDialog();
-        contentDialog.XamlRoot = XamlRoot;
-        contentDialog.Title = $"Server Status - {existServer.Count} Server(s) Added";
-        var stck = new StackPanel
-        {
-            Spacing = 10,
-            Margin = new Thickness(10)
-        };
-
-        foreach (var item in existServer)
-        {
-            var infoBar = new InfoBar();
-            infoBar.Severity = InfoBarSeverity.Success;
-            infoBar.Title = item;
-            infoBar.IsOpen = true;
-            infoBar.IsClosable = false;
-            stck.Children.Add(infoBar);
-        }
-
-        contentDialog.Content = new ScrollViewer { Content = stck };
-
-        contentDialog.PrimaryButtonText = "OK";
-        contentDialog.ShowAsyncQueue();
-    }
-
-    public bool DataListFilter(object item)
-    {
-        var query = (LocalItem) item;
-        var name = query.Title ?? "";
-        var tName = query.Server ?? "";
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private void segmented_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var item = segmented.SelectedItem as SegmentedItem;
-        if (item != null)
-        {
-            switch (item.Tag?.ToString())
-            {
-                case "Refresh":
-                    DeleteDirectory(PageType);
-                    DownloadServersOnLocalStorage();
-                    segmented.SelectedIndex = -1;
-                    break;
-            }
         }
     }
 }

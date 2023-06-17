@@ -81,7 +81,7 @@
         <labs:Segmented Name="segmented" Margin="10,10,0,0">
             <labs:SegmentedItem Content="Refresh"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
-                                IsEnabled="{x:Bind ViewModel.IsRefreshEnabled}"
+                                IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                                 Tag="Refresh" />
             <labs:SegmentedItem Content="Details"
                                 Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
@@ -117,6 +117,7 @@
                   Grid.Row="2"
                   Margin="5,0,5,5"
                   HorizontalAlignment="Stretch"
+                  IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                   ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
                   ItemsSource="{x:Bind ViewModel.DataListACV}"
                   SelectionMode="None" />

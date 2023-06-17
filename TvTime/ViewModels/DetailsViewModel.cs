@@ -18,9 +18,6 @@ public partial class DetailsViewModel : ObservableRecipient
     public ObservableCollection<LocalItem> breadcrumbBarList = new ();
 
     [ObservableProperty]
-    public bool isRefreshEnabled;
-
-    [ObservableProperty]
     public bool isStatusOpen;
 
     [ObservableProperty]
@@ -276,7 +273,6 @@ public partial class DetailsViewModel : ObservableRecipient
         try
         {
             BreadcrumbBarList.AddIfNotExists(localItem);
-            IsRefreshEnabled = false;
             IsActive = true;
             IsStatusOpen = true;
             StatusSeverity = InfoBarSeverity.Informational;
@@ -301,12 +297,10 @@ public partial class DetailsViewModel : ObservableRecipient
             StatusTitle = "Updated Successfully";
             StatusMessage = "";
             StatusSeverity = InfoBarSeverity.Success;
-            IsRefreshEnabled = true;
         }
         catch (Exception ex)
         {
             IsStatusOpen = true;
-            IsRefreshEnabled = true;
             IsActive = false;
             StatusTitle = "Error";
             StatusMessage = ex.Message + Environment.NewLine + ex.InnerException;

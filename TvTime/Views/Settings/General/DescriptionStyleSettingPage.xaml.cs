@@ -12,7 +12,6 @@ public sealed partial class DescriptionStyleSettingPage : Page
         GeneralViewModel = GeneralSettingPage.Instance.ViewModel;
         GeneralViewModel.BreadCrumbBarCollection.Add("Description Style");
         this.InitializeComponent();
-        DataContext = this;
         Loaded += DescriptionStyleSettingPage_Loaded;
     }
 

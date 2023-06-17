@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TvTime.Views.LocalUserControl"
+﻿<UserControl x:Class="TvTime.Views.MediaUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -59,46 +59,60 @@
                                             TextBlockTemplate="{StaticResource TextBlockTemplate}" />
     </UserControl.Resources>
 
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:EventTriggerBehavior.Actions>
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.PageLoadedCommand}" />
+            </ic:EventTriggerBehavior.Actions>
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+
     <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <labs:Segmented Name="segmented"
-                        Margin="10,10,0,0"
-                        SelectionChanged="segmented_SelectionChanged">
+        <labs:Segmented Name="segmented" Margin="10,10,0,0">
             <labs:SegmentedItem Name="segRefresh"
                                 Content="Refresh"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
+                                IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                                 Tag="Refresh" />
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}" CommandParameter="{Binding ElementName=segmented}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
         </labs:Segmented>
         <ListView Grid.Row="1"
                   Margin="5,10,5,5"
                   HorizontalAlignment="Stretch"
+                  IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                   ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
-                  ItemsSource="{x:Bind DataListACV}"
+                  ItemsSource="{x:Bind ViewModel.DataListACV}"
                   SelectionMode="None" />
-        <ProgressRing Grid.Row="1" IsActive="{x:Bind IsActive}" />
-        <InfoBar Name="infoStatus"
+        <ProgressRing Grid.Row="1" IsActive="{x:Bind ViewModel.IsActive}" />
+        <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
                  Grid.Row="2"
                  BorderThickness="0"
                  CornerRadius="0"
-                 IsOpen="True"
-                 Severity="Informational">
+                 IsOpen="{x:Bind ViewModel.IsStatusOpen}"
+                 Message="{x:Bind ViewModel.StatusMessage}"
+                 Severity="{x:Bind ViewModel.StatusSeverity}">
             <InfoBar.ActionButton>
-                <HyperlinkButton Name="btnServerStatus"
-                                 HorizontalContentAlignment="Stretch"
+                <HyperlinkButton HorizontalContentAlignment="Stretch"
                                  VerticalContentAlignment="Stretch"
-                                 Click="btnServerStatus_Click"
-                                 Visibility="Collapsed">
+                                 Command="{x:Bind ViewModel.ServerStatusCommand}"
+                                 Visibility="{x:Bind ViewModel.IsServerStatusOpen, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal" Spacing="5">
                         <SymbolIcon Symbol="Admin" />
                         <TextBlock Margin="5,0,0,0" Text="Server Status" />
-                        <InfoBadge x:Name="buttonInfoBadge"
-                                   HorizontalAlignment="Right"
+                        <InfoBadge HorizontalAlignment="Right"
                                    VerticalAlignment="Top"
-                                   Value="0" />
+                                   Value="{x:Bind ViewModel.InfoBadgeValue}" />
                     </StackPanel>
                 </HyperlinkButton>
             </InfoBar.ActionButton>

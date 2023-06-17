@@ -23,7 +23,7 @@ public partial class BackupSettingViewModel : ObservableObject
             if (file != null)
             {
                 var servers = Settings.Servers;
-                var json = JsonConvert.SerializeObject(servers);
+                var json = JsonConvert.SerializeObject(servers, Formatting.Indented);
                 using (var outfile = new StreamWriter(file.Path))
                 {
                     await outfile.WriteAsync(json);

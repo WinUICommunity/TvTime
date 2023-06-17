@@ -15,6 +15,10 @@ jobs:
       with:
        fetch-depth: 0
         
+    - name: Set up NuGet
+      run: |
+         nuget sources add -name MyNuGetSource -source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-Labs/nuget/v3/index.json
+      
     - name: Get TvTime Version
       uses: kzrnm/get-net-sdk-project-versions-action@v1.3.0
       id: get-version

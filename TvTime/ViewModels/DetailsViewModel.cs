@@ -106,8 +106,7 @@ public partial class DetailsViewModel : ObservableRecipient
 
     private void GoToDetails()
     {
-        var window = new IMDBDetailsWindow();
-        window.Title = rootLocalItem.Title;
+        var window = new IMDBDetailsWindow(rootLocalItem.Title);
         new ThemeManager(window, App.Current.ThemeManager.ThemeOptions);
         window.Activate();
     }

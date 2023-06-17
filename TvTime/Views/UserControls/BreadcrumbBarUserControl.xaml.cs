@@ -7,14 +7,24 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
-    public string ItemText
+
+    public List<string> Items
     {
-        get { return (string) GetValue(ItemTextProperty); }
-        set { SetValue(ItemTextProperty, value); }
+        get { return (List<string>) GetValue(ItemsProperty); }
+        set { SetValue(ItemsProperty, value); }
     }
 
-    public static readonly DependencyProperty ItemTextProperty =
-        DependencyProperty.Register("ItemText", typeof(string), typeof(BreadcrumbBarUserControl), new PropertyMetadata(default(string)));
+    public static readonly DependencyProperty ItemsProperty =
+        DependencyProperty.Register("Items", typeof(List<string>), typeof(BreadcrumbBarUserControl), new PropertyMetadata(null));
+
+    public string SingleItem
+    {
+        get { return (string) GetValue(SingleItemProperty); }
+        set { SetValue(SingleItemProperty, value); }
+    }
+
+    public static readonly DependencyProperty SingleItemProperty =
+        DependencyProperty.Register("SingleItem", typeof(string), typeof(BreadcrumbBarUserControl), new PropertyMetadata(default(string)));
 
     private ObservableCollection<string> breadcrumbBarCollection;
 
@@ -37,13 +47,27 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
 
     private void BreadcrumbBarUserControl_Loaded(object sender, RoutedEventArgs e)
     {
-        BreadcrumbBarCollection.Add("Settings");
-        BreadcrumbBarCollection.Add(ItemText);
+        BreadcrumbBarCollection.Add(Application.Current.Resources["BreadCrumbBarRootText"] as string);
+        if (Items != null)
+        {
+            foreach (var item in Items)
+            {
+                BreadcrumbBarCollection.Add(item);
+            }
+        }
+        else
+        {
+            BreadcrumbBarCollection.Add(SingleItem);
+        }
     }
 
     private void BreadcrumbBar_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
     {
-        App.Current.NavigationManager.GoBack();
+        int numItemsToGoBack = BreadcrumbBarCollection.Count - args.Index - 1;
+        for (int i = 0; i < numItemsToGoBack; i++)
+        {
+            App.Current.NavigationManager.GoBack();
+        }
     }
 }
 

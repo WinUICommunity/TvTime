@@ -16,7 +16,7 @@
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
 
-            <views:BreadcrumbBarUserControl ItemText="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
+            <views:BreadcrumbBarUserControl Items="{x:Bind ViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
             <wuc:SettingsCard Description="If false is selected, the corresponding folder will be opened instead of the file itself"
                               Header="Open the file in the browser"

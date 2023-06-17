@@ -13,7 +13,7 @@
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
 
-            <views:BreadcrumbBarUserControl ItemText="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
+            <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
             <wuc:SettingsExpander Description="backup and restore servers"
                                   Header="Backup &amp; Restore TvTime Servers"

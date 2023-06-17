@@ -4,20 +4,16 @@ namespace TvTime.Views;
 public sealed partial class DescriptionStyleSettingPage : Page
 {
     public DescriptionStyleSettingViewModel ViewModel { get; }
-    public string BreadCrumbBarItemText { get; set; }
+    public GeneralSettingViewModel GeneralViewModel { get; }
 
     public DescriptionStyleSettingPage()
     {
         ViewModel = App.Current.Services.GetService<DescriptionStyleSettingViewModel>();
+        GeneralViewModel = GeneralSettingPage.Instance.ViewModel;
+        GeneralViewModel.BreadCrumbBarCollection.Add("Description Style");
         this.InitializeComponent();
         DataContext = this;
         Loaded += DescriptionStyleSettingPage_Loaded;
-    }
-
-    protected override void OnNavigatedTo(NavigationEventArgs e)
-    {
-        base.OnNavigatedTo(e);
-        BreadCrumbBarItemText = ((NavigationArgs) e.Parameter).Parameter as string;
     }
 
     private void DescriptionStyleSettingPage_Loaded(object sender, RoutedEventArgs e)

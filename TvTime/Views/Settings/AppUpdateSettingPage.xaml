@@ -11,7 +11,7 @@
     <StackPanel Margin="10"
                 ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                 Spacing="5">
-        <views:BreadcrumbBarUserControl ItemText="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
+        <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
         <wuc:SettingsCard Header="{x:Bind ViewModel.CurrentVersion}" HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/update.png}">
             <wuc:SettingsCard.Description>
                 <TextBlock Style="{StaticResource SecondaryTextStyle}">

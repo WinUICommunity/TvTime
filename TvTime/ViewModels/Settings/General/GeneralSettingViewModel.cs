@@ -3,6 +3,14 @@
 namespace TvTime.ViewModels;
 public partial class GeneralSettingViewModel : ObservableObject
 {
+    [ObservableProperty]
+    public List<string> breadCrumbBarCollection = new();
+
+    public GeneralSettingViewModel()
+    {
+        BreadCrumbBarCollection.Add("General");    
+    }
+
     [RelayCommand]
     private void OnIconPackChanged(object sender)
     {

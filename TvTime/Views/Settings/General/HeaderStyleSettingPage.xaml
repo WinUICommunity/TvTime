@@ -16,7 +16,7 @@
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
 
-            <views:BreadcrumbBarUserControl ItemText="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
+            <views:BreadcrumbBarUserControl Items="{x:Bind GeneralViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
             <wuc:SettingsCard Description="Specify the style of the header"
                               Header="Header Text Style"

@@ -4,19 +4,13 @@ namespace TvTime.Views;
 public sealed partial class GeneralSettingPage : Page
 {
     public GeneralSettingViewModel ViewModel { get; }
-    public string BreadCrumbBarItemText { get; set; }
-
+    public static GeneralSettingPage Instance { get; set; }
     public GeneralSettingPage()
     {
         ViewModel = App.Current.Services.GetService<GeneralSettingViewModel>();
         this.InitializeComponent();
+        Instance = this;
         Loaded += GeneralSettingPage_Loaded;
-    }
-
-    protected override void OnNavigatedTo(NavigationEventArgs e)
-    {
-        base.OnNavigatedTo(e);
-        BreadCrumbBarItemText = ((NavigationArgs) e.Parameter).Parameter as string;
     }
 
     private void GeneralSettingPage_Loaded(object sender, RoutedEventArgs e)

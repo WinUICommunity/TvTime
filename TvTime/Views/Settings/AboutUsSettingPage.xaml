@@ -12,7 +12,7 @@
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
-            <views:BreadcrumbBarUserControl ItemText="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
+            <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
             <wuc:SettingsExpander Description="TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities."
                                   Header="TvTime"

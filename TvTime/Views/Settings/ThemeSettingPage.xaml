@@ -15,7 +15,7 @@
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
 
-            <views:BreadcrumbBarUserControl ItemText="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
+            <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
             <wuc:SettingsCard Description="Select your Application Theme and Material"
                               Header="Appearance &amp; behavior"

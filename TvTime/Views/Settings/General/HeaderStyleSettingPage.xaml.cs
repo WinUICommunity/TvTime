@@ -4,19 +4,15 @@ namespace TvTime.Views;
 public sealed partial class HeaderStyleSettingPage : Page
 {
     public HeaderStyleSettingViewModel ViewModel { get; }
-    public string BreadCrumbBarItemText { get; set; }
+    public GeneralSettingViewModel GeneralViewModel { get; }
 
     public HeaderStyleSettingPage()
     {
         ViewModel = App.Current.Services.GetService<HeaderStyleSettingViewModel>();
+        GeneralViewModel = GeneralSettingPage.Instance.ViewModel;
+        GeneralViewModel.BreadCrumbBarCollection.Add("Header Style");
         this.InitializeComponent();
         Loaded += HeaderStyleSettingPage_Loaded;
-    }
-
-    protected override void OnNavigatedTo(NavigationEventArgs e)
-    {
-        base.OnNavigatedTo(e);
-        BreadCrumbBarItemText = ((NavigationArgs) e.Parameter).Parameter as string;
     }
 
     private void HeaderStyleSettingPage_Loaded(object sender, RoutedEventArgs e)

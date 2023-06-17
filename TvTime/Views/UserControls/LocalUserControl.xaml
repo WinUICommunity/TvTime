@@ -82,7 +82,8 @@
         <ProgressRing Grid.Row="1" IsActive="{x:Bind IsActive}" />
         <InfoBar Name="infoStatus"
                  Grid.Row="2"
-                 CornerRadius="4,4,0,0"
+                 BorderThickness="0"
+                 CornerRadius="0"
                  IsOpen="True"
                  Severity="Informational">
             <InfoBar.ActionButton>

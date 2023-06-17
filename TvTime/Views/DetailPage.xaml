@@ -123,7 +123,8 @@
         <ProgressRing Grid.Row="2" IsActive="{x:Bind ViewModel.IsActive}" />
         <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
                  Grid.Row="3"
-                 CornerRadius="4,4,0,0"
+                 BorderThickness="0"
+                 CornerRadius="0"
                  IsOpen="{x:Bind ViewModel.IsStatusOpen}"
                  Message="{x:Bind ViewModel.StatusMessage}"
                  Severity="{x:Bind ViewModel.StatusSeverity}" />

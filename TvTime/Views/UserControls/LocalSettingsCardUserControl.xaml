@@ -29,7 +29,9 @@
                        FontSize="{x:Bind local:TvTimeHelper.Settings.SettingsCardHeaderFontSize}"
                        FontWeight="Normal"
                        Style="{x:Bind local:TvTimeHelper.Settings.SettingsCardHeaderStyle, Converter={StaticResource String2StyleConverter}}"
-                       Text="{x:Bind LocalItem.Title}">
+                       Text="{x:Bind LocalItem.Title}"
+                       TextTrimming="None"
+                       TextWrapping="Wrap">
                 <i:Interaction.Behaviors>
                     <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInHeader}"
                                             ComparisonCondition="Equal"
@@ -40,16 +42,6 @@
                         <ic:ChangePropertyAction PropertyName="TextWrapping"
                                                  TargetObject="{Binding ElementName=txtHeader}"
                                                  Value="NoWrap" />
-                    </ic:DataTriggerBehavior>
-                    <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInHeader}"
-                                            ComparisonCondition="Equal"
-                                            Value="False">
-                        <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                 TargetObject="{Binding ElementName=txtHeader}"
-                                                 Value="None" />
-                        <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                 TargetObject="{Binding ElementName=txtHeader}"
-                                                 Value="Wrap" />
                     </ic:DataTriggerBehavior>
                 </i:Interaction.Behaviors>
             </TextBlock>

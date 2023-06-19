@@ -23,7 +23,9 @@
                     <TextBlock Name="txtDesc"
                                FontSize="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionFontSize}"
                                Style="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionStyle, Converter={StaticResource String2StyleConverter}}"
-                               Text="{x:Bind Server}">
+                               Text="{x:Bind Server}"
+                               TextTrimming="None"
+                               TextWrapping="Wrap">
                         <i:Interaction.Behaviors>
                             <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}"
                                                     ComparisonCondition="Equal"
@@ -34,16 +36,6 @@
                                 <ic:ChangePropertyAction PropertyName="TextWrapping"
                                                          TargetObject="{Binding ElementName=txtDesc}"
                                                          Value="NoWrap" />
-                            </ic:DataTriggerBehavior>
-                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}"
-                                                    ComparisonCondition="Equal"
-                                                    Value="False">
-                                <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
-                                                         Value="None" />
-                                <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
-                                                         Value="Wrap" />
                             </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </TextBlock>
@@ -58,12 +50,15 @@
                     <HyperlinkButton Name="serverHyperLink"
                                      Margin="0,5,0,0"
                                      Padding="2,1,2,1"
+                                     BorderThickness="0"
                                      NavigateUri="{x:Bind Server}">
                         <HyperlinkButton.Content>
                             <TextBlock Name="txtDesc"
                                        FontSize="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionFontSize}"
                                        Style="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionStyle, Converter={StaticResource String2StyleConverter}}"
-                                       Text="{x:Bind Server}" />
+                                       Text="{x:Bind Server}"
+                                       TextTrimming="None"
+                                       TextWrapping="Wrap" />
                         </HyperlinkButton.Content>
                         <i:Interaction.Behaviors>
                             <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness}"
@@ -72,13 +67,6 @@
                                 <ic:ChangePropertyAction PropertyName="BorderThickness"
                                                          TargetObject="{Binding ElementName=serverHyperLink}"
                                                          Value="1" />
-                            </ic:DataTriggerBehavior>
-                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness}"
-                                                    ComparisonCondition="Equal"
-                                                    Value="False">
-                                <ic:ChangePropertyAction PropertyName="BorderThickness"
-                                                         TargetObject="{Binding ElementName=serverHyperLink}"
-                                                         Value="0" />
                             </ic:DataTriggerBehavior>
 
                             <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}"
@@ -90,16 +78,6 @@
                                 <ic:ChangePropertyAction PropertyName="TextWrapping"
                                                          TargetObject="{Binding ElementName=txtDesc}"
                                                          Value="NoWrap" />
-                            </ic:DataTriggerBehavior>
-                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}"
-                                                    ComparisonCondition="Equal"
-                                                    Value="False">
-                                <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
-                                                         Value="None" />
-                                <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
-                                                         Value="Wrap" />
                             </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </HyperlinkButton>

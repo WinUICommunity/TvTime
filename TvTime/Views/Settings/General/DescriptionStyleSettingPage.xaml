@@ -90,15 +90,12 @@
                               IsEnabled="False"
                               IsOn="{x:Bind settings:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
-                        <ic:DataTriggerBehavior Binding="{Binding SelectedIndex, ElementName=cmbDescriptionType}" Value="1">
+                        <ic:DataTriggerBehavior Binding="{Binding SelectedIndex, ElementName=cmbDescriptionType}"
+                                                ComparisonCondition="Equal"
+                                                Value="1">
                             <ic:ChangePropertyAction PropertyName="IsEnabled"
                                                      TargetObject="{Binding ElementName=tgHyperLinkBorderThickness}"
                                                      Value="True" />
-                        </ic:DataTriggerBehavior>
-                        <ic:DataTriggerBehavior Binding="{Binding SelectedIndex, ElementName=cmbDescriptionType}" Value="0">
-                            <ic:ChangePropertyAction PropertyName="IsEnabled"
-                                                     TargetObject="{Binding ElementName=tgHyperLinkBorderThickness}"
-                                                     Value="False" />
                         </ic:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </ToggleSwitch>
@@ -121,16 +118,21 @@
                                TextWrapping="Wrap" />
                 </HyperlinkButton.Content>
                 <i:Interaction.Behaviors>
-                    <ic:DataTriggerBehavior Binding="{x:Bind tgHyperLinkBorderThickness.IsOn, Mode=OneWay}" Value="True">
+                    <ic:DataTriggerBehavior Binding="{x:Bind tgHyperLinkBorderThickness.IsOn, Mode=OneWay}"
+                                            ComparisonCondition="Equal"
+                                            Value="True">
                         <ic:ChangePropertyAction PropertyName="BorderThickness"
                                                  TargetObject="{Binding ElementName=serverHyperLink}"
                                                  Value="1" />
                     </ic:DataTriggerBehavior>
-                    <ic:DataTriggerBehavior Binding="{x:Bind tgHyperLinkBorderThickness.IsOn, Mode=OneWay}" Value="False">
+                    <ic:DataTriggerBehavior Binding="{x:Bind tgHyperLinkBorderThickness.IsOn, Mode=OneWay}"
+                                            ComparisonCondition="Equal"
+                                            Value="False">
                         <ic:ChangePropertyAction PropertyName="BorderThickness"
                                                  TargetObject="{Binding ElementName=serverHyperLink}"
                                                  Value="0" />
                     </ic:DataTriggerBehavior>
+
                 </i:Interaction.Behaviors>
             </HyperlinkButton>
         </StackPanel>

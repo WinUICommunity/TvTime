@@ -148,7 +148,7 @@
             </i:Interaction.Behaviors>
             <BreadcrumbBar.ItemTemplate>
                 <DataTemplate x:DataType="model:LocalItem">
-                    <TextBlock FontWeight="ExtraLight"
+                    <TextBlock FontWeight="Normal"
                                Style="{ThemeResource TitleTextBlockStyle}"
                                Text="{x:Bind Title}" />
                 </DataTemplate>

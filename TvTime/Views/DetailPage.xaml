@@ -18,11 +18,36 @@
 
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:LocalItem">
 
-            <views:DetailSettingsCardUserControl Description="{x:Bind Server}"
-                                                 LocalItem="{x:Bind}"
+            <views:DetailSettingsCardUserControl LocalItem="{x:Bind}"
                                                  SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                                 ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}" />
+                                                 ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
+                <views:DetailSettingsCardUserControl.Description>
+                    <TextBlock Name="txtDesc"
+                               FontSize="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionFontSize}"
+                               Style="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionStyle, Converter={StaticResource String2StyleConverter}}"
+                               Text="{x:Bind Server}">
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}" Value="True">
+                                <ic:ChangePropertyAction PropertyName="TextTrimming"
+                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         Value="CharacterEllipsis" />
+                                <ic:ChangePropertyAction PropertyName="TextWrapping"
+                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         Value="NoWrap" />
+                            </ic:DataTriggerBehavior>
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}" Value="False">
+                                <ic:ChangePropertyAction PropertyName="TextTrimming"
+                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         Value="None" />
+                                <ic:ChangePropertyAction PropertyName="TextWrapping"
+                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         Value="Wrap" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </TextBlock>
+                </views:DetailSettingsCardUserControl.Description>
 
+            </views:DetailSettingsCardUserControl>
         </DataTemplate>
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:LocalItem">
@@ -35,10 +60,10 @@
                                      Padding="2,1,2,1"
                                      NavigateUri="{x:Bind Server}">
                         <HyperlinkButton.Content>
-                            <TextBlock FontSize="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionFontSize}"
+                            <TextBlock Name="txtDesc"
+                                       FontSize="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionFontSize}"
                                        Style="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionStyle, Converter={StaticResource String2StyleConverter}}"
-                                       Text="{x:Bind Server}"
-                                       TextWrapping="Wrap" />
+                                       Text="{x:Bind Server}" />
                         </HyperlinkButton.Content>
                         <i:Interaction.Behaviors>
                             <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=OneTime}" Value="True">
@@ -50,6 +75,22 @@
                                 <ic:ChangePropertyAction PropertyName="BorderThickness"
                                                          TargetObject="{Binding ElementName=serverHyperLink}"
                                                          Value="0" />
+                            </ic:DataTriggerBehavior>
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}" Value="True">
+                                <ic:ChangePropertyAction PropertyName="TextTrimming"
+                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         Value="CharacterEllipsis" />
+                                <ic:ChangePropertyAction PropertyName="TextWrapping"
+                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         Value="NoWrap" />
+                            </ic:DataTriggerBehavior>
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}" Value="False">
+                                <ic:ChangePropertyAction PropertyName="TextTrimming"
+                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         Value="None" />
+                                <ic:ChangePropertyAction PropertyName="TextWrapping"
+                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         Value="Wrap" />
                             </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </HyperlinkButton>

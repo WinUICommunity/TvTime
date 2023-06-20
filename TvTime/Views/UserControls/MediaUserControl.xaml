@@ -18,8 +18,8 @@
 
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:LocalItem">
 
-            <views:LocalSettingsCardUserControl LocalItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
-                <views:LocalSettingsCardUserControl.Description>
+            <views:MediaItemUserControl LocalItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
+                <views:MediaItemUserControl.Description>
                     <TextBlock Name="txtDesc"
                                FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
                                Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
@@ -39,14 +39,14 @@
                             </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </TextBlock>
-                </views:LocalSettingsCardUserControl.Description>
-            </views:LocalSettingsCardUserControl>
+                </views:MediaItemUserControl.Description>
+            </views:MediaItemUserControl>
 
         </DataTemplate>
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:LocalItem">
-            <views:LocalSettingsCardUserControl LocalItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
-                <views:LocalSettingsCardUserControl.Description>
+            <views:MediaItemUserControl LocalItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
+                <views:MediaItemUserControl.Description>
                     <HyperlinkButton Name="serverHyperLink"
                                      Margin="0,5,0,0"
                                      Padding="2,1,2,1"
@@ -81,8 +81,8 @@
                             </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </HyperlinkButton>
-                </views:LocalSettingsCardUserControl.Description>
-            </views:LocalSettingsCardUserControl>
+                </views:MediaItemUserControl.Description>
+            </views:MediaItemUserControl>
         </DataTemplate>
 
         <local:ListViewItemTemplateSelector x:Key="ListViewItemTemplateSelector"

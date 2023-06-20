@@ -1,5 +1,5 @@
 ﻿namespace TvTime.Views;
-public sealed partial class LocalSettingsCardUserControl : UserControl
+public sealed partial class MediaItemUserControl : UserControl
 {
     public PageOrDirectoryType PageType
     {
@@ -20,15 +20,15 @@ public sealed partial class LocalSettingsCardUserControl : UserControl
     }
 
     public static readonly DependencyProperty PageTypeProperty =
-        DependencyProperty.Register("PageType", typeof(PageOrDirectoryType), typeof(LocalSettingsCardUserControl), new PropertyMetadata(default(PageOrDirectoryType)));
+        DependencyProperty.Register("PageType", typeof(PageOrDirectoryType), typeof(MediaItemUserControl), new PropertyMetadata(default(PageOrDirectoryType)));
 
     public static readonly DependencyProperty LocalItemProperty =
-        DependencyProperty.Register("LocalItem", typeof(LocalItem), typeof(LocalSettingsCardUserControl), new PropertyMetadata(default(LocalItem)));
+        DependencyProperty.Register("LocalItem", typeof(LocalItem), typeof(MediaItemUserControl), new PropertyMetadata(default(LocalItem)));
 
     public static readonly DependencyProperty DescriptionProperty =
-        DependencyProperty.Register("Description", typeof(object), typeof(LocalSettingsCardUserControl), new PropertyMetadata(default(object)));
+        DependencyProperty.Register("Description", typeof(object), typeof(MediaItemUserControl), new PropertyMetadata(default(object)));
 
-    public LocalSettingsCardUserControl()
+    public MediaItemUserControl()
     {
         this.InitializeComponent();
     }

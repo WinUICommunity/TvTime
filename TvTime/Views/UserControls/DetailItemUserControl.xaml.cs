@@ -3,7 +3,7 @@
 using TvTime.ViewModels;
 
 namespace TvTime.Views;
-public sealed partial class DetailSettingsCardUserControl : UserControl
+public sealed partial class DetailItemUserControl : UserControl
 {
     public DetailsViewModel ViewModel
     {
@@ -30,19 +30,19 @@ public sealed partial class DetailSettingsCardUserControl : UserControl
     }
 
     public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register("ViewModel", typeof(DetailsViewModel), typeof(DetailSettingsCardUserControl), new PropertyMetadata(default(DetailsViewModel)));
+        DependencyProperty.Register("ViewModel", typeof(DetailsViewModel), typeof(DetailItemUserControl), new PropertyMetadata(default(DetailsViewModel)));
 
     public static readonly DependencyProperty SettingsCardCommandProperty =
-       DependencyProperty.Register("SettingsCardCommand", typeof(ICommand), typeof(DetailSettingsCardUserControl), new PropertyMetadata(default(ICommand)));
+       DependencyProperty.Register("SettingsCardCommand", typeof(ICommand), typeof(DetailItemUserControl), new PropertyMetadata(default(ICommand)));
 
     public static readonly DependencyProperty LocalItemProperty =
-        DependencyProperty.Register("LocalItem", typeof(LocalItem), typeof(DetailSettingsCardUserControl), new PropertyMetadata(default(LocalItem)));
+        DependencyProperty.Register("LocalItem", typeof(LocalItem), typeof(DetailItemUserControl), new PropertyMetadata(default(LocalItem)));
 
     public static readonly DependencyProperty DescriptionProperty =
-        DependencyProperty.Register("Description", typeof(object), typeof(DetailSettingsCardUserControl), new PropertyMetadata(default(object)));
+        DependencyProperty.Register("Description", typeof(object), typeof(DetailItemUserControl), new PropertyMetadata(default(object)));
 
 
-    public DetailSettingsCardUserControl()
+    public DetailItemUserControl()
     {
         this.InitializeComponent();
     }

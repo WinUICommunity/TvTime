@@ -71,7 +71,8 @@ public partial class DetailsViewModel : ObservableRecipient
         switch (Settings.DescriptionType)
         {
             case DescriptionType.TextBlock:
-                server = setting?.Description?.ToString();
+                var descriptionTextBlock = setting?.Description as TextBlock;
+                server = descriptionTextBlock?.Text;
                 break;
             case DescriptionType.HyperLink:
                 var hyperLink = setting?.Description as HyperlinkButton;

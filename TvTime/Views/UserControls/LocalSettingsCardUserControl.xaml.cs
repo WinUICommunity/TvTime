@@ -36,14 +36,15 @@ public sealed partial class LocalSettingsCardUserControl : UserControl
     private void SettingsCard_Click(object sender, RoutedEventArgs e)
     {
         var setting = (sender as SettingsCard);
-        var textBlock = setting?.Header as TextBlock;
-        var title = textBlock.Text?.Trim();
+        var headerTextBlock = setting?.Header as TextBlock;
+        var title = headerTextBlock.Text?.Trim();
         var server = string.Empty;
 
         switch (Settings.DescriptionType)
         {
             case DescriptionType.TextBlock:
-                server = setting?.Description?.ToString();
+                var descriptionTextBlock = setting?.Description as TextBlock;
+                server = descriptionTextBlock?.Text;
                 break;
             case DescriptionType.HyperLink:
                 var hyperLink = setting?.Description as HyperlinkButton;

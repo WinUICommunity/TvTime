@@ -67,7 +67,7 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsCard Name="settingCardDescType"
+            <wuc:SettingsCard x:Name="settingCardDescType"
                               Description="Choose which control to use to display the description in the listview"
                               Header="Description Type"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">

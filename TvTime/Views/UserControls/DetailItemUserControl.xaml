@@ -26,7 +26,7 @@
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
                             Tag="{x:Bind}"
                             Text="Open File"
-                            Visibility="{x:Bind LocalItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
+                            Visibility="{x:Bind MediaItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
             <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
                                Tag="{x:Bind}"
                                Text="Copy Link(s)">
@@ -45,7 +45,7 @@
             <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}"
                                Tag="{x:Bind}"
                                Text="Download With IDM"
-                               Visibility="{x:Bind LocalItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
+                               Visibility="{x:Bind MediaItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
 
                 <MenuFlyoutItem Name="menuDownload"
                                 Command="{x:Bind ViewModel.DownloadCommand}"
@@ -63,19 +63,19 @@
     </UserControl.Resources>
 
     <wuc:SettingsCard x:Name="settingsCard"
-                      ActionIcon="{x:Bind LocalItem.Server, Converter={StaticResource FileExtension2IconConverter}}"
+                      ActionIcon="{x:Bind MediaItem.Server, Converter={StaticResource FileExtension2IconConverter}}"
                       Command="{x:Bind SettingsCardCommand}"
                       CommandParameter="{Binding ElementName=settingsCard}"
                       ContextFlyout="{StaticResource menuFlyout}"
                       Description="{x:Bind Description}"
-                      HeaderIcon="{x:Bind LocalItem.Title, Converter={StaticResource String2BitmapIconConverter}}"
+                      HeaderIcon="{x:Bind MediaItem.Title, Converter={StaticResource String2BitmapIconConverter}}"
                       IsClickEnabled="True">
         <wuc:SettingsCard.Header>
             <TextBlock Name="txtHeader"
                        FontSize="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockFontSize}"
                        FontWeight="Normal"
                        Style="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
-                       Text="{x:Bind LocalItem.Title}"
+                       Text="{x:Bind MediaItem.Title}"
                        TextTrimming="None"
                        TextWrapping="Wrap">
                 <i:Interaction.Behaviors>
@@ -94,7 +94,7 @@
             </TextBlock>
         </wuc:SettingsCard.Header>
 
-        <views:DateAndFileSizeUserControl DateTime="{x:Bind LocalItem.DateTime}" FileSize="{x:Bind LocalItem.FileSize}" />
+        <views:DateAndFileSizeUserControl DateTime="{x:Bind MediaItem.DateTime}" FileSize="{x:Bind MediaItem.FileSize}" />
 
     </wuc:SettingsCard>
 </UserControl>

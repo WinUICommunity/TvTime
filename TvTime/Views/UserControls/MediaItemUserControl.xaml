@@ -29,7 +29,7 @@
                        FontSize="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockFontSize}"
                        FontWeight="Normal"
                        Style="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
-                       Text="{x:Bind LocalItem.Title}"
+                       Text="{x:Bind MediaItem.Title}"
                        TextTrimming="None"
                        TextWrapping="Wrap">
                 <i:Interaction.Behaviors>
@@ -47,7 +47,7 @@
             </TextBlock>
         </wuc:SettingsCard.Header>
 
-        <views:DateAndFileSizeUserControl DateTime="{x:Bind LocalItem.DateTime}" />
+        <views:DateAndFileSizeUserControl DateTime="{x:Bind MediaItem.DateTime}" />
 
     </wuc:SettingsCard>
 </UserControl>

@@ -17,10 +17,10 @@ public sealed partial class DetailItemUserControl : UserControl
         set { SetValue(SettingsCardCommandProperty, value); }
     }
 
-    public LocalItem LocalItem
+    public LocalItem MediaItem
     {
-        get { return (LocalItem) GetValue(LocalItemProperty); }
-        set { SetValue(LocalItemProperty, value); }
+        get { return (LocalItem) GetValue(MediaItemProperty); }
+        set { SetValue(MediaItemProperty, value); }
     }
 
     public object Description
@@ -35,8 +35,8 @@ public sealed partial class DetailItemUserControl : UserControl
     public static readonly DependencyProperty SettingsCardCommandProperty =
        DependencyProperty.Register("SettingsCardCommand", typeof(ICommand), typeof(DetailItemUserControl), new PropertyMetadata(default(ICommand)));
 
-    public static readonly DependencyProperty LocalItemProperty =
-        DependencyProperty.Register("LocalItem", typeof(LocalItem), typeof(DetailItemUserControl), new PropertyMetadata(default(LocalItem)));
+    public static readonly DependencyProperty MediaItemProperty =
+        DependencyProperty.Register("MediaItem", typeof(LocalItem), typeof(DetailItemUserControl), new PropertyMetadata(default(LocalItem)));
 
     public static readonly DependencyProperty DescriptionProperty =
         DependencyProperty.Register("Description", typeof(object), typeof(DetailItemUserControl), new PropertyMetadata(default(object)));

@@ -7,10 +7,10 @@ public sealed partial class MediaItemUserControl : UserControl
         set { SetValue(PageTypeProperty, value); }
     }
 
-    public LocalItem LocalItem
+    public LocalItem MediaItem
     {
-        get { return (LocalItem) GetValue(LocalItemProperty); }
-        set { SetValue(LocalItemProperty, value); }
+        get { return (LocalItem) GetValue(MediaItemProperty); }
+        set { SetValue(MediaItemProperty, value); }
     }
 
     public object Description
@@ -22,8 +22,8 @@ public sealed partial class MediaItemUserControl : UserControl
     public static readonly DependencyProperty PageTypeProperty =
         DependencyProperty.Register("PageType", typeof(PageOrDirectoryType), typeof(MediaItemUserControl), new PropertyMetadata(default(PageOrDirectoryType)));
 
-    public static readonly DependencyProperty LocalItemProperty =
-        DependencyProperty.Register("LocalItem", typeof(LocalItem), typeof(MediaItemUserControl), new PropertyMetadata(default(LocalItem)));
+    public static readonly DependencyProperty MediaItemProperty =
+        DependencyProperty.Register("MediaItem", typeof(LocalItem), typeof(MediaItemUserControl), new PropertyMetadata(default(LocalItem)));
 
     public static readonly DependencyProperty DescriptionProperty =
         DependencyProperty.Register("Description", typeof(object), typeof(MediaItemUserControl), new PropertyMetadata(default(object)));

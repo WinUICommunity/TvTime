@@ -18,9 +18,9 @@
 
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:LocalItem">
 
-            <views:DetailItemUserControl LocalItem="{x:Bind}"
-                                                 SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                                 ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
+            <views:DetailItemUserControl MediaItem="{x:Bind}"
+                                         SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
+                                         ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
                 <views:DetailItemUserControl.Description>
                     <TextBlock Name="txtDesc"
                                FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
@@ -47,9 +47,9 @@
         </DataTemplate>
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:LocalItem">
-            <views:DetailItemUserControl LocalItem="{x:Bind}"
-                                                 SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                                 ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
+            <views:DetailItemUserControl MediaItem="{x:Bind}"
+                                         SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
+                                         ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
                 <views:DetailItemUserControl.Description>
                     <HyperlinkButton Name="serverHyperLink"
                                      Margin="0,5,0,0"

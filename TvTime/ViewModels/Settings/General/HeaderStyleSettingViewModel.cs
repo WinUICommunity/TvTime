@@ -2,13 +2,13 @@
 public partial class HeaderStyleSettingViewModel : ObservableRecipient
 {
     [ObservableProperty]
-    public double previewFontSize = GetFontSizeBasedOnTextBlockStyle(Settings.SettingsCardHeaderStyle);
+    public double previewFontSize = GetFontSizeBasedOnTextBlockStyle(Settings.HeaderTextBlockStyle);
 
     [ObservableProperty]
     public object cmbSelectedItem;
 
     [ObservableProperty]
-    public bool isEnabledSettingsCard = Settings.UseHeaderCustomFontSize;
+    public bool isEnabledSettingsCard = Settings.UseCustomFontSizeForHeader;
 
     [ObservableProperty]
     public ObservableCollection<string> textBlockStyles = GenerateTextBlockStyles();
@@ -18,11 +18,11 @@ public partial class HeaderStyleSettingViewModel : ObservableRecipient
     {
         if (CmbSelectedItem != null)
         {
-            Settings.SettingsCardHeaderStyle = CmbSelectedItem.ToString();
+            Settings.HeaderTextBlockStyle = CmbSelectedItem.ToString();
 
-            if (Settings.UseHeaderCustomFontSize && !double.IsNaN(Settings.SettingsCardHeaderFontSize))
+            if (Settings.UseCustomFontSizeForHeader && !double.IsNaN(Settings.HeaderTextBlockFontSize))
             {
-                PreviewFontSize = Settings.SettingsCardHeaderFontSize;
+                PreviewFontSize = Settings.HeaderTextBlockFontSize;
             }
             else
             {
@@ -38,14 +38,14 @@ public partial class HeaderStyleSettingViewModel : ObservableRecipient
         if (tg != null)
         {
             IsEnabledSettingsCard = tg.IsOn;
-            if (tg.IsOn && !double.IsNaN(Settings.SettingsCardHeaderFontSize))
+            if (tg.IsOn && !double.IsNaN(Settings.HeaderTextBlockFontSize))
             {
-                PreviewFontSize = Settings.SettingsCardHeaderFontSize;
+                PreviewFontSize = Settings.HeaderTextBlockFontSize;
             }
             else
             {
                 PreviewFontSize = GetFontSizeBasedOnTextBlockStyle(CmbSelectedItem?.ToString());
-                Settings.SettingsCardHeaderFontSize = PreviewFontSize;
+                Settings.HeaderTextBlockFontSize = PreviewFontSize;
             }
         }
     }

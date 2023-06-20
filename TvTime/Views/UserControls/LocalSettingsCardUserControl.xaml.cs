@@ -35,38 +35,38 @@ public sealed partial class LocalSettingsCardUserControl : UserControl
 
     private void SettingsCard_Click(object sender, RoutedEventArgs e)
     {
-        var setting = (sender as SettingsCard);
-        var headerTextBlock = setting?.Header as TextBlock;
+        var item = (sender as SettingsCard);
+        var headerTextBlock = item?.Header as TextBlock;
         var title = headerTextBlock.Text?.Trim();
         var server = string.Empty;
 
-        switch (Settings.DescriptionTemplateType)
+        switch (Settings.DescriptionTemplate)
         {
             case DescriptionTemplateType.TextBlock:
-                var descriptionTextBlock = setting?.Description as TextBlock;
+                var descriptionTextBlock = item?.Description as TextBlock;
                 server = descriptionTextBlock?.Text;
                 break;
             case DescriptionTemplateType.HyperLink:
-                var hyperLink = setting?.Description as HyperlinkButton;
+                var hyperLink = item?.Description as HyperlinkButton;
                 var hyperLinkContent = hyperLink?.Content as TextBlock;
                 server = hyperLinkContent?.Text;
                 break;
         }
 
-        var item = new LocalItem
+        var media = new LocalItem
         {
             Server = server,
             Title = title,
             ServerType = ApplicationHelper.GetEnum<ServerType>(PageType.ToString())
         };
 
-        App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), item);
+        App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), media);
     }
 
     private async void btnOpenDirectory_Click(object sender, RoutedEventArgs e)
     {
-        var menuFlyout = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) menuFlyout?.DataContext;
+        var item = (sender as MenuFlyoutItem);
+        var localItem = (LocalItem) item?.DataContext;
         var server = localItem.Server?.ToString();
         await Launcher.LaunchUriAsync(new Uri(server));
     }

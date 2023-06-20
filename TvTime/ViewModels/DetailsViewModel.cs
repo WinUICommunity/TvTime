@@ -64,18 +64,18 @@ public partial class DetailsViewModel : ObservableRecipient
     [RelayCommand]
     private async void OnSettingsCard(object sender)
     {
-        var setting = (sender as SettingsCard);
-        var textBlock = setting?.Header as TextBlock;
+        var item = (sender as SettingsCard);
+        var textBlock = item?.Header as TextBlock;
         var title = textBlock.Text?.Trim();
         var server = string.Empty;
-        switch (Settings.DescriptionTemplateType)
+        switch (Settings.DescriptionTemplate)
         {
             case DescriptionTemplateType.TextBlock:
-                var descriptionTextBlock = setting?.Description as TextBlock;
+                var descriptionTextBlock = item?.Description as TextBlock;
                 server = descriptionTextBlock?.Text;
                 break;
             case DescriptionTemplateType.HyperLink:
-                var hyperLink = setting?.Description as HyperlinkButton;
+                var hyperLink = item?.Description as HyperlinkButton;
                 var hyperLinkContent = hyperLink?.Content as TextBlock;
                 server = hyperLinkContent?.Text;
                 break;
@@ -187,8 +187,8 @@ public partial class DetailsViewModel : ObservableRecipient
     [RelayCommand]
     private void OnCopy(object sender)
     {
-        var menuFlyout = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) menuFlyout?.DataContext;
+        var item = (sender as MenuFlyoutItem);
+        var localItem = (LocalItem) item?.DataContext;
         var server = localItem.Server?.ToString();
         var package = new DataPackage();
         package.SetText(server);
@@ -212,10 +212,10 @@ public partial class DetailsViewModel : ObservableRecipient
     [RelayCommand]
     private async void OnOpenDirectory(object sender)
     {
-        var menuFlyout = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) menuFlyout?.DataContext;
+        var item = (sender as MenuFlyoutItem);
+        var localItem = (LocalItem) item?.DataContext;
         var server = localItem.Server?.ToString();
-        if (menuFlyout.Text.Contains("File"))
+        if (item.Text.Contains("File"))
         {
             await Launcher.LaunchUriAsync(new Uri(server));
         }

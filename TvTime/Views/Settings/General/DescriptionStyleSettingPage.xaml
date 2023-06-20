@@ -23,11 +23,11 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
                 <ComboBox Name="cmbDescription"
                           ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}"
-                          SelectedItem="{x:Bind ViewModel.CmbSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                          SelectedItem="{x:Bind ViewModel.CmbStyleSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ComboBoxStyleChangedCommand}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ComboBoxTextBlockStyleChangedCommand}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
@@ -43,7 +43,7 @@
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                   IsExpanded="True">
                 <ToggleSwitch Name="tgCustomFontSize"
-                              IsOn="{x:Bind settings:TvTimeHelper.Settings.UseDescriptionCustomFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              IsOn="{x:Bind settings:TvTimeHelper.Settings.UseCustomFontSizeForDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               OffContent="Default"
                               OnContent="Custom">
                     <i:Interaction.Behaviors>
@@ -62,7 +62,7 @@
                         <NumberBox Minimum="8"
                                    SpinButtonPlacementMode="Inline"
                                    ValueChanged="FontSize_ValueChanged"
-                                   Value="{x:Bind settings:TvTimeHelper.Settings.SettingsCardDescriptionFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                   Value="{x:Bind settings:TvTimeHelper.Settings.DescriptionTextBlockFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wuc:SettingsCard>
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
@@ -77,7 +77,7 @@
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ComboBoxTypeChangedCommand}" CommandParameter="{Binding ElementName=cmbDescriptionType}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ComboBoxTemplateTypeChangedCommand}" CommandParameter="{Binding ElementName=cmbDescriptionType}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>

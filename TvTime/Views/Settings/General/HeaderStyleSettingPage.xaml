@@ -44,7 +44,7 @@
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                   IsExpanded="True">
                 <ToggleSwitch Name="tgCustomFontSize"
-                              IsOn="{x:Bind settings:TvTimeHelper.Settings.UseHeaderCustomFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              IsOn="{x:Bind settings:TvTimeHelper.Settings.UseCustomFontSizeForHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               OffContent="Default"
                               OnContent="Custom">
                     <i:Interaction.Behaviors>
@@ -63,7 +63,7 @@
                         <NumberBox Minimum="8"
                                    SpinButtonPlacementMode="Inline"
                                    ValueChanged="FontSize_ValueChanged"
-                                   Value="{x:Bind settings:TvTimeHelper.Settings.SettingsCardHeaderFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                   Value="{x:Bind settings:TvTimeHelper.Settings.HeaderTextBlockFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wuc:SettingsCard>
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>

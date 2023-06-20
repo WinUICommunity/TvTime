@@ -26,15 +26,15 @@ public partial class GeneralSettingViewModel : ObservableObject
     [RelayCommand]
     private void GoToStyleSettingPage(object sender)
     {
-        var settingCard = sender as SettingsCard;
-        if (settingCard.Tag != null)
+        var item = sender as SettingsCard;
+        if (item.Tag != null)
         {
-            Type pageType = Application.Current.GetType().Assembly.GetType($"TvTime.Views.{settingCard.Tag}");
+            Type pageType = Application.Current.GetType().Assembly.GetType($"TvTime.Views.{item.Tag}");
 
             if (pageType != null)
             {
                 DrillInNavigationTransitionInfo entranceNavigation = new DrillInNavigationTransitionInfo();
-                App.Current.NavigationManager.NavigateForJson(pageType, settingCard.Header, entranceNavigation);
+                App.Current.NavigationManager.NavigateForJson(pageType, item.Header, entranceNavigation);
             }
         }
     }

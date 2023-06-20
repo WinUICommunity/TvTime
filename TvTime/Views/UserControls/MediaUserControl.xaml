@@ -21,8 +21,8 @@
             <views:LocalSettingsCardUserControl LocalItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
                 <views:LocalSettingsCardUserControl.Description>
                     <TextBlock Name="txtDesc"
-                               FontSize="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionFontSize}"
-                               Style="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionStyle, Converter={StaticResource String2StyleConverter}}"
+                               FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
+                               Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
                                Text="{x:Bind Server}"
                                TextTrimming="None"
                                TextWrapping="Wrap">
@@ -54,8 +54,8 @@
                                      NavigateUri="{x:Bind Server}">
                         <HyperlinkButton.Content>
                             <TextBlock Name="txtDesc"
-                                       FontSize="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionFontSize}"
-                                       Style="{x:Bind local:TvTimeHelper.Settings.SettingsCardDescriptionStyle, Converter={StaticResource String2StyleConverter}}"
+                                       FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
+                                       Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
                                        Text="{x:Bind Server}"
                                        TextTrimming="None"
                                        TextWrapping="Wrap" />

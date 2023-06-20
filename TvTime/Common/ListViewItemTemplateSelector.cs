@@ -6,7 +6,7 @@ public class ListViewItemTemplateSelector : DataTemplateSelector
 
     protected override DataTemplate SelectTemplateCore(object item)
     {
-        switch (Settings.DescriptionTemplateType)
+        switch (Settings.DescriptionTemplate)
         {
             case DescriptionTemplateType.TextBlock:
                 return TextBlockTemplate;

@@ -2,51 +2,51 @@
 public partial class DescriptionStyleSettingViewModel : ObservableRecipient
 {
     [ObservableProperty]
-    public double previewFontSize = GetFontSizeBasedOnTextBlockStyle(Settings.SettingsCardDescriptionStyle);
+    public double previewFontSize = GetFontSizeBasedOnTextBlockStyle(Settings.DescriptionTextBlockStyle);
 
     [ObservableProperty]
-    public object cmbSelectedItem;
+    public object cmbStyleSelectedItem;
 
     [ObservableProperty]
-    public bool isEnabledSettingsCard = Settings.UseDescriptionCustomFontSize;
+    public bool isEnabledSettingsCard = Settings.UseCustomFontSizeForDescription;
 
     [ObservableProperty]
-    public bool isHyperLink = Settings.DescriptionTemplateType == DescriptionTemplateType.HyperLink;
+    public bool isHyperLink = Settings.DescriptionTemplate == DescriptionTemplateType.HyperLink;
 
     [ObservableProperty]
-    public bool isTextBlock = Settings.DescriptionTemplateType == DescriptionTemplateType.TextBlock;
+    public bool isTextBlock = Settings.DescriptionTemplate == DescriptionTemplateType.TextBlock;
 
     [ObservableProperty]
     public ObservableCollection<string> textBlockStyles = GenerateTextBlockStyles();
 
     [RelayCommand]
-    private void OnComboBoxTypeChanged(object sender)
+    private void OnComboBoxTemplateTypeChanged(object sender)
     {
-        var cmbDescriptionType = sender as ComboBox;
-        if (cmbDescriptionType != null)
+        var cmb = sender as ComboBox;
+        if (cmb != null)
         {
-            var selectedItem = cmbDescriptionType.SelectedItem as ComboBoxItem;
-            var descType = ApplicationHelper.GetEnum<DescriptionTemplateType>(selectedItem?.Tag?.ToString());
-            Settings.DescriptionTemplateType = descType;
-            IsHyperLink = descType == DescriptionTemplateType.HyperLink;
-            IsTextBlock = descType == DescriptionTemplateType.TextBlock;
+            var selectedItem = cmb.SelectedItem as ComboBoxItem;
+            var type = ApplicationHelper.GetEnum<DescriptionTemplateType>(selectedItem?.Tag?.ToString());
+            Settings.DescriptionTemplate = type;
+            IsHyperLink = type == DescriptionTemplateType.HyperLink;
+            IsTextBlock = type == DescriptionTemplateType.TextBlock;
         }
     }
 
     [RelayCommand]
-    private void OnComboBoxStyleChanged()
+    private void OnComboBoxTextBlockStyleChanged()
     {
-        if (CmbSelectedItem != null)
+        if (CmbStyleSelectedItem != null)
         {
-            Settings.SettingsCardDescriptionStyle = CmbSelectedItem.ToString();
+            Settings.DescriptionTextBlockStyle = CmbStyleSelectedItem.ToString();
 
-            if (Settings.UseDescriptionCustomFontSize && !double.IsNaN(Settings.SettingsCardDescriptionFontSize))
+            if (Settings.UseCustomFontSizeForDescription && !double.IsNaN(Settings.DescriptionTextBlockFontSize))
             {
-                PreviewFontSize = Settings.SettingsCardDescriptionFontSize;
+                PreviewFontSize = Settings.DescriptionTextBlockFontSize;
             }
             else
             {
-                PreviewFontSize = GetFontSizeBasedOnTextBlockStyle(CmbSelectedItem.ToString());
+                PreviewFontSize = GetFontSizeBasedOnTextBlockStyle(CmbStyleSelectedItem.ToString());
             }
         }
     }
@@ -58,14 +58,14 @@ public partial class DescriptionStyleSettingViewModel : ObservableRecipient
         if (tg != null)
         {
             IsEnabledSettingsCard = tg.IsOn;
-            if (tg.IsOn && !double.IsNaN(Settings.SettingsCardDescriptionFontSize))
+            if (tg.IsOn && !double.IsNaN(Settings.DescriptionTextBlockFontSize))
             {
-                PreviewFontSize = Settings.SettingsCardDescriptionFontSize;
+                PreviewFontSize = Settings.DescriptionTextBlockFontSize;
             }
             else
             {
-                PreviewFontSize = GetFontSizeBasedOnTextBlockStyle(CmbSelectedItem?.ToString());
-                Settings.SettingsCardDescriptionFontSize = PreviewFontSize;
+                PreviewFontSize = GetFontSizeBasedOnTextBlockStyle(CmbStyleSelectedItem?.ToString());
+                Settings.DescriptionTextBlockFontSize = PreviewFontSize;
             }
         }
     }

@@ -4,8 +4,8 @@ using Nucs.JsonSettings.Modulation;
 namespace TvTime.Common;
 public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
 {
-    [EnforcedVersion("2.0.0.0")]
-    public virtual Version Version { get; set; } = new Version(2, 0, 0, 0);
+    [EnforcedVersion("2.1.0.0")]
+    public virtual Version Version { get; set; } = new Version(2, 1, 0, 0);
     public override string FileName { get; set; } = Constants.AppConfigPath;
 
     private ObservableCollection<ServerModel> _Servers = new();
@@ -31,6 +31,6 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual bool HasHyperLinkBorderThickness { get; set; } = false;
     public virtual bool UseTruncateInHeader { get; set; } = false;
     public virtual bool UseTruncateInDescription { get; set; } = false;
-    public virtual DescriptionType DescriptionType { get; set; } = DescriptionType.HyperLink;
+    public virtual DescriptionTemplateType DescriptionTemplateType { get; set; } = DescriptionTemplateType.HyperLink;
     public virtual IconPackType IconPack { get; set; } = IconPackType.Glyph;
 }

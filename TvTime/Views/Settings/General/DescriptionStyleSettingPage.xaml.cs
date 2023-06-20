@@ -17,7 +17,7 @@ public sealed partial class DescriptionStyleSettingPage : Page
 
     private void DescriptionStyleSettingPage_Loaded(object sender, RoutedEventArgs e)
     {
-        var descType = Settings.DescriptionType;
+        var descType = Settings.DescriptionTemplateType;
         cmbDescriptionType.SelectedItem = cmbDescriptionType.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == descType.ToString());
 
         var descriptionStyle = Settings.SettingsCardDescriptionStyle;

@@ -40,13 +40,13 @@ public sealed partial class LocalSettingsCardUserControl : UserControl
         var title = headerTextBlock.Text?.Trim();
         var server = string.Empty;
 
-        switch (Settings.DescriptionType)
+        switch (Settings.DescriptionTemplateType)
         {
-            case DescriptionType.TextBlock:
+            case DescriptionTemplateType.TextBlock:
                 var descriptionTextBlock = setting?.Description as TextBlock;
                 server = descriptionTextBlock?.Text;
                 break;
-            case DescriptionType.HyperLink:
+            case DescriptionTemplateType.HyperLink:
                 var hyperLink = setting?.Description as HyperlinkButton;
                 var hyperLinkContent = hyperLink?.Content as TextBlock;
                 server = hyperLinkContent?.Text;

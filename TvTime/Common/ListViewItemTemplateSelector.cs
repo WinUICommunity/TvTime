@@ -6,11 +6,11 @@ public class ListViewItemTemplateSelector : DataTemplateSelector
 
     protected override DataTemplate SelectTemplateCore(object item)
     {
-        switch (Settings.DescriptionType)
+        switch (Settings.DescriptionTemplateType)
         {
-            case DescriptionType.TextBlock:
+            case DescriptionTemplateType.TextBlock:
                 return TextBlockTemplate;
-            case DescriptionType.HyperLink:
+            case DescriptionTemplateType.HyperLink:
                 return HyperLinkTemplate;
             default:
                 return base.SelectTemplateCore(item);

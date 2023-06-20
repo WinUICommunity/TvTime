@@ -1,5 +1,5 @@
 ﻿namespace TvTime.Models;
-public enum DescriptionType
+public enum DescriptionTemplateType
 {
     TextBlock,
     HyperLink

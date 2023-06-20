@@ -11,10 +11,10 @@ public partial class DescriptionStyleSettingViewModel : ObservableRecipient
     public bool isEnabledSettingsCard = Settings.UseDescriptionCustomFontSize;
 
     [ObservableProperty]
-    public bool isHyperLink = Settings.DescriptionType == DescriptionType.HyperLink;
+    public bool isHyperLink = Settings.DescriptionTemplateType == DescriptionTemplateType.HyperLink;
 
     [ObservableProperty]
-    public bool isTextBlock = Settings.DescriptionType == DescriptionType.TextBlock;
+    public bool isTextBlock = Settings.DescriptionTemplateType == DescriptionTemplateType.TextBlock;
 
     [ObservableProperty]
     public ObservableCollection<string> textBlockStyles = GenerateTextBlockStyles();
@@ -26,10 +26,10 @@ public partial class DescriptionStyleSettingViewModel : ObservableRecipient
         if (cmbDescriptionType != null)
         {
             var selectedItem = cmbDescriptionType.SelectedItem as ComboBoxItem;
-            var descType = ApplicationHelper.GetEnum<DescriptionType>(selectedItem?.Tag?.ToString());
-            Settings.DescriptionType = descType;
-            IsHyperLink = descType == DescriptionType.HyperLink;
-            IsTextBlock = descType == DescriptionType.TextBlock;
+            var descType = ApplicationHelper.GetEnum<DescriptionTemplateType>(selectedItem?.Tag?.ToString());
+            Settings.DescriptionTemplateType = descType;
+            IsHyperLink = descType == DescriptionTemplateType.HyperLink;
+            IsTextBlock = descType == DescriptionTemplateType.TextBlock;
         }
     }
 

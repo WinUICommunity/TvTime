@@ -1,6 +1,6 @@
 ﻿namespace TvTime.Models;
 
-public struct LocalItem
+public struct MediaItem
 {
     public string Server { get; set; }
     public string Title { get; set; }

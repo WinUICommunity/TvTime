@@ -9,13 +9,13 @@ namespace TvTime.ViewModels;
 public partial class DetailsViewModel : ObservableRecipient
 {
     [ObservableProperty]
-    public ObservableCollection<LocalItem> dataList;
+    public ObservableCollection<MediaItem> dataList;
 
     [ObservableProperty]
     public AdvancedCollectionView dataListACV;
 
     [ObservableProperty]
-    public ObservableCollection<LocalItem> breadcrumbBarList = new ();
+    public ObservableCollection<MediaItem> breadcrumbBarList = new ();
 
     [ObservableProperty]
     public bool isStatusOpen;
@@ -32,7 +32,7 @@ public partial class DetailsViewModel : ObservableRecipient
     public List<string> suggestList = new List<string>();
     private SortDescription currentSortDescription;
 
-    public LocalItem rootLocalItem;
+    public MediaItem rootLocalItem;
 
     [RelayCommand]
     private void OnPageLoaded()
@@ -95,7 +95,7 @@ public partial class DetailsViewModel : ObservableRecipient
         }
         else
         {
-            var localItem = new LocalItem
+            var localItem = new MediaItem
             {
                 Server = server,
                 Title = title,
@@ -115,7 +115,7 @@ public partial class DetailsViewModel : ObservableRecipient
     [RelayCommand]
     private void OnBreadCrumbBarItem(BreadcrumbBarItemClickedEventArgs args)
     {
-        var item = (LocalItem) args.Item;
+        var item = (MediaItem) args.Item;
         BreadcrumbBarList.RemoveAt(args.Index + 1);
         DownloadDetails(item);
     }
@@ -145,7 +145,7 @@ public partial class DetailsViewModel : ObservableRecipient
         else
         {
             var menuFlyout = (sender as MenuFlyoutItem);
-            var localItem = (LocalItem) menuFlyout?.DataContext;
+            var localItem = (MediaItem) menuFlyout?.DataContext;
             var server = localItem.Server?.ToString();
             Process.Start(GetIDMFilePath(), $"/d \"{server?.ToString()}\"");
         }
@@ -177,7 +177,7 @@ public partial class DetailsViewModel : ObservableRecipient
         {
             foreach (var item in DataList)
             {
-                var localItem = (LocalItem) item;
+                var localItem = (MediaItem) item;
                 Process.Start(GetIDMFilePath(), $"/d \"{localItem.Server?.ToString()}\"");
                 await Task.Delay(450);
             }
@@ -188,7 +188,7 @@ public partial class DetailsViewModel : ObservableRecipient
     private void OnCopy(object sender)
     {
         var item = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) item?.DataContext;
+        var localItem = (MediaItem) item?.DataContext;
         var server = localItem.Server?.ToString();
         var package = new DataPackage();
         package.SetText(server);
@@ -202,7 +202,7 @@ public partial class DetailsViewModel : ObservableRecipient
         StringBuilder urls = new StringBuilder();
         foreach (var item in DataList)
         {
-            var localItem = (LocalItem) item;
+            var localItem = (MediaItem) item;
             urls.AppendLine(localItem.Server?.ToString());
         }
         package.SetText(urls?.ToString());
@@ -213,7 +213,7 @@ public partial class DetailsViewModel : ObservableRecipient
     private async void OnOpenDirectory(object sender)
     {
         var item = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) item?.DataContext;
+        var localItem = (MediaItem) item?.DataContext;
         var server = localItem.Server?.ToString();
         if (item.Text.Contains("File"))
         {
@@ -235,7 +235,7 @@ public partial class DetailsViewModel : ObservableRecipient
 
     public bool DataListFilter(object item)
     {
-        var query = (LocalItem) item;
+        var query = (MediaItem) item;
         var name = query.Title ?? "";
         var tName = query.Server ?? "";
         var txtSearch = MainPage.Instance.GetTxtSearch();
@@ -268,7 +268,7 @@ public partial class DetailsViewModel : ObservableRecipient
         }
     }
 
-    private async void DownloadDetails(LocalItem localItem)
+    private async void DownloadDetails(MediaItem localItem)
     {
         try
         {
@@ -291,7 +291,7 @@ public partial class DetailsViewModel : ObservableRecipient
             DataListACV = new AdvancedCollectionView(DataList, true);
             currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
             DataListACV.SortDescriptions.Add(currentSortDescription);
-            suggestList = DataListACV.Select(x => ((LocalItem) x).Title).ToList();
+            suggestList = DataListACV.Select(x => ((MediaItem) x).Title).ToList();
 
             IsActive = false;
             StatusTitle = "Updated Successfully";
@@ -308,9 +308,9 @@ public partial class DetailsViewModel : ObservableRecipient
         }
     }
 
-    public List<LocalItem> GetServerDetails(string content, LocalItem localItem)
+    public List<MediaItem> GetServerDetails(string content, MediaItem localItem)
     {
-        List<LocalItem> list = new List<LocalItem>();
+        List<MediaItem> list = new List<MediaItem>();
 
         if (localItem.Server.Contains("DonyayeSerial"))
         {
@@ -331,7 +331,7 @@ public partial class DetailsViewModel : ObservableRecipient
                     var date = dateNode?.InnerText?.Trim();
                     var serverUrl = $"{localItem.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
                     var size = sizeNode?.InnerText?.Trim();
-                    list.Add(new LocalItem { Title = title, DateTime = date, Server = serverUrl, FileSize = size, ServerType = ServerType.Series });
+                    list.Add(new MediaItem { Title = title, DateTime = date, Server = serverUrl, FileSize = size, ServerType = ServerType.Series });
                 }
             }
             return list;
@@ -352,7 +352,7 @@ public partial class DetailsViewModel : ObservableRecipient
             foreach (Match m in m1)
             {
                 string value = m.Groups[1].Value;
-                LocalItem i = new LocalItem();
+                MediaItem i = new MediaItem();
 
                 Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline);
                 string link = string.Empty;

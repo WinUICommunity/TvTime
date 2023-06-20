@@ -4,7 +4,7 @@ namespace TvTime.ViewModels;
 public partial class MediaViewModel : ObservableRecipient
 {
     [ObservableProperty]
-    public ObservableCollection<LocalItem> dataList;
+    public ObservableCollection<MediaItem> dataList;
 
     [ObservableProperty]
     public AdvancedCollectionView dataListACV;
@@ -114,7 +114,7 @@ public partial class MediaViewModel : ObservableRecipient
 
     public bool DataListFilter(object item)
     {
-        var query = (LocalItem) item;
+        var query = (MediaItem) item;
         var name = query.Title ?? "";
         var tName = query.Server ?? "";
         var txtSearch = MainPage.Instance.GetTxtSearch();
@@ -171,7 +171,7 @@ public partial class MediaViewModel : ObservableRecipient
             var tasks = files.Select(async file =>
             {
                 using FileStream openStream = File.OpenRead(file);
-                return await System.Text.Json.JsonSerializer.DeserializeAsync<List<LocalItem>>(openStream, options);
+                return await System.Text.Json.JsonSerializer.DeserializeAsync<List<MediaItem>>(openStream, options);
             });
             var contentsList = await Task.WhenAll(tasks);
             var contents = contentsList.SelectMany(x => x);
@@ -180,7 +180,7 @@ public partial class MediaViewModel : ObservableRecipient
             {
                 // Find the items containing "Iranian/Series" and extract the base URL, and Remove duplicates from the filtered list
                 var filteredContents = contents.Where(c => c.Server.Contains("Series/Iranian"))
-                               .Select(c => new LocalItem
+                               .Select(c => new MediaItem
                                {
                                    Server = GetBaseUrl(c.Server),
                                    Title = GetBaseTitle(c.Title),
@@ -192,7 +192,7 @@ public partial class MediaViewModel : ObservableRecipient
                 // Merge the unique and non-filtered items
 
                 var finalContents = contents.Where(c => !c.Server.Contains("Series/Iranian"))
-                            .Concat(filteredContents.Select(u => new LocalItem
+                            .Concat(filteredContents.Select(u => new MediaItem
                             {
                                 Server = u.Server,
                                 Title = u.Title,
@@ -201,8 +201,8 @@ public partial class MediaViewModel : ObservableRecipient
                                 ServerType = u.ServerType
                             }));
 
-                // Update the LocalItem list
-                var updatedList = finalContents.Select(c => new LocalItem
+                // Update the MediaItem list
+                var updatedList = finalContents.Select(c => new MediaItem
                 {
                     Server = c.Server,
                     Title = c.Title,
@@ -216,7 +216,7 @@ public partial class MediaViewModel : ObservableRecipient
             DataList = new();
             DataList.AddRange(myDataList);
             currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
-            suggestList = myDataList.Select(x => ((LocalItem) x).Title).ToList();
+            suggestList = myDataList.Select(x => ((MediaItem) x).Title).ToList();
 
             DataListACV = new AdvancedCollectionView(DataList, true);
             DataListACV.SortDescriptions.Add(currentSortDescription);
@@ -301,9 +301,9 @@ public partial class MediaViewModel : ObservableRecipient
         LoadLocalStorage();
     }
 
-    public List<LocalItem> GetServerDetails(string content, ServerModel server)
+    public List<MediaItem> GetServerDetails(string content, ServerModel server)
     {
-        List<LocalItem> list = new List<LocalItem>();
+        List<MediaItem> list = new List<MediaItem>();
 
         if (server.Server.Contains("DonyayeSerial"))
         {
@@ -324,7 +324,7 @@ public partial class MediaViewModel : ObservableRecipient
                     var date = dateNode?.InnerText?.Trim();
                     var serverUrl = $"{server.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
                     var size = sizeNode?.InnerText?.Trim();
-                    list.Add(new LocalItem { Title = title, DateTime = date, Server = serverUrl, FileSize = size, ServerType = ServerType.Series });
+                    list.Add(new MediaItem { Title = title, DateTime = date, Server = serverUrl, FileSize = size, ServerType = ServerType.Series });
                 }
             }
             return list;
@@ -340,7 +340,7 @@ public partial class MediaViewModel : ObservableRecipient
             foreach (Match m in m1)
             {
                 string value = m.Groups[1].Value;
-                LocalItem i = new LocalItem();
+                MediaItem i = new MediaItem();
 
                 Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 

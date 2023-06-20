@@ -18,7 +18,7 @@ public sealed partial class DetailPage : Page
     {
         base.OnNavigatedTo(e);
         var args = e.Parameter as NavigationArgs;
-        var item = (LocalItem)args.Parameter;
+        var item = (MediaItem)args.Parameter;
         ViewModel.rootLocalItem = item;
         ViewModel.BreadcrumbBarList?.Clear();
     }

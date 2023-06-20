@@ -7,9 +7,9 @@ public sealed partial class MediaItemUserControl : UserControl
         set { SetValue(PageTypeProperty, value); }
     }
 
-    public LocalItem MediaItem
+    public MediaItem MediaItem
     {
-        get { return (LocalItem) GetValue(MediaItemProperty); }
+        get { return (MediaItem) GetValue(MediaItemProperty); }
         set { SetValue(MediaItemProperty, value); }
     }
 
@@ -23,7 +23,7 @@ public sealed partial class MediaItemUserControl : UserControl
         DependencyProperty.Register("PageType", typeof(PageOrDirectoryType), typeof(MediaItemUserControl), new PropertyMetadata(default(PageOrDirectoryType)));
 
     public static readonly DependencyProperty MediaItemProperty =
-        DependencyProperty.Register("MediaItem", typeof(LocalItem), typeof(MediaItemUserControl), new PropertyMetadata(default(LocalItem)));
+        DependencyProperty.Register("MediaItem", typeof(MediaItem), typeof(MediaItemUserControl), new PropertyMetadata(default(MediaItem)));
 
     public static readonly DependencyProperty DescriptionProperty =
         DependencyProperty.Register("Description", typeof(object), typeof(MediaItemUserControl), new PropertyMetadata(default(object)));
@@ -53,7 +53,7 @@ public sealed partial class MediaItemUserControl : UserControl
                 break;
         }
 
-        var media = new LocalItem
+        var media = new MediaItem
         {
             Server = server,
             Title = title,
@@ -66,7 +66,7 @@ public sealed partial class MediaItemUserControl : UserControl
     private async void btnOpenDirectory_Click(object sender, RoutedEventArgs e)
     {
         var item = (sender as MenuFlyoutItem);
-        var localItem = (LocalItem) item?.DataContext;
+        var localItem = (MediaItem) item?.DataContext;
         var server = localItem.Server?.ToString();
         await Launcher.LaunchUriAsync(new Uri(server));
     }

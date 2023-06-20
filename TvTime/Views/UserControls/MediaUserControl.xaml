@@ -16,7 +16,7 @@
 
     <UserControl.Resources>
 
-        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:LocalItem">
+        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:MediaItem">
 
             <views:MediaItemUserControl MediaItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
                 <views:MediaItemUserControl.Description>
@@ -44,7 +44,7 @@
 
         </DataTemplate>
 
-        <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:LocalItem">
+        <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:MediaItem">
             <views:MediaItemUserControl MediaItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
                 <views:MediaItemUserControl.Description>
                     <HyperlinkButton Name="serverHyperLink"

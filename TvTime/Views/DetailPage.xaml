@@ -16,7 +16,7 @@
 
     <Page.Resources>
 
-        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:LocalItem">
+        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:MediaItem">
 
             <views:DetailItemUserControl MediaItem="{x:Bind}"
                                          SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
@@ -46,7 +46,7 @@
             </views:DetailItemUserControl>
         </DataTemplate>
 
-        <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:LocalItem">
+        <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:MediaItem">
             <views:DetailItemUserControl MediaItem="{x:Bind}"
                                          SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
                                          ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
@@ -138,7 +138,7 @@
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
             <BreadcrumbBar.ItemTemplate>
-                <DataTemplate x:DataType="model:LocalItem">
+                <DataTemplate x:DataType="model:MediaItem">
                     <TextBlock FontWeight="Normal"
                                Style="{ThemeResource TitleTextBlockStyle}"
                                Text="{x:Bind Title}" />

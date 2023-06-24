@@ -28,7 +28,7 @@ public sealed partial class MediaUserControl : UserControl
 
     public List<TokenItem> GetTokenSelectedItems()
     {
-        return token.SelectedItems.Cast<TokenItem>().ToList();
+        return Token.SelectedItems.Cast<TokenItem>().ToList();
     }
 
     private void token_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -38,7 +38,7 @@ public sealed partial class MediaUserControl : UserControl
             return;
         }
 
-        if (token != null)
+        if (Token != null)
         {
             dynamic selectedItem = e.AddedItems.Count > 0 ? e.AddedItems[0] as TokenItem : null;
 
@@ -52,16 +52,16 @@ public sealed partial class MediaUserControl : UserControl
                 return;
             }
 
-            if (token.SelectedItems.Count == 0)
+            if (Token.SelectedItems.Count == 0)
             {
-                var allItem = token.Items[0] as TokenItem;
+                var allItem = Token.Items[0] as TokenItem;
                 allItem.IsSelected = true;
                 selectedItem = allItem;
             }
 
             if (selectedItem.Content.ToString().Equals(Constants.ALL_FILTER) && selectedItem.IsSelected)
             {
-                foreach (TokenItem item in token.Items)
+                foreach (TokenItem item in Token.Items)
                 {
                     if (item.Content.ToString().Equals(Constants.ALL_FILTER))
                     {
@@ -74,7 +74,7 @@ public sealed partial class MediaUserControl : UserControl
             }
             else if (!selectedItem.Content.ToString().Equals(Constants.ALL_FILTER))
             {
-                foreach (TokenItem item in token.Items)
+                foreach (TokenItem item in Token.Items)
                 {
                     if (item.Content.ToString().Equals(Constants.ALL_FILTER) && item.IsSelected)
                     {
@@ -93,6 +93,6 @@ public sealed partial class MediaUserControl : UserControl
     private bool OnTokenFilter(object item)
     {
         var query = (MediaItem) item;
-        return token.SelectedItems.Cast<TokenItem>().Any(x => query.Server.Contains(x.Content.ToString()));
+        return Token.SelectedItems.Cast<TokenItem>().Any(x => query.Server.Contains(x.Content.ToString()));
     }
 }

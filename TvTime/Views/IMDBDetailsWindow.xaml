@@ -40,8 +40,7 @@
                        Margin="4,0,0,0"
                        VerticalAlignment="Center"
                        Text="{x:Bind ViewModel.AppTitle}" />
-            <AutoSuggestBox x:Name="txtImdbDetail"
-                            Grid.Column="4"
+            <AutoSuggestBox Grid.Column="4"
                             Width="450"
                             VerticalAlignment="Center"
                             PlaceholderText="Movie/Serial Title"

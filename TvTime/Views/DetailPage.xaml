@@ -10,7 +10,7 @@
       xmlns:model="using:TvTime.Models"
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
-      x:Name="rootPage"
+      x:Name="This"
       x:DefaultBindMode="OneWay"
       mc:Ignorable="d">
 
@@ -19,10 +19,10 @@
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:MediaItem">
 
             <views:DetailItemUserControl MediaItem="{x:Bind}"
-                                         SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                         ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
+                                         SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
+                                         ViewModel="{Binding ElementName=This, Path=DataContext.ViewModel}">
                 <views:DetailItemUserControl.Description>
-                    <TextBlock x:Name="txtDesc"
+                    <TextBlock x:Name="TxtDesc"
                                FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
                                Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
                                Text="{x:Bind Server}"
@@ -33,10 +33,10 @@
                                                     ComparisonCondition="Equal"
                                                     Value="True">
                                 <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
                                                          Value="CharacterEllipsis" />
                                 <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
                                                          Value="NoWrap" />
                             </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
@@ -48,16 +48,16 @@
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:MediaItem">
             <views:DetailItemUserControl MediaItem="{x:Bind}"
-                                         SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                         ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
+                                         SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
+                                         ViewModel="{Binding ElementName=This, Path=DataContext.ViewModel}">
                 <views:DetailItemUserControl.Description>
-                    <HyperlinkButton x:Name="serverHyperLink"
+                    <HyperlinkButton x:Name="ServerHyperLink"
                                      Margin="0,5,0,0"
                                      Padding="2,1,2,1"
                                      BorderThickness="0"
                                      NavigateUri="{x:Bind Server}">
                         <HyperlinkButton.Content>
-                            <TextBlock x:Name="txtDesc"
+                            <TextBlock x:Name="TxtDesc"
                                        FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
                                        Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
                                        Text="{x:Bind Server}"
@@ -69,7 +69,7 @@
                                                     ComparisonCondition="Equal"
                                                     Value="True">
                                 <ic:ChangePropertyAction PropertyName="BorderThickness"
-                                                         TargetObject="{Binding ElementName=serverHyperLink}"
+                                                         TargetObject="{Binding ElementName=ServerHyperLink}"
                                                          Value="1" />
                             </ic:DataTriggerBehavior>
 
@@ -77,10 +77,10 @@
                                                     ComparisonCondition="Equal"
                                                     Value="True">
                                 <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
                                                          Value="CharacterEllipsis" />
                                 <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
                                                          Value="NoWrap" />
                             </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
@@ -110,7 +110,7 @@
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <labs:Segmented x:Name="segmented" Margin="10,10,0,0">
+        <labs:Segmented x:Name="Segmented" Margin="10,10,0,0">
             <labs:SegmentedItem Content="Refresh"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
@@ -121,12 +121,12 @@
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
                     <ic:EventTriggerBehavior.Actions>
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}" CommandParameter="{Binding ElementName=segmented}" />
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}" CommandParameter="{Binding ElementName=Segmented}" />
                     </ic:EventTriggerBehavior.Actions>
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </labs:Segmented>
-        <BreadcrumbBar x:Name="breadcrumbBar"
+        <BreadcrumbBar x:Name="BreadcrumbBar"
                        Grid.Row="1"
                        Margin="10,5,5,5"
                        ItemsSource="{x:Bind ViewModel.BreadcrumbBarList}">
@@ -145,8 +145,7 @@
                 </DataTemplate>
             </BreadcrumbBar.ItemTemplate>
         </BreadcrumbBar>
-        <ListView x:Name="listView"
-                  Grid.Row="2"
+        <ListView Grid.Row="2"
                   Margin="5,0,5,5"
                   HorizontalAlignment="Stretch"
                   IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"

@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:local="using:TvTime.Common"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:settings="using:TvTime.Common"
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
@@ -21,7 +21,7 @@
             <wuc:SettingsCard Description="Specify the style of the description"
                               Header="Description Text Style"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
-                <ComboBox x:Name="cmbDescription"
+                <ComboBox x:Name="CmbDescription"
                           ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}"
                           SelectedItem="{x:Bind ViewModel.CmbStyleSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
@@ -36,20 +36,20 @@
             <wuc:SettingsCard Description="Append an ellipsis (...) at the end"
                               Header="Truncate Text"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
-                <ToggleSwitch IsOn="{x:Bind settings:TvTimeHelper.Settings.UseTruncateInDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
             <wuc:SettingsExpander Description="Use Style Default Font Size"
                                   Header="Description Text Font Size"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                   IsExpanded="True">
-                <ToggleSwitch x:Name="tgCustomFontSize"
-                              IsOn="{x:Bind settings:TvTimeHelper.Settings.UseCustomFontSizeForDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <ToggleSwitch x:Name="TgCustomFontSize"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseCustomFontSizeForDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               OffContent="Default"
                               OnContent="Custom">
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="Toggled">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.CustomFontSizeToggledCommand}" CommandParameter="{Binding ElementName=tgCustomFontSize}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.CustomFontSizeToggledCommand}" CommandParameter="{Binding ElementName=TgCustomFontSize}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
@@ -62,22 +62,22 @@
                         <NumberBox Minimum="8"
                                    SpinButtonPlacementMode="Inline"
                                    ValueChanged="FontSize_ValueChanged"
-                                   Value="{x:Bind settings:TvTimeHelper.Settings.DescriptionTextBlockFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                   Value="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wuc:SettingsCard>
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsCard x:Name="settingCardDescType"
+            <wuc:SettingsCard x:Name="SettingCardDescType"
                               Description="Choose which control to use to display the description in the listview"
                               Header="Description Type"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
-                <ComboBox x:Name="cmbDescriptionType">
+                <ComboBox x:Name="CmbDescriptionType">
                     <ComboBoxItem Content="TextBlock" Tag="TextBlock" />
                     <ComboBoxItem Content="HyperLink" Tag="HyperLink" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ComboBoxTemplateTypeChangedCommand}" CommandParameter="{Binding ElementName=cmbDescriptionType}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ComboBoxTemplateTypeChangedCommand}" CommandParameter="{Binding ElementName=CmbDescriptionType}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
@@ -86,15 +86,15 @@
             <wuc:SettingsCard Description="Specify the borderThickness of the hyperlink"
                               Header="HyperLink BorderThickness"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/border.png}">
-                <ToggleSwitch x:Name="tgHyperLinkBorderThickness"
+                <ToggleSwitch x:Name="TgHyperLinkBorderThickness"
                               IsEnabled="False"
-                              IsOn="{x:Bind settings:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
-                        <ic:DataTriggerBehavior Binding="{Binding SelectedIndex, ElementName=cmbDescriptionType}"
+                        <ic:DataTriggerBehavior Binding="{Binding SelectedIndex, ElementName=CmbDescriptionType}"
                                                 ComparisonCondition="Equal"
                                                 Value="1">
                             <ic:ChangePropertyAction PropertyName="IsEnabled"
-                                                     TargetObject="{Binding ElementName=tgHyperLinkBorderThickness}"
+                                                     TargetObject="{Binding ElementName=TgHyperLinkBorderThickness}"
                                                      Value="True" />
                         </ic:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
@@ -104,32 +104,32 @@
             <TextBlock Margin="10"
                        HorizontalAlignment="Center"
                        FontSize="{x:Bind ViewModel.PreviewFontSize, Mode=OneWay}"
-                       Style="{Binding ElementName=cmbDescription, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}"
+                       Style="{Binding ElementName=CmbDescription, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}"
                        Text="Preview Description"
                        Visibility="{x:Bind ViewModel.IsTextBlock, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <HyperlinkButton x:Name="serverHyperLink"
+            <HyperlinkButton x:Name="ServerHyperLink"
                              Padding="5"
                              HorizontalAlignment="Center"
                              Visibility="{x:Bind ViewModel.IsHyperLink, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                 <HyperlinkButton.Content>
                     <TextBlock FontSize="{x:Bind ViewModel.PreviewFontSize, Mode=OneWay}"
-                               Style="{Binding ElementName=cmbDescription, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}"
+                               Style="{Binding ElementName=CmbDescription, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}"
                                Text="Preview Description"
                                TextWrapping="Wrap" />
                 </HyperlinkButton.Content>
                 <i:Interaction.Behaviors>
-                    <ic:DataTriggerBehavior Binding="{x:Bind tgHyperLinkBorderThickness.IsOn, Mode=OneWay}"
+                    <ic:DataTriggerBehavior Binding="{x:Bind TgHyperLinkBorderThickness.IsOn, Mode=OneWay}"
                                             ComparisonCondition="Equal"
                                             Value="True">
                         <ic:ChangePropertyAction PropertyName="BorderThickness"
-                                                 TargetObject="{Binding ElementName=serverHyperLink}"
+                                                 TargetObject="{Binding ElementName=ServerHyperLink}"
                                                  Value="1" />
                     </ic:DataTriggerBehavior>
-                    <ic:DataTriggerBehavior Binding="{x:Bind tgHyperLinkBorderThickness.IsOn, Mode=OneWay}"
+                    <ic:DataTriggerBehavior Binding="{x:Bind TgHyperLinkBorderThickness.IsOn, Mode=OneWay}"
                                             ComparisonCondition="Equal"
                                             Value="False">
                         <ic:ChangePropertyAction PropertyName="BorderThickness"
-                                                 TargetObject="{Binding ElementName=serverHyperLink}"
+                                                 TargetObject="{Binding ElementName=ServerHyperLink}"
                                                  Value="0" />
                     </ic:DataTriggerBehavior>
 

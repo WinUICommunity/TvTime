@@ -7,7 +7,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:TvTime.Models"
       xmlns:wuc="using:WinUICommunity"
-      x:Name="rootPage"
+      x:Name="This"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
@@ -52,19 +52,19 @@
                                 <StackPanel HorizontalAlignment="Right"
                                             Orientation="Horizontal"
                                             Spacing="8">
-                                    <Button x:Name="btnUpdate"
+                                    <Button x:Name="BtnUpdate"
                                             Width="40"
                                             Height="36"
-                                            Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.UpdateItemCommand}"
-                                            CommandParameter="{Binding ElementName=btnUpdate}"
+                                            Command="{Binding ElementName=This, Path=DataContext.ViewModel.UpdateItemCommand}"
+                                            CommandParameter="{Binding ElementName=BtnUpdate}"
                                             Content="&#xE70F;"
                                             FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                             Style="{StaticResource SubtleButtonStyle}" />
-                                    <Button x:Name="btnRemove"
+                                    <Button x:Name="BtnRemove"
                                             Width="40"
                                             Height="36"
-                                            Command="{Binding ElementName=rootPage, Path=DataContext.ViewModel.RemoveItemCommand}"
-                                            CommandParameter="{Binding ElementName=btnRemove}"
+                                            Command="{Binding ElementName=This, Path=DataContext.ViewModel.RemoveItemCommand}"
+                                            CommandParameter="{Binding ElementName=BtnRemove}"
                                             Content="&#xE74D;"
                                             FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                             Style="{StaticResource SubtleButtonStyle}" />

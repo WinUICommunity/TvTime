@@ -10,16 +10,16 @@
              xmlns:model="using:TvTime.Models"
              xmlns:views="using:TvTime.Views"
              xmlns:wuc="using:WinUICommunity"
-             x:Name="rootView"
+             x:Name="This"
              x:DefaultBindMode="OneWay"
              mc:Ignorable="d">
 
     <UserControl.Resources>
 
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:MediaItem">
-            <views:MediaItemUserControl MediaItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
+            <views:MediaItemUserControl MediaItem="{x:Bind}" PageType="{Binding ElementName=This, Path=DataContext.PageType}">
                 <views:MediaItemUserControl.Description>
-                    <TextBlock x:Name="txtDesc"
+                    <TextBlock x:Name="TxtDesc"
                                FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
                                Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
                                Text="{x:Bind Server}"
@@ -30,10 +30,10 @@
                                                     ComparisonCondition="Equal"
                                                     Value="True">
                                 <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
                                                          Value="CharacterEllipsis" />
                                 <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
                                                          Value="NoWrap" />
                             </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
@@ -44,15 +44,15 @@
         </DataTemplate>
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:MediaItem">
-            <views:MediaItemUserControl MediaItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
+            <views:MediaItemUserControl MediaItem="{x:Bind}" PageType="{Binding ElementName=This, Path=DataContext.PageType}">
                 <views:MediaItemUserControl.Description>
-                    <HyperlinkButton x:Name="serverHyperLink"
+                    <HyperlinkButton x:Name="ServerHyperLink"
                                      Margin="0,5,0,0"
                                      Padding="2,1,2,1"
                                      BorderThickness="0"
                                      NavigateUri="{x:Bind Server}">
                         <HyperlinkButton.Content>
-                            <TextBlock x:Name="txtDesc"
+                            <TextBlock x:Name="TxtDesc"
                                        FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
                                        Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
                                        Text="{x:Bind Server}"
@@ -64,7 +64,7 @@
                                                     ComparisonCondition="Equal"
                                                     Value="True">
                                 <ic:ChangePropertyAction PropertyName="BorderThickness"
-                                                         TargetObject="{Binding ElementName=serverHyperLink}"
+                                                         TargetObject="{Binding ElementName=ServerHyperLink}"
                                                          Value="1" />
                             </ic:DataTriggerBehavior>
 
@@ -72,10 +72,10 @@
                                                     ComparisonCondition="Equal"
                                                     Value="True">
                                 <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
                                                          Value="CharacterEllipsis" />
                                 <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                         TargetObject="{Binding ElementName=txtDesc}"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
                                                          Value="NoWrap" />
                             </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
@@ -104,16 +104,16 @@
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <labs:TokenView x:Name="token"
+        <labs:TokenView x:Name="Token"
                         Margin="10,10,10,0"
                         ItemsSource="{x:Bind ViewModel.TokenList}"
                         SelectionChanged="token_SelectionChanged"
                         SelectionMode="Multiple"
                         Visibility="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <labs:Segmented x:Name="segmented"
+        <labs:Segmented x:Name="Segmented"
                         Grid.Row="1"
                         Margin="10,10,0,0">
-            <labs:SegmentedItem x:Name="segRefresh"
+            <labs:SegmentedItem x:Name="SegRefresh"
                                 Content="Refresh"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
@@ -121,7 +121,7 @@
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
                     <ic:EventTriggerBehavior.Actions>
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}" CommandParameter="{Binding ElementName=segmented}" />
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}" CommandParameter="{Binding ElementName=Segmented}" />
                     </ic:EventTriggerBehavior.Actions>
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>

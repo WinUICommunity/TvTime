@@ -16,6 +16,6 @@ public sealed partial class GeneralSettingPage : Page
     private void GeneralSettingPage_Loaded(object sender, RoutedEventArgs e)
     {
         var iconPack = Settings.IconPack;
-        cmbIconPack.SelectedItem = cmbIconPack.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == iconPack.ToString());
+        CmbIconPack.SelectedItem = CmbIconPack.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == iconPack.ToString());
     }
 }

@@ -20,14 +20,14 @@
             <wuc:SettingsCard Description="Select your Application Theme and Material"
                               Header="Appearance &amp; behavior"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}">
-                <ComboBox x:Name="cmbTheme">
+                <ComboBox x:Name="CmbTheme">
                     <ComboBoxItem Content="Light" Tag="Light" />
                     <ComboBoxItem Content="Dark" Tag="Dark" />
                     <ComboBoxItem Content="Default" Tag="Default" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ThemeChangedCommand}" CommandParameter="{Binding ElementName=cmbTheme}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ThemeChangedCommand}" CommandParameter="{Binding ElementName=CmbTheme}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
@@ -36,14 +36,14 @@
             <wuc:SettingsCard Description="Change Application System Backdrop"
                               Header="Materials"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backdrop.png}">
-                <ComboBox x:Name="cmbBackdrop">
+                <ComboBox x:Name="CmbBackdrop">
                     <ComboBoxItem Content="Mica" Tag="Mica" />
                     <ComboBoxItem Content="Mica Alt" Tag="MicaAlt" />
                     <ComboBoxItem Content="Acrylic" Tag="DesktopAcrylic" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.BackdropChangedCommand}" CommandParameter="{Binding ElementName=cmbBackdrop}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.BackdropChangedCommand}" CommandParameter="{Binding ElementName=CmbBackdrop}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>

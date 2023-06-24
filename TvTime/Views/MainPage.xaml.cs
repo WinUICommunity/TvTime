@@ -24,7 +24,7 @@ public sealed partial class MainPage : Page
             {
                 JsonFilePath = "DataModel/ControlInfoData.json"
             }
-        }, rootFrame, controlsSearchBox, new AutoSuggestBoxOptions
+        }, RootFrame, ControlsSearchBox, new AutoSuggestBoxOptions
         {
             NoResultImage = "ms-appx:///Assets/Fluent/icon.png"
         });
@@ -41,7 +41,7 @@ public sealed partial class MainPage : Page
         var rootFrame = App.Current.NavigationManager.Frame;
         dynamic root = rootFrame.Content;
         dynamic viewModel = null;
-        txtSearch.ItemsSource = null;
+        TxtSearch.ItemsSource = null;
         if (root is AnimesPage || root is MoviesPage || root is SeriesPage)
         {
             viewModel = MediaUserControl.Instance.ViewModel;
@@ -63,6 +63,6 @@ public sealed partial class MainPage : Page
 
     public AutoSuggestBox GetTxtSearch()
     {
-        return txtSearch;
+        return TxtSearch;
     }
 }

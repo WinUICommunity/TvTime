@@ -18,10 +18,10 @@ public sealed partial class DescriptionStyleSettingPage : Page
     private void DescriptionStyleSettingPage_Loaded(object sender, RoutedEventArgs e)
     {
         var descType = Settings.DescriptionTemplate;
-        cmbDescriptionType.SelectedItem = cmbDescriptionType.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == descType.ToString());
+        CmbDescriptionType.SelectedItem = CmbDescriptionType.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == descType.ToString());
 
         var descriptionStyle = Settings.DescriptionTextBlockStyle;
-        cmbDescription.SelectedItem = cmbDescription.Items.FirstOrDefault(x => (string) x == descriptionStyle);
+        CmbDescription.SelectedItem = CmbDescription.Items.FirstOrDefault(x => (string) x == descriptionStyle);
     }
 
     private void FontSize_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)

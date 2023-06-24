@@ -34,7 +34,7 @@
                        VerticalAlignment="Center"
                        Style="{StaticResource CaptionTextBlockStyle}"
                        Text="{x:Bind TvTimeVersion}" />
-            <AutoSuggestBox x:Name="txtSearch"
+            <AutoSuggestBox x:Name="TxtSearch"
                             Grid.Column="4"
                             Width="400"
                             VerticalAlignment="Center"
@@ -49,7 +49,7 @@
                         IsTitleBarAutoPaddingEnabled="True"
                         PaneDisplayMode="Left">
             <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox x:Name="controlsSearchBox"
+                <AutoSuggestBox x:Name="ControlsSearchBox"
                                 MinWidth="200"
                                 VerticalAlignment="Center"
                                 x:FieldModifier="public"
@@ -70,7 +70,7 @@
                     </AutoSuggestBox.ItemTemplate>
                 </AutoSuggestBox>
             </NavigationView.AutoSuggestBox>
-            <Frame x:Name="rootFrame" />
+            <Frame x:Name="RootFrame" />
         </NavigationView>
     </Grid>
 </Page>

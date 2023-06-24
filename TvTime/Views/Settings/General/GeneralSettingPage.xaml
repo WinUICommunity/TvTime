@@ -6,7 +6,7 @@
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:settings="using:TvTime.Common"
+      xmlns:local="using:TvTime.Common"
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
@@ -21,26 +21,26 @@
             <wuc:SettingsCard Description="If false is selected, the corresponding folder will be opened instead of the file itself"
                               Header="Open the file in the browser"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
-                <ToggleSwitch IsOn="{x:Bind settings:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
             <wuc:SettingsCard Description="With the help of TokenView, you can see only the media related to the desired server, and with the help of the search, you can search the results more precisely."
                               Header="Filter using TokenView"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/tokenView.png}">
-                <ToggleSwitch IsOn="{x:Bind settings:TvTimeHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
             <wuc:SettingsExpander Description="Choose Icon Pack to display for the season number"
                                   Header="Icon Pack"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}"
                                   IsExpanded="False">
-                <ComboBox x:Name="cmbIconPack">
+                <ComboBox x:Name="CmbIconPack">
                     <ComboBoxItem Content="Glyph" Tag="Glyph" />
                     <ComboBoxItem Content="Fluent" Tag="Fluent" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.IconPackChangedCommand}" CommandParameter="{Binding ElementName=cmbIconPack}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.IconPackChangedCommand}" CommandParameter="{Binding ElementName=CmbIconPack}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
@@ -52,17 +52,17 @@
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}"
                                   IsExpanded="True">
                 <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard x:Name="headerStyleSetting"
+                    <wuc:SettingsCard x:Name="HeaderStyleSetting"
                                       Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
-                                      CommandParameter="{Binding ElementName=headerStyleSetting}"
+                                      CommandParameter="{Binding ElementName=HeaderStyleSetting}"
                                       Description="Customize header according to your needs, such as font style, size"
                                       Header="Header Style and Font Size"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}"
                                       IsClickEnabled="True"
                                       Tag="HeaderStyleSettingPage" />
-                    <wuc:SettingsCard x:Name="descriptionStyleSetting"
+                    <wuc:SettingsCard x:Name="DescriptionStyleSetting"
                                       Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
-                                      CommandParameter="{Binding ElementName=descriptionStyleSetting}"
+                                      CommandParameter="{Binding ElementName=DescriptionStyleSetting}"
                                       Description="Customize description according to your needs, such as font style, size and control type"
                                       Header="Description Style and Font Size"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}"

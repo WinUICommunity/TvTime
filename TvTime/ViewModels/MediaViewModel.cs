@@ -63,9 +63,10 @@ public partial class MediaViewModel : ObservableRecipient
         {
             IsStatusOpen = true;
             StatusTitle = "Server not found";
-            StatusMessage = "Please add some Servers";
+            StatusMessage = "No servers found, please add some servers first";
             StatusSeverity = InfoBarSeverity.Warning;
             IsServerStatusOpen = false;
+            GoToServerPage();
         }
     }
 
@@ -115,77 +116,34 @@ public partial class MediaViewModel : ObservableRecipient
         contentDialog.ShowAsyncQueue();
     }
 
-    private string GetServerUrlWithoutLeftAndRightPart(string url)
+    private void GoToServerPage()
     {
-        Uri uri = new Uri(url);
-        string host = uri.Host;
-        string[] parts = host.Split('.');
-        return string.Join(".", parts.Take(parts.Length - 1));
-    }
-
-    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        var suggestItems = DataListACV.Select(x => ((MediaItem) x).Title).ToList();
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestItems);
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
-    }
-
-    public bool DataListFilter(object item)
-    {
-        var query = (MediaItem) item;
-        var name = query.Title ?? "";
-        var server = query.Server ?? "";
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        var items = MediaUserControl.Instance.GetTokenSelectedItems();
-        if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
+        ContentDialog contentDialog = new ContentDialog();
+        contentDialog.XamlRoot = App.Current.Window.Content.XamlRoot;
+        contentDialog.Title = $"Add New Servers";
+        var stck = new StackPanel
         {
-            return (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
-                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase));
-        }
-        else
+            Spacing = 10,
+            Margin = new Thickness(10)
+        };
+
+        var infoBar = new InfoBar();
+        infoBar.Severity = InfoBarSeverity.Warning;
+        infoBar.Title = "No servers found, please add some servers first";
+        infoBar.Message = "Would you like to go to the servers page and add some servers?";
+        infoBar.IsOpen = true;
+        infoBar.IsClosable = false;
+        stck.Children.Add(infoBar);
+
+        contentDialog.Content = new ScrollViewer { Content = stck };
+        contentDialog.PrimaryButtonText = "Go To Servers";
+        contentDialog.SecondaryButtonText = "Cancel";
+        contentDialog.PrimaryButtonClick += (s, e) =>
         {
-            return (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
-                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)) &&
-                (items.Any(token => server.Contains(token.Content.ToString())));
-        }
-    }
+            App.Current.NavigationManager.NavigateForJson(typeof(ServersPage));
+        };
 
-    public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync()
-    {
-        StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(Path.Combine(Constants.ServerDirectoryPath, GetPageType()));
-        QueryOptions queryOptions = new QueryOptions(CommonFileQuery.OrderBySearchRank, new string[] { ".txt" });
-
-        return await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync();
-    }
-
-    public string GetBaseUrl(string url)
-    {
-        string[] qualityValues = { "/1080p/", "/720p/", "/480p/" };
-        string quality = string.Empty;
-        foreach (string value in qualityValues)
-        {
-            if (url.Contains(value, StringComparison.OrdinalIgnoreCase))
-            {
-                quality = value;
-                break;
-            }
-        }
-        int idx = url.IndexOf(quality);
-        if (idx >= 0)
-            return url.Substring(0, idx + quality.Length);
-        else
-            return url;
-    }
-
-    public string GetBaseTitle(string title)
-    {
-        return Regex.Replace(title, @"S\d{2}E\d{2}.*", "").Trim();
-    }
-
-    public string GetPageType()
-    {
-        return PageType.ToString();
+        contentDialog.ShowAsyncQueue();
     }
 
     private async void LoadLocalStorage()
@@ -262,6 +220,12 @@ public partial class MediaViewModel : ObservableRecipient
     {
         try
         {
+            if (Settings.Servers.Count == 0)
+            {
+                GoToServerPage();
+                return;
+            }
+
             IsServerStatusOpen = false;
             IsActive = true;
             var urls = Settings.Servers.Where(x => x.ServerType == ApplicationHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
@@ -421,5 +385,78 @@ public partial class MediaViewModel : ObservableRecipient
             }
             return list;
         }
+    }
+
+    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        var suggestItems = DataListACV.Select(x => ((MediaItem) x).Title).ToList();
+        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestItems);
+        DataListACV.Filter = _ => true;
+        DataListACV.Filter = DataListFilter;
+    }
+
+    public bool DataListFilter(object item)
+    {
+        var query = (MediaItem) item;
+        var name = query.Title ?? "";
+        var server = query.Server ?? "";
+        var txtSearch = MainPage.Instance.GetTxtSearch();
+        var items = MediaUserControl.Instance.GetTokenSelectedItems();
+        if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
+        {
+            return (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
+                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase));
+        }
+        else
+        {
+            return (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
+                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)) &&
+                (items.Any(token => server.Contains(token.Content.ToString())));
+        }
+    }
+
+    public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync()
+    {
+        StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(Path.Combine(Constants.ServerDirectoryPath, GetPageType()));
+        QueryOptions queryOptions = new QueryOptions(CommonFileQuery.OrderBySearchRank, new string[] { ".txt" });
+
+        return await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync();
+    }
+
+    public string GetBaseUrl(string url)
+    {
+        string[] qualityValues = { "/1080p/", "/720p/", "/480p/" };
+        string quality = string.Empty;
+        foreach (string value in qualityValues)
+        {
+            if (url.Contains(value, StringComparison.OrdinalIgnoreCase))
+            {
+                quality = value;
+                break;
+            }
+        }
+        int idx = url.IndexOf(quality);
+        if (idx >= 0)
+            return url.Substring(0, idx + quality.Length);
+        else
+            return url;
+    }
+
+    public string GetBaseTitle(string title)
+    {
+        return Regex.Replace(title, @"S\d{2}E\d{2}.*", "").Trim();
+    }
+
+    private string GetServerUrlWithoutLeftAndRightPart(string url)
+    {
+        Uri uri = new Uri(url);
+        string host = uri.Host;
+        string[] parts = host.Split('.');
+        return string.Join(".", parts.Take(parts.Length - 1));
+    }
+
+    public string GetPageType()
+    {
+        return PageType.ToString();
     }
 }

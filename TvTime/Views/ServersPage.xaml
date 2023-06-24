@@ -6,6 +6,7 @@
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:TvTime.Models"
+      xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
       x:Name="This"
       mc:Ignorable="d">
@@ -75,6 +76,11 @@
                 </ListView>
             </wuc:SettingsGroup>
         </ScrollViewer>
+
+        <views:NoItemUserControl HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Count="{x:Bind ViewModel.DataListACV.Count, Mode=OneWay}" />
+
         <ProgressRing IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
         <InfoBar Title="{x:Bind ViewModel.InfoStatusMessage, Mode=OneWay}"
                  Grid.Row="1"

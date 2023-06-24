@@ -133,6 +133,12 @@
                   ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
                   ItemsSource="{x:Bind ViewModel.DataListACV}"
                   SelectionMode="None" />
+
+        <views:NoItemUserControl Grid.Row="2"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Count="{x:Bind ViewModel.DataListACV.Count}" />
+
         <ProgressRing Grid.Row="2" IsActive="{x:Bind ViewModel.IsActive}" />
         <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
                  Grid.Row="3"

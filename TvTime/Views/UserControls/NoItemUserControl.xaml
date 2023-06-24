@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="TvTime.Views.NoItemUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="using:Microsoft.Xaml.Interactivity"
+             xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:DefaultBindMode="OneWay"
+             mc:Ignorable="d">
+
+    <Grid x:Name="NotFoundGrid">
+        <Rectangle HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch"
+                   RadiusX="8"
+                   RadiusY="8"
+                   Stroke="{ThemeResource TextFillColorSecondary}"
+                   StrokeDashArray="20"
+                   StrokeThickness="2" />
+        <TextBlock Name="TxtNoItem"
+                   Margin="20,0,10,10"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Style="{ThemeResource HeaderTextBlockStyle}"
+                   Text="Item not found!" />
+        <i:Interaction.Behaviors>
+            <ic:DataTriggerBehavior Binding="{x:Bind Count}"
+                                    ComparisonCondition="Equal"
+                                    Value="0">
+                <ic:ChangePropertyAction PropertyName="Visibility"
+                                         TargetObject="{Binding ElementName=NotFoundGrid}"
+                                         Value="Visible" />
+            </ic:DataTriggerBehavior>
+            <ic:DataTriggerBehavior Binding="{x:Bind Count}"
+                                    ComparisonCondition="NotEqual"
+                                    Value="0">
+                <ic:ChangePropertyAction PropertyName="Visibility"
+                                         TargetObject="{Binding ElementName=NotFoundGrid}"
+                                         Value="Collapsed" />
+            </ic:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
+    </Grid>
+</UserControl>

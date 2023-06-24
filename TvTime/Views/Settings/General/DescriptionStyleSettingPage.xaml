@@ -21,7 +21,7 @@
             <wuc:SettingsCard Description="Specify the style of the description"
                               Header="Description Text Style"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
-                <ComboBox Name="cmbDescription"
+                <ComboBox x:Name="cmbDescription"
                           ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}"
                           SelectedItem="{x:Bind ViewModel.CmbStyleSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
@@ -42,7 +42,7 @@
                                   Header="Description Text Font Size"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                   IsExpanded="True">
-                <ToggleSwitch Name="tgCustomFontSize"
+                <ToggleSwitch x:Name="tgCustomFontSize"
                               IsOn="{x:Bind settings:TvTimeHelper.Settings.UseCustomFontSizeForDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               OffContent="Default"
                               OnContent="Custom">
@@ -71,7 +71,7 @@
                               Description="Choose which control to use to display the description in the listview"
                               Header="Description Type"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
-                <ComboBox Name="cmbDescriptionType">
+                <ComboBox x:Name="cmbDescriptionType">
                     <ComboBoxItem Content="TextBlock" Tag="TextBlock" />
                     <ComboBoxItem Content="HyperLink" Tag="HyperLink" />
                     <i:Interaction.Behaviors>
@@ -86,7 +86,7 @@
             <wuc:SettingsCard Description="Specify the borderThickness of the hyperlink"
                               Header="HyperLink BorderThickness"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/border.png}">
-                <ToggleSwitch Name="tgHyperLinkBorderThickness"
+                <ToggleSwitch x:Name="tgHyperLinkBorderThickness"
                               IsEnabled="False"
                               IsOn="{x:Bind settings:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
@@ -107,7 +107,7 @@
                        Style="{Binding ElementName=cmbDescription, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}"
                        Text="Preview Description"
                        Visibility="{x:Bind ViewModel.IsTextBlock, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <HyperlinkButton Name="serverHyperLink"
+            <HyperlinkButton x:Name="serverHyperLink"
                              Padding="5"
                              HorizontalAlignment="Center"
                              Visibility="{x:Bind ViewModel.IsHyperLink, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">

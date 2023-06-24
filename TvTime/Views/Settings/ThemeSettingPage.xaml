@@ -20,7 +20,7 @@
             <wuc:SettingsCard Description="Select your Application Theme and Material"
                               Header="Appearance &amp; behavior"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}">
-                <ComboBox Name="cmbTheme">
+                <ComboBox x:Name="cmbTheme">
                     <ComboBoxItem Content="Light" Tag="Light" />
                     <ComboBoxItem Content="Dark" Tag="Dark" />
                     <ComboBoxItem Content="Default" Tag="Default" />
@@ -36,7 +36,7 @@
             <wuc:SettingsCard Description="Change Application System Backdrop"
                               Header="Materials"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backdrop.png}">
-                <ComboBox Name="cmbBackdrop">
+                <ComboBox x:Name="cmbBackdrop">
                     <ComboBoxItem Content="Mica" Tag="Mica" />
                     <ComboBoxItem Content="Mica Alt" Tag="MicaAlt" />
                     <ComboBoxItem Content="Acrylic" Tag="DesktopAcrylic" />

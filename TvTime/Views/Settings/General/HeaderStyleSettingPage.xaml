@@ -21,7 +21,7 @@
             <wuc:SettingsCard Description="Specify the style of the header"
                               Header="Header Text Style"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
-                <ComboBox Name="cmbHeader"
+                <ComboBox x:Name="cmbHeader"
                           ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}"
                           SelectedItem="{x:Bind ViewModel.CmbSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
@@ -43,7 +43,7 @@
                                   Header="Header Text Font Size"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                   IsExpanded="True">
-                <ToggleSwitch Name="tgCustomFontSize"
+                <ToggleSwitch x:Name="tgCustomFontSize"
                               IsOn="{x:Bind settings:TvTimeHelper.Settings.UseCustomFontSizeForHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               OffContent="Default"
                               OnContent="Custom">

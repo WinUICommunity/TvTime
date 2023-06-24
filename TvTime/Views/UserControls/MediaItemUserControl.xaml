@@ -25,7 +25,7 @@
                       HeaderIcon="{x:Bind PageType, Converter={StaticResource PageType2BitmapIconConverter}}"
                       IsClickEnabled="True">
         <wuc:SettingsCard.Header>
-            <TextBlock Name="txtHeader"
+            <TextBlock x:Name="txtHeader"
                        FontSize="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockFontSize}"
                        FontWeight="Normal"
                        Style="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockStyle, Converter={StaticResource String2StyleConverter}}"

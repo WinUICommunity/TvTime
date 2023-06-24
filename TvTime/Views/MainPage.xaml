@@ -34,7 +34,7 @@
                        VerticalAlignment="Center"
                        Style="{StaticResource CaptionTextBlockStyle}"
                        Text="{x:Bind TvTimeVersion}" />
-            <AutoSuggestBox Name="txtSearch"
+            <AutoSuggestBox x:Name="txtSearch"
                             Grid.Column="4"
                             Width="400"
                             VerticalAlignment="Center"

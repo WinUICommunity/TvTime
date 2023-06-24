@@ -14,13 +14,13 @@
 
     <UserControl.Resources>
         <MenuFlyout x:Key="menuFlyout">
-            <MenuFlyoutItem Name="menuDirectory"
+            <MenuFlyoutItem x:Name="menuDirectory"
                             Command="{x:Bind ViewModel.OpenDirectoryCommand}"
                             CommandParameter="{Binding ElementName=menuDirectory}"
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/explorer.png}"
                             Tag="{x:Bind}"
                             Text="Open Web Directory" />
-            <MenuFlyoutItem Name="menuFile"
+            <MenuFlyoutItem x:Name="menuFile"
                             Command="{x:Bind ViewModel.OpenDirectoryCommand}"
                             CommandParameter="{Binding ElementName=menuFile}"
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
@@ -31,7 +31,7 @@
                                Tag="{x:Bind}"
                                Text="Copy Link(s)">
 
-                <MenuFlyoutItem Name="menuCopy"
+                <MenuFlyoutItem x:Name="menuCopy"
                                 Command="{x:Bind ViewModel.CopyCommand}"
                                 CommandParameter="{Binding ElementName=menuCopy}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
@@ -47,7 +47,7 @@
                                Text="Download With IDM"
                                Visibility="{x:Bind MediaItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
 
-                <MenuFlyoutItem Name="menuDownload"
+                <MenuFlyoutItem x:Name="menuDownload"
                                 Command="{x:Bind ViewModel.DownloadCommand}"
                                 CommandParameter="{Binding ElementName=menuDownload}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}"
@@ -71,7 +71,7 @@
                       HeaderIcon="{x:Bind MediaItem.Title, Converter={StaticResource String2BitmapIconConverter}}"
                       IsClickEnabled="True">
         <wuc:SettingsCard.Header>
-            <TextBlock Name="txtHeader"
+            <TextBlock x:Name="txtHeader"
                        FontSize="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockFontSize}"
                        FontWeight="Normal"
                        Style="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockStyle, Converter={StaticResource String2StyleConverter}}"

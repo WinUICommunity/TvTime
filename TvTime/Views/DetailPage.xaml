@@ -10,7 +10,7 @@
       xmlns:model="using:TvTime.Models"
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
-      Name="rootPage"
+      x:Name="rootPage"
       x:DefaultBindMode="OneWay"
       mc:Ignorable="d">
 
@@ -22,7 +22,7 @@
                                          SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
                                          ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
                 <views:DetailItemUserControl.Description>
-                    <TextBlock Name="txtDesc"
+                    <TextBlock x:Name="txtDesc"
                                FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
                                Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
                                Text="{x:Bind Server}"
@@ -51,13 +51,13 @@
                                          SettingsCardCommand="{Binding ElementName=rootPage, Path=DataContext.ViewModel.SettingsCardCommand}"
                                          ViewModel="{Binding ElementName=rootPage, Path=DataContext.ViewModel}">
                 <views:DetailItemUserControl.Description>
-                    <HyperlinkButton Name="serverHyperLink"
+                    <HyperlinkButton x:Name="serverHyperLink"
                                      Margin="0,5,0,0"
                                      Padding="2,1,2,1"
                                      BorderThickness="0"
                                      NavigateUri="{x:Bind Server}">
                         <HyperlinkButton.Content>
-                            <TextBlock Name="txtDesc"
+                            <TextBlock x:Name="txtDesc"
                                        FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
                                        Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
                                        Text="{x:Bind Server}"
@@ -126,7 +126,7 @@
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </labs:Segmented>
-        <BreadcrumbBar Name="breadcrumbBar"
+        <BreadcrumbBar x:Name="breadcrumbBar"
                        Grid.Row="1"
                        Margin="10,5,5,5"
                        ItemsSource="{x:Bind ViewModel.BreadcrumbBarList}">
@@ -145,7 +145,7 @@
                 </DataTemplate>
             </BreadcrumbBar.ItemTemplate>
         </BreadcrumbBar>
-        <ListView Name="listView"
+        <ListView x:Name="listView"
                   Grid.Row="2"
                   Margin="5,0,5,5"
                   HorizontalAlignment="Stretch"

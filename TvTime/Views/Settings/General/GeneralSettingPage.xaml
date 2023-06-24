@@ -34,7 +34,7 @@
                                   Header="Icon Pack"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}"
                                   IsExpanded="False">
-                <ComboBox Name="cmbIconPack">
+                <ComboBox x:Name="cmbIconPack">
                     <ComboBoxItem Content="Glyph" Tag="Glyph" />
                     <ComboBoxItem Content="Fluent" Tag="Fluent" />
                     <i:Interaction.Behaviors>
@@ -52,7 +52,7 @@
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}"
                                   IsExpanded="True">
                 <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard Name="headerStyleSetting"
+                    <wuc:SettingsCard x:Name="headerStyleSetting"
                                       Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
                                       CommandParameter="{Binding ElementName=headerStyleSetting}"
                                       Description="Customize header according to your needs, such as font style, size"
@@ -60,7 +60,7 @@
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}"
                                       IsClickEnabled="True"
                                       Tag="HeaderStyleSettingPage" />
-                    <wuc:SettingsCard Name="descriptionStyleSetting"
+                    <wuc:SettingsCard x:Name="descriptionStyleSetting"
                                       Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
                                       CommandParameter="{Binding ElementName=descriptionStyleSetting}"
                                       Description="Customize description according to your needs, such as font style, size and control type"

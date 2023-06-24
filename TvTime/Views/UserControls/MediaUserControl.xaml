@@ -17,7 +17,6 @@
     <UserControl.Resources>
 
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:MediaItem">
-
             <views:MediaItemUserControl MediaItem="{x:Bind}" PageType="{Binding ElementName=rootView, Path=DataContext.PageType}">
                 <views:MediaItemUserControl.Description>
                     <TextBlock Name="txtDesc"
@@ -101,11 +100,19 @@
     <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <labs:Segmented Name="segmented" Margin="10,10,0,0">
-            <labs:SegmentedItem Name="segRefresh"
+        <labs:TokenView x:Name="token"
+                        Margin="10,10,10,0"
+                        ItemsSource="{x:Bind ViewModel.TokenList}"
+                        SelectionChanged="token_SelectionChanged"
+                        SelectionMode="Multiple" />
+        <labs:Segmented x:Name="segmented"
+                        Grid.Row="1"
+                        Margin="10,10,0,0">
+            <labs:SegmentedItem x:Name="segRefresh"
                                 Content="Refresh"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
@@ -118,16 +125,16 @@
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </labs:Segmented>
-        <ListView Grid.Row="1"
+        <ListView Grid.Row="2"
                   Margin="5,10,5,5"
                   HorizontalAlignment="Stretch"
                   IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                   ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
                   ItemsSource="{x:Bind ViewModel.DataListACV}"
                   SelectionMode="None" />
-        <ProgressRing Grid.Row="1" IsActive="{x:Bind ViewModel.IsActive}" />
+        <ProgressRing Grid.Row="2" IsActive="{x:Bind ViewModel.IsActive}" />
         <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
-                 Grid.Row="2"
+                 Grid.Row="3"
                  BorderThickness="0"
                  CornerRadius="0"
                  IsOpen="{x:Bind ViewModel.IsStatusOpen}"

@@ -10,6 +10,9 @@ public partial class MediaViewModel : ObservableRecipient
     public AdvancedCollectionView dataListACV;
 
     [ObservableProperty]
+    public ObservableCollection<TokenItem> tokenList;
+
+    [ObservableProperty]
     public bool isStatusOpen;
 
     [ObservableProperty]
@@ -40,6 +43,13 @@ public partial class MediaViewModel : ObservableRecipient
     private void OnPageLoaded()
     {
         PageType = MediaUserControl.Instance.PageType;
+
+        var tokens = Settings.Servers.Where(x => x.IsActive && x.ServerType.ToString().Equals(GetPageType()))
+            .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
+
+        TokenList = new(tokens);
+        TokenList.Insert(0, new TokenItem { Content = Constants.ALL_FILTER, IsSelected = true });
+        
         if (ExistDirectory(PageType))
         {
             LoadLocalStorage();
@@ -105,9 +115,18 @@ public partial class MediaViewModel : ObservableRecipient
         contentDialog.ShowAsyncQueue();
     }
 
+    private string GetServerUrlWithoutLeftAndRightPart(string url)
+    {
+        Uri uri = new Uri(url);
+        string host = uri.Host;
+        string[] parts = host.Split('.');
+        return string.Join(".", parts.Take(parts.Length - 1));
+    }
+
     public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
+        var suggestItems = DataListACV.Select(x => ((MediaItem) x).Title).ToList();
+        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestItems);
         DataListACV.Filter = _ => true;
         DataListACV.Filter = DataListFilter;
     }
@@ -116,10 +135,20 @@ public partial class MediaViewModel : ObservableRecipient
     {
         var query = (MediaItem) item;
         var name = query.Title ?? "";
-        var tName = query.Server ?? "";
+        var server = query.Server ?? "";
         var txtSearch = MainPage.Instance.GetTxtSearch();
-        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
+        var items = MediaUserControl.Instance.GetTokenSelectedItems();
+        if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
+        {
+            return (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
+                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase));
+        }
+        else
+        {
+            return (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
+                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)) &&
+                (items.Any(token => server.Contains(token.Content.ToString())));
+        }
     }
 
     public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync()

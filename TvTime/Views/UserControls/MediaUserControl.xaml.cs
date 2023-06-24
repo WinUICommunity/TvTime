@@ -1,4 +1,6 @@
-﻿using TvTime.ViewModels;
+﻿using CommunityToolkit.Labs.WinUI;
+
+using TvTime.ViewModels;
 
 namespace TvTime.Views;
 
@@ -22,5 +24,75 @@ public sealed partial class MediaUserControl : UserControl
         this.InitializeComponent();
         Instance = this;
         DataContext = this;
+    }
+
+    public List<TokenItem> GetTokenSelectedItems()
+    {
+        return token.SelectedItems.Cast<TokenItem>().ToList();
+    }
+
+    private void token_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (ViewModel.DataListACV == null)
+        {
+            return;
+        }
+
+        if (token != null)
+        {
+            dynamic selectedItem = e.AddedItems.Count > 0 ? e.AddedItems[0] as TokenItem : null;
+
+            if (selectedItem == null)
+            {
+                selectedItem = e.RemovedItems.Count > 0 ? e.RemovedItems[0] as TokenItem : null;
+            }
+
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            if (token.SelectedItems.Count == 0)
+            {
+                var allItem = token.Items[0] as TokenItem;
+                allItem.IsSelected = true;
+                selectedItem = allItem;
+            }
+
+            if (selectedItem.Content.ToString().Equals(Constants.ALL_FILTER) && selectedItem.IsSelected)
+            {
+                foreach (TokenItem item in token.Items)
+                {
+                    if (item.Content.ToString().Equals(Constants.ALL_FILTER))
+                    {
+                        continue;
+                    }
+                    item.IsSelected = false;
+                }
+
+                ViewModel.DataListACV.Filter = null;
+            }
+            else if (!selectedItem.Content.ToString().Equals(Constants.ALL_FILTER))
+            {
+                foreach (TokenItem item in token.Items)
+                {
+                    if (item.Content.ToString().Equals(Constants.ALL_FILTER) && item.IsSelected)
+                    {
+                        item.IsSelected = false;
+                    }
+                    break;
+                }
+
+                ViewModel.DataListACV.Filter = OnTokenFilter;
+            }
+
+            ViewModel.DataListACV.RefreshFilter();
+        }
+    }
+
+    private bool OnTokenFilter(object item)
+    {
+        var query = (MediaItem) item;
+        return token.SelectedItems.Cast<TokenItem>().Any(x => query.Server.Contains(x.Content.ToString()));
     }
 }

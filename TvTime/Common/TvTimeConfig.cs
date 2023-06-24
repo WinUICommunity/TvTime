@@ -31,6 +31,7 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual bool HasHyperLinkBorderThickness { get; set; } = false;
     public virtual bool UseTruncateInHeader { get; set; } = false;
     public virtual bool UseTruncateInDescription { get; set; } = false;
+    public virtual bool UseTokenViewFilter { get; set; } = true;
     public virtual DescriptionTemplateType DescriptionTemplate { get; set; } = DescriptionTemplateType.HyperLink;
     public virtual IconPackType IconPack { get; set; } = IconPackType.Glyph;
 }

@@ -108,7 +108,8 @@
                         Margin="10,10,10,0"
                         ItemsSource="{x:Bind ViewModel.TokenList}"
                         SelectionChanged="token_SelectionChanged"
-                        SelectionMode="Multiple" />
+                        SelectionMode="Multiple"
+                        Visibility="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Converter={StaticResource BoolToVisibilityConverter}}" />
         <labs:Segmented x:Name="segmented"
                         Grid.Row="1"
                         Margin="10,10,0,0">

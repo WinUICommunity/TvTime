@@ -3,8 +3,8 @@ public sealed partial class NoItemUserControl : UserControl
 {
     public int Count
     {
-        get { return (int) GetValue(CountProperty); }
-        set { SetValue(CountProperty, value); }
+        get => (int) GetValue(CountProperty);
+        set => SetValue(CountProperty, value);
     }
 
     public static readonly DependencyProperty CountProperty =

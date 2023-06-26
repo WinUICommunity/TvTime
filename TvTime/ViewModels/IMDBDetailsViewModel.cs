@@ -90,14 +90,9 @@ public partial class IMDBDetailsViewModel : ObservableRecipient
                 if (json.Response.Contains("true", StringComparison.OrdinalIgnoreCase))
                 {
                     MediaIMDBId = new Uri(string.Format(Constants.IMDBBaseUrl, json.imdbID));
-                    if (json.imdbRating.Contains("N/A") || string.IsNullOrEmpty(json.imdbRating))
-                    {
-                        MediaRateValue = 0;
-                    }
-                    else
-                    {
-                        MediaRateValue = Convert.ToDouble(json.imdbRating, CultureInfo.InvariantCulture);
-                    }
+                    MediaRateValue = json.imdbRating.Contains("N/A") || string.IsNullOrEmpty(json.imdbRating)
+                        ? 0
+                        : Convert.ToDouble(json.imdbRating, CultureInfo.InvariantCulture);
                     MediaTitle = json.Title;
                     MediaYear = json.Year;
                     MediaReleased = json.Released;

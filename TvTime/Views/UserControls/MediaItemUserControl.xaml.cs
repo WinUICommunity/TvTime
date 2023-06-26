@@ -3,20 +3,20 @@ public sealed partial class MediaItemUserControl : UserControl
 {
     public PageOrDirectoryType PageType
     {
-        get { return (PageOrDirectoryType) GetValue(PageTypeProperty); }
-        set { SetValue(PageTypeProperty, value); }
+        get => (PageOrDirectoryType) GetValue(PageTypeProperty);
+        set => SetValue(PageTypeProperty, value);
     }
 
     public MediaItem MediaItem
     {
-        get { return (MediaItem) GetValue(MediaItemProperty); }
-        set { SetValue(MediaItemProperty, value); }
+        get => (MediaItem) GetValue(MediaItemProperty);
+        set => SetValue(MediaItemProperty, value);
     }
 
     public object Description
     {
-        get { return (object) GetValue(DescriptionProperty); }
-        set { SetValue(DescriptionProperty, value); }
+        get => (object) GetValue(DescriptionProperty);
+        set => SetValue(DescriptionProperty, value);
     }
 
     public static readonly DependencyProperty PageTypeProperty =

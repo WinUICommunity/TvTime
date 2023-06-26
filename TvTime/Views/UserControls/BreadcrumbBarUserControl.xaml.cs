@@ -10,8 +10,8 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
 
     public List<string> Items
     {
-        get { return (List<string>) GetValue(ItemsProperty); }
-        set { SetValue(ItemsProperty, value); }
+        get => (List<string>) GetValue(ItemsProperty);
+        set => SetValue(ItemsProperty, value);
     }
 
     public static readonly DependencyProperty ItemsProperty =
@@ -19,8 +19,8 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
 
     public string SingleItem
     {
-        get { return (string) GetValue(SingleItemProperty); }
-        set { SetValue(SingleItemProperty, value); }
+        get => (string) GetValue(SingleItemProperty);
+        set => SetValue(SingleItemProperty, value);
     }
 
     public static readonly DependencyProperty SingleItemProperty =
@@ -30,7 +30,7 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
 
     public ObservableCollection<string> BreadcrumbBarCollection
     {
-        get { return breadcrumbBarCollection; }
+        get => breadcrumbBarCollection;
         set
         {
             breadcrumbBarCollection = value;

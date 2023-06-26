@@ -26,7 +26,7 @@ public partial class MediaServerViewModel : ObservableRecipient
     [ObservableProperty]
     public AdvancedCollectionView dataListACV;
 
-    public List<string> suggestList = new List<string>();
+    public List<string> suggestList = new();
     private SortDescription currentSortDescription;
 
     [RelayCommand]

@@ -20,14 +20,9 @@ public partial class HeaderStyleSettingViewModel : ObservableRecipient
         {
             Settings.HeaderTextBlockStyle = CmbSelectedItem.ToString();
 
-            if (Settings.UseCustomFontSizeForHeader && !double.IsNaN(Settings.HeaderTextBlockFontSize))
-            {
-                PreviewFontSize = Settings.HeaderTextBlockFontSize;
-            }
-            else
-            {
-                PreviewFontSize = GetFontSizeBasedOnTextBlockStyle(CmbSelectedItem.ToString());
-            }
+            PreviewFontSize = Settings.UseCustomFontSizeForHeader && !double.IsNaN(Settings.HeaderTextBlockFontSize)
+                ? Settings.HeaderTextBlockFontSize
+                : GetFontSizeBasedOnTextBlockStyle(CmbSelectedItem.ToString());
         }
     }
 

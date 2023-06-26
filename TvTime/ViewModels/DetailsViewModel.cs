@@ -29,7 +29,7 @@ public partial class DetailsViewModel : ObservableRecipient
     [ObservableProperty]
     public InfoBarSeverity statusSeverity;
 
-    public List<string> suggestList = new List<string>();
+    public List<string> suggestList = new();
     private SortDescription currentSortDescription;
 
     public MediaItem rootMediaItem;
@@ -290,18 +290,7 @@ public partial class DetailsViewModel : ObservableRecipient
     {
         string idmPathX86 = @"C:\Program Files (x86)\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable
         string idmPathX64 = @"C:\Program Files\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable
-        if (File.Exists(idmPathX64))
-        {
-            return idmPathX64;
-        }
-        else if (File.Exists(idmPathX86))
-        {
-            return idmPathX86;
-        }
-        else
-        {
-            return null;
-        }
+        return File.Exists(idmPathX64) ? idmPathX64 : File.Exists(idmPathX86) ? idmPathX86 : null;
     }
 
     private async void DownloadDetails(MediaItem mediaItem)

@@ -40,14 +40,9 @@ public partial class DescriptionStyleSettingViewModel : ObservableRecipient
         {
             Settings.DescriptionTextBlockStyle = CmbStyleSelectedItem.ToString();
 
-            if (Settings.UseCustomFontSizeForDescription && !double.IsNaN(Settings.DescriptionTextBlockFontSize))
-            {
-                PreviewFontSize = Settings.DescriptionTextBlockFontSize;
-            }
-            else
-            {
-                PreviewFontSize = GetFontSizeBasedOnTextBlockStyle(CmbStyleSelectedItem.ToString());
-            }
+            PreviewFontSize = Settings.UseCustomFontSizeForDescription && !double.IsNaN(Settings.DescriptionTextBlockFontSize)
+                ? Settings.DescriptionTextBlockFontSize
+                : GetFontSizeBasedOnTextBlockStyle(CmbStyleSelectedItem.ToString());
         }
     }
 

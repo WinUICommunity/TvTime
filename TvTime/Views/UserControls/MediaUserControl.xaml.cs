@@ -8,8 +8,8 @@ public sealed partial class MediaUserControl : UserControl
 {
     public PageOrDirectoryType PageType
     {
-        get { return (PageOrDirectoryType) GetValue(PageTypeProperty); }
-        set { SetValue(PageTypeProperty, value); }
+        get => (PageOrDirectoryType) GetValue(PageTypeProperty);
+        set => SetValue(PageTypeProperty, value);
     }
 
     public static readonly DependencyProperty PageTypeProperty =

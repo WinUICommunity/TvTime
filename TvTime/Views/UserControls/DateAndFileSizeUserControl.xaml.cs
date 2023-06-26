@@ -3,14 +3,14 @@ public sealed partial class DateAndFileSizeUserControl : UserControl
 {
     public string DateTime
     {
-        get { return (string) GetValue(DateTimeProperty); }
-        set { SetValue(DateTimeProperty, value); }
+        get => (string) GetValue(DateTimeProperty);
+        set => SetValue(DateTimeProperty, value);
     }
 
     public string FileSize
     {
-        get { return (string) GetValue(FileSizeProperty); }
-        set { SetValue(FileSizeProperty, value); }
+        get => (string) GetValue(FileSizeProperty);
+        set => SetValue(FileSizeProperty, value);
     }
 
     public static readonly DependencyProperty DateTimeProperty =

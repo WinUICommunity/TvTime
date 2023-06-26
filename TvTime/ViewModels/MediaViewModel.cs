@@ -30,14 +30,14 @@ public partial class MediaViewModel : ObservableRecipient
     [ObservableProperty]
     public int infoBadgeValue;
 
-    public List<string> suggestList = new List<string>();
-    private List<string> existServer = new List<string>();
+    public List<string> suggestList = new();
+    private List<string> existServer = new();
 
     private SortDescription currentSortDescription;
     private PageOrDirectoryType PageType;
     private int totalServerCount = 0;
 
-    JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
+    JsonSerializerOptions options = new() { WriteIndented = true };
 
     [RelayCommand]
     private void OnPageLoaded()
@@ -402,17 +402,12 @@ public partial class MediaViewModel : ObservableRecipient
         var server = query.Server ?? "";
         var txtSearch = MainPage.Instance.GetTxtSearch();
         var items = MediaUserControl.Instance.GetTokenSelectedItems();
-        if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
-        {
-            return (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
-                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase));
-        }
-        else
-        {
-            return (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
+        return items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER))
+            ? name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
+                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
+            : (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
                 server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)) &&
                 (items.Any(token => server.Contains(token.Content.ToString())));
-        }
     }
 
     public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync()
@@ -436,10 +431,7 @@ public partial class MediaViewModel : ObservableRecipient
             }
         }
         int idx = url.IndexOf(quality);
-        if (idx >= 0)
-            return url.Substring(0, idx + quality.Length);
-        else
-            return url;
+        return idx >= 0 ? url.Substring(0, idx + quality.Length) : url;
     }
 
     public string GetBaseTitle(string title)

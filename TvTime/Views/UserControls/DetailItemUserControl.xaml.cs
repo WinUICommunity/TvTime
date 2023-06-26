@@ -7,26 +7,26 @@ public sealed partial class DetailItemUserControl : UserControl
 {
     public DetailsViewModel ViewModel
     {
-        get { return (DetailsViewModel) GetValue(ViewModelProperty); }
-        set { SetValue(ViewModelProperty, value); }
+        get => (DetailsViewModel) GetValue(ViewModelProperty);
+        set => SetValue(ViewModelProperty, value);
     }
 
     public ICommand SettingsCardCommand
     {
-        get { return (ICommand) GetValue(SettingsCardCommandProperty); }
-        set { SetValue(SettingsCardCommandProperty, value); }
+        get => (ICommand) GetValue(SettingsCardCommandProperty);
+        set => SetValue(SettingsCardCommandProperty, value);
     }
 
     public MediaItem MediaItem
     {
-        get { return (MediaItem) GetValue(MediaItemProperty); }
-        set { SetValue(MediaItemProperty, value); }
+        get => (MediaItem) GetValue(MediaItemProperty);
+        set => SetValue(MediaItemProperty, value);
     }
 
     public object Description
     {
-        get { return (object) GetValue(DescriptionProperty); }
-        set { SetValue(DescriptionProperty, value); }
+        get => (object) GetValue(DescriptionProperty);
+        set => SetValue(DescriptionProperty, value);
     }
 
     public static readonly DependencyProperty ViewModelProperty =

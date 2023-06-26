@@ -60,7 +60,6 @@
           "RelatedControls": []
         },
         {
-          "UniqueId": "TvTime.Views.SubtitlePage",
           "Title": "Subtitles",
           "Subtitle": "Search and Download the subtitle you need from different servers",
           "ImagePath": "ms-appx:///Assets/Fluent/subtitle.png",
@@ -69,7 +68,50 @@
           "IncludedInBuild": true,
           "HideSourceCodeAndRelatedControls": true,
           "Docs": [],
-          "RelatedControls": []
+          "RelatedControls": [],
+          "Items": [
+            {
+              "UniqueId": "TvTime.Views.SubtitlePage",
+              "Title": "Subscene",
+              "Subtitle": "Search and Download the subtitle you need from subscene servers",
+              "IncludedInBuild": true,
+              "ImagePath": "ms-appx:///Assets/Fluent/subtitle.png",
+              "ImageIconPath": "ms-appx:///Assets/Fluent/subtitle.png",
+              "HideSourceCodeAndRelatedControls": true,
+              "Docs": [],
+              "RelatedControls": []
+            },
+            {
+              "UniqueId": "TvTime.Views.SubtitlePage",
+              "Title": "World Subtitle",
+              "Subtitle": "Search and Download the subtitle you need from world subtitle",
+              "IncludedInBuild": true,
+              "ImageIconPath": "",
+              "HideSourceCodeAndRelatedControls": true,
+              "Docs": [],
+              "RelatedControls": []
+            },
+            {
+              "UniqueId": "TvTime.Views.SubtitlePage",
+              "Title": "I Subtitle",
+              "Subtitle": "Search and Download the subtitle you need from i subtitle",
+              "IncludedInBuild": true,
+              "ImageIconPath": "",
+              "HideSourceCodeAndRelatedControls": true,
+              "Docs": [],
+              "RelatedControls": []
+            },
+            {
+              "UniqueId": "TvTime.Views.SubtitlePage",
+              "Title": "E Subtitle",
+              "Subtitle": "Search and Download the subtitle you need from e subtitle",
+              "IncludedInBuild": true,
+              "ImageIconPath": "",
+              "HideSourceCodeAndRelatedControls": true,
+              "Docs": [],
+              "RelatedControls": []
+            }
+          ]
         },
         {
           "UniqueId": "TvTime.Views.IMDBDetailsPage",

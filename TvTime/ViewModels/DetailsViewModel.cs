@@ -62,7 +62,21 @@ public partial class DetailsViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private async void OnSettingsCard(object sender)
+    private void OnSettingsCard(object sender)
+    {
+        if (!Settings.UseDoubleClickForNavigate)
+        {
+            OnNavigateToDetailsOrDownload(sender);
+        }
+    }
+
+    [RelayCommand]
+    private void OnSettingsCardDoubleClick(object sender)
+    {
+        OnNavigateToDetailsOrDownload(sender);
+    }
+
+    private async void OnNavigateToDetailsOrDownload(object sender)
     {
         var item = (sender as SettingsCard);
         var textBlock = item?.Header as TextBlock;

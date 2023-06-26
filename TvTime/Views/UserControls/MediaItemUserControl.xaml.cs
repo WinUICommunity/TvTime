@@ -35,6 +35,14 @@ public sealed partial class MediaItemUserControl : UserControl
 
     private void SettingsCard_Click(object sender, RoutedEventArgs e)
     {
+        if (!Settings.UseDoubleClickForNavigate)
+        {
+            NavigateToDetails(sender);
+        }
+    }
+
+    private void NavigateToDetails(object sender)
+    {
         var item = (sender as SettingsCard);
         var headerTextBlock = item?.Header as TextBlock;
         var title = headerTextBlock.Text?.Trim();
@@ -77,5 +85,10 @@ public sealed partial class MediaItemUserControl : UserControl
                 CreateIMDBDetailsWindow(mediaItem.Title);
                 break;
         }
+    }
+
+    private void SettingsCard_DoubleTapped(object sender, Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+    {
+        NavigateToDetails(sender);
     }
 }

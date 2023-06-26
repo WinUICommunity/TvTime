@@ -27,8 +27,10 @@
     <wuc:SettingsCard Click="SettingsCard_Click"
                       ContextFlyout="{StaticResource menuFlyout}"
                       Description="{x:Bind Description}"
+                      DoubleTapped="SettingsCard_DoubleTapped"
                       HeaderIcon="{x:Bind PageType, Converter={StaticResource PageType2BitmapIconConverter}}"
-                      IsClickEnabled="True">
+                      IsClickEnabled="True"
+                      IsDoubleTapEnabled="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate}">
         <wuc:SettingsCard.Header>
             <TextBlock x:Name="TxtHeader"
                        FontSize="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockFontSize}"

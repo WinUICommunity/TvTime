@@ -34,6 +34,7 @@ public sealed partial class MainPage : Page
     {
         var settings = (NavigationViewItem) NavigationViewControl.SettingsItem;
         settings.Icon = new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/settings.png"), ShowAsMonochrome = false };
+        ElementSoundPlayer.State = Settings.UseSound ? ElementSoundPlayerState.On : ElementSoundPlayerState.Off;
     }
 
     private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)

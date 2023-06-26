@@ -76,7 +76,8 @@
                       ContextFlyout="{StaticResource menuFlyout}"
                       Description="{x:Bind Description}"
                       HeaderIcon="{x:Bind MediaItem.Title, Converter={StaticResource String2BitmapIconConverter}}"
-                      IsClickEnabled="True">
+                      IsClickEnabled="True"
+                      IsDoubleTapEnabled="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate}">
         <wuc:SettingsCard.Header>
             <TextBlock x:Name="TxtHeader"
                        FontSize="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockFontSize}"
@@ -102,6 +103,12 @@
         </wuc:SettingsCard.Header>
 
         <views:DateAndFileSizeUserControl DateTime="{x:Bind MediaItem.DateTime}" FileSize="{x:Bind MediaItem.FileSize}" />
-
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="DoubleTapped">
+                <ic:EventTriggerBehavior.Actions>
+                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.SettingsCardDoubleClickCommand}" CommandParameter="{Binding ElementName=SettingsCard}" />
+                </ic:EventTriggerBehavior.Actions>
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
     </wuc:SettingsCard>
 </UserControl>

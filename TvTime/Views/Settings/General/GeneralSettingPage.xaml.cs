@@ -18,4 +18,9 @@ public sealed partial class GeneralSettingPage : Page
         var iconPack = Settings.IconPack;
         CmbIconPack.SelectedItem = CmbIconPack.Items.FirstOrDefault(x => ((ComboBoxItem) x).Tag.ToString() == iconPack.ToString());
     }
+
+    private void Sound_Toggled(object sender, RoutedEventArgs e)
+    {
+        ElementSoundPlayer.State = tgSound.IsOn ? ElementSoundPlayerState.On : ElementSoundPlayerState.Off;
+    }
 }

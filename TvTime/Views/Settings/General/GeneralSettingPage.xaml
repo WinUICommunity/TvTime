@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:local="using:TvTime.Common"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
@@ -28,6 +28,19 @@
                               Header="Filter using TokenView"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/tokenView.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </wuc:SettingsCard>
+
+            <wuc:SettingsCard Description="Controls provide audible feedback"
+                              Header="Sound"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/audio.png}">
+                <ToggleSwitch Name="tgSound"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Toggled="Sound_Toggled" />
+            </wuc:SettingsCard>
+            <wuc:SettingsCard Description="Navigate to pages with Mouse Double Click"
+                              Header="Use Double Click for Navigate"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/mouse.png}">
+                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
             <wuc:SettingsExpander Description="Choose Icon Pack to display for the season number"

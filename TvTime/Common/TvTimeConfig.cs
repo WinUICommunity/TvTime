@@ -53,10 +53,16 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual bool UseTokenViewFilter { get; set; } = true;
     public virtual bool UseSound { get; set; } = true;
     public virtual bool UseDoubleClickForNavigate { get; set; } = false;
+    public virtual bool UseAutoDecompressSubtitles { get; set; } = false;
+    public virtual bool UseIDMForDownloade { get; set; } = false;
+    public virtual bool UseDefaultRegexEnabled { get; set; } = true;
+    public virtual bool UseUserSpecifiedLocationForSubtitle { get; set; } = false;
 
     public virtual string LastUpdateCheck { get; set; }
     public virtual string DescriptionTextBlockStyle { get; set; } = "BaseTextBlockStyle";
     public virtual string HeaderTextBlockStyle { get; set; } = "SubtitleTextBlockStyle";
+    public virtual string SubtitleFileNameRegex { get; set; } = Constants.SubtitleFileNameRegex;
+    public virtual string DefaultSubtitleDownloadPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\";
 
     public virtual double DescriptionTextBlockFontSize { get; set; } = 12;
     public virtual double HeaderTextBlockFontSize { get; set; } = 20;

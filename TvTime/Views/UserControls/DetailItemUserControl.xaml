@@ -48,20 +48,20 @@
                                 Tag="CopyAll"
                                 Text="Copy All Links" />
             </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}"
+            <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                Text="Download With IDM"
                                Visibility="{x:Bind MediaItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
 
                 <MenuFlyoutItem x:Name="MenuDownload"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuDownload}"
-                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}"
+                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                 Tag="Download"
                                 Text="Download Selected Item With IDM" />
                 <MenuFlyoutItem x:Name="MenuDownloadAll"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuDownloadAll}"
-                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}"
+                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                 Tag="DownloadAll"
                                 Text="Download All Items With IDM" />
             </MenuFlyoutSubItem>

@@ -12,6 +12,7 @@ public class Constants
     public static readonly string AppConfigPath = Path.Combine(RootDirectoryPath, "AppConfig.json");
 
     public const string FileNameRegex = @"(?:hd(?:tv|cam|r)|-|/720p/|/480p/|/1080p/|- -|-  -|/|EmpireBestTv|AceMovies|AvaMovie|@Parsi_Ser|mp4|mkv|EBTV|@Gemovies|GM|AvaMovie|FB|M3|\.)";
+    public const string SubtitleFileNameRegex = @"(?:hd(?:tv|cam|r)|e(?:xm|vo)|RMT|DDP?5(?:\.1)?|YTS|Turkish|VideoFlix|Gisaengchung|Korean|8CH|BluRay|-|XVid|A(?:c3|VS)|web(?:-?(?:rip|dl))?|fgt|mp3|cmrg|pahe|10bit|(?:720|480|1080)[pi]?|H\.?26[45]|x26[45]|\d{3,}MB|H(?:MAX|EVC)|PS(?:A|iG)|RARBG|[26]CH|(?:CAM)?Rip|RM(?:X|Team)|msd|sva|mkvcage|megusta|tbs|amz|shitbox|nitro|Mr(?:Movie|CS)|BWBP|NT[bG]|Atmos|MZABI|20(?:1\d|2[01])|\/|GalaxyRG|YTS(?:\.(?:LT|MX))?|DV|ION10|SYNCOPY|Phoenix|Minx|AFG|Cakes|@Gemovies|GM|AvaMovie|FB|M3|\.)";
     public const string IMDBTitleAPI = "http://www.omdbapi.com/?t={0}&apikey=2a59a17e";
     public const string IMDBBaseUrl = "https://www.imdb.com/title/{0}";
     public const string TVTIME_REPO = "https://github.com/winUICommunity/TvTime";

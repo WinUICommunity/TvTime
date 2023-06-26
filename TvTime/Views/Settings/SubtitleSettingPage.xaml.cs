@@ -73,4 +73,12 @@ public sealed partial class SubtitleSettingPage : Page
         StatusInfo.Title = $"'{e.TokenItem?.Content?.ToString()}' Removed";
         StatusInfo.Severity = InfoBarSeverity.Informational;
     }
+
+    private void TGRegex_Toggled(object sender, RoutedEventArgs e)
+    {
+        if (TGRegex.IsOn)
+        {
+            Settings.SubtitleFileNameRegex = Constants.SubtitleFileNameRegex;
+        }
+    }
 }

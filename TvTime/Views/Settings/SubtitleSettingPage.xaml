@@ -21,6 +21,16 @@
                      Title="Status"
                      IsClosable="False"
                      IsOpen="True" />
+
+            <wuc:SettingsCard Header="Subtitle Download Location" HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/explorer.png}">
+                <wuc:SettingsCard.Description>
+                    <HyperlinkButton Padding="5,0"
+                                     Command="{x:Bind ViewModel.LaunchSubtitleLocationCommand}"
+                                     Content="{x:Bind ViewModel.SubtitleDownloadPath, Mode=OneWay}" />
+                </wuc:SettingsCard.Description>
+                <Button Command="{x:Bind ViewModel.ChooseSubtitleLocationCommand}" Content="Choose Folder" />
+            </wuc:SettingsCard>
+
             <wuc:SettingsExpander Description="Specify the quality of the subtitles"
                                   Header="Subtitle Quality"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/quality.png}">
@@ -36,6 +46,7 @@
                                     TokenItemRemoving="TokenView_TokenItemRemoving" />
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
+
             <wuc:SettingsExpander Description="Specify the language of the subtitles"
                                   Header="Subtitle Language"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
@@ -49,6 +60,65 @@
                                     ItemsSource="{x:Bind local:TvTimeHelper.Settings.SubtitleLanguagesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SelectionMode="None"
                                     TokenItemRemoving="TokenView_TokenItemRemoving" />
+                </wuc:SettingsExpander.Items>
+            </wuc:SettingsExpander>
+
+            <wuc:SettingsCard Description="Ask the user where to save the file"
+                              Header="Subtitle Location specified by the user"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/folder.png}">
+                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseUserSpecifiedLocationForSubtitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            </wuc:SettingsCard>
+
+            <wuc:SettingsCard x:Name="DecompressSettingsCard"
+                              BorderThickness="{ThemeResource SettingsCardBorderThickness}"
+                              CornerRadius="{ThemeResource ControlCornerRadius}"
+                              Description="ZIP and RAR files are automatically decompressed after downloading"
+                              Header="Auto decompress"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/archive.png}"
+                              IsEnabled="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloade, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
+                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseAutoDecompressSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <i:Interaction.Behaviors>
+                    <ic:DataTriggerBehavior Binding="{Binding IsOpen, ElementName=DecompressStatus}"
+                                            ComparisonCondition="Equal"
+                                            Value="True">
+                        <ic:ChangePropertyAction PropertyName="BorderThickness"
+                                                 TargetObject="{Binding ElementName=DecompressSettingsCard}"
+                                                 Value="1,1,1,0" />
+                        <ic:ChangePropertyAction PropertyName="CornerRadius"
+                                                 TargetObject="{Binding ElementName=DecompressSettingsCard}"
+                                                 Value="4,4,0,0" />
+                    </ic:DataTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </wuc:SettingsCard>
+            <InfoBar x:Name="DecompressStatus"
+                     Title="To use this option, Please Turn off [Download With IDM] option in General Settings"
+                     Margin="0,-5,0,0"
+                     BorderThickness="1,0,1,1"
+                     CornerRadius="0,0,4,4"
+                     IsClosable="False"
+                     IsOpen="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloade, Mode=OneWay}"
+                     Severity="Warning" />
+
+            <wuc:SettingsExpander Description="following keywords will be removed from movie\series file name, if you see a word that can not be removed from file name you can add your keywords here"
+                                  Header="Use Default Regex"
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/regex.png}">
+                <ToggleSwitch x:Name="TGRegex"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseDefaultRegexEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Toggled="TGRegex_Toggled" />
+                <wuc:SettingsExpander.Items>
+                    <TextBox MinWidth="240"
+                             MinHeight="160"
+                             AcceptsReturn="True"
+                             BorderThickness="1,0,1,1"
+                             CornerRadius="0,0,4,4"
+                             IsEnabled="{Binding ElementName=TGRegex, Path=IsOn, Converter={StaticResource BoolNegationConverter}}"
+                             PlaceholderText="Regex"
+                             ScrollViewer.IsVerticalRailEnabled="True"
+                             ScrollViewer.VerticalScrollBarVisibility="Visible"
+                             ScrollViewer.VerticalScrollMode="Enabled"
+                             Text="{x:Bind local:TvTimeHelper.Settings.SubtitleFileNameRegex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap" />
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
         </StackPanel>

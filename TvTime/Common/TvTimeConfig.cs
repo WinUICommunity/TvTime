@@ -20,6 +20,18 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
         }
     }
 
+    private ObservableCollection<ServerModel> _SubtitleServers = new();
+    public virtual ObservableCollection<ServerModel> SubtitleServers
+    {
+        get => _SubtitleServers;
+        set
+        {
+            if (Equals(value, _SubtitleServers)) return;
+            _SubtitleServers = value;
+            OnPropertyChanged();
+        }
+    }
+
     private ObservableCollection<string> _SubtitleLanguagesCollection = new();
     public virtual ObservableCollection<string> SubtitleLanguagesCollection
     {

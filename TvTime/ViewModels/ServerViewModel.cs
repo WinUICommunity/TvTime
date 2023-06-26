@@ -1,8 +1,10 @@
-﻿using System.Data;
+﻿namespace TvTime.ViewModels;
 
-namespace TvTime.ViewModels;
-public partial class MediaServerViewModel : ObservableRecipient
+public partial class ServerViewModel : ObservableRecipient
 {
+    [ObservableProperty]
+    public bool isMediaServer;
+
     public string Title;
 
     public string Server;
@@ -30,11 +32,12 @@ public partial class MediaServerViewModel : ObservableRecipient
     private SortDescription currentSortDescription;
 
     [RelayCommand]
-    private async void OnPageLoaded()
+    private async void OnPageLoaded(bool isMediaServer)
     {
+        this.IsMediaServer = isMediaServer;
         IsActive = true;
         await Task.Delay(150);
-        DataList = new(Settings.Servers);
+        DataList = IsMediaServer ? new(Settings.Servers) : (ObservableCollection<ServerModel>) new(Settings.SubtitleServers);
         DataListACV = new AdvancedCollectionView(DataList, true);
         currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
         DataListACV.SortDescriptions.Add(currentSortDescription);
@@ -52,7 +55,16 @@ public partial class MediaServerViewModel : ObservableRecipient
             if (item != null)
             {
                 DataList?.Remove(item);
-                Settings.Servers = DataList;
+
+                if (IsMediaServer)
+                {
+                    Settings.Servers = DataList;
+                }
+                else
+                {
+                    Settings.SubtitleServers = DataList;
+                }
+
                 InfoStausSeverity = InfoBarSeverity.Success;
                 InfoStatusMessage = "Selected Server Removed Successfully";
                 InfoStatusIsOpen = true;
@@ -68,18 +80,37 @@ public partial class MediaServerViewModel : ObservableRecipient
         inputDialog.Title = "Add new Server";
         inputDialog.PrimaryButtonClick += (s, e) =>
         {
-            if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Server) && ComboBoxSelectedItem != null)
+            if (IsMediaServer && ComboBoxSelectedItem == null)
+            {
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Server))
             {
                 var server = new ServerModel
                 {
                     Title = Title.Trim(),
                     Server = Server.Trim(),
                     IsActive = TgServerIsActive,
-                    ServerType = ApplicationHelper.GetEnum<ServerType>(ComboBoxSelectedItem.Content?.ToString())
                 };
 
+                if (IsMediaServer)
+                {
+                    server.ServerType = ApplicationHelper.GetEnum<ServerType>(ComboBoxSelectedItem?.Content?.ToString());
+                }
+
                 DataList?.Add(server);
-                Settings.Servers = DataList;
+
+                if (IsMediaServer)
+                {
+                    Settings.Servers = DataList;
+
+                }
+                else
+                {
+                    Settings.SubtitleServers = DataList;
+                }
+
                 InfoStausSeverity = InfoBarSeverity.Success;
                 InfoStatusMessage = "New Server Added Successfully";
                 InfoStatusIsOpen = true;
@@ -91,6 +122,7 @@ public partial class MediaServerViewModel : ObservableRecipient
                 InfoStatusIsOpen = true;
             }
         };
+
         await inputDialog.ShowAsyncQueueDraggable();
     }
 
@@ -105,18 +137,38 @@ public partial class MediaServerViewModel : ObservableRecipient
             inputDialog.Title = "Update Server";
             inputDialog.PrimaryButtonClick += (s, e) =>
             {
-                var index = DataList.IndexOf(item);
-                if (index > -1 && !string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Server) && ComboBoxSelectedItem != null)
+                if (IsMediaServer && ComboBoxSelectedItem == null)
                 {
+                    return;
+                }
 
-                    DataList[index] = new ServerModel
+                var index = DataList.IndexOf(item);
+
+                if (index > -1 && !string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Server))
+                {
+                    var serverModel = new ServerModel
                     {
                         Title = Title.Trim(),
                         Server = Server.Trim(),
-                        IsActive = TgServerIsActive,
-                        ServerType = ApplicationHelper.GetEnum<ServerType>(ComboBoxSelectedItem.Content?.ToString())
+                        IsActive = TgServerIsActive
                     };
-                    Settings.Servers = DataList;
+
+                    if (IsMediaServer)
+                    {
+                        serverModel.ServerType = ApplicationHelper.GetEnum<ServerType>(ComboBoxSelectedItem?.Content?.ToString());
+                    }
+
+                    DataList[index] = serverModel;
+
+                    if (IsMediaServer)
+                    {
+                        Settings.Servers = DataList;
+                    }
+                    else
+                    {
+                        Settings.SubtitleServers = DataList;
+                    }
+
                     InfoStausSeverity = InfoBarSeverity.Success;
                     InfoStatusMessage = "Server Changed Successfully";
                     InfoStatusIsOpen = true;
@@ -128,6 +180,7 @@ public partial class MediaServerViewModel : ObservableRecipient
                     InfoStatusIsOpen = true;
                 }
             };
+
             await inputDialog.ShowAsyncQueueDraggable();
         }
     }
@@ -214,7 +267,12 @@ public partial class MediaServerViewModel : ObservableRecipient
 
         stck.Children.Add(txtTitle);
         stck.Children.Add(txtServer);
-        stck.Children.Add(cmbType);
+
+        if (IsMediaServer)
+        {
+            stck.Children.Add(cmbType);
+        }
+
         stck.Children.Add(tgActive);
         grid.Children.Add(stck);
         inputDialog.Content = grid;
@@ -223,8 +281,12 @@ public partial class MediaServerViewModel : ObservableRecipient
             this.Title = txtTitle.Text;
             this.Server = txtServer.Text;
             this.TgServerIsActive = tgActive.IsOn;
-            this.ComboBoxSelectedIndex = cmbType.SelectedIndex;
-            this.ComboBoxSelectedItem = (ComboBoxItem) cmbType.SelectedItem;
+
+            if (IsMediaServer)
+            {
+                this.ComboBoxSelectedIndex = cmbType.SelectedIndex;
+                this.ComboBoxSelectedItem = (ComboBoxItem) cmbType.SelectedItem;
+            }
         };
         return inputDialog;
     }

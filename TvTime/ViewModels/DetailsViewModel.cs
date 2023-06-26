@@ -3,8 +3,6 @@ using System.Text;
 
 using CommunityToolkit.Labs.WinUI;
 
-using TvTime.Models;
-
 using Windows.ApplicationModel.DataTransfer;
 
 namespace TvTime.ViewModels;
@@ -34,12 +32,12 @@ public partial class DetailsViewModel : ObservableRecipient
     public List<string> suggestList = new List<string>();
     private SortDescription currentSortDescription;
 
-    public MediaItem rootLocalItem;
+    public MediaItem rootMediaItem;
 
     [RelayCommand]
     private void OnPageLoaded()
     {
-        DownloadDetails(rootLocalItem);
+        DownloadDetails(rootMediaItem);
     }
 
     [RelayCommand]
@@ -52,11 +50,11 @@ public partial class DetailsViewModel : ObservableRecipient
             switch (selectedItem.Tag?.ToString())
             {
                 case "Refresh":
-                    DownloadDetails(rootLocalItem);
+                    DownloadDetails(rootMediaItem);
                     segmented.SelectedIndex = -1;
                     break;
                 case "Details":
-                    CreateIMDBDetailsWindow(rootLocalItem.Title);
+                    CreateIMDBDetailsWindow(rootMediaItem.Title);
                     segmented.SelectedIndex = -1;
                     break;
             }
@@ -97,13 +95,13 @@ public partial class DetailsViewModel : ObservableRecipient
         }
         else
         {
-            var localItem = new MediaItem
+            var mediaItem = new MediaItem
             {
                 Server = server,
                 Title = title,
-                ServerType = rootLocalItem.ServerType
+                ServerType = rootMediaItem.ServerType
             };
-            DownloadDetails(localItem);
+            DownloadDetails(mediaItem);
         }
     }
 
@@ -140,8 +138,8 @@ public partial class DetailsViewModel : ObservableRecipient
         else
         {
             var menuFlyout = (sender as MenuFlyoutItem);
-            var localItem = (MediaItem) menuFlyout?.DataContext;
-            var server = localItem.Server?.ToString();
+            var mediaItem = (MediaItem) menuFlyout?.DataContext;
+            var server = mediaItem.Server?.ToString();
             Process.Start(GetIDMFilePath(), $"/d \"{server?.ToString()}\"");
         }
     }
@@ -172,8 +170,8 @@ public partial class DetailsViewModel : ObservableRecipient
         {
             foreach (var item in DataList)
             {
-                var localItem = (MediaItem) item;
-                Process.Start(GetIDMFilePath(), $"/d \"{localItem.Server?.ToString()}\"");
+                var mediaItem = (MediaItem) item;
+                Process.Start(GetIDMFilePath(), $"/d \"{mediaItem.Server?.ToString()}\"");
                 await Task.Delay(450);
             }
         }
@@ -183,8 +181,8 @@ public partial class DetailsViewModel : ObservableRecipient
     private void OnCopy(object sender)
     {
         var item = (sender as MenuFlyoutItem);
-        var localItem = (MediaItem) item?.DataContext;
-        var server = localItem.Server?.ToString();
+        var mediaItem = (MediaItem) item?.DataContext;
+        var server = mediaItem.Server?.ToString();
         var package = new DataPackage();
         package.SetText(server);
         Clipboard.SetContent(package);
@@ -197,8 +195,7 @@ public partial class DetailsViewModel : ObservableRecipient
         StringBuilder urls = new StringBuilder();
         foreach (var item in DataList)
         {
-            var localItem = (MediaItem) item;
-            urls.AppendLine(localItem.Server?.ToString());
+            urls.AppendLine(item.Server?.ToString());
         }
         package.SetText(urls?.ToString());
         Clipboard.SetContent(package);
@@ -208,8 +205,8 @@ public partial class DetailsViewModel : ObservableRecipient
     private async void OnOpenDirectory(object sender)
     {
         var item = (sender as MenuFlyoutItem);
-        var localItem = (MediaItem) item?.DataContext;
-        var server = localItem.Server?.ToString();
+        var mediaItem = (MediaItem) item?.DataContext;
+        var server = mediaItem.Server?.ToString();
         if (item.Text.Contains("File"))
         {
             await Launcher.LaunchUriAsync(new Uri(server));
@@ -231,7 +228,7 @@ public partial class DetailsViewModel : ObservableRecipient
     [RelayCommand]
     private void OnGetIMDBDetails()
     {
-        CreateIMDBDetailsWindow(rootLocalItem.Title);
+        CreateIMDBDetailsWindow(rootMediaItem.Title);
     }
 
     public bool DataListFilter(object item)
@@ -269,25 +266,25 @@ public partial class DetailsViewModel : ObservableRecipient
         }
     }
 
-    private async void DownloadDetails(MediaItem localItem)
+    private async void DownloadDetails(MediaItem mediaItem)
     {
         try
         {
-            BreadcrumbBarList.AddIfNotExists(localItem);
+            BreadcrumbBarList.AddIfNotExists(mediaItem);
             IsActive = true;
             IsStatusOpen = true;
             StatusSeverity = InfoBarSeverity.Informational;
             StatusTitle = "Please Wait...";
             StatusMessage = "";
             HtmlWeb web = new HtmlWeb();
-            HtmlDocument doc = await web.LoadFromWebAsync(localItem.Server);
+            HtmlDocument doc = await web.LoadFromWebAsync(mediaItem.Server);
 
-            StatusMessage = $"Working on {localItem.Title}";
+            StatusMessage = $"Working on {mediaItem.Title}";
 
             string result = doc.DocumentNode?.InnerHtml?.ToString();
-            StatusMessage = $"Parsing {localItem.Title}";
+            StatusMessage = $"Parsing {mediaItem.Title}";
 
-            var details = GetServerDetails(result, localItem);
+            var details = GetServerDetails(result, mediaItem);
             DataList = new(details);
             DataListACV = new AdvancedCollectionView(DataList, true);
             currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
@@ -309,11 +306,11 @@ public partial class DetailsViewModel : ObservableRecipient
         }
     }
 
-    public List<MediaItem> GetServerDetails(string content, MediaItem localItem)
+    public List<MediaItem> GetServerDetails(string content, MediaItem mediaItem)
     {
         List<MediaItem> list = new List<MediaItem>();
 
-        if (localItem.Server.Contains("DonyayeSerial"))
+        if (mediaItem.Server.Contains("DonyayeSerial"))
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(content);
@@ -330,7 +327,7 @@ public partial class DetailsViewModel : ObservableRecipient
                 {
                     var title = nameNode?.InnerText?.Trim();
                     var date = dateNode?.InnerText?.Trim();
-                    var serverUrl = $"{localItem.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
+                    var serverUrl = $"{mediaItem.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
                     var size = sizeNode?.InnerText?.Trim();
                     list.Add(new MediaItem { Title = title, DateTime = date, Server = serverUrl, FileSize = size, ServerType = ServerType.Series });
                 }
@@ -360,26 +357,26 @@ public partial class DetailsViewModel : ObservableRecipient
                 if (m2.Success)
                 {
                     link = m2.Groups[1].Value;
-                    if (localItem.Server.Contains("freelecher"))
+                    if (mediaItem.Server.Contains("freelecher"))
                     {
-                        var url = new Uri(localItem.Server).GetLeftPart(UriPartial.Authority);
+                        var url = new Uri(mediaItem.Server).GetLeftPart(UriPartial.Authority);
                         i.Server = $"{url}{link}";
                     }
-                    else if (localItem.Server.Contains("dl3.dl1acemovies") || localItem.Server.Contains("dl4.dl1acemovies"))
+                    else if (mediaItem.Server.Contains("dl3.dl1acemovies") || mediaItem.Server.Contains("dl4.dl1acemovies"))
                     {
-                        var url = new Uri(localItem.Server).GetLeftPart(UriPartial.Authority);
+                        var url = new Uri(mediaItem.Server).GetLeftPart(UriPartial.Authority);
                         i.Server = $"{url}{link}";
                     }
                     else
                     {
-                        i.Server = $"{localItem.Server}{link}";
+                        i.Server = $"{mediaItem.Server}{link}";
                     }
                 }
 
                 string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
 
                 i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
-                if (i.Server.Equals($"{localItem.Server}../") || i.Title.Equals("[To Parent Directory]") ||
+                if (i.Server.Equals($"{mediaItem.Server}../") || i.Title.Equals("[To Parent Directory]") ||
                     ((i.Server.Contains("aiocdn") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
                 {
                     continue;
@@ -405,7 +402,7 @@ public partial class DetailsViewModel : ObservableRecipient
                 }
                 index++;
 
-                i.ServerType = localItem.ServerType;
+                i.ServerType = mediaItem.ServerType;
                 list.Add(i);
             }
             return list;

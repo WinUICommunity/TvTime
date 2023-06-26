@@ -19,7 +19,7 @@ public sealed partial class DetailPage : Page
         base.OnNavigatedTo(e);
         var args = e.Parameter as NavigationArgs;
         var item = (MediaItem)args.Parameter;
-        ViewModel.rootLocalItem = item;
+        ViewModel.rootMediaItem = item;
         ViewModel.BreadcrumbBarList?.Clear();
     }
 }

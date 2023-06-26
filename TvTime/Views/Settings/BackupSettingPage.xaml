@@ -26,12 +26,12 @@
                                   IsExpanded="True">
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard Command="{x:Bind ViewModel.BackupServerCommand}"
-                                      Description="You can export your saved servers to any location"
+                                      Description="You can export your saved media servers to any location"
                                       Header="Backup"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
                                       IsClickEnabled="True" />
                     <wuc:SettingsCard Command="{x:Bind ViewModel.RestoreServerCommand}"
-                                      Description="You can import your saved servers to the app"
+                                      Description="You can import your saved media servers to the app"
                                       Header="Restore"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
                                       IsClickEnabled="True" />

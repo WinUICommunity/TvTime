@@ -114,7 +114,43 @@ public partial class DetailsViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private async void OnDownload(object sender)
+    private void OnMenuFlyoutItem(object sender)
+    {
+        var menuFlyout = (sender as MenuFlyoutItem);
+        var mediaItem = (MediaItem) menuFlyout?.DataContext;
+        switch (menuFlyout?.Tag?.ToString())
+        {
+            case "OpenWebDirectory":
+                OnOpenDirectory(mediaItem, menuFlyout);
+                break;
+
+            case "IMDB":
+                OnGetIMDBDetails();
+                break;
+
+            case "OpenFile":
+                OnOpenDirectory(mediaItem, menuFlyout);
+                break;
+
+            case "Copy":
+                OnCopy(mediaItem);
+                break;
+
+            case "CopyAll":
+                OnCopyAll();
+                break;
+
+            case "Download":
+                OnDownload(mediaItem);
+                break;
+
+            case "DownloadAll":
+                OnDownloadAll();
+                break;
+        }
+    }
+
+    private async void OnDownload(MediaItem mediaItem)
     {
         var idmPath = GetIDMFilePath();
         if (string.IsNullOrEmpty(idmPath))
@@ -137,14 +173,11 @@ public partial class DetailsViewModel : ObservableRecipient
         }
         else
         {
-            var menuFlyout = (sender as MenuFlyoutItem);
-            var mediaItem = (MediaItem) menuFlyout?.DataContext;
             var server = mediaItem.Server?.ToString();
             Process.Start(GetIDMFilePath(), $"/d \"{server?.ToString()}\"");
         }
     }
 
-    [RelayCommand]
     private async void OnDownloadAll()
     {
         var idmPath = GetIDMFilePath();
@@ -170,25 +203,20 @@ public partial class DetailsViewModel : ObservableRecipient
         {
             foreach (var item in DataList)
             {
-                var mediaItem = (MediaItem) item;
-                Process.Start(GetIDMFilePath(), $"/d \"{mediaItem.Server?.ToString()}\"");
-                await Task.Delay(450);
+                Process.Start(GetIDMFilePath(), $"/d \"{item.Server?.ToString()}\"");
+                await Task.Delay(500);
             }
         }
     }
 
-    [RelayCommand]
-    private void OnCopy(object sender)
+    private void OnCopy(MediaItem mediaItem)
     {
-        var item = (sender as MenuFlyoutItem);
-        var mediaItem = (MediaItem) item?.DataContext;
         var server = mediaItem.Server?.ToString();
         var package = new DataPackage();
         package.SetText(server);
         Clipboard.SetContent(package);
     }
 
-    [RelayCommand]
     private void OnCopyAll()
     {
         var package = new DataPackage();
@@ -201,11 +229,8 @@ public partial class DetailsViewModel : ObservableRecipient
         Clipboard.SetContent(package);
     }
 
-    [RelayCommand]
-    private async void OnOpenDirectory(object sender)
+    private async void OnOpenDirectory(MediaItem mediaItem, MenuFlyoutItem item)
     {
-        var item = (sender as MenuFlyoutItem);
-        var mediaItem = (MediaItem) item?.DataContext;
         var server = mediaItem.Server?.ToString();
         if (item.Text.Contains("File"))
         {
@@ -225,7 +250,6 @@ public partial class DetailsViewModel : ObservableRecipient
         }
     }
 
-    [RelayCommand]
     private void OnGetIMDBDetails()
     {
         CreateIMDBDetailsWindow(rootMediaItem.Title);

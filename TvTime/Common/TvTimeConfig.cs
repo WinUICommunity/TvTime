@@ -20,13 +20,32 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
         }
     }
 
+    private ObservableCollection<string> _SubtitleLanguagesCollection = new();
+    public virtual ObservableCollection<string> SubtitleLanguagesCollection
+    {
+        get => _SubtitleLanguagesCollection;
+        set
+        {
+            if (Equals(value, _SubtitleLanguagesCollection)) return;
+            _SubtitleLanguagesCollection = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private ObservableCollection<string> _SubtitleQualityCollection = new();
+    public virtual ObservableCollection<string> SubtitleQualityCollection
+    {
+        get => _SubtitleQualityCollection;
+        set
+        {
+            if (Equals(value, _SubtitleQualityCollection)) return;
+            _SubtitleQualityCollection = value;
+            OnPropertyChanged();
+        }
+    }
+
     public virtual bool IsFileOpenInBrowser { get; set; }
-    public virtual string LastUpdateCheck { get; set; }
-    public virtual string DescriptionTextBlockStyle { get; set; } = "BaseTextBlockStyle";
-    public virtual double DescriptionTextBlockFontSize { get; set; } = 12;
     public virtual bool UseCustomFontSizeForDescription { get; set; } = false;
-    public virtual string HeaderTextBlockStyle { get; set; } = "SubtitleTextBlockStyle";
-    public virtual double HeaderTextBlockFontSize { get; set; } = 20;
     public virtual bool UseCustomFontSizeForHeader { get; set; } = false;
     public virtual bool HasHyperLinkBorderThickness { get; set; } = false;
     public virtual bool UseTruncateInHeader { get; set; } = false;
@@ -34,6 +53,14 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual bool UseTokenViewFilter { get; set; } = true;
     public virtual bool UseSound { get; set; } = true;
     public virtual bool UseDoubleClickForNavigate { get; set; } = false;
+
+    public virtual string LastUpdateCheck { get; set; }
+    public virtual string DescriptionTextBlockStyle { get; set; } = "BaseTextBlockStyle";
+    public virtual string HeaderTextBlockStyle { get; set; } = "SubtitleTextBlockStyle";
+
+    public virtual double DescriptionTextBlockFontSize { get; set; } = 12;
+    public virtual double HeaderTextBlockFontSize { get; set; } = 20;
+
     public virtual DescriptionTemplateType DescriptionTemplate { get; set; } = DescriptionTemplateType.HyperLink;
     public virtual IconPackType IconPack { get; set; } = IconPackType.Glyph;
 }

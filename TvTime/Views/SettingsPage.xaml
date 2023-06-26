@@ -17,14 +17,6 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/update.png}"
                               IsClickEnabled="True"
                               Tag="AppUpdateSettingPage" />
-            <wuc:SettingsCard x:Name="GeneralSetting"
-                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
-                              CommandParameter="{Binding ElementName=GeneralSetting}"
-                              Description="TvTime General Settings"
-                              Header="General"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}"
-                              IsClickEnabled="True"
-                              Tag="GeneralSettingPage" />
             <wuc:SettingsCard x:Name="ThemeSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
                               CommandParameter="{Binding ElementName=ThemeSetting}"
@@ -33,6 +25,22 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}"
                               IsClickEnabled="True"
                               Tag="ThemeSettingPage" />
+            <wuc:SettingsCard x:Name="GeneralSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=GeneralSetting}"
+                              Description="TvTime General Settings"
+                              Header="General"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}"
+                              IsClickEnabled="True"
+                              Tag="GeneralSettingPage" />
+            <wuc:SettingsCard x:Name="SubtitleSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=SubtitleSetting}"
+                              Description="Subtitle Settings"
+                              Header="Subtitle"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
+                              IsClickEnabled="True"
+                              Tag="SubtitleSettingPage" />
             <wuc:SettingsCard x:Name="BackupSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
                               CommandParameter="{Binding ElementName=BackupSetting}"

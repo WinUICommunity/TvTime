@@ -35,12 +35,14 @@ public partial class App : Application
         services.AddTransient<MediaViewModel>();
         services.AddTransient<DetailsViewModel>();
         services.AddTransient<IMDBDetailsViewModel>();
+        services.AddTransient<SubtitleViewModel>();
 
         //Settings
         services.AddTransient<AppUpdateSettingViewModel>();
         services.AddTransient<AboutUsSettingViewModel>();
         services.AddTransient<BackupSettingViewModel>();
         services.AddTransient<ThemeSettingViewModel>();
+        services.AddTransient<SubtitleSettingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<HeaderStyleSettingViewModel>();
         services.AddTransient<DescriptionStyleSettingViewModel>();
@@ -63,6 +65,17 @@ public partial class App : Application
                 TitleBarType = TitleBarType.AppWindow
             }
         });
+
+        if (Settings.SubtitleLanguagesCollection == null || Settings.SubtitleLanguagesCollection.Count == 0)
+        {
+            Settings.SubtitleLanguagesCollection = SubtitleLanguageCollection();
+        }
+
+        if (Settings.SubtitleQualityCollection == null || Settings.SubtitleQualityCollection.Count == 0)
+        {
+            Settings.SubtitleQualityCollection = SubtitleQualityCollection();
+        }
+
         m_window.Activate();
     }
 

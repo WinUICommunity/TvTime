@@ -192,4 +192,80 @@ public static class TvTimeHelper
         new ThemeManager(window, App.Current.ThemeManager.ThemeOptions);
         window.Activate();
     }
+
+    public static ObservableCollection<string> SubtitleLanguageCollection()
+    {
+        return new ObservableCollection<string>
+        {
+            "All",
+            "Persian",
+            "English",
+            "Albanian",
+            "Arabic",
+            "Bengali",
+            "Brazillian",
+            "Burmese",
+            "Croatian",
+            "Danish",
+            "Dutch",
+            "Finnish",
+            "French",
+            "German",
+            "Hebrew",
+            "Hindi",
+            "Indonesian",
+            "Italian",
+            "Japanese",
+            "Korean",
+            "Malay",
+            "Malayalam",
+            "Morwegian",
+            "Romanian",
+            "Russian",
+            "Serbian",
+            "Spanish",
+            "Swedish",
+            "Tamil",
+            "Thai",
+            "Turkish",
+            "Urdu",
+            "Vietnamese",
+            "Hungarian",
+            "Portuguese"
+        };
+    }
+
+    public static ObservableCollection<string> SubtitleQualityCollection()
+    {
+        return new ObservableCollection<string>
+        {
+            "All",
+            "1080",
+            "720",
+            "480",
+            "AMZN",
+            "Bluray",
+            "CMRG",
+            "EVO",
+            "GalaxyRG",
+            "H264",
+            "H265",
+            "HDRip",
+            "HDTV",
+            "HEVC",
+            "ION10",
+            "NF",
+            "Pahe",
+            "PSA",
+            "RARBG",
+            "RMTeam",
+            "SPARKS",
+            "Web",
+            "X264",
+            "X265",
+            "XviD",
+            "YIFY",
+            "YTS"
+        };
+    }
 }

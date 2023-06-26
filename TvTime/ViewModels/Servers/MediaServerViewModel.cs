@@ -1,7 +1,7 @@
 ﻿using System.Data;
 
 namespace TvTime.ViewModels;
-public partial class ServerViewModel : ObservableRecipient
+public partial class MediaServerViewModel : ObservableRecipient
 {
     public string Title;
 
@@ -63,8 +63,8 @@ public partial class ServerViewModel : ObservableRecipient
     [RelayCommand]
     private async void OnAddItem()
     {
-        var inputDialog = CreateContentDialog("","", -1, null, true);
-        
+        var inputDialog = CreateContentDialog("", "", -1, null, true);
+
         inputDialog.Title = "Add new Server";
         inputDialog.PrimaryButtonClick += (s, e) =>
         {
@@ -229,3 +229,4 @@ public partial class ServerViewModel : ObservableRecipient
         return inputDialog;
     }
 }
+

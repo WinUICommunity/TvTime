@@ -21,7 +21,7 @@
                      Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
 
             <wuc:SettingsExpander Description="backup and restore servers"
-                                  Header="Backup &amp; Restore TvTime Servers"
+                                  Header="Backup &amp; Restore TvTime Media Servers"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}"
                                   IsExpanded="True">
                 <wuc:SettingsExpander.Items>

@@ -37,7 +37,7 @@ public partial class ServerViewModel : ObservableRecipient
         this.IsMediaServer = isMediaServer;
         IsActive = true;
         await Task.Delay(150);
-        DataList = IsMediaServer ? new(Settings.Servers) : (ObservableCollection<ServerModel>) new(Settings.SubtitleServers);
+        DataList = IsMediaServer ? new(Settings.TVTimeServers) : (ObservableCollection<ServerModel>) new(Settings.SubtitleServers);
         DataListACV = new AdvancedCollectionView(DataList, true);
         currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
         DataListACV.SortDescriptions.Add(currentSortDescription);
@@ -58,7 +58,7 @@ public partial class ServerViewModel : ObservableRecipient
 
                 if (IsMediaServer)
                 {
-                    Settings.Servers = DataList;
+                    Settings.TVTimeServers = DataList;
                 }
                 else
                 {
@@ -103,7 +103,7 @@ public partial class ServerViewModel : ObservableRecipient
 
                 if (IsMediaServer)
                 {
-                    Settings.Servers = DataList;
+                    Settings.TVTimeServers = DataList;
 
                 }
                 else
@@ -162,7 +162,7 @@ public partial class ServerViewModel : ObservableRecipient
 
                     if (IsMediaServer)
                     {
-                        Settings.Servers = DataList;
+                        Settings.TVTimeServers = DataList;
                     }
                     else
                     {

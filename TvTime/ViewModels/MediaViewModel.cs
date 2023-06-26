@@ -44,7 +44,7 @@ public partial class MediaViewModel : ObservableRecipient
     {
         PageType = MediaUserControl.Instance.PageType;
 
-        var tokens = Settings.Servers.Where(x => x.IsActive && x.ServerType.ToString().Equals(GetPageType()))
+        var tokens = Settings.TVTimeServers.Where(x => x.IsActive && x.ServerType.ToString().Equals(GetPageType()))
             .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
 
         TokenList = new(tokens);
@@ -59,7 +59,7 @@ public partial class MediaViewModel : ObservableRecipient
             DownloadServersOnLocalStorage();
         }
 
-        if (Settings.Servers.Count == 0)
+        if (Settings.TVTimeServers.Count == 0)
         {
             IsStatusOpen = true;
             StatusTitle = "Server not found";
@@ -220,7 +220,7 @@ public partial class MediaViewModel : ObservableRecipient
     {
         try
         {
-            if (Settings.Servers.Count == 0)
+            if (Settings.TVTimeServers.Count == 0)
             {
                 GoToServerPage();
                 return;
@@ -228,7 +228,7 @@ public partial class MediaViewModel : ObservableRecipient
 
             IsServerStatusOpen = false;
             IsActive = true;
-            var urls = Settings.Servers.Where(x => x.ServerType == ApplicationHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
+            var urls = Settings.TVTimeServers.Where(x => x.ServerType == ApplicationHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
             IsStatusOpen = true;
             StatusSeverity = InfoBarSeverity.Informational;
             StatusTitle = "Please Wait...";

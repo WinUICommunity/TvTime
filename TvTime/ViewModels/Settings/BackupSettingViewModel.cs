@@ -15,14 +15,14 @@ public partial class BackupSettingViewModel : ObservableObject
             var savePicker = new Windows.Storage.Pickers.FileSavePicker();
             savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
             savePicker.FileTypeChoices.Add("Json", new List<string>() { ".json" });
-            savePicker.SuggestedFileName = $"TvTime-Servers-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
+            savePicker.SuggestedFileName = $"TvTime-MediaServers-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
             WinRT.Interop.InitializeWithWindow.Initialize(savePicker, WindowHelper.GetWindowHandleForCurrentWindow(App.Current.Window));
 
             StorageFile file = await savePicker.PickSaveFileAsync();
 
             if (file != null)
             {
-                var servers = Settings.Servers;
+                var servers = Settings.TVTimeServers;
                 var json = JsonConvert.SerializeObject(servers, Formatting.Indented);
                 using (var outfile = new StreamWriter(file.Path))
                 {
@@ -58,7 +58,7 @@ public partial class BackupSettingViewModel : ObservableObject
                 var content = JsonConvert.DeserializeObject<ObservableCollection<ServerModel>>(json);
                 if (content is not null)
                 {
-                    Settings.Servers = content;
+                    Settings.TVTimeServers = content;
                     StatusText = "Restore completed successfully";
                     StatusSeverity = InfoBarSeverity.Success;
                 }

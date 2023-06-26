@@ -34,7 +34,7 @@ public sealed partial class ServerUserControl : UserControl
         {
             if (IsMediaServer)
             {
-                Settings.Servers?.Clear();
+                Settings.TVTimeServers?.Clear();
             }
             else
             {
@@ -57,7 +57,7 @@ public sealed partial class ServerUserControl : UserControl
             {
                 if (IsMediaServer)
                 {
-                    Settings.Servers = content;
+                    Settings.TVTimeServers = content;
                 }
                 else
                 {
@@ -85,7 +85,7 @@ public sealed partial class ServerUserControl : UserControl
         {
             if (IsMediaServer)
             {
-                Settings.Servers?.Clear();
+                Settings.TVTimeServers?.Clear();
             }
             else
             {

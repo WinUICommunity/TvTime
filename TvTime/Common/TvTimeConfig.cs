@@ -8,14 +8,14 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual Version Version { get; set; } = new Version(2, 1, 0, 0);
     public override string FileName { get; set; } = Constants.AppConfigPath;
 
-    private ObservableCollection<ServerModel> _Servers = new();
-    public virtual ObservableCollection<ServerModel> Servers
+    private ObservableCollection<ServerModel> _TVTimeServers = new();
+    public virtual ObservableCollection<ServerModel> TVTimeServers
     {
-        get => _Servers;
+        get => _TVTimeServers;
         set
         {
-            if (Equals(value, _Servers)) return;
-            _Servers = value;
+            if (Equals(value, _TVTimeServers)) return;
+            _TVTimeServers = value;
             OnPropertyChanged();
         }
     }

@@ -26,13 +26,33 @@
                                   IsExpanded="True">
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard Command="{x:Bind ViewModel.BackupServerCommand}"
+                                      CommandParameter="True"
                                       Description="You can export your saved media servers to any location"
-                                      Header="Backup"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
+                                      Header="Backup Media Servers"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}"
                                       IsClickEnabled="True" />
                     <wuc:SettingsCard Command="{x:Bind ViewModel.RestoreServerCommand}"
+                                      CommandParameter="True"
                                       Description="You can import your saved media servers to the app"
-                                      Header="Restore"
+                                      Header="Restore Media Servers"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
+                                      IsClickEnabled="True" />
+                    <InfoBar Title="When backing up from the servers, be careful whether the backup is media server or subtitle server"
+                             BorderThickness="0"
+                             CornerRadius="0"
+                             IsClosable="False"
+                             IsOpen="True"
+                             Severity="Warning" />
+                    <wuc:SettingsCard Command="{x:Bind ViewModel.BackupServerCommand}"
+                                      CommandParameter="False"
+                                      Description="You can export your saved subtitle servers to any location"
+                                      Header="Backup Subtitle Servers"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
+                                      IsClickEnabled="True" />
+                    <wuc:SettingsCard Command="{x:Bind ViewModel.RestoreServerCommand}"
+                                      CommandParameter="False"
+                                      Description="You can import your saved subtitle servers to the app"
+                                      Header="Restore Subtitle Servers"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
                                       IsClickEnabled="True" />
                 </wuc:SettingsExpander.Items>

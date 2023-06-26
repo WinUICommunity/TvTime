@@ -1,6 +1,8 @@
 ﻿namespace TvTime.ViewModels;
 public partial class BackupSettingViewModel : ObservableObject
 {
+    private bool isMediaServer;
+
     [ObservableProperty]
     public string statusText = "Status";
 
@@ -8,14 +10,22 @@ public partial class BackupSettingViewModel : ObservableObject
     public InfoBarSeverity statusSeverity = InfoBarSeverity.Informational;
 
     [RelayCommand]
-    private async void OnBackupServer()
+    private async void OnBackupServer(object isMediaServer)
     {
         try
         {
+            this.isMediaServer = Convert.ToBoolean(isMediaServer);
+            var fileName = $"TvTime-MediaServers-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
+
+            if (!this.isMediaServer)
+            {
+                fileName = $"TvTime-SubtitleServers-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
+            }
+
             var savePicker = new Windows.Storage.Pickers.FileSavePicker();
             savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
             savePicker.FileTypeChoices.Add("Json", new List<string>() { ".json" });
-            savePicker.SuggestedFileName = $"TvTime-MediaServers-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
+            savePicker.SuggestedFileName = fileName;
             WinRT.Interop.InitializeWithWindow.Initialize(savePicker, WindowHelper.GetWindowHandleForCurrentWindow(App.Current.Window));
 
             StorageFile file = await savePicker.PickSaveFileAsync();
@@ -23,11 +33,18 @@ public partial class BackupSettingViewModel : ObservableObject
             if (file != null)
             {
                 var servers = Settings.TVTimeServers;
+
+                if (!this.isMediaServer)
+                {
+                    servers = Settings.SubtitleServers;
+                }
+
                 var json = JsonConvert.SerializeObject(servers, Formatting.Indented);
                 using (var outfile = new StreamWriter(file.Path))
                 {
                     await outfile.WriteAsync(json);
                 }
+
                 StatusText = "Backup completed successfully";
                 StatusSeverity = InfoBarSeverity.Success;
             }
@@ -40,10 +57,11 @@ public partial class BackupSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void OnRestoreServer()
+    private async void OnRestoreServer(object isMediaServer)
     {
         try
         {
+            this.isMediaServer = Convert.ToBoolean(isMediaServer);
             var picker = new Windows.Storage.Pickers.FileOpenPicker();
             picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
             picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
@@ -58,7 +76,15 @@ public partial class BackupSettingViewModel : ObservableObject
                 var content = JsonConvert.DeserializeObject<ObservableCollection<ServerModel>>(json);
                 if (content is not null)
                 {
-                    Settings.TVTimeServers = content;
+                    if (this.isMediaServer)
+                    {
+                        Settings.TVTimeServers = content;
+                    }
+                    else
+                    {
+                        Settings.SubtitleServers = content;
+                    }
+
                     StatusText = "Restore completed successfully";
                     StatusSeverity = InfoBarSeverity.Success;
                 }

@@ -63,11 +63,19 @@ public sealed partial class MediaItemUserControl : UserControl
         App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), media);
     }
 
-    private async void btnOpenDirectory_Click(object sender, RoutedEventArgs e)
+    private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
     {
         var item = (sender as MenuFlyoutItem);
-        var localItem = (MediaItem) item?.DataContext;
-        var server = localItem.Server?.ToString();
-        await Launcher.LaunchUriAsync(new Uri(server));
+        var mediaItem = (MediaItem) item?.DataContext;
+        switch (item?.Tag?.ToString())
+        {
+            case "OpenWeb":
+                var server = mediaItem.Server?.ToString();
+                await Launcher.LaunchUriAsync(new Uri(server));
+                break;
+            case "IMDB":
+                CreateIMDBDetailsWindow(mediaItem.Title);
+                break;
+        }
     }
 }

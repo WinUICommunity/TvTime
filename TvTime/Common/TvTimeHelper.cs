@@ -4,6 +4,8 @@ using Nucs.JsonSettings.Autosave;
 using Nucs.JsonSettings.Fluent;
 using Nucs.JsonSettings.Modulation;
 using Nucs.JsonSettings.Modulation.Recovery;
+using TvTime.Models;
+
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
@@ -182,5 +184,12 @@ public static class TvTimeHelper
             "TitleTextBlockStyle" => (double) Application.Current.Resources["TitleTextBlockFontSize"],
             _ => 14
         };
+    }
+
+    public static void CreateIMDBDetailsWindow(string query)
+    {
+        var window = new IMDBDetailsWindow(query);
+        new ThemeManager(window, App.Current.ThemeManager.ThemeOptions);
+        window.Activate();
     }
 }

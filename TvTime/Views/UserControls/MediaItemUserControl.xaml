@@ -14,9 +14,14 @@
 
     <UserControl.Resources>
         <MenuFlyout x:Key="menuFlyout">
-            <MenuFlyoutItem Click="btnOpenDirectory_Click"
+            <MenuFlyoutItem Click="MenuFlyoutItem_Click"
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/explorer.png}"
+                            Tag="OpenWeb"
                             Text="Open Web Directory" />
+            <MenuFlyoutItem Click="MenuFlyoutItem_Click"
+                            Icon="{wuc:BitmapIcon Source=Assets/Fluent/imdb.png}"
+                            Tag="IMDB"
+                            Text="Get IMDB Details" />
         </MenuFlyout>
     </UserControl.Resources>
     <wuc:SettingsCard Click="SettingsCard_Click"

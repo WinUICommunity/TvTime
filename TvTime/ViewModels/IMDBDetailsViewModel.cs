@@ -4,9 +4,6 @@ namespace TvTime.ViewModels;
 public partial class IMDBDetailsViewModel : ObservableRecipient
 {
     [ObservableProperty]
-    public string appTitle;
-
-    [ObservableProperty]
     public ImageSource mediaCover;
 
     [ObservableProperty]
@@ -62,8 +59,7 @@ public partial class IMDBDetailsViewModel : ObservableRecipient
         this.Query = query;
     }
 
-    [RelayCommand]
-    private void OnQuerySubmitted()
+    public void OnQuerySubmitted()
     {
         GetIMDBDetails(Query);
     }
@@ -80,7 +76,6 @@ public partial class IMDBDetailsViewModel : ObservableRecipient
         {
             IsActive = false;
             
-            AppTitle = $"TvTime v{App.Current.TvTimeVersion} - {Query}";
             MediaCover = null;
             var url = string.Format(Constants.IMDBTitleAPI, title);
             using var client = new HttpClient();

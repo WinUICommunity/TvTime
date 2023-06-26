@@ -54,8 +54,14 @@ public sealed partial class MainPage : Page
         {
             viewModel = ServersPage.Instance.ViewModel;
         }
+        else if (rootFrame.Content is IMDBDetailsPage)
+        {
+            viewModel = IMDBDetailsPage.Instance.ViewModel;
+            viewModel.setQuery(TxtSearch.Text);
+            viewModel.OnQuerySubmitted();
+        }
 
-        if (viewModel != null)
+        if (viewModel != null && rootFrame.Content is not IMDBDetailsPage)
         {
             viewModel.Search(sender, args);
         }

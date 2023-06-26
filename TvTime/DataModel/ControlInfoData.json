@@ -70,6 +70,18 @@
           "HideSourceCodeAndRelatedControls": true,
           "Docs": [],
           "RelatedControls": []
+        },
+        {
+          "UniqueId": "TvTime.Views.IMDBDetailsPage",
+          "Title": "IMDB Details",
+          "Subtitle": "Get Details about Movie, Series or Anime from IMDB",
+          "ImagePath": "ms-appx:///Assets/Fluent/imdb.png",
+          "ImageIconPath": "ms-appx:///Assets/Fluent/imdb.png",
+          "IsUpdated": true,
+          "IncludedInBuild": true,
+          "HideSourceCodeAndRelatedControls": true,
+          "Docs": [],
+          "RelatedControls": []
         }
       ]
     }

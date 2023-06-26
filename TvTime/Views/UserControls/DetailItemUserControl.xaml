@@ -20,6 +20,9 @@
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/explorer.png}"
                             Tag="{x:Bind}"
                             Text="Open Web Directory" />
+            <MenuFlyoutItem Command="{x:Bind ViewModel.GetIMDBDetailsCommand}"
+                            Icon="{wuc:BitmapIcon Source=Assets/Fluent/imdb.png}"
+                            Text="Get IMDB Details" />
             <MenuFlyoutItem x:Name="MenuFile"
                             Command="{x:Bind ViewModel.OpenDirectoryCommand}"
                             CommandParameter="{Binding ElementName=MenuFile}"

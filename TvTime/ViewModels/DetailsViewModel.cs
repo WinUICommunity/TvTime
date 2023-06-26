@@ -3,6 +3,8 @@ using System.Text;
 
 using CommunityToolkit.Labs.WinUI;
 
+using TvTime.Models;
+
 using Windows.ApplicationModel.DataTransfer;
 
 namespace TvTime.ViewModels;
@@ -54,7 +56,7 @@ public partial class DetailsViewModel : ObservableRecipient
                     segmented.SelectedIndex = -1;
                     break;
                 case "Details":
-                    GoToDetails();
+                    CreateIMDBDetailsWindow(rootLocalItem.Title);
                     segmented.SelectedIndex = -1;
                     break;
             }
@@ -103,13 +105,6 @@ public partial class DetailsViewModel : ObservableRecipient
             };
             DownloadDetails(localItem);
         }
-    }
-
-    private void GoToDetails()
-    {
-        var window = new IMDBDetailsWindow(rootLocalItem.Title);
-        new ThemeManager(window, App.Current.ThemeManager.ThemeOptions);
-        window.Activate();
     }
 
     [RelayCommand]
@@ -231,6 +226,12 @@ public partial class DetailsViewModel : ObservableRecipient
                 await Launcher.LaunchUriAsync(new Uri(server));
             }
         }
+    }
+
+    [RelayCommand]
+    private void OnGetIMDBDetails()
+    {
+        CreateIMDBDetailsWindow(rootLocalItem.Title);
     }
 
     public bool DataListFilter(object item)

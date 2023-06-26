@@ -13,7 +13,7 @@ public sealed partial class IMDBDetailsWindow : Window
 
     private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        GetDetails();   
+        GetDetails();
     }
 
     private void GetDetails()

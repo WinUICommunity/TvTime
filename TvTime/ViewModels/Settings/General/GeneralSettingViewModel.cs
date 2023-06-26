@@ -8,7 +8,7 @@ public partial class GeneralSettingViewModel : ObservableObject
 
     public GeneralSettingViewModel()
     {
-        BreadCrumbBarCollection.Add("General");    
+        BreadCrumbBarCollection.Add("General");
     }
 
     [RelayCommand]

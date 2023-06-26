@@ -1,10 +1,11 @@
-﻿using System.Web;
+﻿using System.Reflection;
+using System.Web;
+
 using Nucs.JsonSettings;
 using Nucs.JsonSettings.Autosave;
 using Nucs.JsonSettings.Fluent;
 using Nucs.JsonSettings.Modulation;
 using Nucs.JsonSettings.Modulation.Recovery;
-using TvTime.Models;
 
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
@@ -75,7 +76,8 @@ public static class TvTimeHelper
             cleaned = Regex.Replace(cleaned, "[ ]{2,}", " "); // remove space [More than 2 space] and replace with one space
 
             return cleaned.Trim();
-        }else { return stringToClean; }
+        }
+        else { return stringToClean; }
     }
 
     public static bool ExistDirectory(PageOrDirectoryType directoryType)
@@ -267,5 +269,38 @@ public static class TvTimeHelper
             "YIFY",
             "YTS"
         };
+    }
+
+    public async static Task<string> GetFilePath(string filePath, PathType pathType = PathType.Relative)
+    {
+        StorageFile file = null;
+        if (ApplicationHelper.IsPackaged)
+        {
+            switch (pathType)
+            {
+                case PathType.Relative:
+                    var sourceUri = new Uri("ms-appx:///" + filePath);
+                    file = await StorageFile.GetFileFromApplicationUriAsync(sourceUri);
+                    break;
+                case PathType.Absolute:
+                    file = await StorageFile.GetFileFromPathAsync(filePath);
+                    break;
+            }
+        }
+        else
+        {
+            switch (pathType)
+            {
+                case PathType.Relative:
+                    var sourcePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), filePath));
+                    file = await StorageFile.GetFileFromPathAsync(sourcePath);
+                    break;
+                case PathType.Absolute:
+                    file = await StorageFile.GetFileFromPathAsync(filePath);
+                    break;
+            }
+        }
+
+        return file.Path;
     }
 }

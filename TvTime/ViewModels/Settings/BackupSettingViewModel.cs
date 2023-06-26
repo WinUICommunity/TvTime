@@ -53,16 +53,14 @@ public partial class BackupSettingViewModel : ObservableObject
             StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                using (var streamReader = File.OpenText(file.Path))
+                using var streamReader = File.OpenText(file.Path);
+                var json = await streamReader.ReadToEndAsync();
+                var content = JsonConvert.DeserializeObject<ObservableCollection<ServerModel>>(json);
+                if (content is not null)
                 {
-                    var json = await streamReader.ReadToEndAsync();
-                    var content = JsonConvert.DeserializeObject<ObservableCollection<ServerModel>>(json);
-                    if (content is not null)
-                    {
-                        Settings.Servers = content;
-                        StatusText = "Restore completed successfully";
-                        StatusSeverity = InfoBarSeverity.Success;
-                    }
+                    Settings.Servers = content;
+                    StatusText = "Restore completed successfully";
+                    StatusSeverity = InfoBarSeverity.Success;
                 }
             }
         }
@@ -118,17 +116,15 @@ public partial class BackupSettingViewModel : ObservableObject
             StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                using (var streamReader = File.OpenText(file.Path))
+                using var streamReader = File.OpenText(file.Path);
+                var json = await streamReader.ReadToEndAsync();
+                var content = JsonConvert.DeserializeObject<TvTimeConfig>(json);
+                if (content is not null)
                 {
-                    var json = await streamReader.ReadToEndAsync();
-                    var content = JsonConvert.DeserializeObject<TvTimeConfig>(json);
-                    if (content is not null)
-                    {
-                        Settings = content;
-                        Settings.Save();
-                        StatusText = "Restore completed successfully";
-                        StatusSeverity = InfoBarSeverity.Success;
-                    }
+                    Settings = content;
+                    Settings.Save();
+                    StatusText = "Restore completed successfully";
+                    StatusSeverity = InfoBarSeverity.Success;
                 }
             }
         }

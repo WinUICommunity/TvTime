@@ -49,7 +49,7 @@ public partial class MediaViewModel : ObservableRecipient
 
         TokenList = new(tokens);
         TokenList.Insert(0, new TokenItem { Content = Constants.ALL_FILTER, IsSelected = true });
-        
+
         if (ExistDirectory(PageType))
         {
             LoadLocalStorage();

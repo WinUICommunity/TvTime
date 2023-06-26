@@ -32,7 +32,7 @@ public sealed partial class SubtitleSettingPage : Page
             {
                 Settings.SubtitleQualityCollection.Add(sender.Text);
                 sender.Text = string.Empty;
-                StatusInfo.Title = "Quality Added Successfuly!";
+                StatusInfo.Title = "Quality Added Successfully!";
                 StatusInfo.Severity = InfoBarSeverity.Success;
             }
         }
@@ -57,7 +57,7 @@ public sealed partial class SubtitleSettingPage : Page
             {
                 Settings.SubtitleLanguagesCollection.Add(sender.Text);
                 sender.Text = string.Empty;
-                StatusInfo.Title = "Language Added Successfuly!";
+                StatusInfo.Title = "Language Added Successfully!";
                 StatusInfo.Severity = InfoBarSeverity.Success;
             }
         }

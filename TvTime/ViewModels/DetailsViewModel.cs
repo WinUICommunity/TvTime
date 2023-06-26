@@ -15,7 +15,7 @@ public partial class DetailsViewModel : ObservableRecipient
     public AdvancedCollectionView dataListACV;
 
     [ObservableProperty]
-    public ObservableCollection<MediaItem> breadcrumbBarList = new ();
+    public ObservableCollection<MediaItem> breadcrumbBarList = new();
 
     [ObservableProperty]
     public bool isStatusOpen;
@@ -374,7 +374,7 @@ public partial class DetailsViewModel : ObservableRecipient
         }
         else
         {
-            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline|RegexOptions.IgnoreCase);
+            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
             Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
 

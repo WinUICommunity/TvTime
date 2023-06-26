@@ -1,0 +1,314 @@
+[
+  {
+    "Title": "Freelecher Series 1",
+    "Server": "https://dl1.freelecher.xyz/English/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "Freelecher Series 2",
+    "Server": "https://dl2.freelecher.xyz/English/Series/",
+    "ServerType": 0,
+    "IsActive": false
+  },
+  {
+    "Title": "Freelecher Series 3",
+    "Server": "https://dl3.freelecher.xyz/English/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "Freelecher Series 4",
+    "Server": "https://dl4.freelecher.xyz/English/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "Freevipdl Series 4",
+    "Server": "http://dl4.freevipdl.xyz/dl/English/Series/",
+    "ServerType": 0,
+    "IsActive": false
+  },
+  {
+    "Title": "Freelecher Anime 2",
+    "Server": "https://dl2.freelecher.xyz/English/Anime/",
+    "ServerType": 2,
+    "IsActive": false
+  },
+  {
+    "Title": "Freelecher Movie 1",
+    "Server": "https://dl1.freelecher.xyz/English/Movies/",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "Freelecher Movie 2",
+    "Server": "https://dl2.freelecher.xyz/English/Movies/",
+    "ServerType": 1,
+    "IsActive": false
+  },
+  {
+    "Title": "Freelecher Movie 3",
+    "Server": "https://dl3.freelecher.xyz/English/Movies/",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "Freelecher Movie 4",
+    "Server": "https://dl4.freelecher.xyz/English/Movies/",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "Freevipdl Movie 4",
+    "Server": "http://dl4.freevipdl.xyz/dl/English/Movie/",
+    "ServerType": 1,
+    "IsActive": false
+  },
+  {
+    "Title": "Freelecher Anime 1",
+    "Server": "https://dl1.freelecher.xyz/English/Anime/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "Freevipdl Series 3",
+    "Server": "http://dl3.freevipdl.xyz/dl/English/Series/",
+    "ServerType": 0,
+    "IsActive": false
+  },
+  {
+    "Title": "Freevipdl Series 2",
+    "Server": "http://dl2.freevipdl.xyz/dl/English/Series/",
+    "ServerType": 0,
+    "IsActive": false
+  },
+  {
+    "Title": "Freevipdl Series 1",
+    "Server": "http://dl1.freevipdl.xyz/dl/English/Series/",
+    "ServerType": 0,
+    "IsActive": false
+  },
+  {
+    "Title": "Freevipdl Movie 3",
+    "Server": "http://dl3.freevipdl.xyz/dl/English/Movie/",
+    "ServerType": 1,
+    "IsActive": false
+  },
+  {
+    "Title": "Freevipdl Movie 2",
+    "Server": "http://dl2.freevipdl.xyz/dl/English/Movie/",
+    "ServerType": 1,
+    "IsActive": false
+  },
+  {
+    "Title": "Freevipdl Movie 1",
+    "Server": "http://dl1.freevipdl.xyz/dl/English/Movie/",
+    "ServerType": 1,
+    "IsActive": false
+  },
+  {
+    "Title": "Freelecher Series 5",
+    "Server": "https://dl5.freelecher.xyz/English/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "Freelecher Movie 5",
+    "Server": "https://dl5.freelecher.xyz/English/Movies/",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "Freelecher Anime 3",
+    "Server": "https://dl3.freelecher.xyz/English/Anime/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "Freelecher Anime 4",
+    "Server": "https://dl4.freelecher.xyz/English/Anime/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "Freelecher Anime 5",
+    "Server": "https://dl5.freelecher.xyz/English/Anime/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "DonyayeSerial Series 2",
+    "Server": "https://dls2.top-movies2filmha.click/DonyayeSerial/series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "DonyayeSerial Series 4",
+    "Server": "https://dls4.top-movies2filmha.click/DonyayeSerial/series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "DonyayeSerial Series 5",
+    "Server": "https://dls5.top-movies2filmha.click/DonyayeSerial/series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "DonyayeSerial Series 6",
+    "Server": "https://dls6.top-movies2filmha.click/DonyayeSerial/series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Series 1",
+    "Server": "http://dl1.dl1acemovies.xyz/dl/English/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Movie 1",
+    "Server": "http://dl1.dl1acemovies.xyz/dl/English/Movie",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Series 2",
+    "Server": "http://dl2.dl1acemovies.xyz/dl/English/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Movie 2",
+    "Server": "http://dl2.dl1acemovies.xyz/dl/English/Movie/",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "Anime AIO",
+    "Server": "https://dl4.aiocdn.top/anime/2022/Fall/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "Anime AIO Fall",
+    "Server": "https://dl4.aiocdn.top/anime/1999/Fall",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Series 3",
+    "Server": "http://dl3.dl1acemovies.xyz/dl/English/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Movie 3",
+    "Server": "http://dl3.dl1acemovies.xyz/dl/English/Movie",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Anime 3",
+    "Server": "http://dl3.dl1acemovies.xyz/dl/English/Anime/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Series 4",
+    "Server": "http://dl4.dl1acemovies.xyz/dl/English/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Movie 4",
+    "Server": "http://dl4.dl1acemovies.xyz/dl/English/Movie",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Anime 4",
+    "Server": "http://dl4.dl1acemovies.xyz/dl/English/Anime",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "Filmbbin Series",
+    "Server": "https://dl.filmbbin2.com/Serise/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "Filmbbin Movie",
+    "Server": "https://dl.filmbbin2.com/Movie/",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "Filmbbin Movie (Animation)",
+    "Server": "https://dl.filmbbin2.com/Animation/",
+    "ServerType": 1,
+    "IsActive": true
+  },
+  {
+    "Title": "FBServer Series 2",
+    "Server": "https://dl2.fbserver.site/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "FBServer Series 3",
+    "Server": "https://dl3.fbserver.site/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "FBServer Series 4",
+    "Server": "https://dl4.fbserver.site/Series/",
+    "ServerType": 0,
+    "IsActive": true
+  },
+  {
+    "Title": "AnimeSP Completed",
+    "Server": "https://dl.animesp.xyz/Completed/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "AnimeSP Ongoing",
+    "Server": "https://dl.animesp.xyz/Ongoing/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "AnimeSP Spring",
+    "Server": "https://dl.animesp.xyz/Spring%202022/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "AnimeSP Summer",
+    "Server": "https://dl.animesp.xyz/Summer%202022/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "AnimeSP Winter",
+    "Server": "https://dl.animesp.xyz/Winter%202022/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Anime 1",
+    "Server": "http://dl1.dl1acemovies.xyz/dl/English/Anime/",
+    "ServerType": 2,
+    "IsActive": true
+  },
+  {
+    "Title": "AceMovies Anime 2",
+    "Server": "http://dl2.dl1acemovies.xyz/dl/English/Anime/",
+    "ServerType": 2,
+    "IsActive": true
+  }
+]

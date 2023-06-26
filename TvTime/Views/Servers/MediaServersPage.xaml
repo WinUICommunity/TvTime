@@ -26,18 +26,30 @@
         </Grid.RowDefinitions>
         <ScrollViewer>
             <wuc:SettingsGroup Header="TvTime Servers">
-                <wuc:SettingsCard Description="Manage Servers that can be used in the TvTime"
-                                  Header="Servers"
-                                  HeaderIcon="{wuc:FontIcon FontFamily={StaticResource SymbolThemeFontFamily},
-                                                            Glyph=&#xE792;}">
+                <wuc:SettingsExpander Name="ServerExpander"
+                                      Description="Manage Servers that can be used in the TvTime"
+                                      Header="Servers"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/save.png}">
                     <Button Command="{x:Bind ViewModel.AddItemCommand}"
                             Content="Add new server"
                             Style="{ThemeResource AccentButtonStyle}" />
-                </wuc:SettingsCard>
+                    <wuc:SettingsExpander.Items>
+                        <wuc:SettingsCard Description="We have a number of specific and predefined servers, you can load them."
+                                          Header="Load predefined servers"
+                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}">
+                            <Button Click="{x:Bind OnLoadPredefinedServer}" Content="Load predefined servers" />
+                        </wuc:SettingsCard>
+                        <wuc:SettingsCard Description="This will delete all saved servers"
+                                          Header="Clear all servers"
+                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/trash.png}">
+                            <Button Click="{x:Bind OnClearAllServer}" Content="Clear All servers" />
+                        </wuc:SettingsCard>
+                    </wuc:SettingsExpander.Items>
+                </wuc:SettingsExpander>
                 <ListView ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate x:Name="SingleLineDataTemplate" x:DataType="model:ServerModel">
-                            <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}" HeaderIcon="{x:Bind IsActive, Converter={StaticResource Bool2FontIconConverter}}">
+                            <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}" HeaderIcon="{x:Bind IsActive, Converter={StaticResource Bool2IconConverter}, ConverterParameter=bitmap}">
                                 <wuc:SettingsCard.Resources>
                                     <x:Double x:Key="SettingsCardLeftIndention">42</x:Double>
                                 </wuc:SettingsCard.Resources>
@@ -60,16 +72,14 @@
                                             Height="36"
                                             Command="{Binding ElementName=This, Path=DataContext.ViewModel.UpdateItemCommand}"
                                             CommandParameter="{Binding ElementName=BtnUpdate}"
-                                            Content="&#xE70F;"
-                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                            Content="{wuc:BitmapIcon Source=Assets/Fluent/edit.png}"
                                             Style="{StaticResource SubtleButtonStyle}" />
                                     <Button x:Name="BtnRemove"
                                             Width="40"
                                             Height="36"
                                             Command="{Binding ElementName=This, Path=DataContext.ViewModel.RemoveItemCommand}"
                                             CommandParameter="{Binding ElementName=BtnRemove}"
-                                            Content="&#xE74D;"
-                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                            Content="{wuc:BitmapIcon Source=Assets/Fluent/trash.png}"
                                             Style="{StaticResource SubtleButtonStyle}" />
                                 </StackPanel>
                             </wuc:SettingsCard>
@@ -79,12 +89,36 @@
             </wuc:SettingsGroup>
         </ScrollViewer>
 
-        <views:NoItemUserControl HorizontalAlignment="Center"
-                                 VerticalAlignment="Center"
-                                 Count="{x:Bind ViewModel.DataListACV.Count, Mode=OneWay}" />
+        <views:NoItemUserControl Name="NoItemUC"
+                                 HorizontalAlignment="Center"
+                                 Count="{x:Bind ViewModel.DataListACV.Count, Mode=OneWay}">
+            <i:Interaction.Behaviors>
+                <ic:DataTriggerBehavior Binding="{Binding IsExpanded, ElementName=ServerExpander}"
+                                        ComparisonCondition="Equal"
+                                        Value="True">
+                    <ic:ChangePropertyAction PropertyName="VerticalAlignment"
+                                             TargetObject="{Binding ElementName=NoItemUC}"
+                                             Value="Bottom" />
+                    <ic:ChangePropertyAction PropertyName="Margin"
+                                             TargetObject="{Binding ElementName=NoItemUC}"
+                                             Value="10" />
+                </ic:DataTriggerBehavior>
+                <ic:DataTriggerBehavior Binding="{Binding IsExpanded, ElementName=ServerExpander}"
+                                        ComparisonCondition="Equal"
+                                        Value="False">
+                    <ic:ChangePropertyAction PropertyName="VerticalAlignment"
+                                             TargetObject="{Binding ElementName=NoItemUC}"
+                                             Value="Center" />
+                    <ic:ChangePropertyAction PropertyName="Margin"
+                                             TargetObject="{Binding ElementName=NoItemUC}"
+                                             Value="0" />
+                </ic:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </views:NoItemUserControl>
 
         <ProgressRing IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
-        <InfoBar Title="{x:Bind ViewModel.InfoStatusMessage, Mode=OneWay}"
+        <InfoBar Name="Status"
+                 Title="{x:Bind ViewModel.InfoStatusMessage, Mode=OneWay}"
                  Grid.Row="1"
                  CornerRadius="4,4,0,0"
                  IsClosable="True"

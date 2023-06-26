@@ -75,7 +75,7 @@ public partial class IMDBDetailsViewModel : ObservableRecipient
         try
         {
             IsActive = false;
-            
+
             MediaCover = null;
             var url = string.Format(Constants.IMDBTitleAPI, title);
             using var client = new HttpClient();

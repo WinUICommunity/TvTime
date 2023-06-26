@@ -73,7 +73,7 @@ public class String2BitmapIconConverter : IValueConverter
                     break;
             }
 
-            
+
         }
         return new BitmapIcon { UriSource = new Uri(defaultIcon), ShowAsMonochrome = false };
     }

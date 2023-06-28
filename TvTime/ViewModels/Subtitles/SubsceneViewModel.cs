@@ -1,7 +1,12 @@
-﻿using CommunityToolkit.Labs.WinUI;
+﻿using System.Text;
+using System.Windows.Input;
+
+using CommunityToolkit.Labs.WinUI;
+
+using Windows.ApplicationModel.DataTransfer;
 
 namespace TvTime.ViewModels;
-public partial class SubsceneViewModel : ObservableRecipient
+public partial class SubsceneViewModel : ObservableRecipient, IBaseViewModel
 {
     [ObservableProperty]
     public ObservableCollection<SubsceneModel> dataList;
@@ -26,6 +31,73 @@ public partial class SubsceneViewModel : ObservableRecipient
 
     public List<string> suggestList = new();
     private SortDescription currentSortDescription;
+
+    public ICommand MenuFlyoutItemCommand { get; }
+
+    public SubsceneViewModel()
+    {
+        MenuFlyoutItemCommand = new CommunityToolkit.Mvvm.Input.RelayCommand<object>(OnMenuFlyoutItem);
+    }
+
+    private async void OnMenuFlyoutItem(object sender)
+    {
+        var menuFlyout = (sender as MenuFlyoutItem);
+        var mediaItem = (SubsceneModel) menuFlyout?.DataContext;
+        switch (menuFlyout?.Tag?.ToString())
+        {
+            case "OpenWebDirectory":
+                var server = mediaItem.Server?.ToString();
+                await Launcher.LaunchUriAsync(new Uri(server));
+                break;
+
+            case "IMDB":
+                CreateIMDBDetailsWindow(mediaItem.Title);
+                break;
+
+            case "Copy":
+                OnCopy(mediaItem);
+                break;
+
+            case "CopyAll":
+                OnCopyAll();
+                break;
+        }
+    }
+
+    private void OnCopy(SubsceneModel mediaItem)
+    {
+        var server = mediaItem.Server?.ToString();
+        var package = new DataPackage();
+        package.SetText(server);
+        Clipboard.SetContent(package);
+    }
+
+    private void OnCopyAll()
+    {
+        var package = new DataPackage();
+        StringBuilder urls = new StringBuilder();
+        foreach (var item in DataList)
+        {
+            urls.AppendLine(item.Server?.ToString());
+        }
+        package.SetText(urls?.ToString());
+        Clipboard.SetContent(package);
+    }
+
+    [RelayCommand]
+    private void OnSettingsCard(object sender)
+    {
+        if (!Settings.UseDoubleClickForNavigate)
+        {
+            //NavigateToDetails(sender);
+        }
+    }
+
+    [RelayCommand]
+    private void OnSettingsCardDoubleClick(object sender)
+    {
+        //NavigateToDetails(sender);
+    }
 
     [RelayCommand]
     private void OnSegmentedItemChanged(object sender)

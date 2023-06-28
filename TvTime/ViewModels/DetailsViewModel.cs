@@ -1,12 +1,13 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using System.Windows.Input;
 
 using CommunityToolkit.Labs.WinUI;
 
 using Windows.ApplicationModel.DataTransfer;
 
 namespace TvTime.ViewModels;
-public partial class DetailsViewModel : ObservableRecipient
+public partial class DetailsViewModel : ObservableRecipient, IBaseViewModel
 {
     [ObservableProperty]
     public ObservableCollection<MediaItem> dataList;
@@ -33,6 +34,13 @@ public partial class DetailsViewModel : ObservableRecipient
     private SortDescription currentSortDescription;
 
     public MediaItem rootMediaItem;
+
+    public ICommand MenuFlyoutItemCommand { get; }
+
+    public DetailsViewModel()
+    {
+        MenuFlyoutItemCommand = new CommunityToolkit.Mvvm.Input.RelayCommand<object>(OnMenuFlyoutItem);
+    }
 
     [RelayCommand]
     private void OnPageLoaded()
@@ -128,7 +136,6 @@ public partial class DetailsViewModel : ObservableRecipient
         DownloadDetails(item);
     }
 
-    [RelayCommand]
     private void OnMenuFlyoutItem(object sender)
     {
         var menuFlyout = (sender as MenuFlyoutItem);

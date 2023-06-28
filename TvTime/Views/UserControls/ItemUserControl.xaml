@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<UserControl x:Class="TvTime.Views.DetailItemUserControl"
+<UserControl x:Class="TvTime.Views.ItemUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,6 +9,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="using:TvTime.Views"
              xmlns:wuc="using:WinUICommunity"
+             x:Name="This"
              x:DefaultBindMode="OneWay"
              mc:Ignorable="d">
 
@@ -32,7 +33,7 @@
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
                             Tag="OpenFile"
                             Text="Open File"
-                            Visibility="{x:Bind MediaItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
+                            Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
             <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}" Text="Copy Link(s)">
 
                 <MenuFlyoutItem x:Name="MenuCopy"
@@ -50,7 +51,7 @@
             </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                Text="Download With IDM"
-                               Visibility="{x:Bind MediaItem.Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
+                               Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
 
                 <MenuFlyoutItem x:Name="MenuDownload"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
@@ -66,28 +67,27 @@
                                 Text="Download All Items With IDM" />
             </MenuFlyoutSubItem>
         </MenuFlyout>
-
     </UserControl.Resources>
 
     <wuc:SettingsCard x:Name="SettingsCard"
-                      ActionIcon="{x:Bind MediaItem.Server, Converter={StaticResource FileExtension2IconConverter}}"
+                      ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                       Command="{x:Bind SettingsCardCommand}"
                       CommandParameter="{Binding ElementName=SettingsCard}"
                       ContextFlyout="{StaticResource menuFlyout}"
                       Description="{x:Bind Description}"
-                      HeaderIcon="{x:Bind MediaItem.Title, Converter={StaticResource String2BitmapIconConverter}}"
+                      HeaderIcon="{x:Bind HeaderIcon}"
                       IsClickEnabled="True"
                       IsDoubleTapEnabled="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate}">
         <wuc:SettingsCard.Header>
-            <views:HeaderTextBlockUserControl Text="{x:Bind MediaItem.Title}" />
+            <views:HeaderTextBlockUserControl Text="{x:Bind Title}" />
         </wuc:SettingsCard.Header>
 
-        <views:DateAndFileSizeUserControl DateTime="{x:Bind MediaItem.DateTime}" FileSize="{x:Bind MediaItem.FileSize}" />
+        <views:DateAndFileSizeUserControl DateTime="{x:Bind DateTime}" FileSize="{x:Bind FileSize}" />
 
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="DoubleTapped">
                 <ic:EventTriggerBehavior.Actions>
-                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.SettingsCardDoubleClickCommand}" CommandParameter="{Binding ElementName=SettingsCard}" />
+                    <ic:InvokeCommandAction Command="{x:Bind SettingsCardDoubleClickCommand}" CommandParameter="{Binding ElementName=SettingsCard}" />
                 </ic:EventTriggerBehavior.Actions>
             </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>

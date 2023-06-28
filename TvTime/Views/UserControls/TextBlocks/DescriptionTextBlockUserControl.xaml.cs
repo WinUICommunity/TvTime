@@ -10,7 +10,6 @@ public sealed partial class DescriptionTextBlockUserControl : UserControl
     public static readonly DependencyProperty TextProperty =
         DependencyProperty.Register("Text", typeof(string), typeof(DescriptionTextBlockUserControl), new PropertyMetadata(default(string)));
 
-
     public DescriptionTextBlockUserControl()
     {
         this.InitializeComponent();

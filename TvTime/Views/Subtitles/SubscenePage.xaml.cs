@@ -10,5 +10,6 @@ public sealed partial class SubscenePage : Page
         ViewModel = App.Current.Services.GetService<SubsceneViewModel>();
         this.InitializeComponent();
         Instance = this;
+        DataContext = this;
     }
 }

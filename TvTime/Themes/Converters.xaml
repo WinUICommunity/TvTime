@@ -4,13 +4,13 @@
                     xmlns:common="using:TvTime.Common"
                     xmlns:converter="using:CommunityToolkit.WinUI.UI.Converters">
 
-    <common:String2BitmapIconConverter x:Key="String2BitmapIconConverter" />
-    <common:PageType2BitmapIconConverter x:Key="PageType2BitmapIconConverter" />
     <common:StringExtensions2VisibilityConverter x:Key="StringExtensions2VisibilityConverter" />
     <common:FileExtension2IconConverter x:Key="FileExtension2IconConverter" />
     <common:String2FileSizeConverter x:Key="String2FileSizeConverter" />
     <common:Bool2IconConverter x:Key="Bool2IconConverter" />
     <common:String2StyleConverter x:Key="String2StyleConverter" />
+    <common:MediaHeaderIconConverter x:Key="MediaHeaderIconConverter" />
+    <common:DetailHeaderIconConverter x:Key="DetailHeaderIconConverter" />
 
     <converter:BoolNegationConverter x:Key="BoolNegationConverter" />
     <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" />

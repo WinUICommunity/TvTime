@@ -1,5 +1,5 @@
 ﻿namespace TvTime.Common;
-public class String2BitmapIconConverter : IValueConverter
+public class DetailHeaderIconConverter : IValueConverter
 {
     private readonly string defaultIcon = "ms-appx:///Assets/Fluent/media.png";
     private readonly (string, string)[] _subtitles = new[]
@@ -44,9 +44,11 @@ public class String2BitmapIconConverter : IValueConverter
         ("S09","ms-appx:///Assets/Fluent/IconPack/9.png"),
         ("S10","ms-appx:///Assets/Fluent/IconPack/10.png")
     };
+
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         var text = value as string;
+
         if (!string.IsNullOrEmpty(text))
         {
             var subtitleType = _subtitles.FirstOrDefault(x => text.ToLower().Contains(x.Item1, StringComparison.OrdinalIgnoreCase));
@@ -72,9 +74,8 @@ public class String2BitmapIconConverter : IValueConverter
                     }
                     break;
             }
-
-
         }
+
         return new BitmapIcon { UriSource = new Uri(defaultIcon), ShowAsMonochrome = false };
     }
 

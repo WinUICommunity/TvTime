@@ -1,7 +1,12 @@
-﻿using CommunityToolkit.Labs.WinUI;
+﻿using System.Text;
+using System.Windows.Input;
+
+using CommunityToolkit.Labs.WinUI;
+
+using Windows.ApplicationModel.DataTransfer;
 
 namespace TvTime.ViewModels;
-public partial class MediaViewModel : ObservableRecipient
+public partial class MediaViewModel : ObservableRecipient, IBaseViewModel
 {
     [ObservableProperty]
     public ObservableCollection<MediaItem> dataList;
@@ -38,6 +43,13 @@ public partial class MediaViewModel : ObservableRecipient
     private int totalServerCount = 0;
 
     JsonSerializerOptions options = new() { WriteIndented = true };
+
+    public ICommand MenuFlyoutItemCommand { get; }
+
+    public MediaViewModel()
+    {
+        MenuFlyoutItemCommand = new CommunityToolkit.Mvvm.Input.RelayCommand<object>(OnMenuFlyoutItem);
+    }
 
     [RelayCommand]
     private void OnPageLoaded()
@@ -86,6 +98,97 @@ public partial class MediaViewModel : ObservableRecipient
                     break;
             }
         }
+    }
+
+    private async void OnMenuFlyoutItem(object sender)
+    {
+        var menuFlyout = (sender as MenuFlyoutItem);
+        var mediaItem = (MediaItem) menuFlyout?.DataContext;
+        switch (menuFlyout?.Tag?.ToString())
+        {
+            case "OpenWebDirectory":
+                var server = mediaItem.Server?.ToString();
+                await Launcher.LaunchUriAsync(new Uri(server));
+                break;
+
+            case "IMDB":
+                CreateIMDBDetailsWindow(mediaItem.Title);
+                break;
+
+            case "Copy":
+                OnCopy(mediaItem);
+                break;
+
+            case "CopyAll":
+                OnCopyAll();
+                break;
+        }
+    }
+
+    private void OnCopy(MediaItem mediaItem)
+    {
+        var server = mediaItem.Server?.ToString();
+        var package = new DataPackage();
+        package.SetText(server);
+        Clipboard.SetContent(package);
+    }
+
+    private void OnCopyAll()
+    {
+        var package = new DataPackage();
+        StringBuilder urls = new StringBuilder();
+        foreach (var item in DataList)
+        {
+            urls.AppendLine(item.Server?.ToString());
+        }
+        package.SetText(urls?.ToString());
+        Clipboard.SetContent(package);
+    }
+
+    [RelayCommand]
+    private void OnSettingsCard(object sender)
+    {
+        if (!Settings.UseDoubleClickForNavigate)
+        {
+            NavigateToDetails(sender);
+        }
+    }
+
+    [RelayCommand]
+    private void OnSettingsCardDoubleClick(object sender)
+    {
+        NavigateToDetails(sender);
+    }
+
+    private void NavigateToDetails(object sender)
+    {
+        var item = (sender as SettingsCard);
+        var headerTextBlock = item?.Header as HeaderTextBlockUserControl;
+        var title = headerTextBlock?.Text?.Trim();
+        var server = string.Empty;
+
+        switch (Settings.DescriptionTemplate)
+        {
+            case DescriptionTemplateType.TextBlock:
+                var descriptionTextBlock = item?.Description as DescriptionTextBlockUserControl;
+                server = descriptionTextBlock?.Text;
+                break;
+            case DescriptionTemplateType.HyperLink:
+                var descriptionHyperLink = item?.Description as DescriptionHyperLinkUserControl;
+                var hyperLink = descriptionHyperLink?.Content as HyperlinkButton;
+                var hyperLinkContent = hyperLink?.Content as TextBlock;
+                server = hyperLinkContent?.Text;
+                break;
+        }
+
+        var media = new MediaItem
+        {
+            Server = server,
+            Title = title,
+            ServerType = ApplicationHelper.GetEnum<ServerType>(PageType.ToString())
+        };
+
+        App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), media);
     }
 
     [RelayCommand]

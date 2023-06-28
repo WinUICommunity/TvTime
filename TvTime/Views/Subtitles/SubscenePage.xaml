@@ -11,25 +11,38 @@
       xmlns:model="using:TvTime.Models"
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
+      x:Name="This"
       x:DefaultBindMode="OneWay"
       mc:Ignorable="d">
 
     <Page.Resources>
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:SubsceneModel">
-            <views:SubsceneItemUserControl SubsceneItem="{x:Bind}">
-                <views:SubsceneItemUserControl.Description>
+            <views:ItemUserControl Title="{x:Bind Title}"
+                                   DateTime="{x:Bind Desc}"
+                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
+                                   Server="{x:Bind Server}"
+                                   SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
+                                   SettingsCardDoubleClickCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardDoubleClickCommand}"
+                                   ViewModel="{Binding ElementName=This, Path=DataContext.ViewModel}">
+                <views:ItemUserControl.Description>
                     <views:DescriptionTextBlockUserControl Text="{x:Bind Server}" />
-                </views:SubsceneItemUserControl.Description>
-            </views:SubsceneItemUserControl>
+                </views:ItemUserControl.Description>
+            </views:ItemUserControl>
 
         </DataTemplate>
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:SubsceneModel">
-            <views:SubsceneItemUserControl SubsceneItem="{x:Bind}">
-                <views:SubsceneItemUserControl.Description>
+            <views:ItemUserControl Title="{x:Bind Title}"
+                                   DateTime="{x:Bind Desc}"
+                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
+                                   Server="{x:Bind Server}"
+                                   SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
+                                   SettingsCardDoubleClickCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardDoubleClickCommand}"
+                                   ViewModel="{Binding ElementName=This, Path=DataContext.ViewModel}">
+                <views:ItemUserControl.Description>
                     <views:DescriptionHyperLinkUserControl Text="{x:Bind Server}" />
-                </views:SubsceneItemUserControl.Description>
-            </views:SubsceneItemUserControl>
+                </views:ItemUserControl.Description>
+            </views:ItemUserControl>
         </DataTemplate>
 
         <local:ListViewItemTemplateSelector x:Key="ListViewItemTemplateSelector"

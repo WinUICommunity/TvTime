@@ -1,6 +1,5 @@
 ﻿namespace TvTime.Models;
-
-public struct MediaItem : ITvTimeModel
+public interface ITvTimeModel
 {
     public string Title { get; set; }
     public string Server { get; set; }

@@ -1,6 +1,5 @@
 ﻿namespace TvTime.Common;
-
-public class PageType2BitmapIconConverter : IValueConverter
+public class MediaHeaderIconConverter : IValueConverter
 {
     private readonly (string, string)[] _viewTypes = new[]
     {
@@ -8,8 +7,14 @@ public class PageType2BitmapIconConverter : IValueConverter
         ("Movie", "ms-appx:///Assets/Fluent/movie.png"),
         ("Anime", "ms-appx:///Assets/Fluent/anime.png")
     };
+
     public object Convert(object value, Type targetType, object parameter, string language)
     {
+        if (value == null)
+        {
+            return null;
+        }
+
         var pageType = ((PageOrDirectoryType) value).ToString();
         if (!string.IsNullOrEmpty(pageType))
         {
@@ -19,6 +24,7 @@ public class PageType2BitmapIconConverter : IValueConverter
                 return new BitmapIcon { UriSource = new Uri(type.Item2), ShowAsMonochrome = false };
             }
         }
+
         return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/series.png"), ShowAsMonochrome = false };
     }
 

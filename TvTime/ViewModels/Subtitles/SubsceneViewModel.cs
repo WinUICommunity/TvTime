@@ -118,9 +118,6 @@ public partial class SubsceneViewModel : ObservableRecipient
                     }
                 }
                 IsActive = false;
-                //var groups = from c in DataList
-                //             group c by c.GroupKey;
-                //DataListACV.Cast<SubsceneModel>().Where(x => string.IsNullOrEmpty(x.GroupKey)).GroupBy(x => x.GroupKey);
             }
             catch (Exception ex)
             {

@@ -67,18 +67,7 @@
                   IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                   ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
                   ItemsSource="{x:Bind ViewModel.DataListACV}"
-                  SelectionMode="None">
-
-            <!--<ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{ThemeResource HeaderTextBlockStyle}" Text="{Binding GroupKey}" />
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>-->
-        </ListView>
+                  SelectionMode="None" />
 
         <views:NoItemUserControl Grid.Row="2"
                                  HorizontalAlignment="Center"

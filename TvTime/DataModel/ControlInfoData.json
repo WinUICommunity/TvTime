@@ -71,7 +71,7 @@
           "RelatedControls": [],
           "Items": [
             {
-              "UniqueId": "TvTime.Views.SubtitlePage",
+              "UniqueId": "TvTime.Views.SubscenePage",
               "Title": "Subscene",
               "Subtitle": "Search and Download the subtitle you need from subscene servers",
               "IncludedInBuild": true,

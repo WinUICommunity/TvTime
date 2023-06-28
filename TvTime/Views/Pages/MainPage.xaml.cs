@@ -37,6 +37,20 @@ public sealed partial class MainPage : Page
         ElementSoundPlayer.State = Settings.UseSound ? ElementSoundPlayerState.On : ElementSoundPlayerState.Off;
     }
 
+    private void TxtSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        var rootFrame = App.Current.NavigationManager.Frame;
+        dynamic root = rootFrame.Content;
+        dynamic viewModel = null;
+        TxtSearch.ItemsSource = null;
+        if (rootFrame.Content is SubscenePage)
+        {
+            viewModel = SubscenePage.Instance.ViewModel;
+            viewModel.setQuery(TxtSearch.Text);
+            viewModel.OnQuerySubmitted();
+        }
+    }
+
     private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
         var rootFrame = App.Current.NavigationManager.Frame;

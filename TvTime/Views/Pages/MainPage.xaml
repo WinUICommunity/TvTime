@@ -40,6 +40,7 @@
                             VerticalAlignment="Center"
                             PlaceholderText="Search Movies, Series, Anime and more"
                             QueryIcon="Find"
+                            QuerySubmitted="TxtSearch_QuerySubmitted"
                             TextChanged="txtSearch_TextChanged" />
         </Grid>
 

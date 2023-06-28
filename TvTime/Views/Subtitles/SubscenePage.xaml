@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="TvTime.Views.SubscenePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+      xmlns:local="using:TvTime.Common"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:model="using:TvTime.Models"
+      xmlns:views="using:TvTime.Views"
+      xmlns:wuc="using:WinUICommunity"
+      x:DefaultBindMode="OneWay"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:SubsceneModel">
+            <views:SubstitleSubsceneItemUserControl SubsceneItem="{x:Bind}">
+                <views:SubstitleSubsceneItemUserControl.Description>
+                    <TextBlock x:Name="TxtDesc"
+                               FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
+                               Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
+                               Text="{x:Bind Server}"
+                               TextTrimming="None"
+                               TextWrapping="Wrap">
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}"
+                                                    ComparisonCondition="Equal"
+                                                    Value="True">
+                                <ic:ChangePropertyAction PropertyName="TextTrimming"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
+                                                         Value="CharacterEllipsis" />
+                                <ic:ChangePropertyAction PropertyName="TextWrapping"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
+                                                         Value="NoWrap" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </TextBlock>
+                </views:SubstitleSubsceneItemUserControl.Description>
+            </views:SubstitleSubsceneItemUserControl>
+
+        </DataTemplate>
+
+        <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:SubsceneModel">
+            <views:SubstitleSubsceneItemUserControl SubsceneItem="{x:Bind}">
+                <views:SubstitleSubsceneItemUserControl.Description>
+                    <HyperlinkButton x:Name="ServerHyperLink"
+                                     Margin="0,5,0,0"
+                                     Padding="2,1,2,1"
+                                     BorderThickness="0">
+                        <HyperlinkButton.Content>
+                            <TextBlock x:Name="TxtDesc"
+                                       FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
+                                       Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
+                                       Text="{x:Bind Server}"
+                                       TextTrimming="None"
+                                       TextWrapping="Wrap" />
+                        </HyperlinkButton.Content>
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness}"
+                                                    ComparisonCondition="Equal"
+                                                    Value="True">
+                                <ic:ChangePropertyAction PropertyName="BorderThickness"
+                                                         TargetObject="{Binding ElementName=ServerHyperLink}"
+                                                         Value="1" />
+                            </ic:DataTriggerBehavior>
+
+                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}"
+                                                    ComparisonCondition="Equal"
+                                                    Value="True">
+                                <ic:ChangePropertyAction PropertyName="TextTrimming"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
+                                                         Value="CharacterEllipsis" />
+                                <ic:ChangePropertyAction PropertyName="TextWrapping"
+                                                         TargetObject="{Binding ElementName=TxtDesc}"
+                                                         Value="NoWrap" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </HyperlinkButton>
+                </views:SubstitleSubsceneItemUserControl.Description>
+            </views:SubstitleSubsceneItemUserControl>
+        </DataTemplate>
+
+        <local:ListViewItemTemplateSelector x:Key="ListViewItemTemplateSelector"
+                                            HyperLinkTemplate="{StaticResource HyperLinkTemplate}"
+                                            TextBlockTemplate="{StaticResource TextBlockTemplate}" />
+
+    </Page.Resources>
+
+    <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <labs:Segmented x:Name="Segmented"
+                        Grid.Row="1"
+                        Margin="10,10,0,0">
+            <labs:SegmentedItem x:Name="SegRefresh"
+                                Content="Refresh"
+                                Icon="{wuc:SymbolIcon Symbol=Refresh}"
+                                IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
+                                Tag="Refresh" />
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}" CommandParameter="{Binding ElementName=Segmented}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </labs:Segmented>
+        <ListView Grid.Row="2"
+                  Margin="5,10,5,5"
+                  HorizontalAlignment="Stretch"
+                  IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
+                  ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
+                  ItemsSource="{x:Bind ViewModel.DataListACV}"
+                  SelectionMode="None">
+
+            <!--<ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Style="{ThemeResource HeaderTextBlockStyle}" Text="{Binding GroupKey}" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>-->
+        </ListView>
+
+        <views:NoItemUserControl Grid.Row="2"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Count="{x:Bind ViewModel.DataListACV.Count}" />
+
+        <ProgressRing Grid.Row="2" IsActive="{x:Bind ViewModel.IsActive}" />
+        <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
+                 Grid.Row="3"
+                 BorderThickness="0"
+                 CornerRadius="0"
+                 IsOpen="{x:Bind ViewModel.IsStatusOpen}"
+                 Message="{x:Bind ViewModel.StatusMessage}"
+                 Severity="{x:Bind ViewModel.StatusSeverity}" />
+    </Grid>
+</Page>

@@ -1,7 +1,7 @@
 ﻿namespace TvTime.Views;
-public sealed partial class SubtitlePage : Page
+public sealed partial class ESubtitlePage : Page
 {
-    public SubtitlePage()
+    public ESubtitlePage()
     {
         this.InitializeComponent();
     }

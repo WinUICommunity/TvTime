@@ -103,6 +103,7 @@
         </wuc:SettingsCard.Header>
 
         <views:DateAndFileSizeUserControl DateTime="{x:Bind MediaItem.DateTime}" FileSize="{x:Bind MediaItem.FileSize}" />
+
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="DoubleTapped">
                 <ic:EventTriggerBehavior.Actions>

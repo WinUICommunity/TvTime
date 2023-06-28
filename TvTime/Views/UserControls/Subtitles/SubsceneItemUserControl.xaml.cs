@@ -1,5 +1,5 @@
 ﻿namespace TvTime.Views;
-public sealed partial class SubstitleSubsceneItemUserControl : UserControl
+public sealed partial class SubsceneItemUserControl : UserControl
 {
     public SubsceneModel SubsceneItem
     {
@@ -14,12 +14,12 @@ public sealed partial class SubstitleSubsceneItemUserControl : UserControl
     }
 
     public static readonly DependencyProperty SubsceneItemProperty =
-        DependencyProperty.Register("SubsceneItem", typeof(MediaItem), typeof(SubstitleSubsceneItemUserControl), new PropertyMetadata(default(SubsceneModel)));
+        DependencyProperty.Register("SubsceneItem", typeof(MediaItem), typeof(SubsceneItemUserControl), new PropertyMetadata(default(SubsceneModel)));
 
     public static readonly DependencyProperty DescriptionProperty =
-        DependencyProperty.Register("Description", typeof(object), typeof(SubstitleSubsceneItemUserControl), new PropertyMetadata(default(object)));
+        DependencyProperty.Register("Description", typeof(object), typeof(SubsceneItemUserControl), new PropertyMetadata(default(object)));
 
-    public SubstitleSubsceneItemUserControl()
+    public SubsceneItemUserControl()
     {
         this.InitializeComponent();
     }

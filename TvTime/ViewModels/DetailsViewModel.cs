@@ -79,17 +79,18 @@ public partial class DetailsViewModel : ObservableRecipient
     private async void OnNavigateToDetailsOrDownload(object sender)
     {
         var item = (sender as SettingsCard);
-        var textBlock = item?.Header as TextBlock;
-        var title = textBlock.Text?.Trim();
+        var textBlock = item?.Header as HeaderTextBlockUserControl;
+        var title = textBlock?.Text?.Trim();
         var server = string.Empty;
         switch (Settings.DescriptionTemplate)
         {
             case DescriptionTemplateType.TextBlock:
-                var descriptionTextBlock = item?.Description as TextBlock;
+                var descriptionTextBlock = item?.Description as DescriptionTextBlockUserControl;
                 server = descriptionTextBlock?.Text;
                 break;
             case DescriptionTemplateType.HyperLink:
-                var hyperLink = item?.Description as HyperlinkButton;
+                var descriptionHyperLink = item?.Description as DescriptionHyperLinkUserControl;
+                var hyperLink = descriptionHyperLink?.Content as HyperlinkButton;
                 var hyperLinkContent = hyperLink?.Content as TextBlock;
                 server = hyperLinkContent?.Text;
                 break;

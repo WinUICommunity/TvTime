@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="TvTime.Views.HeaderTextBlockUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="using:Microsoft.Xaml.Interactivity"
+             xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:local="using:TvTime.Common"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:DefaultBindMode="OneWay"
+             mc:Ignorable="d">
+
+    <TextBlock x:Name="TxtHeader"
+               FontSize="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockFontSize}"
+               FontWeight="Normal"
+               Style="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
+               Text="{x:Bind Text}"
+               TextTrimming="None"
+               TextWrapping="Wrap">
+        <i:Interaction.Behaviors>
+            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInHeader}"
+                                    ComparisonCondition="Equal"
+                                    Value="True">
+                <ic:ChangePropertyAction PropertyName="TextTrimming"
+                                         TargetObject="{Binding ElementName=TxtHeader}"
+                                         Value="CharacterEllipsis" />
+                <ic:ChangePropertyAction PropertyName="TextWrapping"
+                                         TargetObject="{Binding ElementName=TxtHeader}"
+                                         Value="NoWrap" />
+            </ic:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
+    </TextBlock>
+</UserControl>

@@ -79,27 +79,7 @@
                       IsClickEnabled="True"
                       IsDoubleTapEnabled="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate}">
         <wuc:SettingsCard.Header>
-            <TextBlock x:Name="TxtHeader"
-                       FontSize="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockFontSize}"
-                       FontWeight="Normal"
-                       Style="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
-                       Text="{x:Bind MediaItem.Title}"
-                       TextTrimming="None"
-                       TextWrapping="Wrap">
-                <i:Interaction.Behaviors>
-                    <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInHeader}"
-                                            ComparisonCondition="Equal"
-                                            Value="True">
-                        <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                 TargetObject="{Binding ElementName=TxtHeader}"
-                                                 Value="NoWrap" />
-                        <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                 TargetObject="{Binding ElementName=TxtHeader}"
-                                                 Value="CharacterEllipsis" />
-
-                    </ic:DataTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </TextBlock>
+            <views:HeaderTextBlockUserControl Text="{x:Bind MediaItem.Title}" />
         </wuc:SettingsCard.Header>
 
         <views:DateAndFileSizeUserControl DateTime="{x:Bind MediaItem.DateTime}" FileSize="{x:Bind MediaItem.FileSize}" />

@@ -19,25 +19,7 @@
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:MediaItem">
             <views:MediaItemUserControl MediaItem="{x:Bind}" PageType="{Binding ElementName=This, Path=DataContext.PageType}">
                 <views:MediaItemUserControl.Description>
-                    <TextBlock x:Name="TxtDesc"
-                               FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
-                               Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
-                               Text="{x:Bind Server}"
-                               TextTrimming="None"
-                               TextWrapping="Wrap">
-                        <i:Interaction.Behaviors>
-                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}"
-                                                    ComparisonCondition="Equal"
-                                                    Value="True">
-                                <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                         TargetObject="{Binding ElementName=TxtDesc}"
-                                                         Value="CharacterEllipsis" />
-                                <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                         TargetObject="{Binding ElementName=TxtDesc}"
-                                                         Value="NoWrap" />
-                            </ic:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </TextBlock>
+                    <views:DescriptionTextBlockUserControl Text="{x:Bind Server}" />
                 </views:MediaItemUserControl.Description>
             </views:MediaItemUserControl>
 
@@ -46,40 +28,7 @@
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:MediaItem">
             <views:MediaItemUserControl MediaItem="{x:Bind}" PageType="{Binding ElementName=This, Path=DataContext.PageType}">
                 <views:MediaItemUserControl.Description>
-                    <HyperlinkButton x:Name="ServerHyperLink"
-                                     Margin="0,5,0,0"
-                                     Padding="2,1,2,1"
-                                     BorderThickness="0"
-                                     NavigateUri="{x:Bind Server}">
-                        <HyperlinkButton.Content>
-                            <TextBlock x:Name="TxtDesc"
-                                       FontSize="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockFontSize}"
-                                       Style="{x:Bind local:TvTimeHelper.Settings.DescriptionTextBlockStyle, Converter={StaticResource String2StyleConverter}}"
-                                       Text="{x:Bind Server}"
-                                       TextTrimming="None"
-                                       TextWrapping="Wrap" />
-                        </HyperlinkButton.Content>
-                        <i:Interaction.Behaviors>
-                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness}"
-                                                    ComparisonCondition="Equal"
-                                                    Value="True">
-                                <ic:ChangePropertyAction PropertyName="BorderThickness"
-                                                         TargetObject="{Binding ElementName=ServerHyperLink}"
-                                                         Value="1" />
-                            </ic:DataTriggerBehavior>
-
-                            <ic:DataTriggerBehavior Binding="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription}"
-                                                    ComparisonCondition="Equal"
-                                                    Value="True">
-                                <ic:ChangePropertyAction PropertyName="TextTrimming"
-                                                         TargetObject="{Binding ElementName=TxtDesc}"
-                                                         Value="CharacterEllipsis" />
-                                <ic:ChangePropertyAction PropertyName="TextWrapping"
-                                                         TargetObject="{Binding ElementName=TxtDesc}"
-                                                         Value="NoWrap" />
-                            </ic:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </HyperlinkButton>
+                    <views:DescriptionHyperLinkUserControl Text="{x:Bind Server}" />
                 </views:MediaItemUserControl.Description>
             </views:MediaItemUserControl>
         </DataTemplate>

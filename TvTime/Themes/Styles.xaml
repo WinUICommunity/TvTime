@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="using:Microsoft.Xaml.Interactivity"
+                    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+                    xmlns:local="using:TvTime.Common">
+
+    <x:String x:Key="BreadCrumbBarRootText">Settings</x:String>
+
+    <Thickness x:Key="ContentPageMargin">40,48,40,0</Thickness>
+    <Thickness x:Key="SettingsCardMargin">0,0,0,4</Thickness>
+    <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+
+    <x:Double x:Key="ControlContentThemeFontSize">16</x:Double>
+
+    <Style BasedOn="{StaticResource ListViewItemSettingStyle}" TargetType="ListViewItem" />
+
+    <!--
+        Due to the fact that we have overwritten all the styles of the ListViewItem, therefore,
+        the styles of every control that uses the ListView are messed up, like the AutoSuggestBox.
+        So we have to set the default style of ListViewItem for them again
+    -->
+
+    <Style BasedOn="{StaticResource DefaultAutoSuggestBoxStyle}" TargetType="AutoSuggestBox">
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

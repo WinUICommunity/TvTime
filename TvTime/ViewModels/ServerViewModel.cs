@@ -1,6 +1,6 @@
 ﻿namespace TvTime.ViewModels;
 
-public partial class ServerViewModel : ObservableRecipient
+public partial class ServerViewModel : BaseViewModel
 {
     [ObservableProperty]
     public bool isMediaServer;
@@ -13,31 +13,12 @@ public partial class ServerViewModel : ObservableRecipient
     public int ComboBoxSelectedIndex;
     public bool TgServerIsActive;
 
-    [ObservableProperty]
-    public bool infoStatusIsOpen;
-
-    [ObservableProperty]
-    public string infoStatusMessage;
-
-    [ObservableProperty]
-    public InfoBarSeverity infoStausSeverity;
-
-    [ObservableProperty]
-    public ObservableCollection<ServerModel> dataList;
-
-    [ObservableProperty]
-    public AdvancedCollectionView dataListACV;
-
-    public List<string> suggestList = new();
-    private SortDescription currentSortDescription;
-
-    [RelayCommand]
-    private async void OnPageLoaded(bool isMediaServer)
+    public async override void OnPageLoaded(object isMediaServer)
     {
-        this.IsMediaServer = isMediaServer;
+        this.IsMediaServer = Convert.ToBoolean(isMediaServer);
         IsActive = true;
         await Task.Delay(150);
-        DataList = IsMediaServer ? new(Settings.TVTimeServers) : (ObservableCollection<ServerModel>) new(Settings.SubtitleServers);
+        DataList = IsMediaServer ? new(Settings.TVTimeServers) : new(Settings.SubtitleServers);
         DataListACV = new AdvancedCollectionView(DataList, true);
         currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
         DataListACV.SortDescriptions.Add(currentSortDescription);
@@ -58,16 +39,16 @@ public partial class ServerViewModel : ObservableRecipient
 
                 if (IsMediaServer)
                 {
-                    Settings.TVTimeServers = DataList;
+                    Settings.TVTimeServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
                 }
                 else
                 {
-                    Settings.SubtitleServers = DataList;
+                    Settings.SubtitleServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
                 }
 
-                InfoStausSeverity = InfoBarSeverity.Success;
-                InfoStatusMessage = "Selected Server Removed Successfully";
-                InfoStatusIsOpen = true;
+                StatusSeverity = InfoBarSeverity.Success;
+                StatusMessage = "Selected Server Removed Successfully";
+                IsStatusOpen = true;
             }
         }
     }
@@ -103,23 +84,23 @@ public partial class ServerViewModel : ObservableRecipient
 
                 if (IsMediaServer)
                 {
-                    Settings.TVTimeServers = DataList;
+                    Settings.TVTimeServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
 
                 }
                 else
                 {
-                    Settings.SubtitleServers = DataList;
+                    Settings.SubtitleServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
                 }
 
-                InfoStausSeverity = InfoBarSeverity.Success;
-                InfoStatusMessage = "New Server Added Successfully";
-                InfoStatusIsOpen = true;
+                StatusSeverity = InfoBarSeverity.Success;
+                StatusMessage = "New Server Added Successfully";
+                IsStatusOpen = true;
             }
             else
             {
-                InfoStausSeverity = InfoBarSeverity.Error;
-                InfoStatusMessage = "Server Can not be Added";
-                InfoStatusIsOpen = true;
+                StatusSeverity = InfoBarSeverity.Error;
+                StatusMessage = "Server Can not be Added";
+                IsStatusOpen = true;
             }
         };
 
@@ -162,22 +143,22 @@ public partial class ServerViewModel : ObservableRecipient
 
                     if (IsMediaServer)
                     {
-                        Settings.TVTimeServers = DataList;
+                        Settings.TVTimeServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
                     }
                     else
                     {
-                        Settings.SubtitleServers = DataList;
+                        Settings.SubtitleServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
                     }
 
-                    InfoStausSeverity = InfoBarSeverity.Success;
-                    InfoStatusMessage = "Server Changed Successfully";
-                    InfoStatusIsOpen = true;
+                    StatusSeverity = InfoBarSeverity.Success;
+                    StatusMessage = "Server Changed Successfully";
+                    IsStatusOpen = true;
                 }
                 else
                 {
-                    InfoStausSeverity = InfoBarSeverity.Error;
-                    InfoStatusMessage = "Server Can not be Updated";
-                    InfoStatusIsOpen = true;
+                    StatusSeverity = InfoBarSeverity.Error;
+                    StatusMessage = "Server Can not be Updated";
+                    IsStatusOpen = true;
                 }
             };
 
@@ -185,7 +166,7 @@ public partial class ServerViewModel : ObservableRecipient
         }
     }
 
-    public bool DataListFilter(object item)
+    public override bool DataListFilter(object item)
     {
         var query = (ServerModel) item;
         var name = query.Title ?? "";
@@ -193,13 +174,6 @@ public partial class ServerViewModel : ObservableRecipient
         var txtSearch = MainPage.Instance.GetTxtSearch();
         return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
             || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
-    }
-
-    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
     }
 
     private ContentDialog CreateContentDialog(string title, string server, int cmbSelectedIndex, object cmbSelectedItem, bool isServerActive)

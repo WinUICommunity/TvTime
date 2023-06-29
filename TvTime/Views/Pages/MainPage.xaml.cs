@@ -39,8 +39,8 @@ public sealed partial class MainPage : Page
 
     private void TxtSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
+        // Subtitles can not be searched realtime because of server issues
         var rootFrame = App.Current.NavigationManager.Frame;
-        dynamic root = rootFrame.Content;
         dynamic viewModel = null;
         TxtSearch.ItemsSource = null;
         if (rootFrame.Content is SubscenePage)
@@ -49,9 +49,25 @@ public sealed partial class MainPage : Page
             viewModel.setQuery(TxtSearch.Text);
             viewModel.OnQuerySubmitted();
         }
+
+        // we search other things when user submitted query
+        viewModel = SearchInViews();
+        if (viewModel != null)
+        {
+            viewModel.Search(sender, args);
+        }
     }
 
     private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        var viewModel = SearchInViews();
+        if (viewModel != null)
+        {
+            viewModel.Search(sender, args);
+        }
+    }
+
+    private dynamic SearchInViews()
     {
         var rootFrame = App.Current.NavigationManager.Frame;
         dynamic root = rootFrame.Content;
@@ -67,7 +83,15 @@ public sealed partial class MainPage : Page
         }
         else if (rootFrame.Content is ServersPage)
         {
-            viewModel = ServersPage.Instance.ViewModel;
+            var frameContent = ServersPage.Instance.GetFrame().Content;
+            if (frameContent is MediaServersPage)
+            {
+                viewModel = (MediaServersPage.Instance.Content as ServerUserControl).ViewModel;
+            }
+            else if (frameContent is SubtitleServersPage)
+            {
+                viewModel = (SubtitleServersPage.Instance.Content as ServerUserControl).ViewModel;
+            }
         }
         else if (rootFrame.Content is IMDBDetailsPage)
         {
@@ -76,10 +100,7 @@ public sealed partial class MainPage : Page
             viewModel.OnQuerySubmitted();
         }
 
-        if (viewModel != null && rootFrame.Content is not IMDBDetailsPage)
-        {
-            viewModel.Search(sender, args);
-        }
+        return viewModel != null && rootFrame.Content is not IMDBDetailsPage ? viewModel : null;
     }
 
     public AutoSuggestBox GetTxtSearch()

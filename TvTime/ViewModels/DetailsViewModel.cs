@@ -6,7 +6,7 @@ public partial class DetailsViewModel : BaseViewModel
 
     #region Override Methods
 
-    public override void OnPageLoaded()
+    public override void OnPageLoaded(object param)
     {
         DownloadDetails(rootTvTimeItem);
     }

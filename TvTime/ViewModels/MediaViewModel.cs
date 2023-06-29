@@ -4,7 +4,13 @@ namespace TvTime.ViewModels;
 public partial class MediaViewModel : BaseViewModel
 {
     [ObservableProperty]
+    public ObservableCollection<TokenItem> tokenList;
+
+    [ObservableProperty]
     public int infoBadgeValue;
+
+    [ObservableProperty]
+    public bool isServerStatusOpen;
 
     private PageOrDirectoryType PageType;
     private int totalServerCount = 0;
@@ -12,7 +18,7 @@ public partial class MediaViewModel : BaseViewModel
     JsonSerializerOptions options = new() { WriteIndented = true };
 
     #region Override Methods
-    public override void OnPageLoaded()
+    public override void OnPageLoaded(object param)
     {
         PageType = MediaUserControl.Instance.PageType;
 

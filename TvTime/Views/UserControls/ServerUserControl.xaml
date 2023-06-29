@@ -121,11 +121,11 @@
 
         <ProgressRing IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
         <InfoBar Name="Status"
-                 Title="{x:Bind ViewModel.InfoStatusMessage, Mode=OneWay}"
+                 Title="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
                  Grid.Row="1"
                  CornerRadius="4,4,0,0"
                  IsClosable="True"
-                 IsOpen="{x:Bind ViewModel.InfoStatusIsOpen, Mode=OneWay}"
-                 Severity="{x:Bind ViewModel.InfoStausSeverity, Mode=OneWay}" />
+                 IsOpen="{x:Bind ViewModel.IsStatusOpen, Mode=OneWay}"
+                 Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
     </Grid>
 </UserControl>

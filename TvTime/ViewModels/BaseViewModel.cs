@@ -16,9 +16,6 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
     public AdvancedCollectionView dataListACV;
 
     [ObservableProperty]
-    public ObservableCollection<TokenItem> tokenList;
-
-    [ObservableProperty]
     public bool isStatusOpen;
 
     [ObservableProperty]
@@ -29,9 +26,6 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
 
     [ObservableProperty]
     public InfoBarSeverity statusSeverity;
-
-    [ObservableProperty]
-    public bool isServerStatusOpen;
 
     public List<string> suggestList = new();
     public List<string> existServer = new();
@@ -111,7 +105,7 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
 
     public virtual void NavigateToDetails(object sender)
     {
-        var item = (sender as SettingsCard);
+        var item = sender as SettingsCard;
         var headerTextBlock = item?.Header as HeaderTextBlockUserControl;
         var title = headerTextBlock?.Text?.Trim();
         var server = string.Empty;
@@ -134,7 +128,7 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
     }
 
     [RelayCommand]
-    public virtual void OnPageLoaded()
+    public virtual void OnPageLoaded(object param)
     {
 
     }

@@ -1,120 +1,30 @@
-﻿using System.Text;
-using System.Windows.Input;
-
-using CommunityToolkit.Labs.WinUI;
-
-using Windows.ApplicationModel.DataTransfer;
-
-namespace TvTime.ViewModels;
-public partial class SubsceneViewModel : ObservableRecipient, IBaseViewModel
+﻿namespace TvTime.ViewModels;
+public partial class SubsceneViewModel : BaseViewModel
 {
-    [ObservableProperty]
-    public ObservableCollection<SubsceneModel> dataList;
-
-    [ObservableProperty]
-    public AdvancedCollectionView dataListACV;
-
-    [ObservableProperty]
-    public bool isStatusOpen;
-
-    [ObservableProperty]
-    public string statusMessage;
-
-    [ObservableProperty]
-    public string statusTitle;
-
-    [ObservableProperty]
-    public InfoBarSeverity statusSeverity;
-
     [ObservableProperty]
     public string queryText;
 
-    public List<string> suggestList = new();
-    private SortDescription currentSortDescription;
-
-    public ICommand MenuFlyoutItemCommand { get; }
-
-    public SubsceneViewModel()
+    #region Override Methods
+    public override void NavigateToDetails(object sender)
     {
-        MenuFlyoutItemCommand = new CommunityToolkit.Mvvm.Input.RelayCommand<object>(OnMenuFlyoutItem);
+        base.NavigateToDetails(sender);
     }
 
-    private async void OnMenuFlyoutItem(object sender)
+    public override void OnRefresh()
     {
-        var menuFlyout = (sender as MenuFlyoutItem);
-        var mediaItem = (SubsceneModel) menuFlyout?.DataContext;
-        switch (menuFlyout?.Tag?.ToString())
-        {
-            case "OpenWebDirectory":
-                var server = mediaItem.Server?.ToString();
-                await Launcher.LaunchUriAsync(new Uri(server));
-                break;
-
-            case "IMDB":
-                CreateIMDBDetailsWindow(mediaItem.Title);
-                break;
-
-            case "Copy":
-                OnCopy(mediaItem);
-                break;
-
-            case "CopyAll":
-                OnCopyAll();
-                break;
-        }
+        OnQuerySubmitted();
     }
 
-    private void OnCopy(SubsceneModel mediaItem)
+    public override bool DataListFilter(object item)
     {
-        var server = mediaItem.Server?.ToString();
-        var package = new DataPackage();
-        package.SetText(server);
-        Clipboard.SetContent(package);
+        var query = (SubsceneModel) item;
+        var name = query.Title ?? "";
+        var server = query.Server ?? "";
+        var txtSearch = MainPage.Instance.GetTxtSearch();
+        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
+            || server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
-
-    private void OnCopyAll()
-    {
-        var package = new DataPackage();
-        StringBuilder urls = new StringBuilder();
-        foreach (var item in DataList)
-        {
-            urls.AppendLine(item.Server?.ToString());
-        }
-        package.SetText(urls?.ToString());
-        Clipboard.SetContent(package);
-    }
-
-    [RelayCommand]
-    private void OnSettingsCard(object sender)
-    {
-        if (!Settings.UseDoubleClickForNavigate)
-        {
-            //NavigateToDetails(sender);
-        }
-    }
-
-    [RelayCommand]
-    private void OnSettingsCardDoubleClick(object sender)
-    {
-        //NavigateToDetails(sender);
-    }
-
-    [RelayCommand]
-    private void OnSegmentedItemChanged(object sender)
-    {
-        var segmented = sender as Segmented;
-        var selectedItem = segmented.SelectedItem as SegmentedItem;
-        if (selectedItem != null)
-        {
-            switch (selectedItem.Tag?.ToString())
-            {
-                case "Refresh":
-                    OnQuerySubmitted();
-                    segmented.SelectedIndex = -1;
-                    break;
-            }
-        }
-    }
+    #endregion
 
     public void setQuery(string query)
     {
@@ -223,23 +133,5 @@ public partial class SubsceneViewModel : ObservableRecipient, IBaseViewModel
         StatusSeverity = InfoBarSeverity.Error;
         StatusMessage = message;
         IsStatusOpen = true;
-    }
-
-    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        var suggestItems = DataListACV.Select(x => ((SubsceneModel) x).Title).ToList();
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestItems);
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
-    }
-
-    public bool DataListFilter(object item)
-    {
-        var query = (SubsceneModel) item;
-        var name = query.Title ?? "";
-        var server = query.Server ?? "";
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            || server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 }

@@ -1,58 +1,18 @@
-﻿using System.Text;
-using System.Windows.Input;
-
-using CommunityToolkit.Labs.WinUI;
-
-using Windows.ApplicationModel.DataTransfer;
+﻿using CommunityToolkit.Labs.WinUI;
 
 namespace TvTime.ViewModels;
-public partial class MediaViewModel : ObservableRecipient, IBaseViewModel
+public partial class MediaViewModel : BaseViewModel
 {
-    [ObservableProperty]
-    public ObservableCollection<MediaItem> dataList;
-
-    [ObservableProperty]
-    public AdvancedCollectionView dataListACV;
-
-    [ObservableProperty]
-    public ObservableCollection<TokenItem> tokenList;
-
-    [ObservableProperty]
-    public bool isStatusOpen;
-
-    [ObservableProperty]
-    public string statusMessage;
-
-    [ObservableProperty]
-    public string statusTitle;
-
-    [ObservableProperty]
-    public InfoBarSeverity statusSeverity;
-
-    [ObservableProperty]
-    public bool isServerStatusOpen;
-
     [ObservableProperty]
     public int infoBadgeValue;
 
-    public List<string> suggestList = new();
-    private List<string> existServer = new();
-
-    private SortDescription currentSortDescription;
     private PageOrDirectoryType PageType;
     private int totalServerCount = 0;
 
     JsonSerializerOptions options = new() { WriteIndented = true };
 
-    public ICommand MenuFlyoutItemCommand { get; }
-
-    public MediaViewModel()
-    {
-        MenuFlyoutItemCommand = new CommunityToolkit.Mvvm.Input.RelayCommand<object>(OnMenuFlyoutItem);
-    }
-
-    [RelayCommand]
-    private void OnPageLoaded()
+    #region Override Methods
+    public override void OnPageLoaded()
     {
         PageType = MediaUserControl.Instance.PageType;
 
@@ -82,85 +42,13 @@ public partial class MediaViewModel : ObservableRecipient, IBaseViewModel
         }
     }
 
-    [RelayCommand]
-    private void OnSegmentedItemChanged(object sender)
+    public override void OnRefresh()
     {
-        var segmented = sender as Segmented;
-        var selectedItem = segmented.SelectedItem as SegmentedItem;
-        if (selectedItem != null)
-        {
-            switch (selectedItem.Tag?.ToString())
-            {
-                case "Refresh":
-                    DeleteDirectory(PageType);
-                    DownloadServersOnLocalStorage();
-                    segmented.SelectedIndex = -1;
-                    break;
-            }
-        }
+        DeleteDirectory(PageType);
+        DownloadServersOnLocalStorage();
     }
 
-    private async void OnMenuFlyoutItem(object sender)
-    {
-        var menuFlyout = (sender as MenuFlyoutItem);
-        var mediaItem = (MediaItem) menuFlyout?.DataContext;
-        switch (menuFlyout?.Tag?.ToString())
-        {
-            case "OpenWebDirectory":
-                var server = mediaItem.Server?.ToString();
-                await Launcher.LaunchUriAsync(new Uri(server));
-                break;
-
-            case "IMDB":
-                CreateIMDBDetailsWindow(mediaItem.Title);
-                break;
-
-            case "Copy":
-                OnCopy(mediaItem);
-                break;
-
-            case "CopyAll":
-                OnCopyAll();
-                break;
-        }
-    }
-
-    private void OnCopy(MediaItem mediaItem)
-    {
-        var server = mediaItem.Server?.ToString();
-        var package = new DataPackage();
-        package.SetText(server);
-        Clipboard.SetContent(package);
-    }
-
-    private void OnCopyAll()
-    {
-        var package = new DataPackage();
-        StringBuilder urls = new StringBuilder();
-        foreach (var item in DataList)
-        {
-            urls.AppendLine(item.Server?.ToString());
-        }
-        package.SetText(urls?.ToString());
-        Clipboard.SetContent(package);
-    }
-
-    [RelayCommand]
-    private void OnSettingsCard(object sender)
-    {
-        if (!Settings.UseDoubleClickForNavigate)
-        {
-            NavigateToDetails(sender);
-        }
-    }
-
-    [RelayCommand]
-    private void OnSettingsCardDoubleClick(object sender)
-    {
-        NavigateToDetails(sender);
-    }
-
-    private void NavigateToDetails(object sender)
+    public override void NavigateToDetails(object sender)
     {
         var item = (sender as SettingsCard);
         var headerTextBlock = item?.Header as HeaderTextBlockUserControl;
@@ -190,6 +78,23 @@ public partial class MediaViewModel : ObservableRecipient, IBaseViewModel
 
         App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), media);
     }
+
+    public override bool DataListFilter(object item)
+    {
+        var query = (MediaItem) item;
+        var name = query.Title ?? "";
+        var server = query.Server ?? "";
+        var txtSearch = MainPage.Instance.GetTxtSearch();
+        var items = MediaUserControl.Instance.GetTokenSelectedItems();
+        return items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER))
+            ? name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
+                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
+            : (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
+                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)) &&
+                (items.Any(token => server.Contains(token.Content.ToString())));
+    }
+
+    #endregion
 
     [RelayCommand]
     private void OnServerStatus()
@@ -302,7 +207,7 @@ public partial class MediaViewModel : ObservableRecipient, IBaseViewModel
                 }).ToList();
                 contents = updatedList;
             }
-            var myDataList = contents.Where(x => x.Server != null);
+            var myDataList = contents.Cast<ITvTimeModel>().Where(x => x.Server != null);
             DataList = new();
             DataList.AddRange(myDataList);
             currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
@@ -488,29 +393,6 @@ public partial class MediaViewModel : ObservableRecipient, IBaseViewModel
             }
             return list;
         }
-    }
-
-    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        var suggestItems = DataListACV.Select(x => ((MediaItem) x).Title).ToList();
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestItems);
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
-    }
-
-    public bool DataListFilter(object item)
-    {
-        var query = (MediaItem) item;
-        var name = query.Title ?? "";
-        var server = query.Server ?? "";
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        var items = MediaUserControl.Instance.GetTokenSelectedItems();
-        return items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER))
-            ? name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
-                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            : (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
-                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)) &&
-                (items.Any(token => server.Contains(token.Content.ToString())));
     }
 
     public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync()

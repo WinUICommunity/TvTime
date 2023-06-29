@@ -1,88 +1,42 @@
-﻿using System.Diagnostics;
-using System.Text;
-using System.Windows.Input;
-
-using CommunityToolkit.Labs.WinUI;
-
-using Windows.ApplicationModel.DataTransfer;
-
-namespace TvTime.ViewModels;
-public partial class DetailsViewModel : ObservableRecipient, IBaseViewModel
+﻿namespace TvTime.ViewModels;
+public partial class DetailsViewModel : BaseViewModel
 {
     [ObservableProperty]
-    public ObservableCollection<MediaItem> dataList;
+    public ObservableCollection<ITvTimeModel> breadcrumbBarList = new();
 
-    [ObservableProperty]
-    public AdvancedCollectionView dataListACV;
+    #region Override Methods
 
-    [ObservableProperty]
-    public ObservableCollection<MediaItem> breadcrumbBarList = new();
-
-    [ObservableProperty]
-    public bool isStatusOpen;
-
-    [ObservableProperty]
-    public string statusMessage;
-
-    [ObservableProperty]
-    public string statusTitle;
-
-    [ObservableProperty]
-    public InfoBarSeverity statusSeverity;
-
-    public List<string> suggestList = new();
-    private SortDescription currentSortDescription;
-
-    public MediaItem rootMediaItem;
-
-    public ICommand MenuFlyoutItemCommand { get; }
-
-    public DetailsViewModel()
+    public override void OnPageLoaded()
     {
-        MenuFlyoutItemCommand = new CommunityToolkit.Mvvm.Input.RelayCommand<object>(OnMenuFlyoutItem);
+        DownloadDetails(rootTvTimeItem);
     }
 
-    [RelayCommand]
-    private void OnPageLoaded()
+    public override void OnRefresh()
     {
-        DownloadDetails(rootMediaItem);
+        DownloadDetails(rootTvTimeItem);
     }
 
-    [RelayCommand]
-    private void OnSegmentedItemChanged(object sender)
+    public override void OnDetail()
     {
-        var segmented = sender as Segmented;
-        var selectedItem = segmented.SelectedItem as SegmentedItem;
-        if (selectedItem != null)
-        {
-            switch (selectedItem.Tag?.ToString())
-            {
-                case "Refresh":
-                    DownloadDetails(rootMediaItem);
-                    segmented.SelectedIndex = -1;
-                    break;
-                case "Details":
-                    CreateIMDBDetailsWindow(rootMediaItem.Title);
-                    segmented.SelectedIndex = -1;
-                    break;
-            }
-        }
+        CreateIMDBDetailsWindow(rootTvTimeItem.Title);
     }
 
-    [RelayCommand]
-    private void OnSettingsCard(object sender)
-    {
-        if (!Settings.UseDoubleClickForNavigate)
-        {
-            OnNavigateToDetailsOrDownload(sender);
-        }
-    }
-
-    [RelayCommand]
-    private void OnSettingsCardDoubleClick(object sender)
+    public override void NavigateToDetails(object sender)
     {
         OnNavigateToDetailsOrDownload(sender);
     }
+
+    public override bool DataListFilter(object item)
+    {
+        var query = (MediaItem) item;
+        var name = query.Title ?? "";
+        var tName = query.Server ?? "";
+        var txtSearch = MainPage.Instance.GetTxtSearch();
+        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
+            || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
+    }
+
+    #endregion
 
     private async void OnNavigateToDetailsOrDownload(object sender)
     {
@@ -122,8 +76,9 @@ public partial class DetailsViewModel : ObservableRecipient, IBaseViewModel
             {
                 Server = server,
                 Title = title,
-                ServerType = rootMediaItem.ServerType
+                ServerType = rootTvTimeItem.ServerType
             };
+
             DownloadDetails(mediaItem);
         }
     }
@@ -136,191 +91,26 @@ public partial class DetailsViewModel : ObservableRecipient, IBaseViewModel
         DownloadDetails(item);
     }
 
-    private void OnMenuFlyoutItem(object sender)
-    {
-        var menuFlyout = (sender as MenuFlyoutItem);
-        var mediaItem = (MediaItem) menuFlyout?.DataContext;
-        switch (menuFlyout?.Tag?.ToString())
-        {
-            case "OpenWebDirectory":
-                OnOpenDirectory(mediaItem, menuFlyout);
-                break;
-
-            case "IMDB":
-                OnGetIMDBDetails();
-                break;
-
-            case "OpenFile":
-                OnOpenDirectory(mediaItem, menuFlyout);
-                break;
-
-            case "Copy":
-                OnCopy(mediaItem);
-                break;
-
-            case "CopyAll":
-                OnCopyAll();
-                break;
-
-            case "Download":
-                OnDownload(mediaItem);
-                break;
-
-            case "DownloadAll":
-                OnDownloadAll();
-                break;
-        }
-    }
-
-    private async void OnDownload(MediaItem mediaItem)
-    {
-        var idmPath = GetIDMFilePath();
-        if (string.IsNullOrEmpty(idmPath))
-        {
-            ContentDialog contentDialog = new ContentDialog
-            {
-                XamlRoot = App.Current.Window.Content.XamlRoot,
-                Title = "IDM not found",
-                Content = new InfoBar
-                {
-                    Margin = new Thickness(10),
-                    Severity = InfoBarSeverity.Error,
-                    Title = "IDM was not found on your system, please install it first",
-                    IsOpen = true,
-                    IsClosable = false
-                },
-                PrimaryButtonText = "Ok"
-            };
-            await contentDialog.ShowAsyncQueue();
-        }
-        else
-        {
-            var server = mediaItem.Server?.ToString();
-            Process.Start(GetIDMFilePath(), $"/d \"{server?.ToString()}\"");
-        }
-    }
-
-    private async void OnDownloadAll()
-    {
-        var idmPath = GetIDMFilePath();
-        if (string.IsNullOrEmpty(idmPath))
-        {
-            ContentDialog contentDialog = new ContentDialog
-            {
-                XamlRoot = App.Current.Window.Content.XamlRoot,
-                Title = "IDM not found",
-                Content = new InfoBar
-                {
-                    Margin = new Thickness(10),
-                    Severity = InfoBarSeverity.Error,
-                    Title = "IDM was not found on your system, please install it first",
-                    IsOpen = true,
-                    IsClosable = false
-                },
-                PrimaryButtonText = "Ok"
-            };
-            await contentDialog.ShowAsyncQueue();
-        }
-        else
-        {
-            foreach (var item in DataList)
-            {
-                Process.Start(GetIDMFilePath(), $"/d \"{item.Server?.ToString()}\"");
-                await Task.Delay(500);
-            }
-        }
-    }
-
-    private void OnCopy(MediaItem mediaItem)
-    {
-        var server = mediaItem.Server?.ToString();
-        var package = new DataPackage();
-        package.SetText(server);
-        Clipboard.SetContent(package);
-    }
-
-    private void OnCopyAll()
-    {
-        var package = new DataPackage();
-        StringBuilder urls = new StringBuilder();
-        foreach (var item in DataList)
-        {
-            urls.AppendLine(item.Server?.ToString());
-        }
-        package.SetText(urls?.ToString());
-        Clipboard.SetContent(package);
-    }
-
-    private async void OnOpenDirectory(MediaItem mediaItem, MenuFlyoutItem item)
-    {
-        var server = mediaItem.Server?.ToString();
-        if (item.Text.Contains("File"))
-        {
-            await Launcher.LaunchUriAsync(new Uri(server));
-        }
-        else
-        {
-            if (Constants.FileExtensions.Any(server.Contains))
-            {
-                var fileName = System.IO.Path.GetFileName(server);
-                await Launcher.LaunchUriAsync(new Uri(server.Replace(fileName, "")));
-            }
-            else
-            {
-                await Launcher.LaunchUriAsync(new Uri(server));
-            }
-        }
-    }
-
-    private void OnGetIMDBDetails()
-    {
-        CreateIMDBDetailsWindow(rootMediaItem.Title);
-    }
-
-    public bool DataListFilter(object item)
-    {
-        var query = (MediaItem) item;
-        var name = query.Title ?? "";
-        var tName = query.Server ?? "";
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
-    }
-
-    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
-    }
-
-    private string GetIDMFilePath()
-    {
-        string idmPathX86 = @"C:\Program Files (x86)\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable
-        string idmPathX64 = @"C:\Program Files\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable
-        return File.Exists(idmPathX64) ? idmPathX64 : File.Exists(idmPathX86) ? idmPathX86 : null;
-    }
-
-    private async void DownloadDetails(MediaItem mediaItem)
+    private async void DownloadDetails(ITvTimeModel tvTimeItem)
     {
         try
         {
-            BreadcrumbBarList.AddIfNotExists(mediaItem);
+            BreadcrumbBarList.AddIfNotExists(tvTimeItem);
             IsActive = true;
             IsStatusOpen = true;
             StatusSeverity = InfoBarSeverity.Informational;
             StatusTitle = "Please Wait...";
             StatusMessage = "";
             HtmlWeb web = new HtmlWeb();
-            HtmlDocument doc = await web.LoadFromWebAsync(mediaItem.Server);
+            HtmlDocument doc = await web.LoadFromWebAsync(tvTimeItem.Server);
 
-            StatusMessage = $"Working on {mediaItem.Title}";
+            StatusMessage = $"Working on {tvTimeItem.Title}";
 
             string result = doc.DocumentNode?.InnerHtml?.ToString();
-            StatusMessage = $"Parsing {mediaItem.Title}";
+            StatusMessage = $"Parsing {tvTimeItem.Title}";
 
-            var details = GetServerDetails(result, mediaItem);
-            DataList = new(details);
+            var details = GetServerDetails(result, tvTimeItem);
+            DataList = new(details.Cast<ITvTimeModel>());
             DataListACV = new AdvancedCollectionView(DataList, true);
             currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
             DataListACV.SortDescriptions.Add(currentSortDescription);
@@ -341,11 +131,11 @@ public partial class DetailsViewModel : ObservableRecipient, IBaseViewModel
         }
     }
 
-    public List<MediaItem> GetServerDetails(string content, MediaItem mediaItem)
+    public List<MediaItem> GetServerDetails(string content, ITvTimeModel tvTimeItem)
     {
         List<MediaItem> list = new List<MediaItem>();
 
-        if (mediaItem.Server.Contains("DonyayeSerial"))
+        if (tvTimeItem.Server.Contains("DonyayeSerial"))
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(content);
@@ -362,7 +152,7 @@ public partial class DetailsViewModel : ObservableRecipient, IBaseViewModel
                 {
                     var title = nameNode?.InnerText?.Trim();
                     var date = dateNode?.InnerText?.Trim();
-                    var serverUrl = $"{mediaItem.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
+                    var serverUrl = $"{tvTimeItem.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
                     var size = sizeNode?.InnerText?.Trim();
                     list.Add(new MediaItem { Title = title, DateTime = date, Server = serverUrl, FileSize = size, ServerType = ServerType.Series });
                 }
@@ -392,26 +182,26 @@ public partial class DetailsViewModel : ObservableRecipient, IBaseViewModel
                 if (m2.Success)
                 {
                     link = m2.Groups[1].Value;
-                    if (mediaItem.Server.Contains("freelecher"))
+                    if (tvTimeItem.Server.Contains("freelecher"))
                     {
-                        var url = new Uri(mediaItem.Server).GetLeftPart(UriPartial.Authority);
+                        var url = new Uri(tvTimeItem.Server).GetLeftPart(UriPartial.Authority);
                         i.Server = $"{url}{link}";
                     }
-                    else if (mediaItem.Server.Contains("dl3.dl1acemovies") || mediaItem.Server.Contains("dl4.dl1acemovies"))
+                    else if (tvTimeItem.Server.Contains("dl3.dl1acemovies") || tvTimeItem.Server.Contains("dl4.dl1acemovies"))
                     {
-                        var url = new Uri(mediaItem.Server).GetLeftPart(UriPartial.Authority);
+                        var url = new Uri(tvTimeItem.Server).GetLeftPart(UriPartial.Authority);
                         i.Server = $"{url}{link}";
                     }
                     else
                     {
-                        i.Server = $"{mediaItem.Server}{link}";
+                        i.Server = $"{tvTimeItem.Server}{link}";
                     }
                 }
 
                 string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
 
                 i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
-                if (i.Server.Equals($"{mediaItem.Server}../") || i.Title.Equals("[To Parent Directory]") ||
+                if (i.Server.Equals($"{tvTimeItem.Server}../") || i.Title.Equals("[To Parent Directory]") ||
                     ((i.Server.Contains("aiocdn") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
                 {
                     continue;
@@ -437,7 +227,7 @@ public partial class DetailsViewModel : ObservableRecipient, IBaseViewModel
                 }
                 index++;
 
-                i.ServerType = mediaItem.ServerType;
+                i.ServerType = tvTimeItem.ServerType;
                 list.Add(i);
             }
             return list;

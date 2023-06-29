@@ -41,6 +41,9 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
 
     public ICommand MenuFlyoutItemCommand { get; }
 
+    public string headerText = string.Empty;
+    public string descriptionText = string.Empty;
+
     public BaseViewModel()
     {
         MenuFlyoutItemCommand = new CommunityToolkit.Mvvm.Input.RelayCommand<object>(OnMenuFlyoutItem);
@@ -108,7 +111,26 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
 
     public virtual void NavigateToDetails(object sender)
     {
+        var item = (sender as SettingsCard);
+        var headerTextBlock = item?.Header as HeaderTextBlockUserControl;
+        var title = headerTextBlock?.Text?.Trim();
+        var server = string.Empty;
+        switch (Settings.DescriptionTemplate)
+        {
+            case DescriptionTemplateType.TextBlock:
+                var descriptionTextBlock = item?.Description as DescriptionTextBlockUserControl;
+                server = descriptionTextBlock?.Text;
+                break;
+            case DescriptionTemplateType.HyperLink:
+                var descriptionHyperLink = item?.Description as DescriptionHyperLinkUserControl;
+                var hyperLink = descriptionHyperLink?.Content as HyperlinkButton;
+                var hyperLinkContent = hyperLink?.Content as TextBlock;
+                server = hyperLinkContent?.Text;
+                break;
+        }
 
+        headerText = title;
+        descriptionText = server;
     }
 
     [RelayCommand]

@@ -40,42 +40,26 @@ public partial class DetailsViewModel : BaseViewModel
 
     private async void OnNavigateToDetailsOrDownload(object sender)
     {
-        var item = (sender as SettingsCard);
-        var textBlock = item?.Header as HeaderTextBlockUserControl;
-        var title = textBlock?.Text?.Trim();
-        var server = string.Empty;
-        switch (Settings.DescriptionTemplate)
-        {
-            case DescriptionTemplateType.TextBlock:
-                var descriptionTextBlock = item?.Description as DescriptionTextBlockUserControl;
-                server = descriptionTextBlock?.Text;
-                break;
-            case DescriptionTemplateType.HyperLink:
-                var descriptionHyperLink = item?.Description as DescriptionHyperLinkUserControl;
-                var hyperLink = descriptionHyperLink?.Content as HyperlinkButton;
-                var hyperLinkContent = hyperLink?.Content as TextBlock;
-                server = hyperLinkContent?.Text;
-                break;
-        }
+        base.NavigateToDetails(sender);
 
-        if (Constants.FileExtensions.Any(server.Contains))
+        if (Constants.FileExtensions.Any(descriptionText.Contains))
         {
             if (Settings.IsFileOpenInBrowser)
             {
-                await Launcher.LaunchUriAsync(new Uri(server));
+                await Launcher.LaunchUriAsync(new Uri(descriptionText));
             }
             else
             {
-                var fileName = System.IO.Path.GetFileName(server);
-                await Launcher.LaunchUriAsync(new Uri(server.Replace(fileName, "")));
+                var fileName = System.IO.Path.GetFileName(descriptionText);
+                await Launcher.LaunchUriAsync(new Uri(descriptionText.Replace(fileName, "")));
             }
         }
         else
         {
             var mediaItem = new MediaItem
             {
-                Server = server,
-                Title = title,
+                Server = descriptionText,
+                Title = headerText,
                 ServerType = rootTvTimeItem.ServerType
             };
 

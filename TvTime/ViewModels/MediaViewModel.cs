@@ -413,14 +413,6 @@ public partial class MediaViewModel : BaseViewModel
         return Regex.Replace(title, @"S\d{2}E\d{2}.*", "").Trim();
     }
 
-    private string GetServerUrlWithoutLeftAndRightPart(string url)
-    {
-        Uri uri = new Uri(url);
-        string host = uri.Host;
-        string[] parts = host.Split('.');
-        return string.Join(".", parts.Take(parts.Length - 1));
-    }
-
     public string GetPageType()
     {
         return PageType.ToString();

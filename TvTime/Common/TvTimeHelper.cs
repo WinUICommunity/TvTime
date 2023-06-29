@@ -303,4 +303,12 @@ public static class TvTimeHelper
 
         return file.Path;
     }
+
+    public static string GetServerUrlWithoutLeftAndRightPart(string url)
+    {
+        Uri uri = new Uri(url);
+        string host = uri.Host;
+        string[] parts = host.Split('.');
+        return string.Join(".", parts.Take(parts.Length - 1));
+    }
 }

@@ -1,8 +1,30 @@
-﻿namespace TvTime.ViewModels;
+﻿using CommunityToolkit.Labs.WinUI;
+
+namespace TvTime.ViewModels;
 public partial class SubsceneViewModel : BaseViewModel
 {
     [ObservableProperty]
+    public ObservableCollection<TokenItem> tokenList;
+
+    [ObservableProperty]
     public string queryText;
+
+    [ObservableProperty]
+    public int tokenItemSelectedIndex = -1;
+
+    [ObservableProperty]
+    public object tokenItemSelectedItem = null;
+
+    public SubsceneViewModel()
+    {
+        var tokens = Settings.SubtitleServers.Where(x => x.IsActive)
+            .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
+
+        TokenList = new(tokens);
+
+        var defaultTokenItem = TokenList.FirstOrDefault(x => x.Content.ToString().Contains("deltaleech", StringComparison.OrdinalIgnoreCase));
+        TokenItemSelectedIndex = TokenList.IndexOf(defaultTokenItem);
+    }
 
     #region Override Methods
     public override void NavigateToDetails(object sender)
@@ -47,7 +69,8 @@ public partial class SubsceneViewModel : BaseViewModel
                 {
                     IsActive = true;
                     DataList = new();
-                    var url = string.Format(Constants.SubsceneSearchAPI, "https://sub.deltaleech.com", QueryText);
+                    var baseUrl = Settings?.SubtitleServers?.FirstOrDefault(x => x.Server.Contains(((TokenItem) TokenItemSelectedItem).Content.ToString(), StringComparison.OrdinalIgnoreCase));
+                    var url = string.Format(Constants.SubsceneSearchAPI, baseUrl?.Server, QueryText);
                     var web = new HtmlWeb();
                     var doc = await web.LoadFromWebAsync(url);
 
@@ -77,7 +100,7 @@ public partial class SubsceneViewModel : BaseViewModel
                                     var subtitle = new SubsceneModel
                                     {
                                         Title = name,
-                                        Server = subNode?.Attributes["href"]?.Value?.Trim(),
+                                        Server = GetDecodedStringFromHtml(baseUrl.Server + subNode?.Attributes["href"]?.Value?.Trim()),
                                         Desc = count?.InnerText?.Trim(),
                                         GroupKey = GetSubtitleKey(i)
                                     };

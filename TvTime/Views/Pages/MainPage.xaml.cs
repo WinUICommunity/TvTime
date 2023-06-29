@@ -42,19 +42,12 @@ public sealed partial class MainPage : Page
         // Subtitles can not be searched realtime because of server issues
         var rootFrame = App.Current.NavigationManager.Frame;
         dynamic viewModel = null;
-        TxtSearch.ItemsSource = null;
         if (rootFrame.Content is SubscenePage)
         {
+            TxtSearch.ItemsSource = null;
             viewModel = SubscenePage.Instance.ViewModel;
             viewModel.setQuery(TxtSearch.Text);
             viewModel.OnQuerySubmitted();
-        }
-
-        // we search other things when user submitted query
-        viewModel = SearchInViews();
-        if (viewModel != null)
-        {
-            viewModel.Search(sender, args);
         }
     }
 

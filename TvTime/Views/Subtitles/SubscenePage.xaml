@@ -58,6 +58,12 @@
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+        <labs:TokenView x:Name="Token"
+                        Margin="10,10,10,0"
+                        ItemsSource="{x:Bind ViewModel.TokenList}"
+                        SelectedIndex="{x:Bind ViewModel.TokenItemSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{x:Bind ViewModel.TokenItemSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectionMode="Single" />
         <labs:Segmented x:Name="Segmented"
                         Grid.Row="1"
                         Margin="10,10,0,0">

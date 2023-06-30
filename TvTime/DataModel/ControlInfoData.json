@@ -75,7 +75,6 @@
               "Title": "Subscene",
               "Subtitle": "Search and Download the subtitle you need from subscene servers",
               "IncludedInBuild": true,
-              "ImageIconPath": "",
               "HideSourceCodeAndRelatedControls": true,
               "Docs": [],
               "RelatedControls": []
@@ -85,7 +84,6 @@
               "Title": "World Subtitle",
               "Subtitle": "Search and Download the subtitle you need from world subtitle",
               "IncludedInBuild": true,
-              "ImageIconPath": "",
               "HideSourceCodeAndRelatedControls": true,
               "Docs": [],
               "RelatedControls": []
@@ -95,7 +93,6 @@
               "Title": "I Subtitle",
               "Subtitle": "Search and Download the subtitle you need from i subtitle",
               "IncludedInBuild": true,
-              "ImageIconPath": "",
               "HideSourceCodeAndRelatedControls": true,
               "Docs": [],
               "RelatedControls": []
@@ -105,7 +102,6 @@
               "Title": "E Subtitle",
               "Subtitle": "Search and Download the subtitle you need from e subtitle",
               "IncludedInBuild": true,
-              "ImageIconPath": "",
               "HideSourceCodeAndRelatedControls": true,
               "Docs": [],
               "RelatedControls": []

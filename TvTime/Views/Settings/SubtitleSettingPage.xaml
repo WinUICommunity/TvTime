@@ -122,28 +122,6 @@
                               IsEnabled="{x:Bind TGUseIDM.IsOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolNegationConverter}}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseAutoDecompressSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
-
-            <wuc:SettingsExpander Description="following keywords will be removed from movie\series file name, if you see a word that can not be removed from file name you can add your keywords here"
-                                  Header="Use Default Regex"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/regex.png}">
-                <ToggleSwitch x:Name="TGRegex"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseDefaultRegexEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Toggled="TGRegex_Toggled" />
-                <wuc:SettingsExpander.Items>
-                    <TextBox MinWidth="240"
-                             MinHeight="160"
-                             AcceptsReturn="True"
-                             BorderThickness="1,0,1,1"
-                             CornerRadius="0,0,4,4"
-                             IsEnabled="{Binding ElementName=TGRegex, Path=IsOn, Converter={StaticResource BoolNegationConverter}}"
-                             PlaceholderText="Regex"
-                             ScrollViewer.IsVerticalRailEnabled="True"
-                             ScrollViewer.VerticalScrollBarVisibility="Visible"
-                             ScrollViewer.VerticalScrollMode="Enabled"
-                             Text="{x:Bind local:TvTimeHelper.Settings.SubtitleFileNameRegex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             TextWrapping="Wrap" />
-                </wuc:SettingsExpander.Items>
-            </wuc:SettingsExpander>
         </StackPanel>
     </ScrollViewer>
 </Page>

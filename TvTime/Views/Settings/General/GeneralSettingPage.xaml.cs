@@ -23,4 +23,12 @@ public sealed partial class GeneralSettingPage : Page
     {
         ElementSoundPlayer.State = TGSound.IsOn ? ElementSoundPlayerState.On : ElementSoundPlayerState.Off;
     }
+
+    private void TGRegex_Toggled(object sender, RoutedEventArgs e)
+    {
+        if (TGRegex.IsOn)
+        {
+            Settings.FileNameRegex = Constants.FileNameRegex;
+        }
+    }
 }

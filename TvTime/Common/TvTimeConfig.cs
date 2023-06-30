@@ -63,7 +63,7 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual string LastUpdateCheck { get; set; }
     public virtual string DescriptionTextBlockStyle { get; set; } = "BaseTextBlockStyle";
     public virtual string HeaderTextBlockStyle { get; set; } = "SubtitleTextBlockStyle";
-    public virtual string SubtitleFileNameRegex { get; set; } = Constants.SubtitleFileNameRegex;
+    public virtual string FileNameRegex { get; set; } = Constants.FileNameRegex;
     public virtual string DefaultSubtitleDownloadPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\";
 
     public virtual double DescriptionTextBlockFontSize { get; set; } = 12;

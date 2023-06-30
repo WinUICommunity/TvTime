@@ -17,7 +17,7 @@
                     Spacing="5">
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
-            <InfoBar Name="StatusInfo"
+            <InfoBar x:Name="StatusInfo"
                      Title="Status"
                      IsClosable="False"
                      IsOpen="True" />

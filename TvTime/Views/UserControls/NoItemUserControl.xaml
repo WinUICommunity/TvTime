@@ -17,7 +17,7 @@
                    Stroke="{ThemeResource TextFillColorSecondary}"
                    StrokeDashArray="20"
                    StrokeThickness="2" />
-        <TextBlock Name="TxtNoItem"
+        <TextBlock x:Name="TxtNoItem"
                    Margin="20,0,10,10"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

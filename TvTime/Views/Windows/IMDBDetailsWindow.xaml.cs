@@ -7,7 +7,7 @@ public sealed partial class IMDBDetailsWindow : Window
         this.InitializeComponent();
         var titlebar = new TitleBarHelper(this, TitleTextBlock, AppTitleBar, LeftPaddingColumn, IconColumn, TitleColumn, LeftDragColumn, SearchColumn, RightDragColumn, RightPaddingColumn);
         this.AppWindow.SetIcon("Assets/Fluent/icon.ico");
-        txtSearch.Text = query;
+        TxtSearch.Text = query;
         GetDetails();
     }
 
@@ -18,9 +18,9 @@ public sealed partial class IMDBDetailsWindow : Window
 
     private void GetDetails()
     {
-        imdbDetailsPage?.ViewModel?.setQuery(txtSearch.Text);
-        imdbDetailsPage?.ViewModel?.OnQuerySubmitted();
-        this.Title = txtSearch.Text;
-        TitleTextBlock.Text = $"TvTime v{App.Current.TvTimeVersion} - {txtSearch.Text}";
+        ImdbDetailsPage?.ViewModel?.setQuery(TxtSearch.Text);
+        ImdbDetailsPage?.ViewModel?.OnQuerySubmitted();
+        this.Title = TxtSearch.Text;
+        TitleTextBlock.Text = $"TvTime v{App.Current.TvTimeVersion} - {TxtSearch.Text}";
     }
 }

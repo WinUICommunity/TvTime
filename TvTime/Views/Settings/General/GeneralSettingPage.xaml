@@ -43,7 +43,7 @@
             <wuc:SettingsCard Description="Controls provide audible feedback"
                               Header="Sound"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/audio.png}">
-                <ToggleSwitch Name="tgSound"
+                <ToggleSwitch x:Name="TGSound"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Toggled="Sound_Toggled" />
             </wuc:SettingsCard>

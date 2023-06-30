@@ -21,6 +21,6 @@ public sealed partial class GeneralSettingPage : Page
 
     private void Sound_Toggled(object sender, RoutedEventArgs e)
     {
-        ElementSoundPlayer.State = tgSound.IsOn ? ElementSoundPlayerState.On : ElementSoundPlayerState.Off;
+        ElementSoundPlayer.State = TGSound.IsOn ? ElementSoundPlayerState.On : ElementSoundPlayerState.Off;
     }
 }

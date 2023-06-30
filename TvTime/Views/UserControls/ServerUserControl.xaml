@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <ScrollViewer>
             <wuc:SettingsGroup Header="TvTime Servers">
-                <wuc:SettingsExpander Name="ServerExpander"
+                <wuc:SettingsExpander x:Name="ServerExpander"
                                       Description="Manage Servers that can be used in the TvTime"
                                       Header="Servers"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/save.png}">
@@ -92,7 +92,7 @@
             </wuc:SettingsGroup>
         </ScrollViewer>
 
-        <views:NoItemUserControl Name="NoItemUC"
+        <views:NoItemUserControl x:Name="NoItemUC"
                                  HorizontalAlignment="Center"
                                  Count="{x:Bind ViewModel.DataListACV.Count, Mode=OneWay}">
             <i:Interaction.Behaviors>
@@ -120,7 +120,7 @@
         </views:NoItemUserControl>
 
         <ProgressRing IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
-        <InfoBar Name="Status"
+        <InfoBar x:Name="Status"
                  Title="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
                  Grid.Row="1"
                  CornerRadius="4,4,0,0"

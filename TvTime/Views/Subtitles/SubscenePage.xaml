@@ -19,6 +19,7 @@
     <Page.Resources>
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:SubsceneModel">
             <views:ItemUserControl Title="{x:Bind Title}"
+                                   ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                                    DateTime="{x:Bind Desc}"
                                    HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
                                    Server="{x:Bind Server}"
@@ -34,6 +35,7 @@
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:SubsceneModel">
             <views:ItemUserControl Title="{x:Bind Title}"
+                                   ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                                    DateTime="{x:Bind Desc}"
                                    HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
                                    Server="{x:Bind Server}"

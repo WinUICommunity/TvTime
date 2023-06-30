@@ -7,6 +7,10 @@ public class DetailHeaderIconConverter : IValueConverter
         ("softsub","ms-appx:///Assets/Fluent/softsub.png"),
         ("hardsub","ms-appx:///Assets/Fluent/hardsub.png"),
         ("srt","ms-appx:///Assets/Fluent/subtitle.png"),
+        ("aas","ms-appx:///Assets/Fluent/subtitle.png"),
+        ("archive","ms-appx:///Assets/Fluent/archive.png"),
+        ("zip","ms-appx:///Assets/Fluent/archive.png"),
+        ("rar","ms-appx:///Assets/Fluent/archive.png"),
         ("Dub","ms-appx:///Assets/Fluent/sound.png"),
         ("Audio","ms-appx:///Assets/Fluent/sound.png")
     };

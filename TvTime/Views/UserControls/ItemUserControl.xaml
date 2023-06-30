@@ -70,7 +70,7 @@
     </UserControl.Resources>
 
     <wuc:SettingsCard x:Name="SettingsCard"
-                      ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
+                      ActionIcon="{x:Bind ActionIcon}"
                       Command="{x:Bind SettingsCardCommand}"
                       CommandParameter="{Binding ElementName=SettingsCard}"
                       ContextFlyout="{StaticResource menuFlyout}"

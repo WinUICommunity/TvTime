@@ -19,9 +19,10 @@
 
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:SubsceneModel">
             <views:ItemUserControl Title="{x:Bind Title}"
+                                   ActionIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
                                    DateTime="{x:Bind Language}"
                                    FileSize="{x:Bind Translator}"
-                                   HeaderIcon="{x:Bind Title, Converter={StaticResource DetailHeaderIconConverter}}"
+                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/archive.png}"
                                    Server="{x:Bind Server}"
                                    SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
                                    SettingsCardDoubleClickCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardDoubleClickCommand}"
@@ -35,9 +36,10 @@
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:SubsceneModel">
             <views:ItemUserControl Title="{x:Bind Title}"
+                                   ActionIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
                                    DateTime="{x:Bind Language}"
                                    FileSize="{x:Bind Translator}"
-                                   HeaderIcon="{x:Bind Title, Converter={StaticResource DetailHeaderIconConverter}}"
+                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/archive.png}"
                                    Server="{x:Bind Server}"
                                    SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
                                    SettingsCardDoubleClickCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardDoubleClickCommand}"

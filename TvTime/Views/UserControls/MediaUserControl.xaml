@@ -18,6 +18,7 @@
 
         <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:MediaItem">
             <views:ItemUserControl Title="{x:Bind Title}"
+                                   ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                                    DateTime="{x:Bind DateTime}"
                                    FileSize="{x:Bind FileSize}"
                                    HeaderIcon="{Binding ElementName=This, Path=DataContext.PageType, Converter={StaticResource MediaHeaderIconConverter}}"
@@ -34,6 +35,7 @@
 
         <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:MediaItem">
             <views:ItemUserControl Title="{x:Bind Title}"
+                                   ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                                    DateTime="{x:Bind DateTime}"
                                    FileSize="{x:Bind FileSize}"
                                    HeaderIcon="{Binding ElementName=This, Path=DataContext.PageType, Converter={StaticResource MediaHeaderIconConverter}}"

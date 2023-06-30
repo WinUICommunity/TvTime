@@ -3,11 +3,16 @@ public class StringExtensions2VisibilityConverter : IValueConverter
 {
     private readonly string[] _extensions = new[]
     {
+        ".avi",
         ".mp4",
         ".mkv",
         ".m4a",
         ".mp3",
-        ".wav"
+        ".wav",
+        ".rar",
+        ".zip",
+        ".srt",
+        ".aas"
     };
 
     public object Convert(object value, Type targetType, object parameter, string language)

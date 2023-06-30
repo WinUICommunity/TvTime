@@ -57,6 +57,12 @@ public sealed partial class ItemUserControl : UserControl
         set => SetValue(HeaderIconProperty, value);
     }
 
+    public IconElement ActionIcon
+    {
+        get => (IconElement) GetValue(ActionIconProperty);
+        set => SetValue(ActionIconProperty, value);
+    }
+
     public static readonly DependencyProperty ViewModelProperty =
         DependencyProperty.Register("ViewModel", typeof(IBaseViewModel), typeof(ItemUserControl), new PropertyMetadata(default(IBaseViewModel)));
 
@@ -82,10 +88,18 @@ public sealed partial class ItemUserControl : UserControl
         DependencyProperty.Register("FileSize", typeof(string), typeof(ItemUserControl), new PropertyMetadata(default(string)));
 
     public static readonly DependencyProperty HeaderIconProperty =
-        DependencyProperty.Register("HeaderIcon", typeof(IconElement), typeof(ItemUserControl), new PropertyMetadata(default(object)));
+        DependencyProperty.Register("HeaderIcon", typeof(IconElement), typeof(ItemUserControl), new PropertyMetadata(default(IconElement)));
+
+    public static readonly DependencyProperty ActionIconProperty =
+        DependencyProperty.Register("ActionIcon", typeof(IconElement), typeof(ItemUserControl), new PropertyMetadata(default(IconElement)));
 
     public ItemUserControl()
     {
         this.InitializeComponent();
+
+        if (ActionIcon == null)
+        {
+            ActionIcon = new FontIcon { Glyph = "\ue974" };
+        }
     }
 }

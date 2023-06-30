@@ -16,7 +16,7 @@ public partial class DetailsViewModel : BaseViewModel
         DownloadDetails(rootTvTimeItem);
     }
 
-    public override void OnDetail()
+    public override void OnIMDBDetail()
     {
         CreateIMDBDetailsWindow(rootTvTimeItem.Title);
     }
@@ -44,9 +44,13 @@ public partial class DetailsViewModel : BaseViewModel
 
         if (Constants.FileExtensions.Any(descriptionText.Contains))
         {
-            if (Settings.IsFileOpenInBrowser)
+            if (Settings.IsFileOpenInBrowser && !Settings.UseIDMForDownload)
             {
                 await Launcher.LaunchUriAsync(new Uri(descriptionText));
+            }
+            else if (Settings.UseIDMForDownload)
+            {
+                LaunchIDM(GetIDMFilePath(), descriptionText);
             }
             else
             {

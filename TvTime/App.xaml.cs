@@ -35,7 +35,6 @@ public partial class App : Application
         services.AddTransient<MediaViewModel>();
         services.AddTransient<DetailsViewModel>();
         services.AddTransient<IMDBDetailsViewModel>();
-        services.AddTransient<SubtitleViewModel>();
         services.AddTransient<SubsceneViewModel>();
         services.AddTransient<SubsceneDetailViewModel>();
 

@@ -21,7 +21,17 @@
             <wuc:SettingsCard Description="If false is selected, the corresponding web page will be opened instead of the file itself"
                               Header="Open the file in the browser"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
-                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch x:Name="TGOpenFile" IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGOpenFile}"
+                                                ComparisonCondition="Equal"
+                                                Value="True">
+                            <ic:ChangePropertyAction PropertyName="IsOn"
+                                                     TargetObject="{Binding ElementName=TGUseIDM}"
+                                                     Value="False" />
+                        </ic:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ToggleSwitch>
             </wuc:SettingsCard>
 
             <wuc:SettingsCard Description="With the help of TokenView, you can see only the media related to the desired server, and with the help of the search, you can search the results more precisely."
@@ -46,7 +56,17 @@
             <wuc:SettingsCard Description="Download Files With Internet Download Manager (IDM) [if exist]"
                               Header="Download with IDM"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
-                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch x:Name="TGUseIDM" IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGUseIDM}"
+                                                ComparisonCondition="Equal"
+                                                Value="True">
+                            <ic:ChangePropertyAction PropertyName="IsOn"
+                                                     TargetObject="{Binding ElementName=TGOpenFile}"
+                                                     Value="False" />
+                        </ic:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ToggleSwitch>
             </wuc:SettingsCard>
 
             <wuc:SettingsExpander Description="Choose Icon Pack to display for the season number"

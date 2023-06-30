@@ -83,9 +83,9 @@
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                                 Tag="Refresh" />
-            <labs:SegmentedItem Content="Details"
+            <labs:SegmentedItem Content="IMDB Details"
                                 Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
-                                Tag="Details" />
+                                Tag="IMDBDetails" />
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
                     <ic:EventTriggerBehavior.Actions>

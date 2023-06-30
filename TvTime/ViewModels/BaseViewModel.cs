@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text;
+﻿using System.Text;
 using System.Windows.Input;
 
 using CommunityToolkit.Labs.WinUI;
@@ -76,11 +75,11 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
                 break;
 
             case "Download":
-                OnDownload(tvTimeItem);
+                OnDownloadWithIDM(tvTimeItem);
                 break;
 
             case "DownloadAll":
-                OnDownloadAll();
+                OnDownloadAllWithIDM();
                 break;
         }
     }
@@ -107,7 +106,7 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
 
     }
 
-    public virtual void OnDetail()
+    public virtual void OnIMDBDetail()
     {
 
     }
@@ -201,7 +200,7 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
         Clipboard.SetContent(package);
     }
 
-    private async void OnDownload(ITvTimeModel tvTimeItem)
+    private async void OnDownloadWithIDM(ITvTimeModel tvTimeItem)
     {
         var idmPath = GetIDMFilePath();
         if (string.IsNullOrEmpty(idmPath))
@@ -225,11 +224,11 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
         else
         {
             var server = tvTimeItem.Server?.ToString();
-            Process.Start(GetIDMFilePath(), $"/d \"{server?.ToString()}\"");
+            LaunchIDM(GetIDMFilePath(), server?.ToString());
         }
     }
 
-    private async void OnDownloadAll()
+    private async void OnDownloadAllWithIDM()
     {
         var idmPath = GetIDMFilePath();
         if (string.IsNullOrEmpty(idmPath))
@@ -254,7 +253,7 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
         {
             foreach (var item in DataList)
             {
-                Process.Start(GetIDMFilePath(), $"/d \"{item.Server?.ToString()}\"");
+                LaunchIDM(GetIDMFilePath(), item?.Server?.ToString());
                 await Task.Delay(500);
             }
         }
@@ -273,8 +272,8 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
                     OnRefresh();
                     segmented.SelectedIndex = -1;
                     break;
-                case "Details":
-                    OnDetail();
+                case "IMDBDetails":
+                    OnIMDBDetail();
                     segmented.SelectedIndex = -1;
                     break;
             }

@@ -96,7 +96,7 @@
                               Description="ZIP and RAR files are automatically decompressed after downloading"
                               Header="Auto decompress"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/archive.png}"
-                              IsEnabled="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloade, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
+                              IsEnabled="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownload, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseAutoDecompressSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <i:Interaction.Behaviors>
                     <ic:DataTriggerBehavior Binding="{Binding IsOpen, ElementName=DecompressStatus}"
@@ -117,7 +117,7 @@
                      BorderThickness="1,0,1,1"
                      CornerRadius="0,0,4,4"
                      IsClosable="False"
-                     IsOpen="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloade, Mode=OneWay}"
+                     IsOpen="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownload, Mode=OneWay}"
                      Severity="Warning" />
 
             <wuc:SettingsExpander Description="following keywords will be removed from movie\series file name, if you see a word that can not be removed from file name you can add your keywords here"

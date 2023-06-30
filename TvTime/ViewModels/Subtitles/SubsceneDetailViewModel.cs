@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-using CommunityToolkit.Labs.WinUI;
+﻿using CommunityToolkit.Labs.WinUI;
 
 using Downloader;
 
@@ -36,7 +34,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
         DownloadDetails(rootTvTimeItem);
     }
 
-    public override void OnDetail()
+    public override void OnIMDBDetail()
     {
         CreateIMDBDetailsWindow(rootTvTimeItem.Title);
     }
@@ -65,7 +63,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
     {
         base.NavigateToDetails(sender);
 
-        if (Settings.IsSubtitleOpenInBrowser && !Settings.UseIDMForDownloade)
+        if (Settings.IsSubtitleOpenInBrowser && !Settings.UseIDMForDownload)
         {
             await Launcher.LaunchUriAsync(new Uri(descriptionText));
         }
@@ -89,7 +87,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
                             var location = Settings.DefaultSubtitleDownloadPath;
 
                             // get location from FolderPicker
-                            if (Settings.UseUserSpecifiedLocationForSubtitle)
+                            if (Settings.UseUserSpecifiedLocationForSubtitle && !Settings.UseIDMForDownload)
                             {
                                 var folderPickerPath = await OpenFolderPicker();
                                 if (!string.IsNullOrEmpty(folderPickerPath))
@@ -98,7 +96,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
                                 }
                             }
 
-                            if (!Settings.UseIDMForDownloade)
+                            if (!Settings.UseIDMForDownload)
                             {
                                 var downloader = new DownloadService();
                                 downloader.DownloadProgressChanged += Downloader_DownloadProgressChanged;
@@ -107,7 +105,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
                             }
                             else
                             {
-                                Process.Start(GetIDMFilePath(), $"/d \"{downloadLink}\"");
+                                LaunchIDM(GetIDMFilePath(), downloadLink);
                             }
                         }
                     }

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Web;
 
 using CommunityToolkit.Labs.WinUI;
@@ -370,5 +371,10 @@ public static class TvTimeHelper
 
         StorageFolder folder = await folderPicker.PickSingleFolderAsync();
         return folder is not null ? folder.Path : null;
+    }
+
+    public static void LaunchIDM(string idmPath, string link)
+    {
+        Process.Start(idmPath, $"/d \"{link}\"");
     }
 }

@@ -44,11 +44,11 @@ public partial class DetailsViewModel : BaseViewModel
 
         if (Constants.FileExtensions.Any(descriptionText.Contains))
         {
-            if (Settings.IsFileOpenInBrowser && !Settings.UseIDMForDownload)
+            if (Settings.IsFileOpenInBrowser && !Settings.UseIDMForDownloadFiles)
             {
                 await Launcher.LaunchUriAsync(new Uri(descriptionText));
             }
-            else if (Settings.UseIDMForDownload)
+            else if (Settings.UseIDMForDownloadFiles)
             {
                 LaunchIDM(GetIDMFilePath(), descriptionText);
             }

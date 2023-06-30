@@ -63,7 +63,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
     {
         base.NavigateToDetails(sender);
 
-        if (Settings.IsSubtitleOpenInBrowser && !Settings.UseIDMForDownload)
+        if (Settings.IsSubtitleOpenInBrowser && !Settings.UseIDMForDownloadSubtitles)
         {
             await Launcher.LaunchUriAsync(new Uri(descriptionText));
         }
@@ -87,7 +87,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
                             var location = Settings.DefaultSubtitleDownloadPath;
 
                             // get location from FolderPicker
-                            if (Settings.UseUserSpecifiedLocationForSubtitle && !Settings.UseIDMForDownload)
+                            if (Settings.UseUserSpecifiedLocationForSubtitle && !Settings.UseIDMForDownloadSubtitles)
                             {
                                 var folderPickerPath = await OpenFolderPicker();
                                 if (!string.IsNullOrEmpty(folderPickerPath))
@@ -96,7 +96,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
                                 }
                             }
 
-                            if (!Settings.UseIDMForDownload)
+                            if (!Settings.UseIDMForDownloadSubtitles)
                             {
                                 var downloader = new DownloadService();
                                 downloader.DownloadProgressChanged += Downloader_DownloadProgressChanged;

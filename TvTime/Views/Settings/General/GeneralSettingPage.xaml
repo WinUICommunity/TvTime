@@ -34,6 +34,22 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
+            <wuc:SettingsCard Description="Download Files With Internet Download Manager (IDM) [if exist]"
+                              Header="Download with IDM"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
+                <ToggleSwitch x:Name="TGUseIDM" IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGUseIDM}"
+                                                ComparisonCondition="Equal"
+                                                Value="True">
+                            <ic:ChangePropertyAction PropertyName="IsOn"
+                                                     TargetObject="{Binding ElementName=TGOpenFile}"
+                                                     Value="False" />
+                        </ic:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ToggleSwitch>
+            </wuc:SettingsCard>
+
             <wuc:SettingsCard Description="With the help of TokenView, you can see only the media related to the desired server, and with the help of the search, you can search the results more precisely."
                               Header="Filter using TokenView"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/tokenView.png}">
@@ -51,22 +67,6 @@
                               Header="Use Double Click for Navigate"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/mouse.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </wuc:SettingsCard>
-
-            <wuc:SettingsCard Description="Download Files With Internet Download Manager (IDM) [if exist]"
-                              Header="Download with IDM"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
-                <ToggleSwitch x:Name="TGUseIDM" IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Behaviors>
-                        <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGUseIDM}"
-                                                ComparisonCondition="Equal"
-                                                Value="True">
-                            <ic:ChangePropertyAction PropertyName="IsOn"
-                                                     TargetObject="{Binding ElementName=TGOpenFile}"
-                                                     Value="False" />
-                        </ic:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ToggleSwitch>
             </wuc:SettingsCard>
 
             <wuc:SettingsExpander Description="Choose Icon Pack to display for the season number"

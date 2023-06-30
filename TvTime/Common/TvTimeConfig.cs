@@ -55,7 +55,8 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual bool UseSound { get; set; } = true;
     public virtual bool UseDoubleClickForNavigate { get; set; } = false;
     public virtual bool UseAutoDecompressSubtitles { get; set; } = false;
-    public virtual bool UseIDMForDownload { get; set; } = false;
+    public virtual bool UseIDMForDownloadFiles { get; set; } = false;
+    public virtual bool UseIDMForDownloadSubtitles { get; set; } = false;
     public virtual bool UseDefaultRegexEnabled { get; set; } = true;
     public virtual bool UseUserSpecifiedLocationForSubtitle { get; set; } = false;
 

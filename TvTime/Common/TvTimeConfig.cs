@@ -44,19 +44,8 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
         }
     }
 
-    private ObservableCollection<string> _SubtitleQualityCollection = new();
-    public virtual ObservableCollection<string> SubtitleQualityCollection
-    {
-        get => _SubtitleQualityCollection;
-        set
-        {
-            if (Equals(value, _SubtitleQualityCollection)) return;
-            _SubtitleQualityCollection = value;
-            OnPropertyChanged();
-        }
-    }
-
     public virtual bool IsFileOpenInBrowser { get; set; }
+    public virtual bool IsSubtitleOpenInBrowser { get; set; }
     public virtual bool UseCustomFontSizeForDescription { get; set; } = false;
     public virtual bool UseCustomFontSizeForHeader { get; set; } = false;
     public virtual bool HasHyperLinkBorderThickness { get; set; } = false;

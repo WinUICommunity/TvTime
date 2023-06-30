@@ -296,7 +296,7 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
         NavigateToDetails(sender);
     }
 
-    private string GetIDMFilePath()
+    public string GetIDMFilePath()
     {
         string idmPathX86 = @"C:\Program Files (x86)\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable
         string idmPathX64 = @"C:\Program Files\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable

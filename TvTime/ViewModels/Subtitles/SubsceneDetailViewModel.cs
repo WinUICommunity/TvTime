@@ -1,8 +1,14 @@
-﻿using CommunityToolkit.Labs.WinUI;
+﻿using System.Diagnostics;
+
+using CommunityToolkit.Labs.WinUI;
+
+using Downloader;
 
 namespace TvTime.ViewModels;
 public partial class SubsceneDetailViewModel : BaseViewModel
 {
+    private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+
     [ObservableProperty]
     public ObservableCollection<ITvTimeModel> breadcrumbBarList = new();
 
@@ -59,29 +65,113 @@ public partial class SubsceneDetailViewModel : BaseViewModel
     {
         base.NavigateToDetails(sender);
 
-        if (Constants.FileExtensions.Any(descriptionText.Contains))
+        if (Settings.IsSubtitleOpenInBrowser && !Settings.UseIDMForDownloade)
         {
-            if (Settings.IsFileOpenInBrowser)
-            {
-                await Launcher.LaunchUriAsync(new Uri(descriptionText));
-            }
-            else
-            {
-                var fileName = System.IO.Path.GetFileName(descriptionText);
-                await Launcher.LaunchUriAsync(new Uri(descriptionText.Replace(fileName, "")));
-            }
+            await Launcher.LaunchUriAsync(new Uri(descriptionText));
         }
         else
         {
-            var subtitle = new SubsceneModel
+            if (ApplicationHelper.IsNetworkAvailable())
             {
-                Server = descriptionText,
-                Title = headerText,
-                ServerType = rootTvTimeItem.ServerType
-            };
+                try
+                {
+                    var web = new HtmlWeb();
+                    var doc = await web.LoadFromWebAsync(descriptionText);
 
-            DownloadDetails(subtitle);
+                    if (doc != null)
+                    {
+                        var node = doc.DocumentNode?.SelectSingleNode("//div[@class='download']//a");
+                        if (node != null)
+                        {
+                            var downloadLink = GetServerUrlWithoutRightPart(descriptionText) + node.GetAttributeValue("href", "nothing");
+
+                            // get location from config
+                            var location = Settings.DefaultSubtitleDownloadPath;
+
+                            // get location from FolderPicker
+                            if (Settings.UseUserSpecifiedLocationForSubtitle)
+                            {
+                                var folderPickerPath = await OpenFolderPicker();
+                                if (!string.IsNullOrEmpty(folderPickerPath))
+                                {
+                                    location = folderPickerPath;
+                                }
+                            }
+
+                            if (!Settings.UseIDMForDownloade)
+                            {
+                                var downloader = new DownloadService();
+                                downloader.DownloadProgressChanged += Downloader_DownloadProgressChanged;
+                                downloader.DownloadFileCompleted += Downloader_DownloadFileCompleted;
+                                await downloader.DownloadFileTaskAsync(downloadLink, new DirectoryInfo(location));
+                            }
+                            else
+                            {
+                                Process.Start(GetIDMFilePath(), $"/d \"{downloadLink}\"");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    StatusTitle = "";
+                    StatusMessage = ex.Message;
+                    StatusSeverity = InfoBarSeverity.Error;
+                    IsStatusOpen = true;
+                }
+            }
+            else
+            {
+                StatusTitle = "";
+                StatusMessage = Constants.InternetIsNotAvailable;
+                StatusSeverity = InfoBarSeverity.Error;
+                IsStatusOpen = true;
+            }
         }
+    }
+
+    private void Downloader_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+    {
+        if (e.Cancelled)
+        {
+            dispatcherQueue.TryEnqueue(() =>
+            {
+                StatusTitle = "Download Canceled";
+                StatusMessage = "";
+                StatusSeverity = InfoBarSeverity.Error;
+                IsStatusOpen = true;
+            });
+        }
+        else if (e.Error != null)
+        {
+            dispatcherQueue.TryEnqueue(() =>
+            {
+                StatusTitle = "";
+                StatusMessage = e.Error.Message;
+                StatusSeverity = InfoBarSeverity.Error;
+                IsStatusOpen = true;
+            });
+        }
+        else
+        {
+            //dispatcherQueue.TryEnqueue(() =>
+            //{
+            //    //var downloadedFileName = ((DownloadPackage) e.UserState).FileName;
+            //    //DeCompressAndNotification(downloadedFileName, OpenFolderButton, Content.XamlRoot);
+            //});
+        }
+    }
+
+    private void Downloader_DownloadProgressChanged(object sender, Downloader.DownloadProgressChangedEventArgs e)
+    {
+        //dispatcherQueue.TryEnqueue(() =>
+        //{
+        //    //if (ProgressStatus.IsIndeterminate == true)
+        //    //{
+        //    //    ProgressStatus.IsIndeterminate = false;
+        //    //}
+        //    //ProgressStatus.Value = e.ProgressPercentage;
+        //});
     }
 
     [RelayCommand]

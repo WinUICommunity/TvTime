@@ -13,6 +13,7 @@ using TvTime.ViewModels;
 
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
+using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 
 namespace TvTime.Common;
@@ -358,5 +359,16 @@ public static class TvTimeHelper
 
             viewModel.DataListACV.RefreshFilter();
         }
+    }
+
+    public async static Task<string> OpenFolderPicker()
+    {
+        FolderPicker folderPicker = new();
+        folderPicker.FileTypeFilter.Add("*");
+
+        WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, WindowHelper.GetWindowHandleForCurrentWindow(App.Current.Window));
+
+        StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+        return folder is not null ? folder.Path : null;
     }
 }

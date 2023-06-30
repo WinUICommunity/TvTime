@@ -18,31 +18,6 @@ public sealed partial class SubtitleSettingPage : Page
         BreadCrumbBarItemText = ((NavigationArgs) e.Parameter).Parameter as string;
     }
 
-    private void SubtitleQuality_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-        if (!string.IsNullOrEmpty(sender.Text))
-        {
-            var exist = Settings.SubtitleQualityCollection.Any(x => x.Equals(sender.Text));
-            if (exist)
-            {
-                StatusInfo.Title = "This Quality is Exist, try another";
-                StatusInfo.Severity = InfoBarSeverity.Error;
-            }
-            else
-            {
-                Settings.SubtitleQualityCollection.Add(sender.Text);
-                sender.Text = string.Empty;
-                StatusInfo.Title = "Quality Added Successfully!";
-                StatusInfo.Severity = InfoBarSeverity.Success;
-            }
-        }
-        else
-        {
-            StatusInfo.Title = "Text is Null or Empty";
-            StatusInfo.Severity = InfoBarSeverity.Error;
-        }
-    }
-
     private void SubtitleLanguage_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         if (!string.IsNullOrEmpty(sender.Text))

@@ -13,6 +13,7 @@
       xmlns:wuc="using:WinUICommunity"
       x:Name="This"
       x:DefaultBindMode="OneWay"
+      NavigationCacheMode="Required"
       mc:Ignorable="d">
 
     <Page.Resources>

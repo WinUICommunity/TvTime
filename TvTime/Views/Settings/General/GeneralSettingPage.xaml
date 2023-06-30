@@ -18,7 +18,7 @@
 
             <views:BreadcrumbBarUserControl Items="{x:Bind ViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
-            <wuc:SettingsCard Description="If false is selected, the corresponding folder will be opened instead of the file itself"
+            <wuc:SettingsCard Description="If false is selected, the corresponding web page will be opened instead of the file itself"
                               Header="Open the file in the browser"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

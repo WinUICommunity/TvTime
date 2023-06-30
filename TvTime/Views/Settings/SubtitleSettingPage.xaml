@@ -31,22 +31,6 @@
                 <Button Command="{x:Bind ViewModel.ChooseSubtitleLocationCommand}" Content="Choose Folder" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsExpander Description="Specify the quality of the subtitles"
-                                  Header="Subtitle Quality"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/quality.png}">
-                <wuc:SettingsExpander.Items>
-                    <AutoSuggestBox Margin="10,10,10,0"
-                                    PlaceholderText="Add some new qualities [Press enter to add]"
-                                    QueryIcon="Add"
-                                    QuerySubmitted="SubtitleQuality_QuerySubmitted" />
-                    <labs:TokenView Margin="10"
-                                    CanRemoveTokens="True"
-                                    ItemsSource="{x:Bind local:TvTimeHelper.Settings.SubtitleQualityCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    SelectionMode="None"
-                                    TokenItemRemoving="TokenView_TokenItemRemoving" />
-                </wuc:SettingsExpander.Items>
-            </wuc:SettingsExpander>
-
             <wuc:SettingsExpander Description="Specify the language of the subtitles"
                                   Header="Subtitle Language"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
@@ -68,6 +52,12 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/folder.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseUserSpecifiedLocationForSubtitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+            </wuc:SettingsCard>
+
+            <wuc:SettingsCard Description="If false is selected, the corresponding web page will be opened instead of the file itself"
+                              Header="Open the subtitle in the browser"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
+                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.IsSubtitleOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
             <wuc:SettingsCard x:Name="DecompressSettingsCard"

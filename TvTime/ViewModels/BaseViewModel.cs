@@ -45,6 +45,10 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
 
     #region Virtual Methods
 
+    /// <summary>
+    /// Use base for the default implementation
+    /// </summary>
+    /// <param name="sender"></param>
     public virtual void OnMenuFlyoutItem(object sender)
     {
         var menuFlyout = (sender as MenuFlyoutItem);
@@ -81,6 +85,11 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
         }
     }
 
+    /// <summary>
+    /// Use base for the default implementation
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public virtual void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
         AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
@@ -103,6 +112,10 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
 
     }
 
+    /// <summary>
+    /// Use base for the default implementation, Use two properties headerText and descriptionText
+    /// </summary>
+    /// <param name="sender"></param>
     public virtual void NavigateToDetails(object sender)
     {
         var item = sender as SettingsCard;

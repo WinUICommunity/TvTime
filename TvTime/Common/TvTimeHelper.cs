@@ -1,11 +1,15 @@
 ﻿using System.Reflection;
 using System.Web;
 
+using CommunityToolkit.Labs.WinUI;
+
 using Nucs.JsonSettings;
 using Nucs.JsonSettings.Autosave;
 using Nucs.JsonSettings.Fluent;
 using Nucs.JsonSettings.Modulation;
 using Nucs.JsonSettings.Modulation.Recovery;
+
+using TvTime.ViewModels;
 
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
@@ -199,7 +203,6 @@ public static class TvTimeHelper
     {
         return new ObservableCollection<string>
         {
-            "All",
             "Persian",
             "English",
             "Albanian",
@@ -234,40 +237,6 @@ public static class TvTimeHelper
             "Vietnamese",
             "Hungarian",
             "Portuguese"
-        };
-    }
-
-    public static ObservableCollection<string> SubtitleQualityCollection()
-    {
-        return new ObservableCollection<string>
-        {
-            "All",
-            "1080",
-            "720",
-            "480",
-            "AMZN",
-            "Bluray",
-            "CMRG",
-            "EVO",
-            "GalaxyRG",
-            "H264",
-            "H265",
-            "HDRip",
-            "HDTV",
-            "HEVC",
-            "ION10",
-            "NF",
-            "Pahe",
-            "PSA",
-            "RARBG",
-            "RMTeam",
-            "SPARKS",
-            "Web",
-            "X264",
-            "X265",
-            "XviD",
-            "YIFY",
-            "YTS"
         };
     }
 
@@ -306,9 +275,88 @@ public static class TvTimeHelper
 
     public static string GetServerUrlWithoutLeftAndRightPart(string url)
     {
-        Uri uri = new Uri(url);
-        string host = uri.Host;
-        string[] parts = host.Split('.');
-        return string.Join(".", parts.Take(parts.Length - 1));
+        if (string.IsNullOrEmpty(url))
+        {
+            return url;
+        }
+        else
+        {
+            Uri uri = new Uri(url);
+            string host = uri.Host;
+            string[] parts = host.Split('.');
+            return string.Join(".", parts.Take(parts.Length - 1));
+        }
+    }
+
+    public static string GetServerUrlWithoutRightPart(string url)
+    {
+        if (string.IsNullOrEmpty(url))
+        {
+            return url;
+        }
+        else
+        {
+            Uri uri = new Uri(url);
+            return uri.Scheme + "://" + uri.Host;
+        }
+    }
+
+    public static void TokenViewSelectionChanged(BaseViewModel viewModel, TokenView token, SelectionChangedEventArgs e, Action OnTokenFilter)
+    {
+        if (viewModel.DataListACV == null)
+        {
+            return;
+        }
+
+        if (token != null)
+        {
+            dynamic selectedItem = e.AddedItems.Count > 0 ? e.AddedItems[0] as TokenItem : null;
+
+            if (selectedItem == null)
+            {
+                selectedItem = e.RemovedItems.Count > 0 ? e.RemovedItems[0] as TokenItem : null;
+            }
+
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            if (token.SelectedItems.Count == 0)
+            {
+                var allItem = token.Items[0] as TokenItem;
+                allItem.IsSelected = true;
+                selectedItem = allItem;
+            }
+
+            if (selectedItem.Content.ToString().Equals(Constants.ALL_FILTER) && selectedItem.IsSelected)
+            {
+                foreach (TokenItem item in token.Items)
+                {
+                    if (item.Content.ToString().Equals(Constants.ALL_FILTER))
+                    {
+                        continue;
+                    }
+                    item.IsSelected = false;
+                }
+
+                viewModel.DataListACV.Filter = null;
+            }
+            else if (!selectedItem.Content.ToString().Equals(Constants.ALL_FILTER))
+            {
+                foreach (TokenItem item in token.Items)
+                {
+                    if (item.Content.ToString().Equals(Constants.ALL_FILTER) && item.IsSelected)
+                    {
+                        item.IsSelected = false;
+                    }
+                    break;
+                }
+
+                OnTokenFilter?.Invoke();
+            }
+
+            viewModel.DataListACV.RefreshFilter();
+        }
     }
 }

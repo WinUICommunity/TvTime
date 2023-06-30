@@ -37,6 +37,7 @@ public partial class App : Application
         services.AddTransient<IMDBDetailsViewModel>();
         services.AddTransient<SubtitleViewModel>();
         services.AddTransient<SubsceneViewModel>();
+        services.AddTransient<SubsceneDetailViewModel>();
 
         //Settings
         services.AddTransient<AppUpdateSettingViewModel>();
@@ -70,11 +71,6 @@ public partial class App : Application
         if (Settings.SubtitleLanguagesCollection == null || Settings.SubtitleLanguagesCollection.Count == 0)
         {
             Settings.SubtitleLanguagesCollection = SubtitleLanguageCollection();
-        }
-
-        if (Settings.SubtitleQualityCollection == null || Settings.SubtitleQualityCollection.Count == 0)
-        {
-            Settings.SubtitleQualityCollection = SubtitleQualityCollection();
         }
 
         m_window.Activate();

@@ -92,6 +92,10 @@ public sealed partial class MainPage : Page
             viewModel.setQuery(TxtSearch.Text);
             viewModel.OnQuerySubmitted();
         }
+        else if (rootFrame.Content is SubsceneDetailPage)
+        {
+            viewModel = SubsceneDetailPage.Instance.ViewModel;
+        }
 
         return viewModel != null && rootFrame.Content is not IMDBDetailsPage ? viewModel : null;
     }

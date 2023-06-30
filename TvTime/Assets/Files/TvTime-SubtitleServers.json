@@ -1,10 +1,4 @@
-[
-  {
-    "Title": "Subf2m",
-    "Server": "https://subf2m.ir",
-    "ServerType": 0,
-    "IsActive": true
-  },
+﻿[
   {
     "Title": "Delta Leech",
     "Server": "https://sub.deltaleech.com",
@@ -14,12 +8,6 @@
   {
     "Title": "Subscene",
     "Server": "https://subscene.com",
-    "ServerType": 0,
-    "IsActive": true
-  },
-  {
-    "Title": "Subf2m co",
-    "Server": "https://subf2m.co/",
     "ServerType": 0,
     "IsActive": true
   }

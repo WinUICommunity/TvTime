@@ -30,6 +30,14 @@ public partial class SubsceneViewModel : BaseViewModel
     public override void NavigateToDetails(object sender)
     {
         base.NavigateToDetails(sender);
+
+        var subtitle = new SubsceneModel
+        {
+            Server = descriptionText,
+            Title = headerText
+        };
+
+        App.Current.NavigationManager.NavigateForJson(typeof(SubsceneDetailPage), subtitle);
     }
 
     public override void OnRefresh()

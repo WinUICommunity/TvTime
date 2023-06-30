@@ -89,41 +89,44 @@ public partial class SubsceneViewModel : BaseViewModel
                     }
                     else
                     {
-                        for (int i = 1; i < 4; i++)
+                        DataListACV = new AdvancedCollectionView(DataList, true);
+
+                        using (DataListACV.DeferRefresh())
                         {
-                            IsStatusOpen = false;
-                            var node = titleCollection.SelectSingleNode($"ul[{i}]");
-                            if (node != null)
+                            for (int i = 1; i < 4; i++)
                             {
-                                foreach (var item in node.SelectNodes("li"))
+                                IsStatusOpen = false;
+                                var node = titleCollection.SelectSingleNode($"ul[{i}]");
+                                if (node != null)
                                 {
-                                    var subNode = item?.SelectSingleNode("div//a");
-                                    var count = item?.SelectSingleNode("span");
-                                    if (count == null)
+                                    foreach (var item in node.SelectNodes("li"))
                                     {
-                                        count = item?.SelectSingleNode("div[@class='subtle count']");
+                                        var subNode = item?.SelectSingleNode("div//a");
+                                        var count = item?.SelectSingleNode("span");
+                                        if (count == null)
+                                        {
+                                            count = item?.SelectSingleNode("div[@class='subtle count']");
+                                        }
+
+                                        var name = subNode?.InnerText?.Trim();
+                                        var subtitle = new SubsceneModel
+                                        {
+                                            Title = name,
+                                            Server = GetDecodedStringFromHtml(baseUrl.Server + subNode?.Attributes["href"]?.Value?.Trim()),
+                                            Desc = count?.InnerText?.Trim(),
+                                            GroupKey = GetSubtitleKey(i)
+                                        };
+
+                                        DataList.Add(subtitle);
                                     }
-
-                                    var name = subNode?.InnerText?.Trim();
-                                    var subtitle = new SubsceneModel
-                                    {
-                                        Title = name,
-                                        Server = GetDecodedStringFromHtml(baseUrl.Server + subNode?.Attributes["href"]?.Value?.Trim()),
-                                        Desc = count?.InnerText?.Trim(),
-                                        GroupKey = GetSubtitleKey(i)
-                                    };
-
-                                    DataList.Add(subtitle);
                                 }
-                            }
-                            else
-                            {
-                                ShowError(Constants.NotFoundOrExist);
+                                else
+                                {
+                                    ShowError(Constants.NotFoundOrExist);
+                                }
                             }
                         }
                         currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
-
-                        DataListACV = new AdvancedCollectionView(DataList, true);
 
                         suggestList = DataListACV.Select(x => ((SubsceneModel) x).Title).ToList();
 

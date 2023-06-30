@@ -198,11 +198,15 @@ public partial class MediaViewModel : BaseViewModel
             }
             var myDataList = contents.Cast<ITvTimeModel>().Where(x => x.Server != null);
             DataList = new();
-            DataList.AddRange(myDataList);
+            DataListACV = new AdvancedCollectionView(DataList, true);
+
+            using (DataListACV.DeferRefresh())
+            {
+                DataList.AddRange(myDataList);
+            }
             currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
             suggestList = myDataList.Select(x => ((MediaItem) x).Title).ToList();
 
-            DataListACV = new AdvancedCollectionView(DataList, true);
             DataListACV.SortDescriptions.Add(currentSortDescription);
         }
         if (totalServerCount > 0)

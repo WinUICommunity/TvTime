@@ -67,7 +67,6 @@
                 </wuc:SettingsExpander.ItemsFooter>
             </wuc:SettingsExpander>
 
-
             <wuc:SettingsExpander Description="Specify the language of the subtitles"
                                   Header="Subtitle Language"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">

@@ -377,4 +377,38 @@ public static class TvTimeHelper
     {
         Process.Start(idmPath, $"/d \"{link}\"");
     }
+
+    public async static void IDMNotFoundDialog()
+    {
+        ContentDialog contentDialog = new ContentDialog
+        {
+            XamlRoot = App.Current.Window.Content.XamlRoot,
+            Title = "IDM not found",
+            Content = new InfoBar
+            {
+                Margin = new Thickness(10),
+                Severity = InfoBarSeverity.Error,
+                Title = "IDM was not found on your system, please install it first",
+                IsOpen = true,
+                IsClosable = false
+            },
+            PrimaryButtonText = "Ok"
+        };
+        await contentDialog.ShowAsyncQueue();
+    }
+
+    public static bool IsUrlFile(string url)
+    {
+        Uri uri;
+        if (Uri.TryCreate(url, UriKind.Absolute, out uri))
+        {
+            string extension = System.IO.Path.GetExtension(uri.AbsolutePath);
+            if (!string.IsNullOrEmpty(extension))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

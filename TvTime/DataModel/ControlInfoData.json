@@ -60,53 +60,16 @@
           "RelatedControls": []
         },
         {
+          "UniqueId": "TvTime.Views.SubscenePage",
           "Title": "Subtitles",
-          "Subtitle": "Search and Download the subtitle you need from different servers",
+          "Subtitle": "Search and Download the subtitle you need from subscene servers",
           "ImagePath": "ms-appx:///Assets/Fluent/subtitle.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/subtitle.png",
           "IsUpdated": true,
           "IncludedInBuild": true,
           "HideSourceCodeAndRelatedControls": true,
           "Docs": [],
-          "RelatedControls": [],
-          "Items": [
-            {
-              "UniqueId": "TvTime.Views.SubscenePage",
-              "Title": "Subscene",
-              "Subtitle": "Search and Download the subtitle you need from subscene servers",
-              "IncludedInBuild": true,
-              "HideSourceCodeAndRelatedControls": true,
-              "Docs": [],
-              "RelatedControls": []
-            },
-            {
-              "UniqueId": "TvTime.Views.SubtitlePage",
-              "Title": "World Subtitle",
-              "Subtitle": "Search and Download the subtitle you need from world subtitle",
-              "IncludedInBuild": true,
-              "HideSourceCodeAndRelatedControls": true,
-              "Docs": [],
-              "RelatedControls": []
-            },
-            {
-              "UniqueId": "TvTime.Views.SubtitlePage",
-              "Title": "I Subtitle",
-              "Subtitle": "Search and Download the subtitle you need from i subtitle",
-              "IncludedInBuild": true,
-              "HideSourceCodeAndRelatedControls": true,
-              "Docs": [],
-              "RelatedControls": []
-            },
-            {
-              "UniqueId": "TvTime.Views.SubtitlePage",
-              "Title": "E Subtitle",
-              "Subtitle": "Search and Download the subtitle you need from e subtitle",
-              "IncludedInBuild": true,
-              "HideSourceCodeAndRelatedControls": true,
-              "Docs": [],
-              "RelatedControls": []
-            }
-          ]
+          "RelatedControls": []
         },
         {
           "UniqueId": "TvTime.Views.IMDBDetailsPage",

@@ -112,6 +112,24 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
     }
 
     /// <summary>
+    /// Use base for the default implementation, all items will be opened in IDM if UseIDMForDownloadFiles option is enabled in General Settings Page, Otherwise, they will open in the browser
+    /// </summary>
+    public async virtual void OnDownloadAllWithIDMOrOpenInBrowser()
+    {
+        if (Settings.UseIDMForDownloadFiles)
+        {
+            OnDownloadAllWithIDM();
+        }
+        else
+        {
+            foreach (var item in DataList)
+            {
+                await Launcher.LaunchUriAsync(new Uri(item?.Server));
+            }
+        }
+    }
+
+    /// <summary>
     /// Use base for the default implementation, Use two properties headerText and descriptionText
     /// </summary>
     /// <param name="sender"></param>
@@ -200,26 +218,12 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
         Clipboard.SetContent(package);
     }
 
-    private async void OnDownloadWithIDM(ITvTimeModel tvTimeItem)
+    private void OnDownloadWithIDM(ITvTimeModel tvTimeItem)
     {
         var idmPath = GetIDMFilePath();
         if (string.IsNullOrEmpty(idmPath))
         {
-            ContentDialog contentDialog = new ContentDialog
-            {
-                XamlRoot = App.Current.Window.Content.XamlRoot,
-                Title = "IDM not found",
-                Content = new InfoBar
-                {
-                    Margin = new Thickness(10),
-                    Severity = InfoBarSeverity.Error,
-                    Title = "IDM was not found on your system, please install it first",
-                    IsOpen = true,
-                    IsClosable = false
-                },
-                PrimaryButtonText = "Ok"
-            };
-            await contentDialog.ShowAsyncQueue();
+            IDMNotFoundDialog();
         }
         else
         {
@@ -233,28 +237,17 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
         var idmPath = GetIDMFilePath();
         if (string.IsNullOrEmpty(idmPath))
         {
-            ContentDialog contentDialog = new ContentDialog
-            {
-                XamlRoot = App.Current.Window.Content.XamlRoot,
-                Title = "IDM not found",
-                Content = new InfoBar
-                {
-                    Margin = new Thickness(10),
-                    Severity = InfoBarSeverity.Error,
-                    Title = "IDM was not found on your system, please install it first",
-                    IsOpen = true,
-                    IsClosable = false
-                },
-                PrimaryButtonText = "Ok"
-            };
-            await contentDialog.ShowAsyncQueue();
+            IDMNotFoundDialog();
         }
         else
         {
             foreach (var item in DataList)
             {
-                LaunchIDM(GetIDMFilePath(), item?.Server?.ToString());
-                await Task.Delay(500);
+                if (IsUrlFile(item?.Server))
+                {
+                    LaunchIDM(GetIDMFilePath(), item?.Server?.ToString());
+                    await Task.Delay(500);
+                }
             }
         }
     }
@@ -274,6 +267,10 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
                     break;
                 case "IMDBDetails":
                     OnIMDBDetail();
+                    segmented.SelectedIndex = -1;
+                    break;
+                case "DownloadAll":
+                    OnDownloadAllWithIDMOrOpenInBrowser();
                     segmented.SelectedIndex = -1;
                     break;
             }

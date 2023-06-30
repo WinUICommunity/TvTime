@@ -79,6 +79,9 @@
             <labs:SegmentedItem Content="IMDB Details"
                                 Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
                                 Tag="IMDBDetails" />
+            <labs:SegmentedItem Content="Download All"
+                                Icon="{wuc:SymbolIcon Symbol=Download}"
+                                Tag="DownloadAll" />
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
                     <ic:EventTriggerBehavior.Actions>

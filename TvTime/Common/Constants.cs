@@ -24,9 +24,4 @@ public class Constants
     public const string InternetIsNotAvailable = "Oh no! You're not connected to the internet.";
 
     public const string SubsceneSearchAPI = "{0}/subtitles/searchbytitle?query={1}&l=";
-    public const string ESubtitleSearchAPI = "https://esubtitle.com/?s={0}";
-    public const string WorldSubtitleSearchAPI = "http://worldsubtitle.site/?s={0}";
-    public const string WorldSubtitlePageSearchAPI = "http://worldsubtitle.site/page/{0}?s=";
-    public const string ISubtitleSearchAPI = "https://isubtitles.org/search?kwd={0}";
-    public const string ISubtitleBaseUrl = "https://isubtitles.org";
 }

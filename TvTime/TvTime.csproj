@@ -15,7 +15,7 @@
     <ApplicationIcon>Assets\Fluent\icon.ico</ApplicationIcon>
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <WindowsPackageType>None</WindowsPackageType>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <NoWarn>WMC1506;CS0628</NoWarn>
   </PropertyGroup>

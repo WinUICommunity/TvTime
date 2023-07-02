@@ -26,7 +26,7 @@ public partial class BackupSettingViewModel : ObservableObject
             savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
             savePicker.FileTypeChoices.Add("Json", new List<string>() { ".json" });
             savePicker.SuggestedFileName = fileName;
-            WinRT.Interop.InitializeWithWindow.Initialize(savePicker, WindowHelper.GetWindowHandleForCurrentWindow(App.Current.Window));
+            WinRT.Interop.InitializeWithWindow.Initialize(savePicker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
 
             StorageFile file = await savePicker.PickSaveFileAsync();
 
@@ -66,7 +66,7 @@ public partial class BackupSettingViewModel : ObservableObject
             picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
             picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
             picker.FileTypeFilter.Add(".json");
-            WinRT.Interop.InitializeWithWindow.Initialize(picker, WindowHelper.GetWindowHandleForCurrentWindow(App.Current.Window));
+            WinRT.Interop.InitializeWithWindow.Initialize(picker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
 
             StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
@@ -106,7 +106,7 @@ public partial class BackupSettingViewModel : ObservableObject
             savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
             savePicker.FileTypeChoices.Add("Json", new List<string>() { ".json" });
             savePicker.SuggestedFileName = $"TvTime-Settings-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
-            WinRT.Interop.InitializeWithWindow.Initialize(savePicker, WindowHelper.GetWindowHandleForCurrentWindow(App.Current.Window));
+            WinRT.Interop.InitializeWithWindow.Initialize(savePicker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
 
             StorageFile file = await savePicker.PickSaveFileAsync();
 
@@ -137,7 +137,7 @@ public partial class BackupSettingViewModel : ObservableObject
             picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
             picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
             picker.FileTypeFilter.Add(".json");
-            WinRT.Interop.InitializeWithWindow.Initialize(picker, WindowHelper.GetWindowHandleForCurrentWindow(App.Current.Window));
+            WinRT.Interop.InitializeWithWindow.Initialize(picker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
 
             StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)

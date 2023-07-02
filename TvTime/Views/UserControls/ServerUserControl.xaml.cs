@@ -25,7 +25,7 @@ public sealed partial class ServerUserControl : UserControl
     private async void OnLoadPredefinedServer(object sender, RoutedEventArgs e)
     {
         ContentDialog contentDialog = new ContentDialog();
-        contentDialog.XamlRoot = App.Current.Window.Content.XamlRoot;
+        contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
         contentDialog.Title = "Load Predefined Servers";
         contentDialog.Content = "Are you sure to load predefined servers? This will overwrite all your servers!";
         contentDialog.PrimaryButtonText = "Yes";
@@ -76,7 +76,7 @@ public sealed partial class ServerUserControl : UserControl
     private async void OnClearAllServer(object sender, RoutedEventArgs e)
     {
         ContentDialog contentDialog = new ContentDialog();
-        contentDialog.XamlRoot = App.Current.Window.Content.XamlRoot;
+        contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
         contentDialog.Title = "Clear All Servers";
         contentDialog.Content = "Are you sure to clear all servers?";
         contentDialog.PrimaryButtonText = "Yes";

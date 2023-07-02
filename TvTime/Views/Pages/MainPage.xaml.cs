@@ -10,7 +10,7 @@ public sealed partial class MainPage : Page
         Instance = this;
         Loaded += MainPage_Loaded;
 
-        var titleBarHelper = TitleBarHelper.Initialize(App.Current.Window, TitleTextBlock, AppTitleBar, LeftPaddingColumn, IconColumn, TitleColumn, LeftDragColumn, SearchColumn, RightDragColumn, RightPaddingColumn);
+        var titleBarHelper = TitleBarHelper.Initialize(App.currentWindow, TitleTextBlock, AppTitleBar, LeftPaddingColumn, IconColumn, TitleColumn, LeftDragColumn, SearchColumn, RightDragColumn, RightPaddingColumn);
         titleBarHelper.LeftPadding = 48;
         titleBarHelper.RightPadding = -100;
 

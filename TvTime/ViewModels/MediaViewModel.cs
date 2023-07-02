@@ -89,7 +89,7 @@ public partial class MediaViewModel : BaseViewModel
     private void OnServerStatus()
     {
         ContentDialog contentDialog = new ContentDialog();
-        contentDialog.XamlRoot = App.Current.Window.Content.XamlRoot;
+        contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
         contentDialog.Title = $"Server Status - {existServer.Count} Server(s) Added";
         var stck = new StackPanel
         {
@@ -116,7 +116,7 @@ public partial class MediaViewModel : BaseViewModel
     private void GoToServerPage()
     {
         ContentDialog contentDialog = new ContentDialog();
-        contentDialog.XamlRoot = App.Current.Window.Content.XamlRoot;
+        contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
         contentDialog.Title = $"Add New Servers";
         var stck = new StackPanel
         {

@@ -80,7 +80,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
             },
             Margin = new Thickness(10),
             DefaultButton = ContentDialogButton.Close,
-            XamlRoot = App.Current.Window.Content.XamlRoot
+            XamlRoot = App.currentWindow.Content.XamlRoot
         };
 
         await dialog.ShowAsyncQueue();

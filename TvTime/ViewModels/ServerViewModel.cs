@@ -183,7 +183,7 @@ public partial class ServerViewModel : BaseViewModel
             CloseButtonText = "Cancel",
             DefaultButton = ContentDialogButton.Primary,
             PrimaryButtonText = "Save Changes",
-            XamlRoot = App.Current.Window.Content.XamlRoot
+            XamlRoot = App.currentWindow.Content.XamlRoot
         };
 
         var grid = new Grid

@@ -367,7 +367,7 @@ public static class TvTimeHelper
         FolderPicker folderPicker = new();
         folderPicker.FileTypeFilter.Add("*");
 
-        WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, WindowHelper.GetWindowHandleForCurrentWindow(App.Current.Window));
+        WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
 
         StorageFolder folder = await folderPicker.PickSingleFolderAsync();
         return folder is not null ? folder.Path : null;
@@ -382,7 +382,7 @@ public static class TvTimeHelper
     {
         ContentDialog contentDialog = new ContentDialog
         {
-            XamlRoot = App.Current.Window.Content.XamlRoot,
+            XamlRoot = App.currentWindow.Content.XamlRoot,
             Title = "IDM not found",
             Content = new InfoBar
             {

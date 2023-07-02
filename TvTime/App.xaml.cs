@@ -6,10 +6,10 @@ namespace TvTime;
 
 public partial class App : Application
 {
+    public static Window currentWindow = Window.Current;
     public NavigationManager NavigationManager { get; set; }
     public ThemeManager ThemeManager { get; set; }
     public string TvTimeVersion { get; set; }
-    public Window Window { get; set; }
     public IServiceProvider Services { get; }
     public new static App Current => (App) Application.Current;
 
@@ -53,12 +53,15 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        m_window = new MainWindow();
-        this.Window = m_window;
-        Frame rootFrame = new Frame();
-        m_window.Content = rootFrame;
+        currentWindow = new Window();
+        if (currentWindow.Content is not Frame rootFrame)
+        {
+            currentWindow.Content = rootFrame = new Frame();
+        }
+
         rootFrame.Navigate(typeof(MainPage));
-        ThemeManager = ThemeManager.Initialize(m_window, new ThemeOptions
+
+        ThemeManager = ThemeManager.Initialize(currentWindow, new ThemeOptions
         {
             BackdropFallBackColorForWindows10 = Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush,
             TitleBarCustomization = new TitleBarCustomization
@@ -72,8 +75,9 @@ public partial class App : Application
             Settings.SubtitleLanguagesCollection = SubtitleLanguageCollection();
         }
 
-        m_window.Activate();
-    }
+        currentWindow.Title = currentWindow.AppWindow.Title = $"TvTime v{TvTimeVersion}";
+        currentWindow.AppWindow.SetIcon("Assets/Fluent/icon.ico");
 
-    private Window m_window;
+        currentWindow.Activate();
+    }
 }

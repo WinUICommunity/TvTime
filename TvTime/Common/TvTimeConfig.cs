@@ -45,7 +45,6 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     }
 
     public virtual bool IsFileOpenInBrowser { get; set; }
-    public virtual bool IsSubtitleOpenInBrowser { get; set; }
     public virtual bool UseCustomFontSizeForDescription { get; set; } = false;
     public virtual bool UseCustomFontSizeForHeader { get; set; } = false;
     public virtual bool HasHyperLinkBorderThickness { get; set; } = false;
@@ -54,11 +53,9 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual bool UseTokenViewFilter { get; set; } = true;
     public virtual bool UseSound { get; set; } = true;
     public virtual bool UseDoubleClickForNavigate { get; set; } = false;
-    public virtual bool UseAutoDecompressSubtitles { get; set; } = false;
     public virtual bool UseIDMForDownloadFiles { get; set; } = false;
     public virtual bool UseIDMForDownloadSubtitles { get; set; } = false;
     public virtual bool UseDefaultRegexEnabled { get; set; } = true;
-    public virtual bool UseUserSpecifiedLocationForSubtitle { get; set; } = false;
 
     public virtual string LastUpdateCheck { get; set; }
     public virtual string DescriptionTextBlockStyle { get; set; } = "BaseTextBlockStyle";

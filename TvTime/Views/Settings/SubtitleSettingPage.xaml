@@ -22,51 +22,6 @@
                      IsClosable="False"
                      IsOpen="True" />
 
-            <wuc:SettingsExpander Description="Specify the location of the subtitles or get the save location from the user each time before downloading"
-                                  Header="Subtitle Location"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/explorer.png}">
-                <wuc:SettingsExpander.ItemsHeader>
-                    <wuc:SettingsCard BorderThickness="0,0,0,1"
-                                      CornerRadius="0"
-                                      Description="Ask the user where to save the file"
-                                      Header="Subtitle Location specified by the user"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/folder.png}">
-                        <ToggleSwitch x:Name="TGAskUserLocation" IsOn="{x:Bind local:TvTimeHelper.Settings.UseUserSpecifiedLocationForSubtitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <i:Interaction.Behaviors>
-                                <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGAskUserLocation}"
-                                                        ComparisonCondition="Equal"
-                                                        Value="True">
-                                    <ic:ChangePropertyAction PropertyName="IsEnabled"
-                                                             TargetObject="{Binding ElementName=ChooseFolderSettingsCard}"
-                                                             Value="False" />
-                                </ic:DataTriggerBehavior>
-                                <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGAskUserLocation}"
-                                                        ComparisonCondition="Equal"
-                                                        Value="False">
-                                    <ic:ChangePropertyAction PropertyName="IsEnabled"
-                                                             TargetObject="{Binding ElementName=ChooseFolderSettingsCard}"
-                                                             Value="True" />
-                                </ic:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </ToggleSwitch>
-                    </wuc:SettingsCard>
-                </wuc:SettingsExpander.ItemsHeader>
-                <wuc:SettingsExpander.ItemsFooter>
-                    <wuc:SettingsCard x:Name="ChooseFolderSettingsCard"
-                                      BorderThickness="0"
-                                      CornerRadius="0,0,4,4"
-                                      Header="Subtitle Download Location"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/explorer.png}">
-                        <wuc:SettingsCard.Description>
-                            <HyperlinkButton Padding="5,0"
-                                             Command="{x:Bind ViewModel.LaunchSubtitleLocationCommand}"
-                                             Content="{x:Bind ViewModel.SubtitleDownloadPath, Mode=OneWay}" />
-                        </wuc:SettingsCard.Description>
-                        <Button Command="{x:Bind ViewModel.ChooseSubtitleLocationCommand}" Content="Choose Folder" />
-                    </wuc:SettingsCard>
-                </wuc:SettingsExpander.ItemsFooter>
-            </wuc:SettingsExpander>
-
             <wuc:SettingsExpander Description="Specify the language of the subtitles"
                                   Header="Subtitle Language"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
@@ -83,43 +38,10 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsCard Description="If false is selected, the corresponding web page will be opened instead of the file itself"
-                              Header="Open the subtitle in the browser"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
-                <ToggleSwitch x:Name="TGOpenFile" IsOn="{x:Bind local:TvTimeHelper.Settings.IsSubtitleOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Behaviors>
-                        <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGOpenFile}"
-                                                ComparisonCondition="Equal"
-                                                Value="True">
-                            <ic:ChangePropertyAction PropertyName="IsOn"
-                                                     TargetObject="{Binding ElementName=TGUseIDM}"
-                                                     Value="False" />
-                        </ic:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ToggleSwitch>
-            </wuc:SettingsCard>
-
             <wuc:SettingsCard Description="Download Subtitles With Internet Download Manager (IDM) [if exist]"
                               Header="Download with IDM"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
-                <ToggleSwitch x:Name="TGUseIDM" IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Behaviors>
-                        <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGUseIDM}"
-                                                ComparisonCondition="Equal"
-                                                Value="True">
-                            <ic:ChangePropertyAction PropertyName="IsOn"
-                                                     TargetObject="{Binding ElementName=TGOpenFile}"
-                                                     Value="False" />
-                        </ic:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ToggleSwitch>
-            </wuc:SettingsCard>
-
-            <wuc:SettingsCard Description="ZIP and RAR files are automatically decompressed after downloading"
-                              Header="Auto decompress"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/archive.png}"
-                              IsEnabled="{x:Bind TGUseIDM.IsOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolNegationConverter}}">
-                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseAutoDecompressSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch x:Name="TGUseIDM" IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
         </StackPanel>
     </ScrollViewer>

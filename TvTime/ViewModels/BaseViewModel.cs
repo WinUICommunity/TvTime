@@ -135,6 +135,37 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
     /// <param name="sender"></param>
     public virtual void NavigateToDetails(object sender)
     {
+        var item = GetHeaderAndDescription(sender);
+
+        headerText = item.Header;
+        descriptionText = item.Description;
+    }
+
+    [RelayCommand]
+    public virtual void OnPageLoaded(object param)
+    {
+
+    }
+
+    [RelayCommand]
+    public virtual void OnSettingsCard(object sender)
+    {
+        if (!Settings.UseDoubleClickForNavigate)
+        {
+            NavigateToDetails(sender);
+        }
+    }
+
+    [RelayCommand]
+    public virtual void OnSettingsCardDoubleClick(object sender)
+    {
+        NavigateToDetails(sender);
+    }
+
+    #endregion
+
+    public (string Header, string Description) GetHeaderAndDescription(object sender)
+    {
         var item = sender as SettingsCard;
         var headerTextBlock = item?.Header as HeaderTextBlockUserControl;
         var title = headerTextBlock?.Text?.Trim();
@@ -153,17 +184,8 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
                 break;
         }
 
-        headerText = title;
-        descriptionText = server;
+        return (Header: title, Description: server);
     }
-
-    [RelayCommand]
-    public virtual void OnPageLoaded(object param)
-    {
-
-    }
-
-    #endregion
 
     private async void OnOpenDirectory(ITvTimeModel tvTimeItem, MenuFlyoutItem item)
     {
@@ -275,21 +297,6 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
                     break;
             }
         }
-    }
-
-    [RelayCommand]
-    private void OnSettingsCard(object sender)
-    {
-        if (!Settings.UseDoubleClickForNavigate)
-        {
-            NavigateToDetails(sender);
-        }
-    }
-
-    [RelayCommand]
-    private void OnSettingsCardDoubleClick(object sender)
-    {
-        NavigateToDetails(sender);
     }
 
     public string GetIDMFilePath()

@@ -22,7 +22,7 @@ public partial class SubsceneViewModel : BaseViewModel
 
         TokenList = new(tokens);
 
-        var defaultTokenItem = TokenList.FirstOrDefault(x => x.Content.ToString().Contains("deltaleech", StringComparison.OrdinalIgnoreCase));
+        var defaultTokenItem = TokenList.FirstOrDefault(x => x.Content.ToString().Contains("subscene", StringComparison.OrdinalIgnoreCase));
         TokenItemSelectedIndex = TokenList.IndexOf(defaultTokenItem);
     }
 

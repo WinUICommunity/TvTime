@@ -1,12 +1,8 @@
 ﻿using CommunityToolkit.Labs.WinUI;
 
-using Downloader;
-
 namespace TvTime.ViewModels;
 public partial class SubsceneDetailViewModel : BaseViewModel
 {
-    private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-
     [ObservableProperty]
     public ObservableCollection<ITvTimeModel> breadcrumbBarList = new();
 
@@ -63,7 +59,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
     {
         base.NavigateToDetails(sender);
 
-        if (Settings.IsSubtitleOpenInBrowser && !Settings.UseIDMForDownloadSubtitles)
+        if (!Settings.UseIDMForDownloadSubtitles)
         {
             await Launcher.LaunchUriAsync(new Uri(descriptionText));
         }
@@ -83,30 +79,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
                         {
                             var downloadLink = GetServerUrlWithoutRightPart(descriptionText) + node.GetAttributeValue("href", "nothing");
 
-                            // get location from config
-                            var location = Settings.DefaultSubtitleDownloadPath;
-
-                            // get location from FolderPicker
-                            if (Settings.UseUserSpecifiedLocationForSubtitle && !Settings.UseIDMForDownloadSubtitles)
-                            {
-                                var folderPickerPath = await OpenFolderPicker();
-                                if (!string.IsNullOrEmpty(folderPickerPath))
-                                {
-                                    location = folderPickerPath;
-                                }
-                            }
-
-                            if (!Settings.UseIDMForDownloadSubtitles)
-                            {
-                                var downloader = new DownloadService();
-                                downloader.DownloadProgressChanged += Downloader_DownloadProgressChanged;
-                                downloader.DownloadFileCompleted += Downloader_DownloadFileCompleted;
-                                await downloader.DownloadFileTaskAsync(downloadLink, new DirectoryInfo(location));
-                            }
-                            else
-                            {
-                                LaunchIDM(GetIDMFilePath(), downloadLink);
-                            }
+                            LaunchIDM(GetIDMFilePath(), downloadLink);
                         }
                     }
                 }
@@ -126,50 +99,6 @@ public partial class SubsceneDetailViewModel : BaseViewModel
                 IsStatusOpen = true;
             }
         }
-    }
-
-    private void Downloader_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-    {
-        if (e.Cancelled)
-        {
-            dispatcherQueue.TryEnqueue(() =>
-            {
-                StatusTitle = "Download Canceled";
-                StatusMessage = "";
-                StatusSeverity = InfoBarSeverity.Error;
-                IsStatusOpen = true;
-            });
-        }
-        else if (e.Error != null)
-        {
-            dispatcherQueue.TryEnqueue(() =>
-            {
-                StatusTitle = "";
-                StatusMessage = e.Error.Message;
-                StatusSeverity = InfoBarSeverity.Error;
-                IsStatusOpen = true;
-            });
-        }
-        else
-        {
-            //dispatcherQueue.TryEnqueue(() =>
-            //{
-            //    //var downloadedFileName = ((DownloadPackage) e.UserState).FileName;
-            //    //DeCompressAndNotification(downloadedFileName, OpenFolderButton, Content.XamlRoot);
-            //});
-        }
-    }
-
-    private void Downloader_DownloadProgressChanged(object sender, Downloader.DownloadProgressChangedEventArgs e)
-    {
-        //dispatcherQueue.TryEnqueue(() =>
-        //{
-        //    //if (ProgressStatus.IsIndeterminate == true)
-        //    //{
-        //    //    ProgressStatus.IsIndeterminate = false;
-        //    //}
-        //    //ProgressStatus.Value = e.ProgressPercentage;
-        //});
     }
 
     [RelayCommand]

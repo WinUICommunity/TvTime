@@ -14,10 +14,10 @@
 	  <LangVersion>latest</LangVersion>
     <ApplicationIcon>Assets\Fluent\icon.ico</ApplicationIcon>
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-    <WindowsPackageType>None</WindowsPackageType>
     <Version>2.3.0</Version>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <NoWarn>WMC1506;CS0628</NoWarn>
+    <ExcludedLanguages>en-US;fa-IR</ExcludedLanguages>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,7 +36,6 @@
     <PackageReference Include="WinUICommunity.LandingPages" Version="5.0.0" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
-
   <!-- 
     Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
     Tools extension to be activated for this project even if the Windows App SDK Nuget

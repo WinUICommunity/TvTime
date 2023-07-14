@@ -3,7 +3,7 @@ public sealed partial class MainPage : Page
 {
     public string TvTimeVersion { get; set; } = $"v{App.Current.TvTimeVersion} - Preview";
     public static MainPage Instance { get; set; }
-
+    private AutoSuggestBoxTextChangedEventArgs args;
     public MainPage()
     {
         this.InitializeComponent();
@@ -65,10 +65,22 @@ public sealed partial class MainPage : Page
             viewModel.setQuery(TxtSearch.Text);
             viewModel.OnQuerySubmitted();
         }
+        else
+        {
+            if (this.args != null)
+            {
+                viewModel = SearchInViews();
+                if (viewModel != null)
+                {
+                    viewModel.Search(sender, this.args);
+                }
+            }
+        }
     }
 
     private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
+        this.args = args;
         var viewModel = SearchInViews();
         if (viewModel != null)
         {

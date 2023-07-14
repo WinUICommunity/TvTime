@@ -39,11 +39,11 @@ public partial class ServerViewModel : BaseViewModel
 
                 if (IsMediaServer)
                 {
-                    Settings.TVTimeServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
+                    Settings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                 }
                 else
                 {
-                    Settings.SubtitleServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
+                    Settings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                 }
 
                 StatusSeverity = InfoBarSeverity.Success;
@@ -84,12 +84,12 @@ public partial class ServerViewModel : BaseViewModel
 
                 if (IsMediaServer)
                 {
-                    Settings.TVTimeServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
+                    Settings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
 
                 }
                 else
                 {
-                    Settings.SubtitleServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
+                    Settings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                 }
 
                 StatusSeverity = InfoBarSeverity.Success;
@@ -143,11 +143,11 @@ public partial class ServerViewModel : BaseViewModel
 
                     if (IsMediaServer)
                     {
-                        Settings.TVTimeServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
+                        Settings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                     }
                     else
                     {
-                        Settings.SubtitleServers = (ObservableCollection<ServerModel>) DataList.Cast<ServerModel>();
+                        Settings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                     }
 
                     StatusSeverity = InfoBarSeverity.Success;

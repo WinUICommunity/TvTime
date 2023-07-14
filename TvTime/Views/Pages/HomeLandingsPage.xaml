@@ -8,7 +8,7 @@
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
 
-    <wuc:AllLandingsPage x:Name="allLandingsPage"
+    <wuc:AllLandingPage x:Name="allLandingPage"
                          HeaderImage="ms-appx:///Assets/Fluent/Cover1.jpg"
                          HeaderOverlayImage="ms-appx:///Assets/Fluent/Cover1.jpg"
                          HeaderText="{x:Bind TvTimeVersion}">
@@ -19,5 +19,5 @@
                 </ic:EventTriggerBehavior.Actions>
             </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>
-    </wuc:AllLandingsPage>
+    </wuc:AllLandingPage>
 </Page>

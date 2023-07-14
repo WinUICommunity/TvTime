@@ -51,7 +51,7 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual bool UseTruncateInHeader { get; set; } = false;
     public virtual bool UseTruncateInDescription { get; set; } = false;
     public virtual bool UseTokenViewFilter { get; set; } = true;
-    public virtual bool UseSound { get; set; } = true;
+    public virtual bool UseSound { get; set; } = false;
     public virtual bool UseDoubleClickForNavigate { get; set; } = false;
     public virtual bool UseIDMForDownloadFiles { get; set; } = false;
     public virtual bool UseIDMForDownloadSubtitles { get; set; } = false;

@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml.Media;
+﻿using Microsoft.UI;
+using Microsoft.UI.Xaml.Media;
 
 using TvTime.ViewModels;
 
@@ -54,6 +55,8 @@ public partial class App : Application
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         currentWindow = new Window();
+        currentWindow.AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+        currentWindow.AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
         if (currentWindow.Content is not Frame rootFrame)
         {
             currentWindow.Content = rootFrame = new Frame();
@@ -63,11 +66,7 @@ public partial class App : Application
 
         ThemeManager = ThemeManager.Initialize(currentWindow, new ThemeOptions
         {
-            BackdropFallBackColorForWindows10 = Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush,
-            TitleBarCustomization = new TitleBarCustomization
-            {
-                TitleBarType = TitleBarType.AppWindow
-            }
+            BackdropFallBackColorForWindows10 = Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush
         });
 
         if (Settings.SubtitleLanguagesCollection == null || Settings.SubtitleLanguagesCollection.Count == 0)

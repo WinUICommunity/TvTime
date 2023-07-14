@@ -1,22 +1,17 @@
 ﻿namespace TvTime.Views;
 public sealed partial class MainPage : Page
 {
-    public string TvTimeVersion { get; set; }
+    public string TvTimeVersion { get; set; } = $"v{App.Current.TvTimeVersion} - Preview";
     public static MainPage Instance { get; set; }
 
     public MainPage()
     {
         this.InitializeComponent();
+        appTitleBar.Window = App.currentWindow;
         Instance = this;
         Loaded += MainPage_Loaded;
 
-        var titleBarHelper = TitleBarHelper.Initialize(App.currentWindow, TitleTextBlock, AppTitleBar, LeftPaddingColumn, IconColumn, TitleColumn, LeftDragColumn, SearchColumn, RightDragColumn, RightPaddingColumn);
-        titleBarHelper.LeftPadding = 48;
-        titleBarHelper.RightPadding = -100;
-
-        TvTimeVersion = $"TvTime v{(Application.Current as App).TvTimeVersion}";
-
-        App.Current.NavigationManager = NavigationManager.Initialize(NavigationViewControl, new NavigationViewOptions
+        App.Current.NavigationManager = NavigationManager.Initialize(NavView, new NavigationViewOptions
         {
             DefaultPage = typeof(HomeLandingsPage),
             SettingsPage = typeof(SettingsPage),
@@ -24,7 +19,7 @@ public sealed partial class MainPage : Page
             {
                 JsonFilePath = "DataModel/ControlInfoData.json"
             }
-        }, RootFrame, ControlsSearchBox, new AutoSuggestBoxOptions
+        }, NavFrame, ControlsSearchBox, new AutoSuggestBoxOptions
         {
             NoResultImage = "ms-appx:///Assets/Fluent/icon.png"
         });
@@ -32,9 +27,30 @@ public sealed partial class MainPage : Page
 
     private void MainPage_Loaded(object sender, RoutedEventArgs e)
     {
-        var settings = (NavigationViewItem) NavigationViewControl.SettingsItem;
-        settings.Icon = new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/settings.png"), ShowAsMonochrome = false };
+        var settings = (NavigationViewItem) NavView.SettingsItem;
+        if (settings != null)
+        {
+            settings.Icon = new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/settings.png"), ShowAsMonochrome = false };
+        }
         ElementSoundPlayer.State = Settings.UseSound ? ElementSoundPlayerState.On : ElementSoundPlayerState.Off;
+    }
+
+    private void appTitleBar_BackButtonClick(object sender, RoutedEventArgs e)
+    {
+        if (NavFrame.CanGoBack)
+        {
+            NavFrame.GoBack();
+        }
+    }
+
+    private void appTitleBar_PaneButtonClick(object sender, RoutedEventArgs e)
+    {
+        NavView.IsPaneOpen = !NavView.IsPaneOpen;
+    }
+
+    private void NavFrame_Navigated(object sender, NavigationEventArgs e)
+    {
+        appTitleBar.IsBackButtonVisible = NavFrame.CanGoBack;
     }
 
     private void TxtSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)

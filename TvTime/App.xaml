@@ -6,25 +6,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-                <ResourceDictionary Source="ms-appx:///SettingsUI/Themes/Generic.xaml" />
-                <ResourceDictionary Source="ms-appx:///LandingsPage/Themes/Generic.xaml" />
+                <ResourceDictionary Source="ms-appx:///Components/Themes/Generic.xaml" />
+                <ResourceDictionary Source="ms-appx:///LandingPages/Themes/Generic.xaml" />
                 <wuc:ItemTemplates />
                 <ResourceDictionary Source="Themes/Converters.xaml" />
                 <ResourceDictionary Source="Themes/Styles.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
-
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Transparent" />
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Transparent" />
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="HighContrast">
-                    <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Transparent" />
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

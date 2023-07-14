@@ -5,44 +5,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="using:TvTime.Views"
+        xmlns:wuc="using:WinUICommunity"
         mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid x:Name="AppTitleBar"
-              Height="48"
-              VerticalAlignment="Top"
-              Canvas.ZIndex="1"
-              IsHitTestVisible="True">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0" />
-                <ColumnDefinition x:Name="IconColumn" Width="Auto" />
-                <ColumnDefinition x:Name="TitleColumn" Width="Auto" />
-                <ColumnDefinition x:Name="LeftDragColumn" Width="*" />
-                <ColumnDefinition x:Name="SearchColumn" Width="Auto" />
-                <ColumnDefinition x:Name="RightDragColumn" Width="*" />
-                <ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
-            </Grid.ColumnDefinitions>
-            <Image x:Name="TitleBarIcon"
-                   Grid.Column="1"
-                   Width="16"
-                   Height="16"
-                   Margin="8,0,0,0"
-                   Source="ms-appx:///Assets/Fluent/icon.png" />
-            <TextBlock x:Name="TitleTextBlock"
-                       Grid.Column="2"
-                       Margin="4,0,0,0"
-                       VerticalAlignment="Center" />
-            <AutoSuggestBox x:Name="TxtSearch"
-                            Grid.Column="4"
-                            Width="350"
-                            VerticalAlignment="Center"
-                            PlaceholderText="Movie/Serial Title"
-                            QueryIcon="Find"
-                            QuerySubmitted="AutoSuggestBox_QuerySubmitted" />
-        </Grid>
-        <views:IMDBDetailsPage x:Name="ImdbDetailsPage" Grid.Row="1" />
+        <wuc:TitleBar x:Name="appTitleBar"
+                      IsBackButtonVisible="False"
+                      IsPaneButtonVisible="False">
+            <wuc:TitleBar.Icon>
+                <BitmapIcon ShowAsMonochrome="False"
+                            UriSource="ms-appx:///Assets/Fluent/icon.png" />
+            </wuc:TitleBar.Icon>
+            <wuc:TitleBar.Content>
+                <AutoSuggestBox x:Name="TxtSearch"
+                                MinWidth="360"
+                                PlaceholderText="Movie/Serial Title"
+                                QueryIcon="Find"
+                                QuerySubmitted="AutoSuggestBox_QuerySubmitted" />
+            </wuc:TitleBar.Content>
+        </wuc:TitleBar>
+        <views:IMDBDetailsPage x:Name="ImdbDetailsPage"
+                               Grid.Row="1" />
     </Grid>
 </Window>

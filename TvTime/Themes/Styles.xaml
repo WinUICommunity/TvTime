@@ -9,11 +9,11 @@
 
     <Thickness x:Key="ContentPageMargin">40,48,40,0</Thickness>
     <Thickness x:Key="SettingsCardMargin">0,0,0,4</Thickness>
-    <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
 
     <x:Double x:Key="ControlContentThemeFontSize">16</x:Double>
 
-    <Style BasedOn="{StaticResource ListViewItemSettingStyle}" TargetType="ListViewItem" />
+    <Style BasedOn="{StaticResource ListViewItemSettingStyle}"
+           TargetType="ListViewItem" />
 
     <!--
         Due to the fact that we have overwritten all the styles of the ListViewItem, therefore,
@@ -21,10 +21,12 @@
         So we have to set the default style of ListViewItem for them again
     -->
 
-    <Style BasedOn="{StaticResource DefaultAutoSuggestBoxStyle}" TargetType="AutoSuggestBox">
+    <Style BasedOn="{StaticResource DefaultAutoSuggestBoxStyle}"
+           TargetType="AutoSuggestBox">
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem" />
+                <Style BasedOn="{StaticResource DefaultListViewItemStyle}"
+                       TargetType="ListViewItem" />
             </Setter.Value>
         </Setter>
     </Style>

@@ -81,10 +81,13 @@ public sealed partial class MainPage : Page
     private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
         this.args = args;
-        var viewModel = SearchInViews();
-        if (viewModel != null)
+        if (Settings.UseRealTimeSearch)
         {
-            viewModel.Search(sender, args);
+            var viewModel = SearchInViews();
+            if (viewModel != null)
+            {
+                viewModel.Search(sender, args);
+            }
         }
     }
 

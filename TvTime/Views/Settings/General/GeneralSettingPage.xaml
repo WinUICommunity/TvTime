@@ -21,7 +21,8 @@
             <wuc:SettingsCard Description="If false is selected, the corresponding web page will be opened instead of the file itself"
                               Header="Open the file in the browser"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
-                <ToggleSwitch x:Name="TGOpenFile" IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ToggleSwitch x:Name="TGOpenFile"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGOpenFile}"
                                                 ComparisonCondition="Equal"
@@ -37,7 +38,8 @@
             <wuc:SettingsCard Description="Download Files With Internet Download Manager (IDM) [if exist]"
                               Header="Download with IDM"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
-                <ToggleSwitch x:Name="TGUseIDM" IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ToggleSwitch x:Name="TGUseIDM"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGUseIDM}"
                                                 ComparisonCondition="Equal"
@@ -69,17 +71,26 @@
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
+            <wuc:SettingsCard Description="If you use RealTime search, the search will be done immediately after typing the character. Otherwise, you must press the enter button after typing.(Note that using RealTime search may be a bit slow if there are many items)"
+                              Header="Use RealTime Search"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/search.png}">
+                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseRealTimeSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </wuc:SettingsCard>
+
             <wuc:SettingsExpander Description="Choose Icon Pack to display for the season number"
                                   Header="Icon Pack"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}"
                                   IsExpanded="False">
                 <ComboBox x:Name="CmbIconPack">
-                    <ComboBoxItem Content="Glyph" Tag="Glyph" />
-                    <ComboBoxItem Content="Fluent" Tag="Fluent" />
+                    <ComboBoxItem Content="Glyph"
+                                  Tag="Glyph" />
+                    <ComboBoxItem Content="Fluent"
+                                  Tag="Fluent" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.IconPackChangedCommand}" CommandParameter="{Binding ElementName=CmbIconPack}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.IconPackChangedCommand}"
+                                                        CommandParameter="{Binding ElementName=CmbIconPack}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>

@@ -56,6 +56,7 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
     public virtual bool UseIDMForDownloadFiles { get; set; } = false;
     public virtual bool UseIDMForDownloadSubtitles { get; set; } = false;
     public virtual bool UseDefaultRegexEnabled { get; set; } = true;
+    public virtual bool UseRealTimeSearch { get; set; } = true;
 
     public virtual string LastUpdateCheck { get; set; }
     public virtual string DescriptionTextBlockStyle { get; set; } = "BaseTextBlockStyle";

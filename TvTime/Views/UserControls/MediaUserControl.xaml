@@ -16,7 +16,8 @@
 
     <UserControl.Resources>
 
-        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:MediaItem">
+        <DataTemplate x:Key="TextBlockTemplate"
+                      x:DataType="model:MediaItem">
             <views:ItemUserControl Title="{x:Bind Title}"
                                    ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                                    DateTime="{x:Bind DateTime}"
@@ -33,7 +34,8 @@
 
         </DataTemplate>
 
-        <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:MediaItem">
+        <DataTemplate x:Key="HyperLinkTemplate"
+                      x:DataType="model:MediaItem">
             <views:ItemUserControl Title="{x:Bind Title}"
                                    ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                                    DateTime="{x:Bind DateTime}"
@@ -86,7 +88,8 @@
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
                     <ic:EventTriggerBehavior.Actions>
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}" CommandParameter="{Binding ElementName=Segmented}" />
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}"
+                                                CommandParameter="{Binding ElementName=Segmented}" />
                     </ic:EventTriggerBehavior.Actions>
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
@@ -104,7 +107,8 @@
                                  VerticalAlignment="Center"
                                  Count="{x:Bind ViewModel.DataListACV.Count}" />
 
-        <ProgressRing Grid.Row="2" IsActive="{x:Bind ViewModel.IsActive}" />
+        <ProgressRing Grid.Row="2"
+                      IsActive="{x:Bind ViewModel.IsActive}" />
         <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
                  Grid.Row="3"
                  BorderThickness="0"
@@ -117,9 +121,11 @@
                                  VerticalContentAlignment="Stretch"
                                  Command="{x:Bind ViewModel.ServerStatusCommand}"
                                  Visibility="{x:Bind ViewModel.IsServerStatusOpen, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <StackPanel Orientation="Horizontal" Spacing="5">
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="5">
                         <SymbolIcon Symbol="Admin" />
-                        <TextBlock Margin="5,0,0,0" Text="Server Status" />
+                        <TextBlock Margin="5,0,0,0"
+                                   Text="Server Status" />
                         <InfoBadge HorizontalAlignment="Right"
                                    VerticalAlignment="Top"
                                    Value="{x:Bind ViewModel.InfoBadgeValue}" />

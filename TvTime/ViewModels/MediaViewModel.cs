@@ -68,6 +68,23 @@ public partial class MediaViewModel : BaseViewModel
         App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), media);
     }
 
+    public override void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        var items = MediaUserControl.Instance.GetTokenSelectedItems();
+
+        if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
+        {
+            AutoSuggestBoxHelper.LoadSuggestions(sender, args, DataList.Select(x=>x.Title).ToList());
+        }
+        else
+        {
+            var filteredList = DataList.Where(x => items.Any(token => x.Server.Contains(token.Content.ToString()))).Select(x => x.Title).ToList();
+            AutoSuggestBoxHelper.LoadSuggestions(sender, args, filteredList);
+        }
+        DataListACV.Filter = _ => true;
+        DataListACV.Filter = DataListFilter;
+    }
+
     public override bool DataListFilter(object item)
     {
         var query = (MediaItem) item;
@@ -75,12 +92,22 @@ public partial class MediaViewModel : BaseViewModel
         var server = query.Server ?? "";
         var txtSearch = MainPage.Instance.GetTxtSearch();
         var items = MediaUserControl.Instance.GetTokenSelectedItems();
-        return items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER))
-            ? name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
-                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            : (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
-                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)) &&
-                (items.Any(token => server.Contains(token.Content.ToString())));
+
+        if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
+        {
+            return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
+                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
+        }
+        else
+        {
+            if (!name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) &&
+                !server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            return items.Any(token => server.Contains(token.Content.ToString()));
+        }
     }
 
     #endregion
@@ -205,7 +232,6 @@ public partial class MediaViewModel : BaseViewModel
                 DataList.AddRange(myDataList);
             }
             currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
-            suggestList = myDataList.Select(x => ((MediaItem) x).Title).ToList();
 
             DataListACV.SortDescriptions.Add(currentSortDescription);
         }

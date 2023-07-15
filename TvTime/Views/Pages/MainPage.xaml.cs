@@ -136,4 +136,17 @@ public sealed partial class MainPage : Page
     {
         return TxtSearch;
     }
+
+    private void ThemeButton_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        if (button.ActualTheme == ElementTheme.Light)
+        {
+            App.Current.ThemeManager.SetCurrentTheme(ElementTheme.Dark);
+        }
+        else if (button.ActualTheme == ElementTheme.Dark)
+        {
+            App.Current.ThemeManager.SetCurrentTheme(ElementTheme.Light);
+        }
+    }
 }

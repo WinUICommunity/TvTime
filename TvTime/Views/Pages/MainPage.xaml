@@ -33,6 +33,19 @@
                                 QuerySubmitted="TxtSearch_QuerySubmitted"
                                 TextChanged="txtSearch_TextChanged" />
             </wuc:TitleBar.Content>
+            <wuc:TitleBar.Footer>
+                <Button x:Name="ThemeButton"
+                        Height="32"
+                        Click="ThemeButton_Click"
+                        Margin="0,0,4,0"
+                        Style="{ThemeResource SubtleButtonStyle}"
+                        ToolTipService.ToolTip="Toggle theme">
+                    <Button.Content>
+                        <FontIcon FontSize="16"
+                                  Glyph="&#xE793;" />
+                    </Button.Content>
+                </Button>
+            </wuc:TitleBar.Footer>
         </wuc:TitleBar>
         <NavigationView x:Name="NavView"
                         Grid.Row="1"

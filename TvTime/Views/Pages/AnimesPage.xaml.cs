@@ -5,4 +5,12 @@ public sealed partial class AnimesPage : Page
     {
         this.InitializeComponent();
     }
+
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        if (e.Content.GetType() != typeof(DetailPage))
+        {
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
+        }
+    }
 }

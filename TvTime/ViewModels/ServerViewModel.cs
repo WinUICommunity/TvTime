@@ -54,7 +54,7 @@ public partial class ServerViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    private async void OnAddItem()
+    private async Task OnAddItem()
     {
         var inputDialog = CreateContentDialog("", "", -1, null, true);
 
@@ -108,7 +108,7 @@ public partial class ServerViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    private async void OnUpdateItem(object sender)
+    private async Task OnUpdateItem(object sender)
     {
         var btn = sender as Button;
         if (btn.DataContext != null)

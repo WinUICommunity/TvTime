@@ -91,9 +91,12 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
     /// <param name="args"></param>
     public virtual void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
-        AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
+        if (DataList != null && DataList.Any())
+        {
+            AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
+            DataListACV.Filter = _ => true;
+            DataListACV.Filter = DataListFilter;
+        }
     }
 
     public virtual bool DataListFilter(object item)

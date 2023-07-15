@@ -70,19 +70,22 @@ public partial class MediaViewModel : BaseViewModel
 
     public override void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
-        var items = MediaUserControl.Instance.GetTokenSelectedItems();
+        if (DataList != null && DataList.Any())
+        {
+            var items = MediaUserControl.Instance.GetTokenSelectedItems();
 
-        if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
-        {
-            AutoSuggestBoxHelper.LoadSuggestions(sender, args, DataList.Select(x=>x.Title).ToList());
+            if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
+            {
+                AutoSuggestBoxHelper.LoadSuggestions(sender, args, DataList.Select(x => x.Title).ToList());
+            }
+            else
+            {
+                var filteredList = DataList.Where(x => items.Any(token => x.Server.Contains(token.Content.ToString()))).Select(x => x.Title).ToList();
+                AutoSuggestBoxHelper.LoadSuggestions(sender, args, filteredList);
+            }
+            DataListACV.Filter = _ => true;
+            DataListACV.Filter = DataListFilter;
         }
-        else
-        {
-            var filteredList = DataList.Where(x => items.Any(token => x.Server.Contains(token.Content.ToString()))).Select(x => x.Title).ToList();
-            AutoSuggestBoxHelper.LoadSuggestions(sender, args, filteredList);
-        }
-        DataListACV.Filter = _ => true;
-        DataListACV.Filter = DataListFilter;
     }
 
     public override bool DataListFilter(object item)

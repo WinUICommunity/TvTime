@@ -23,74 +23,56 @@
             <wuc:SettingsExpander Description="backup and restore media servers"
                                   Header="Backup &amp; Restore TvTime Media Servers"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}">
-                <wuc:SettingsExpander.ItemsHeader>
-                    <wuc:SettingsCard BorderThickness="0"
-                                      Command="{x:Bind ViewModel.BackupServerCommand}"
+                <wuc:SettingsExpander.Items>
+                    <wuc:SettingsCard Command="{x:Bind ViewModel.BackupServerCommand}"
                                       CommandParameter="True"
-                                      CornerRadius="0"
                                       Description="You can export your saved media servers to any location"
                                       Header="Backup Media Servers"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}"
                                       IsClickEnabled="True" />
-                </wuc:SettingsExpander.ItemsHeader>
-                <wuc:SettingsExpander.ItemsFooter>
-                    <wuc:SettingsCard BorderThickness="0,1,0,0"
-                                      Command="{x:Bind ViewModel.RestoreServerCommand}"
+                    <wuc:SettingsCard Command="{x:Bind ViewModel.RestoreServerCommand}"
                                       CommandParameter="True"
-                                      CornerRadius="0,0,4,4"
                                       Description="You can import your saved media servers to the app"
                                       Header="Restore Media Servers"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
                                       IsClickEnabled="True" />
-                </wuc:SettingsExpander.ItemsFooter>
+                </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
             <wuc:SettingsExpander Description="backup and restore subtitle servers"
                                   Header="Backup &amp; Restore TvTime Subtitle Servers"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}">
-                <wuc:SettingsExpander.ItemsHeader>
-                    <wuc:SettingsCard BorderThickness="0"
-                                      Command="{x:Bind ViewModel.BackupServerCommand}"
+                <wuc:SettingsExpander.Items>
+                    <wuc:SettingsCard Command="{x:Bind ViewModel.BackupServerCommand}"
                                       CommandParameter="False"
-                                      CornerRadius="0"
                                       Description="You can export your saved subtitle servers to any location"
                                       Header="Backup Subtitle Servers"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
                                       IsClickEnabled="True" />
-                </wuc:SettingsExpander.ItemsHeader>
-                <wuc:SettingsExpander.ItemsFooter>
-                    <wuc:SettingsCard BorderThickness="0,1,0,0"
-                                      Command="{x:Bind ViewModel.RestoreServerCommand}"
+                    <wuc:SettingsCard Command="{x:Bind ViewModel.RestoreServerCommand}"
                                       CommandParameter="False"
-                                      CornerRadius="0,0,4,4"
                                       Description="You can import your saved subtitle servers to the app"
                                       Header="Restore Subtitle Servers"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
                                       IsClickEnabled="True" />
-                </wuc:SettingsExpander.ItemsFooter>
+                </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
             <wuc:SettingsExpander Description="backup and restore TvTime settings"
                                   Header="Backup &amp; Restore TvTime Settings"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}">
-                <wuc:SettingsExpander.ItemsHeader>
-                    <wuc:SettingsCard BorderThickness="0"
-                                      Command="{x:Bind ViewModel.BackupSettingsCommand}"
-                                      CornerRadius="0"
+                <wuc:SettingsExpander.Items>
+                    <wuc:SettingsCard Command="{x:Bind ViewModel.BackupSettingsCommand}"
                                       Description="You can export your saved settings to any location"
                                       Header="Backup"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
                                       IsClickEnabled="True" />
-                </wuc:SettingsExpander.ItemsHeader>
-                <wuc:SettingsExpander.ItemsFooter>
-                    <wuc:SettingsCard BorderThickness="0,1,0,0"
-                                      Command="{x:Bind ViewModel.RestoreSettingsCommand}"
-                                      CornerRadius="0,0,4,4"
+                    <wuc:SettingsCard Command="{x:Bind ViewModel.RestoreSettingsCommand}"
                                       Description="You can import your saved settings to the app"
                                       Header="Restore"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
                                       IsClickEnabled="True" />
-                </wuc:SettingsExpander.ItemsFooter>
+                </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
         </StackPanel>
     </ScrollViewer>

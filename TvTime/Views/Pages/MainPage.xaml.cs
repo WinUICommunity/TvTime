@@ -60,7 +60,6 @@ public sealed partial class MainPage : Page
         dynamic viewModel = null;
         if (rootFrame.Content is SubscenePage)
         {
-            TxtSearch.ItemsSource = null;
             viewModel = SubscenePage.Instance.ViewModel;
             viewModel.setQuery(TxtSearch.Text);
             viewModel.OnQuerySubmitted();
@@ -69,11 +68,7 @@ public sealed partial class MainPage : Page
         {
             if (this.args != null)
             {
-                viewModel = SearchInViews();
-                if (viewModel != null)
-                {
-                    viewModel.Search(sender, this.args);
-                }
+                Search();
             }
         }
     }
@@ -81,23 +76,35 @@ public sealed partial class MainPage : Page
     private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
         this.args = args;
-        sender.ItemsSource = null;
+        TxtSearch.ItemsSource = null;
+
         if (Settings.UseRealTimeSearch)
         {
-            var viewModel = SearchInViews();
-            if (viewModel != null)
+            Search();
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(TxtSearch.Text))
             {
-                viewModel.Search(sender, args);
+                Search();
             }
         }
     }
 
-    private dynamic SearchInViews()
+    private void Search()
+    {
+        var viewModel = GetCurrentViewModel();
+        if (viewModel != null)
+        {
+            viewModel.Search(TxtSearch, this.args);
+        }
+    }
+
+    private dynamic GetCurrentViewModel()
     {
         var rootFrame = App.Current.NavigationManager.Frame;
         dynamic root = rootFrame.Content;
         dynamic viewModel = null;
-        TxtSearch.ItemsSource = null;
         if (root is AnimesPage || root is MoviesPage || root is SeriesPage)
         {
             viewModel = MediaUserControl.Instance.ViewModel;

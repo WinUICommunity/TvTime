@@ -22,23 +22,25 @@
                      IsClosable="False"
                      IsOpen="True" />
 
-            <wuc:SettingsExpander Description="Specify the language of the subtitles"
+            <wuc:SettingsExpander Name="sx"
+                                  Description="Specify the language of the subtitles"
                                   Header="Subtitle Language"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
-                <wuc:SettingsExpander.ItemsHeader>
-                    <AutoSuggestBox Margin="10,10,10,0"
-                                    PlaceholderText="Add some new languages [Press enter to add]"
-                                    QueryIcon="Add"
-                                    QuerySubmitted="SubtitleLanguage_QuerySubmitted" />
-                </wuc:SettingsExpander.ItemsHeader>
+                <wuc:SettingsExpander.Items>
+                    <wuc:SettingsCard ContentAlignment="Left">
+                        <AutoSuggestBox MinWidth="400"
+                                        PlaceholderText="Add some new languages [Press enter to add]"
+                                        QueryIcon="Add"
+                                        QuerySubmitted="SubtitleLanguage_QuerySubmitted" />
+                    </wuc:SettingsCard>
 
-                <wuc:SettingsExpander.ItemsFooter>
-                    <labs:TokenView Margin="10"
-                                    CanRemoveTokens="True"
-                                    ItemsSource="{x:Bind local:TvTimeHelper.Settings.SubtitleLanguagesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    SelectionMode="None"
-                                    TokenItemRemoving="TokenView_TokenItemRemoving" />
-                </wuc:SettingsExpander.ItemsFooter>
+                    <wuc:SettingsCard ContentAlignment="Left">
+                        <labs:TokenView CanRemoveTokens="True"
+                                        ItemsSource="{x:Bind local:TvTimeHelper.Settings.SubtitleLanguagesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectionMode="None"
+                                        TokenItemRemoving="TokenView_TokenItemRemoving" />
+                    </wuc:SettingsCard>
+                </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
             <wuc:SettingsCard Description="Download Subtitles With Internet Download Manager (IDM) [if exist]"

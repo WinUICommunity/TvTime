@@ -36,8 +36,8 @@
             <wuc:TitleBar.Footer>
                 <Button x:Name="ThemeButton"
                         Height="32"
-                        Click="ThemeButton_Click"
                         Margin="0,0,4,0"
+                        Click="ThemeButton_Click"
                         Style="{ThemeResource SubtleButtonStyle}"
                         ToolTipService.ToolTip="Toggle theme">
                     <Button.Content>

@@ -13,8 +13,10 @@
         <StackPanel Padding="5,0,0,2"
                     Orientation="Horizontal"
                     Spacing="5">
-            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind DateTime}" />
-            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind FileSize, Converter={StaticResource String2FileSizeConverter}}" />
+            <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                       Text="{x:Bind DateTime}" />
+            <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                       Text="{x:Bind FileSize, Converter={StaticResource String2FileSizeConverter}}" />
         </StackPanel>
     </Border>
 </UserControl>

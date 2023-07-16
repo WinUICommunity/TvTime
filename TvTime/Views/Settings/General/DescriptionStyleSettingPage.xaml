@@ -49,7 +49,8 @@
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="Toggled">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.CustomFontSizeToggledCommand}" CommandParameter="{Binding ElementName=TgCustomFontSize}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.CustomFontSizeToggledCommand}"
+                                                        CommandParameter="{Binding ElementName=TgCustomFontSize}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
@@ -72,12 +73,15 @@
                               Header="Description Type"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
                 <ComboBox x:Name="CmbDescriptionType">
-                    <ComboBoxItem Content="TextBlock" Tag="TextBlock" />
-                    <ComboBoxItem Content="HyperLink" Tag="HyperLink" />
+                    <ComboBoxItem Content="TextBlock"
+                                  Tag="TextBlock" />
+                    <ComboBoxItem Content="HyperLink"
+                                  Tag="HyperLink" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ComboBoxTemplateTypeChangedCommand}" CommandParameter="{Binding ElementName=CmbDescriptionType}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ComboBoxTemplateTypeChangedCommand}"
+                                                        CommandParameter="{Binding ElementName=CmbDescriptionType}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>

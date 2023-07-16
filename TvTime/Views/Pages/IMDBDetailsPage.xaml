@@ -28,7 +28,8 @@
                    Stretch="Uniform" />
         </Border>
 
-        <StackPanel Grid.Column="1" Margin="10,0">
+        <StackPanel Grid.Column="1"
+                    Margin="10,0">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="10"
                            VerticalAlignment="Top"
@@ -42,8 +43,10 @@
                 <TextBlock Margin="10,0,5,0"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="Id:" />
-                <HyperlinkButton Content="{x:Bind ViewModel.MediaIMDBId}" NavigateUri="{x:Bind ViewModel.MediaIMDBId}" />
-                <TextBlock Text="{x:Bind ViewModel.MediaIMDBId}" Visibility="Collapsed" />
+                <HyperlinkButton Content="{x:Bind ViewModel.MediaIMDBId}"
+                                 NavigateUri="{x:Bind ViewModel.MediaIMDBId}" />
+                <TextBlock Text="{x:Bind ViewModel.MediaIMDBId}"
+                           Visibility="Collapsed" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="10,0"
@@ -54,7 +57,8 @@
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="{x:Bind ViewModel.MediaYear}" />
-                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="Released:" />
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
+                           Text="Released:" />
                 <TextBlock Margin="5,3"
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"

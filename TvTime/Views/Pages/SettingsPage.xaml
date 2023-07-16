@@ -8,7 +8,8 @@
     <ScrollViewer Margin="{ThemeResource ContentPageMargin}"
                   HorizontalAlignment="Stretch"
                   VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10" Spacing="5">
+        <StackPanel Margin="10"
+                    Spacing="5">
             <wuc:SettingsCard x:Name="AppUpdateSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
                               CommandParameter="{Binding ElementName=AppUpdateSetting}"

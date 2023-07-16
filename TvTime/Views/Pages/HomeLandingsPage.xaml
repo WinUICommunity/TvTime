@@ -9,9 +9,9 @@
       mc:Ignorable="d">
 
     <wuc:AllLandingPage x:Name="allLandingPage"
-                         HeaderImage="ms-appx:///Assets/Fluent/Cover1.jpg"
-                         HeaderOverlayImage="ms-appx:///Assets/Fluent/Cover1.jpg"
-                         HeaderText="{x:Bind TvTimeVersion}">
+                        HeaderImage="ms-appx:///Assets/Fluent/Cover1.jpg"
+                        HeaderOverlayImage="ms-appx:///Assets/Fluent/Cover1.jpg"
+                        HeaderText="{x:Bind TvTimeVersion}">
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="OnItemClick">
                 <ic:EventTriggerBehavior.Actions>

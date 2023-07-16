@@ -8,7 +8,8 @@
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
 
-    <ScrollViewer Margin="{ThemeResource ContentPageMargin}" VerticalScrollBarVisibility="Auto">
+    <ScrollViewer Margin="{ThemeResource ContentPageMargin}"
+                  VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
@@ -23,11 +24,15 @@
                            IsTextSelectionEnabled="True"
                            Text="{x:Bind ViewModel.TvTimeVersion, Mode=OneWay}" />
                 <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard HorizontalContentAlignment="Left" ContentAlignment="Left">
-                        <StackPanel Orientation="Vertical" Spacing="5">
+                    <wuc:SettingsCard HorizontalContentAlignment="Left"
+                                      ContentAlignment="Left">
+                        <StackPanel Orientation="Vertical"
+                                    Spacing="5">
                             <TextBlock Text="Related Links" />
-                            <HyperlinkButton Content="Source Code" NavigateUri="https://github.com/winUICommunity/TvTime" />
-                            <HyperlinkButton Content="Release Notes" NavigateUri="https://github.com/WinUICommunity/TvTime/releases" />
+                            <HyperlinkButton Content="Source Code"
+                                             NavigateUri="https://github.com/winUICommunity/TvTime" />
+                            <HyperlinkButton Content="Release Notes"
+                                             NavigateUri="https://github.com/WinUICommunity/TvTime/releases" />
                         </StackPanel>
                     </wuc:SettingsCard>
                 </wuc:SettingsExpander.Items>

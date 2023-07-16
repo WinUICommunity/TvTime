@@ -11,7 +11,8 @@
                    ItemsSource="{x:Bind BreadcrumbBarCollection, Mode=OneWay}">
         <BreadcrumbBar.ItemTemplate>
             <DataTemplate x:DataType="x:String">
-                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{x:Bind}" />
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
+                           Text="{x:Bind}" />
             </DataTemplate>
         </BreadcrumbBar.ItemTemplate>
     </BreadcrumbBar>

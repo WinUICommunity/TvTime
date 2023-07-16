@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:local="using:TvTime.Common"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
@@ -50,7 +50,8 @@
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="Toggled">
                             <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.CustomFontSizeToggledCommand}" CommandParameter="{Binding ElementName=TgCustomFontSize}" />
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.CustomFontSizeToggledCommand}"
+                                                        CommandParameter="{Binding ElementName=TgCustomFontSize}" />
                             </ic:EventTriggerBehavior.Actions>
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>

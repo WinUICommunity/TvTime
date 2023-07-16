@@ -17,6 +17,7 @@
             <labs:SegmentedItem Content="Media Servers" />
             <labs:SegmentedItem Content="Subtitle Servers" />
         </labs:Segmented>
-        <Frame x:Name="ServerFrame" Grid.Row="1" />
+        <Frame x:Name="ServerFrame"
+               Grid.Row="1" />
     </Grid>
 </Page>

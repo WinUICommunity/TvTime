@@ -15,11 +15,13 @@
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
             <ic:EventTriggerBehavior.Actions>
-                <ic:InvokeCommandAction Command="{x:Bind ViewModel.PageLoadedCommand}" CommandParameter="{x:Bind IsMediaServer, Mode=OneWay}" />
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.PageLoadedCommand}"
+                                        CommandParameter="{x:Bind IsMediaServer, Mode=OneWay}" />
             </ic:EventTriggerBehavior.Actions>
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
-    <Grid Margin="10,0,10,10" ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
+    <Grid Margin="10,0,10,10"
+          ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="auto" />
@@ -37,19 +39,24 @@
                         <wuc:SettingsCard Description="We have a number of specific and predefined servers, you can load them."
                                           Header="Load predefined servers"
                                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}">
-                            <Button Click="{x:Bind OnLoadPredefinedServer}" Content="Load predefined servers" />
+                            <Button Click="{x:Bind OnLoadPredefinedServer}"
+                                    Content="Load predefined servers" />
                         </wuc:SettingsCard>
                         <wuc:SettingsCard Description="This will delete all saved servers"
                                           Header="Clear all servers"
                                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/trash.png}">
-                            <Button Click="{x:Bind OnClearAllServer}" Content="Clear All servers" />
+                            <Button Click="{x:Bind OnClearAllServer}"
+                                    Content="Clear All servers" />
                         </wuc:SettingsCard>
                     </wuc:SettingsExpander.Items>
                 </wuc:SettingsExpander>
-                <ListView ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}" SelectionMode="None">
+                <ListView ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}"
+                          SelectionMode="None">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:Name="SingleLineDataTemplate" x:DataType="model:ServerModel">
-                            <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}" HeaderIcon="{x:Bind IsActive, Converter={StaticResource Bool2IconConverter}, ConverterParameter=bitmap}">
+                        <DataTemplate x:Name="SingleLineDataTemplate"
+                                      x:DataType="model:ServerModel">
+                            <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}"
+                                              HeaderIcon="{x:Bind IsActive, Converter={StaticResource Bool2IconConverter}, ConverterParameter=bitmap}">
                                 <wuc:SettingsCard.Resources>
                                     <x:Double x:Key="SettingsCardLeftIndention">42</x:Double>
                                 </wuc:SettingsCard.Resources>
@@ -63,7 +70,8 @@
                                                          Padding="2,1,2,1"
                                                          BorderThickness="0"
                                                          NavigateUri="{x:Bind Server}">
-                                            <TextBlock Style="{ThemeResource SecondaryTextStyle}" Text="{x:Bind Server}" />
+                                            <TextBlock Style="{ThemeResource SecondaryTextStyle}"
+                                                       Text="{x:Bind Server}" />
                                         </HyperlinkButton>
                                     </StackPanel>
                                 </wuc:SettingsCard.Description>

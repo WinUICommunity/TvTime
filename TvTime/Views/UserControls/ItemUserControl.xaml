@@ -34,7 +34,8 @@
                             Tag="OpenFile"
                             Text="Open File"
                             Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
-            <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}" Text="Copy Link(s)">
+            <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
+                               Text="Copy Link(s)">
 
                 <MenuFlyoutItem x:Name="MenuCopy"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
@@ -82,12 +83,14 @@
             <views:HeaderTextBlockUserControl Text="{x:Bind Title}" />
         </wuc:SettingsCard.Header>
 
-        <views:DateAndFileSizeUserControl DateTime="{x:Bind DateTime}" FileSize="{x:Bind FileSize}" />
+        <views:DateAndFileSizeUserControl DateTime="{x:Bind DateTime}"
+                                          FileSize="{x:Bind FileSize}" />
 
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="DoubleTapped">
                 <ic:EventTriggerBehavior.Actions>
-                    <ic:InvokeCommandAction Command="{x:Bind SettingsCardDoubleClickCommand}" CommandParameter="{Binding ElementName=SettingsCard}" />
+                    <ic:InvokeCommandAction Command="{x:Bind SettingsCardDoubleClickCommand}"
+                                            CommandParameter="{Binding ElementName=SettingsCard}" />
                 </ic:EventTriggerBehavior.Actions>
             </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>

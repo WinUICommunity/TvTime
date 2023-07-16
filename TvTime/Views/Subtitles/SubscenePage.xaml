@@ -17,7 +17,8 @@
       mc:Ignorable="d">
 
     <Page.Resources>
-        <DataTemplate x:Key="TextBlockTemplate" x:DataType="model:SubsceneModel">
+        <DataTemplate x:Key="TextBlockTemplate"
+                      x:DataType="model:SubsceneModel">
             <views:ItemUserControl Title="{x:Bind Title}"
                                    ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                                    DateTime="{x:Bind Desc}"
@@ -33,7 +34,8 @@
 
         </DataTemplate>
 
-        <DataTemplate x:Key="HyperLinkTemplate" x:DataType="model:SubsceneModel">
+        <DataTemplate x:Key="HyperLinkTemplate"
+                      x:DataType="model:SubsceneModel">
             <views:ItemUserControl Title="{x:Bind Title}"
                                    ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                                    DateTime="{x:Bind Desc}"
@@ -78,7 +80,8 @@
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
                     <ic:EventTriggerBehavior.Actions>
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}" CommandParameter="{Binding ElementName=Segmented}" />
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}"
+                                                CommandParameter="{Binding ElementName=Segmented}" />
                     </ic:EventTriggerBehavior.Actions>
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
@@ -96,7 +99,8 @@
                                  VerticalAlignment="Center"
                                  Count="{x:Bind ViewModel.DataListACV.Count}" />
 
-        <ProgressRing Grid.Row="2" IsActive="{x:Bind ViewModel.IsActive}" />
+        <ProgressRing Grid.Row="2"
+                      IsActive="{x:Bind ViewModel.IsActive}" />
         <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
                  Grid.Row="3"
                  BorderThickness="0"

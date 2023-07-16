@@ -146,14 +146,15 @@ public sealed partial class MainPage : Page
 
     private void ThemeButton_Click(object sender, RoutedEventArgs e)
     {
-        var button = sender as Button;
-        if (button.ActualTheme == ElementTheme.Light)
+        var element = App.currentWindow.Content as FrameworkElement;
+
+        if (element.ActualTheme == ElementTheme.Light)
         {
-            App.Current.ThemeManager.SetCurrentTheme(ElementTheme.Dark);
+            element.RequestedTheme = ElementTheme.Dark;
         }
-        else if (button.ActualTheme == ElementTheme.Dark)
+        else if (element.ActualTheme == ElementTheme.Dark)
         {
-            App.Current.ThemeManager.SetCurrentTheme(ElementTheme.Light);
+            element.RequestedTheme = ElementTheme.Light;
         }
     }
 }

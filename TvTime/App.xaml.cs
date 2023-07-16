@@ -78,5 +78,29 @@ public partial class App : Application
         currentWindow.AppWindow.SetIcon("Assets/Fluent/icon.ico");
 
         currentWindow.Activate();
+
+        UnhandledException += App_UnhandledException;
+    }
+
+    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    {
+        Log(e.Exception.Message);
+    }
+
+    public static void Log(string message)
+    {
+        try
+        {
+            using (StreamWriter writer = File.AppendText("Log.txt"))
+            {
+                string logEntry = $"{DateTime.Now}{Environment.NewLine}{message}{Environment.NewLine}-----{Environment.NewLine}";
+                writer.WriteLine(logEntry);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle any exceptions that occur during logging
+            Console.WriteLine($"Error writing to log file: {ex.Message}");
+        }
     }
 }

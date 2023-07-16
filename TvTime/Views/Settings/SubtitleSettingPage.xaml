@@ -25,23 +25,27 @@
             <wuc:SettingsExpander Description="Specify the language of the subtitles"
                                   Header="Subtitle Language"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
-                <wuc:SettingsExpander.Items>
+                <wuc:SettingsExpander.ItemsHeader>
                     <AutoSuggestBox Margin="10,10,10,0"
                                     PlaceholderText="Add some new languages [Press enter to add]"
                                     QueryIcon="Add"
                                     QuerySubmitted="SubtitleLanguage_QuerySubmitted" />
+                </wuc:SettingsExpander.ItemsHeader>
+
+                <wuc:SettingsExpander.ItemsFooter>
                     <labs:TokenView Margin="10"
                                     CanRemoveTokens="True"
                                     ItemsSource="{x:Bind local:TvTimeHelper.Settings.SubtitleLanguagesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SelectionMode="None"
                                     TokenItemRemoving="TokenView_TokenItemRemoving" />
-                </wuc:SettingsExpander.Items>
+                </wuc:SettingsExpander.ItemsFooter>
             </wuc:SettingsExpander>
 
             <wuc:SettingsCard Description="Download Subtitles With Internet Download Manager (IDM) [if exist]"
                               Header="Download with IDM"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
-                <ToggleSwitch x:Name="TGUseIDM" IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch x:Name="TGUseIDM"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
         </StackPanel>
     </ScrollViewer>

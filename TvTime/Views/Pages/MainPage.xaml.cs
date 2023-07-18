@@ -76,7 +76,6 @@ public sealed partial class MainPage : Page
     private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
         this.args = args;
-        TxtSearch.ItemsSource = null;
 
         if (Settings.UseRealTimeSearch)
         {
@@ -156,5 +155,17 @@ public sealed partial class MainPage : Page
         {
             element.RequestedTheme = ElementTheme.Light;
         }
+    }
+
+    private void TxtSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+    {
+        TxtSearch.Text = args.SelectedItem.ToString();
+        TxtSearch.IsSuggestionListOpen = true;
+    }
+
+    public void ClearTxtSearch()
+    {
+        TxtSearch.ItemsSource = null;
+        TxtSearch.Text = string.Empty;
     }
 }

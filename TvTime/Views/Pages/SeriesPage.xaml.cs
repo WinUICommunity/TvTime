@@ -11,6 +11,7 @@ public sealed partial class SeriesPage : Page
         if (e.Content.GetType() != typeof(DetailPage))
         {
             this.NavigationCacheMode = NavigationCacheMode.Disabled;
+            MainPage.Instance.ClearTxtSearch();
         }
     }
 }

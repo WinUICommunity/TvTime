@@ -29,8 +29,7 @@
                                 PlaceholderText="Search Movies, Series, Anime and more"
                                 QueryIcon="Find"
                                 QuerySubmitted="TxtSearch_QuerySubmitted"
-                                TextChanged="txtSearch_TextChanged"
-                                UpdateTextOnSelect="False" />
+                                TextChanged="txtSearch_TextChanged" />
             </wuc:TitleBar.Content>
             <wuc:TitleBar.Footer>
                 <Button x:Name="ThemeButton"

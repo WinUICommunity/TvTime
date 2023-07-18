@@ -22,8 +22,7 @@
                      IsClosable="False"
                      IsOpen="True" />
 
-            <wuc:SettingsExpander Name="sx"
-                                  Description="Specify the language of the subtitles"
+            <wuc:SettingsExpander Description="Specify the language of the subtitles"
                                   Header="Subtitle Language"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
                 <wuc:SettingsExpander.Items>

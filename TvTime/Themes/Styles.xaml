@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:i="using:Microsoft.Xaml.Interactivity"
-                    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-                    xmlns:local="using:TvTime.Common">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <x:Double x:Key="TitleBarCompactHeight">48</x:Double>
 
     <x:String x:Key="BreadCrumbBarRootText">Settings</x:String>
 

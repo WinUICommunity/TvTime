@@ -16,7 +16,6 @@
         <wuc:TitleBar x:Name="appTitleBar"
                       Title="TvTime"
                       BackButtonClick="appTitleBar_BackButtonClick"
-                      DisplayMode="Tall"
                       IsBackButtonVisible="True"
                       IsPaneButtonVisible="True"
                       PaneButtonClick="appTitleBar_PaneButtonClick"
@@ -27,11 +26,11 @@
             </wuc:TitleBar.Icon>
             <wuc:TitleBar.Content>
                 <AutoSuggestBox x:Name="TxtSearch"
-                                MinWidth="360"
                                 PlaceholderText="Search Movies, Series, Anime and more"
                                 QueryIcon="Find"
                                 QuerySubmitted="TxtSearch_QuerySubmitted"
-                                TextChanged="txtSearch_TextChanged" />
+                                TextChanged="txtSearch_TextChanged"
+                                UpdateTextOnSelect="False" />
             </wuc:TitleBar.Content>
             <wuc:TitleBar.Footer>
                 <Button x:Name="ThemeButton"

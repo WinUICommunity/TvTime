@@ -77,10 +77,9 @@
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseRealTimeSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsExpander Description="Choose Icon Pack to display for the season number"
-                                  Header="Icon Pack"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}"
-                                  IsExpanded="False">
+            <wuc:SettingsCard Description="Choose Icon Pack to display for the season number"
+                              Header="Icon Pack"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}">
                 <ComboBox x:Name="CmbIconPack">
                     <ComboBoxItem Content="Glyph"
                                   Tag="Glyph" />
@@ -95,7 +94,7 @@
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </ComboBox>
-            </wuc:SettingsExpander>
+            </wuc:SettingsCard>
 
             <wuc:SettingsExpander Description="Specify Styles and Font Size"
                                   Header="TvTime Layout"
@@ -127,12 +126,10 @@
                 <ToggleSwitch x:Name="TGRegex"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseDefaultRegexEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Toggled="TGRegex_Toggled" />
-                <wuc:SettingsExpander.Items>
+                <wuc:SettingsExpander.ItemsHeader>
                     <TextBox MinWidth="240"
                              MinHeight="160"
                              AcceptsReturn="True"
-                             BorderThickness="1,0,1,1"
-                             CornerRadius="0,0,4,4"
                              IsEnabled="{Binding ElementName=TGRegex, Path=IsOn, Converter={StaticResource BoolNegationConverter}}"
                              PlaceholderText="Regex"
                              ScrollViewer.IsVerticalRailEnabled="True"
@@ -140,7 +137,7 @@
                              ScrollViewer.VerticalScrollMode="Enabled"
                              Text="{x:Bind local:TvTimeHelper.Settings.FileNameRegex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              TextWrapping="Wrap" />
-                </wuc:SettingsExpander.Items>
+                </wuc:SettingsExpander.ItemsHeader>
             </wuc:SettingsExpander>
         </StackPanel>
     </ScrollViewer>

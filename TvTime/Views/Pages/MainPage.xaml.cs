@@ -104,9 +104,9 @@ public sealed partial class MainPage : Page
         var rootFrame = App.Current.NavigationManager.Frame;
         dynamic root = rootFrame.Content;
         dynamic viewModel = null;
-        if (root is AnimesPage || root is MoviesPage || root is SeriesPage)
+        if (root is MediaPage)
         {
-            viewModel = MediaUserControl.Instance.ViewModel;
+            viewModel = MediaPage.Instance.ViewModel;
         }
         else if (rootFrame.Content is DetailPage)
         {

@@ -20,7 +20,7 @@ public partial class MediaViewModel : BaseViewModel
     #region Override Methods
     public override void OnPageLoaded(object param)
     {
-        PageType = MediaUserControl.Instance.PageType;
+        PageType = MediaPage.Instance.PageType;
 
         var tokens = Settings.TVTimeServers.Where(x => x.IsActive && x.ServerType.ToString().Equals(GetPageType()))
             .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
@@ -64,7 +64,6 @@ public partial class MediaViewModel : BaseViewModel
             Title = headerText,
             ServerType = ApplicationHelper.GetEnum<ServerType>(PageType.ToString())
         };
-
         App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), media);
     }
 
@@ -72,7 +71,7 @@ public partial class MediaViewModel : BaseViewModel
     {
         if (DataList != null && DataList.Any())
         {
-            var items = MediaUserControl.Instance.GetTokenSelectedItems();
+            var items = MediaPage.Instance.GetTokenSelectedItems();
 
             if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
             {
@@ -94,7 +93,7 @@ public partial class MediaViewModel : BaseViewModel
         var name = query.Title ?? "";
         var server = query.Server ?? "";
         var txtSearch = MainPage.Instance.GetTxtSearch();
-        var items = MediaUserControl.Instance.GetTokenSelectedItems();
+        var items = MediaPage.Instance.GetTokenSelectedItems();
 
         if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
         {

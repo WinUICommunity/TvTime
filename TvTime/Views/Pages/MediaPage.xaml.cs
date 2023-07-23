@@ -3,27 +3,25 @@
 using TvTime.ViewModels;
 
 namespace TvTime.Views;
-
-public sealed partial class MediaUserControl : UserControl
+public sealed partial class MediaPage : Page
 {
-    public PageOrDirectoryType PageType
-    {
-        get => (PageOrDirectoryType) GetValue(PageTypeProperty);
-        set => SetValue(PageTypeProperty, value);
-    }
-
-    public static readonly DependencyProperty PageTypeProperty =
-        DependencyProperty.Register("PageType", typeof(PageOrDirectoryType), typeof(MediaUserControl), new PropertyMetadata(null));
-
-    public static MediaUserControl Instance { get; set; }
+    public PageOrDirectoryType PageType { get; set; }
+    public static MediaPage Instance { get; set; }
     public MediaViewModel ViewModel { get; }
-
-    public MediaUserControl()
+    public MediaPage()
     {
+        this.InitializeComponent();
         ViewModel = App.Current.Services.GetService<MediaViewModel>();
         this.InitializeComponent();
         Instance = this;
         DataContext = this;
+    }
+
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        var pageType = (((e.Parameter as NavigationArgs).Parameter) as ControlInfoDataItem).SecondaryTitle;
+        this.PageType = ApplicationHelper.GetEnum<PageOrDirectoryType>(pageType);
     }
 
     public List<TokenItem> GetTokenSelectedItems()

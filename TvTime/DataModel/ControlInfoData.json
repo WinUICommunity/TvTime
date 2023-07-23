@@ -24,8 +24,9 @@
           "RelatedControls": []
         },
         {
-          "UniqueId": "TvTime.Views.SeriesPage",
+          "UniqueId": "TvTime.Views.MediaPage",
           "Title": "Series",
+          "SecondaryTitle": "Series",
           "Subtitle": "Search among Series and download the desired series",
           "ImagePath": "ms-appx:///Assets/Fluent/media.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/media.png",
@@ -36,8 +37,9 @@
           "RelatedControls": []
         },
         {
-          "UniqueId": "TvTime.Views.MoviesPage",
+          "UniqueId": "TvTime.Views.MediaPage",
           "Title": "Movies",
+          "SecondaryTitle": "Movie",
           "Subtitle": "Search among Movies and download the desired movie",
           "ImagePath": "ms-appx:///Assets/Fluent/movie.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/movie.png",
@@ -48,8 +50,9 @@
           "RelatedControls": []
         },
         {
-          "UniqueId": "TvTime.Views.AnimesPage",
+          "UniqueId": "TvTime.Views.MediaPage",
           "Title": "Anime",
+          "SecondaryTitle": "Anime",
           "Subtitle": "Search among anime and download the desired anime",
           "ImagePath": "ms-appx:///Assets/Fluent/anime.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/anime.png",

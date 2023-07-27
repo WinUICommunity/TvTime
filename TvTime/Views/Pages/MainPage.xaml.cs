@@ -1,7 +1,11 @@
 ﻿namespace TvTime.Views;
 public sealed partial class MainPage : Page
 {
+#if DEBUG
     public string TvTimeVersion { get; set; } = $"v{App.Current.TvTimeVersion} - Preview";
+#else
+    public string TvTimeVersion { get; set; } = $"v{App.Current.TvTimeVersion}";
+#endif
     public static MainPage Instance { get; set; }
     private AutoSuggestBoxTextChangedEventArgs args;
     public MainPage()

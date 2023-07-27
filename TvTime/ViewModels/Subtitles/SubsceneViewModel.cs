@@ -37,7 +37,7 @@ public partial class SubsceneViewModel : BaseViewModel
             Title = headerText
         };
 
-        App.Current.NavigationManager.NavigateForJson(typeof(SubsceneDetailPage), subtitle);
+        App.Current.JsonNavigationViewService.NavigateTo(typeof(SubsceneDetailPage), subtitle);
     }
 
     public override void OnRefresh()

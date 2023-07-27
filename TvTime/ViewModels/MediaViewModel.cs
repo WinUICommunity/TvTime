@@ -64,7 +64,7 @@ public partial class MediaViewModel : BaseViewModel
             Title = headerText,
             ServerType = ApplicationHelper.GetEnum<ServerType>(PageType.ToString())
         };
-        App.Current.NavigationManager.NavigateForJson(typeof(DetailPage), media);
+        App.Current.JsonNavigationViewService.NavigateTo(typeof(DetailPage), media);
     }
 
     public override void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -115,7 +115,7 @@ public partial class MediaViewModel : BaseViewModel
     #endregion
 
     [RelayCommand]
-    private void OnServerStatus()
+    private async void OnServerStatus()
     {
         ContentDialog contentDialog = new ContentDialog();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
@@ -139,10 +139,10 @@ public partial class MediaViewModel : BaseViewModel
         contentDialog.Content = new ScrollViewer { Content = stck };
 
         contentDialog.PrimaryButtonText = "OK";
-        contentDialog.ShowAsyncQueue();
+        await contentDialog.ShowAsyncQueue();
     }
 
-    private void GoToServerPage()
+    private async void GoToServerPage()
     {
         ContentDialog contentDialog = new ContentDialog();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
@@ -166,10 +166,10 @@ public partial class MediaViewModel : BaseViewModel
         contentDialog.SecondaryButtonText = "Cancel";
         contentDialog.PrimaryButtonClick += (s, e) =>
         {
-            App.Current.NavigationManager.NavigateForJson(typeof(ServersPage));
+            App.Current.JsonNavigationViewService.NavigateTo(typeof(ServersPage));
         };
 
-        contentDialog.ShowAsyncQueue();
+        await contentDialog.ShowAsyncQueue();
     }
 
     private async void LoadLocalStorage()

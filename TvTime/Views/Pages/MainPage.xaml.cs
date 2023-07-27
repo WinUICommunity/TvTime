@@ -11,18 +11,11 @@ public sealed partial class MainPage : Page
         Instance = this;
         Loaded += MainPage_Loaded;
 
-        App.Current.NavigationManager = NavigationManager.Initialize(NavView, new NavigationViewOptions
-        {
-            DefaultPage = typeof(HomeLandingsPage),
-            SettingsPage = typeof(SettingsPage),
-            JsonOptions = new JsonOptions
-            {
-                JsonFilePath = "DataModel/ControlInfoData.json"
-            }
-        }, NavFrame, ControlsSearchBox, new AutoSuggestBoxOptions
-        {
-            NoResultImage = "ms-appx:///Assets/Fluent/icon.png"
-        });
+        App.Current.JsonNavigationViewService.Initialize(NavView, NavFrame);
+        App.Current.JsonNavigationViewService.ConfigJson("DataModel/AppData.json");
+        App.Current.JsonNavigationViewService.ConfigDefaultPage(typeof(HomeLandingsPage));
+        App.Current.JsonNavigationViewService.ConfigSettingsPage(typeof(SettingsPage));
+        App.Current.JsonNavigationViewService.ConfigAutoSuggestBox(ControlsSearchBox, true, null, "ms-appx:///Assets/Fluent/icon.png");
     }
 
     private void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -56,7 +49,7 @@ public sealed partial class MainPage : Page
     private void TxtSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         // Subtitles can not be searched realtime because of server issues
-        var rootFrame = App.Current.NavigationManager.Frame;
+        var rootFrame = App.Current.JsonNavigationViewService.Frame;
         dynamic viewModel = null;
         if (rootFrame.Content is SubscenePage)
         {
@@ -101,7 +94,7 @@ public sealed partial class MainPage : Page
 
     private dynamic GetCurrentViewModel()
     {
-        var rootFrame = App.Current.NavigationManager.Frame;
+        var rootFrame = App.Current.JsonNavigationViewService.Frame;
         dynamic root = rootFrame.Content;
         dynamic viewModel = null;
         if (root is MediaPage)

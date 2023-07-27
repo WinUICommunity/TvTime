@@ -14,7 +14,7 @@ public partial class SettingsViewModel : ObservableObject
             if (pageType != null)
             {
                 DrillInNavigationTransitionInfo entranceNavigation = new DrillInNavigationTransitionInfo();
-                App.Current.NavigationManager.NavigateForJson(pageType, item.Header, entranceNavigation);
+                App.Current.JsonNavigationViewService.NavigateTo(pageType, item.Header);
             }
         }
     }

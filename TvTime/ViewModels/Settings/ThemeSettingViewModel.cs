@@ -4,13 +4,13 @@ public partial class ThemeSettingViewModel : ObservableObject
     [RelayCommand]
     private void OnBackdropChanged(object sender)
     {
-        App.Current.ThemeManager.OnBackdropComboBoxSelectionChanged(sender);
+        App.Current.ThemeService.OnBackdropComboBoxSelectionChanged(sender);
     }
 
     [RelayCommand]
     private void OnThemeChanged(object sender)
     {
-        App.Current.ThemeManager.OnThemeComboBoxSelectionChanged(sender);
+        App.Current.ThemeService.OnThemeComboBoxSelectionChanged(sender);
     }
 
     [RelayCommand]

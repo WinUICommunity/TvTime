@@ -16,6 +16,6 @@ public sealed partial class HomeLandingsPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        allLandingPage.GetDataAsync("DataModel/ControlInfoData.json", PathType.Relative);
+        allLandingPage.GetData(App.Current.JsonNavigationViewService.DataSource);
     }
 }

@@ -23,9 +23,8 @@ public sealed partial class SubsceneDetailPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        var args = e.Parameter as NavigationArgs;
-        var item = (SubsceneModel) args.Parameter;
-        ViewModel.rootTvTimeItem = item;
+        var args = (SubsceneModel) e.Parameter;
+        ViewModel.rootTvTimeItem = args;
         ViewModel.BreadcrumbBarList?.Clear();
     }
 

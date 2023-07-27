@@ -5,13 +5,8 @@ public partial class HomeLandingsViewModel : ObservableObject
     private void OnItemClick(RoutedEventArgs e)
     {
         var args = (ItemClickEventArgs) e;
-        var item = (ControlInfoDataItem) args.ClickedItem;
-        Type pageType = Type.GetType(item.UniqueId);
+        var item = (DataItem) args.ClickedItem;
 
-        if (pageType != null)
-        {
-            object parameter = null;
-            App.Current.NavigationManager.NavigateForJson(pageType, parameter);
-        }
+        App.Current.JsonNavigationViewService.NavigateTo(item.UniqueId, item);
     }
 }

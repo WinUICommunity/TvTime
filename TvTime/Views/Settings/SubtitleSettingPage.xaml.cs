@@ -15,7 +15,7 @@ public sealed partial class SubtitleSettingPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        BreadCrumbBarItemText = ((NavigationArgs) e.Parameter).Parameter as string;
+        BreadCrumbBarItemText = e.Parameter as string;
     }
 
     private void SubtitleLanguage_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)

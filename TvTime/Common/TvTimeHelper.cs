@@ -197,7 +197,10 @@ public static class TvTimeHelper
     public static void CreateIMDBDetailsWindow(string query)
     {
         var window = new IMDBDetailsWindow(query);
-        new ThemeManager(window, App.Current.ThemeManager.ThemeOptions);
+        IThemeService ThemeService = new ThemeService();
+        ThemeService.Initialize(window);
+        ThemeService.ConfigBackdrop(BackdropType.Mica);
+        ThemeService.ConfigElementTheme(ElementTheme.Default);
         window.Activate();
     }
 

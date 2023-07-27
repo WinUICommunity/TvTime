@@ -66,7 +66,7 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
         int numItemsToGoBack = BreadcrumbBarCollection.Count - args.Index - 1;
         for (int i = 0; i < numItemsToGoBack; i++)
         {
-            App.Current.NavigationManager.GoBack();
+            App.Current.JsonNavigationViewService.GoBack();
         }
     }
 }

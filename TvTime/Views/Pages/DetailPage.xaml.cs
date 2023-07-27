@@ -17,9 +17,8 @@ public sealed partial class DetailPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        var args = e.Parameter as NavigationArgs;
-        var item = (MediaItem) args.Parameter;
-        ViewModel.rootTvTimeItem = item;
+        var args = (MediaItem) e.Parameter;
+        ViewModel.rootTvTimeItem = args;
         ViewModel.BreadcrumbBarList?.Clear();
     }
 }

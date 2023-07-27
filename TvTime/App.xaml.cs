@@ -7,15 +7,16 @@ namespace TvTime;
 
 public partial class App : Application
 {
+    public IJsonNavigationViewService JsonNavigationViewService { get; set; }
+    public IThemeService ThemeService { get; set; }
     public static Window currentWindow = Window.Current;
-    public NavigationManager NavigationManager { get; set; }
-    public ThemeManager ThemeManager { get; set; }
     public string TvTimeVersion { get; set; }
     public IServiceProvider Services { get; }
     public new static App Current => (App) Application.Current;
 
     public App()
     {
+        JsonNavigationViewService = new JsonNavigationViewService();
         Services = ConfigureServices();
 
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
@@ -64,10 +65,11 @@ public partial class App : Application
 
         rootFrame.Navigate(typeof(MainPage));
 
-        ThemeManager = ThemeManager.Initialize(currentWindow, new ThemeOptions
-        {
-            BackdropFallBackColorForWindows10 = Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush
-        });
+        ThemeService = new ThemeService();
+        ThemeService.Initialize(currentWindow);
+        ThemeService.ConfigBackdrop(BackdropType.Mica);
+        ThemeService.ConfigElementTheme(ElementTheme.Default);
+        ThemeService.ConfigBackdropFallBackColorForWindow10(Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush);
 
         if (Settings.SubtitleLanguagesCollection == null || Settings.SubtitleLanguagesCollection.Count == 0)
         {

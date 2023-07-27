@@ -15,13 +15,13 @@ public sealed partial class ThemeSettingPage : Page
 
     private void ThemeSettingPage_Loaded(object sender, RoutedEventArgs e)
     {
-        App.Current.ThemeManager.SetThemeComboBoxDefaultItem(CmbTheme);
-        App.Current.ThemeManager.SetBackdropComboBoxDefaultItem(CmbBackdrop);
+        App.Current.ThemeService.SetThemeComboBoxDefaultItem(CmbTheme);
+        App.Current.ThemeService.SetBackdropComboBoxDefaultItem(CmbBackdrop);
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        BreadCrumbBarItemText = ((NavigationArgs) e.Parameter).Parameter as string;
+        BreadCrumbBarItemText = e.Parameter as string;
     }
 }

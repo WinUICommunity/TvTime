@@ -16,12 +16,7 @@
           "Subtitle": "Search among anime and download the desired anime",
           "ImagePath": "ms-appx:///Assets/Fluent/icon.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/icon.png",
-          "IncludedInBuild": true,
-          "HideItem": true,
-          "HideNavigationViewItem": false,
-          "HideSourceCodeAndRelatedControls": true,
-          "Docs": [],
-          "RelatedControls": []
+          "HideItem": true
         },
         {
           "UniqueId": "TvTime.Views.MediaPage",
@@ -30,11 +25,7 @@
           "Subtitle": "Search among Series and download the desired series",
           "ImagePath": "ms-appx:///Assets/Fluent/media.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/media.png",
-          "IsUpdated": true,
-          "IncludedInBuild": true,
-          "HideSourceCodeAndRelatedControls": true,
-          "Docs": [],
-          "RelatedControls": []
+          "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.MediaPage",
@@ -43,11 +34,7 @@
           "Subtitle": "Search among Movies and download the desired movie",
           "ImagePath": "ms-appx:///Assets/Fluent/movie.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/movie.png",
-          "IsUpdated": true,
-          "IncludedInBuild": true,
-          "HideSourceCodeAndRelatedControls": true,
-          "Docs": [],
-          "RelatedControls": []
+          "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.MediaPage",
@@ -56,11 +43,7 @@
           "Subtitle": "Search among anime and download the desired anime",
           "ImagePath": "ms-appx:///Assets/Fluent/anime.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/anime.png",
-          "IsUpdated": true,
-          "IncludedInBuild": true,
-          "HideSourceCodeAndRelatedControls": true,
-          "Docs": [],
-          "RelatedControls": []
+          "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.SubscenePage",
@@ -68,11 +51,7 @@
           "Subtitle": "Search and Download the subtitle you need from subscene servers",
           "ImagePath": "ms-appx:///Assets/Fluent/subtitle.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/subtitle.png",
-          "IsUpdated": true,
-          "IncludedInBuild": true,
-          "HideSourceCodeAndRelatedControls": true,
-          "Docs": [],
-          "RelatedControls": []
+          "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.IMDBDetailsPage",
@@ -80,11 +59,7 @@
           "Subtitle": "Get Details about Movie, Series or Anime from IMDB",
           "ImagePath": "ms-appx:///Assets/Fluent/imdb.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/imdb.png",
-          "IsUpdated": true,
-          "IncludedInBuild": true,
-          "HideSourceCodeAndRelatedControls": true,
-          "Docs": [],
-          "RelatedControls": []
+          "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.ServersPage",
@@ -92,11 +67,7 @@
           "Subtitle": "Add, Update or Remove Servers",
           "ImagePath": "ms-appx:///Assets/Fluent/server.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/server.png",
-          "IsUpdated": true,
-          "IncludedInBuild": true,
-          "HideSourceCodeAndRelatedControls": true,
-          "Docs": [],
-          "RelatedControls": []
+          "IsUpdated": true
         }
       ]
     }

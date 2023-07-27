@@ -14,6 +14,6 @@ public sealed partial class BackupSettingPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        BreadCrumbBarItemText = ((NavigationArgs) e.Parameter).Parameter as string;
+        BreadCrumbBarItemText = e.Parameter as string;
     }
 }

@@ -20,7 +20,7 @@ public sealed partial class MediaPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        var pageType = (e.Parameter as DataItem).SecondaryTitle;
+        var pageType = (e.Parameter as DataItem).Parameter?.ToString();
         this.PageType = ApplicationHelper.GetEnum<PageOrDirectoryType>(pageType);
     }
 

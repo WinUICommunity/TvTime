@@ -1,10 +1,11 @@
 ﻿namespace TvTime.Views;
 public sealed partial class MainPage : Page
 {
+    public string TvTimeVersion { get; set; } =
 #if DEBUG
-    public string TvTimeVersion { get; set; } = $"v{App.Current.TvTimeVersion} - Preview";
+        $"v{App.Current.TvTimeVersion} - Preview";
 #else
-    public string TvTimeVersion { get; set; } = $"v{App.Current.TvTimeVersion}";
+        $"v{App.Current.TvTimeVersion}";
 #endif
     public static MainPage Instance { get; set; }
     private AutoSuggestBoxTextChangedEventArgs args;
@@ -20,6 +21,15 @@ public sealed partial class MainPage : Page
         App.Current.JsonNavigationViewService.ConfigDefaultPage(typeof(HomeLandingsPage));
         App.Current.JsonNavigationViewService.ConfigSettingsPage(typeof(SettingsPage));
         App.Current.JsonNavigationViewService.ConfigAutoSuggestBox(ControlsSearchBox, true, null, "ms-appx:///Assets/Fluent/icon.png");
+
+        NavFrame.Navigating += (s, e) =>
+        {
+            var page = NavFrame.Content as Page;
+            if (page != null && e.SourcePageType != typeof(DetailPage))
+            {
+                page.NavigationCacheMode = NavigationCacheMode.Disabled;
+            }
+        };
     }
 
     private void MainPage_Loaded(object sender, RoutedEventArgs e)

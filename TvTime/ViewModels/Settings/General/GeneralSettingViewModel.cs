@@ -37,7 +37,7 @@ public partial class GeneralSettingViewModel : ObservableObject
             if (pageType != null)
             {
                 DrillInNavigationTransitionInfo entranceNavigation = new DrillInNavigationTransitionInfo();
-                JsonNavigationViewService.NavigateTo(pageType, item.Header);
+                JsonNavigationViewService.NavigateTo(pageType, item.Header, false, entranceNavigation);
             }
         }
     }

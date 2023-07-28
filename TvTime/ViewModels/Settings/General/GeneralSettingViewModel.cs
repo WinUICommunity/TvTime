@@ -6,8 +6,11 @@ public partial class GeneralSettingViewModel : ObservableObject
     [ObservableProperty]
     public List<string> breadCrumbBarCollection = new();
 
-    public GeneralSettingViewModel()
+    public IJsonNavigationViewService JsonNavigationViewService;
+
+    public GeneralSettingViewModel(IJsonNavigationViewService jsonNavigationViewService)
     {
+        JsonNavigationViewService = jsonNavigationViewService;
         BreadCrumbBarCollection.Add("General");
     }
 
@@ -34,7 +37,7 @@ public partial class GeneralSettingViewModel : ObservableObject
             if (pageType != null)
             {
                 DrillInNavigationTransitionInfo entranceNavigation = new DrillInNavigationTransitionInfo();
-                App.Current.JsonNavigationViewService.NavigateTo(pageType, item.Header);
+                JsonNavigationViewService.NavigateTo(pageType, item.Header);
             }
         }
     }

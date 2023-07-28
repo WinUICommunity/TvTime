@@ -16,6 +16,12 @@ public partial class MediaViewModel : BaseViewModel
     private int totalServerCount = 0;
 
     JsonSerializerOptions options = new() { WriteIndented = true };
+    public IJsonNavigationViewService JsonNavigationViewService;
+
+    public MediaViewModel(IJsonNavigationViewService jsonNavigationViewService)
+    {
+        JsonNavigationViewService = jsonNavigationViewService;
+    }
 
     #region Override Methods
     public override void OnPageLoaded(object param)
@@ -64,7 +70,7 @@ public partial class MediaViewModel : BaseViewModel
             Title = headerText,
             ServerType = ApplicationHelper.GetEnum<ServerType>(PageType.ToString())
         };
-        App.Current.JsonNavigationViewService.NavigateTo(typeof(DetailPage), media);
+        JsonNavigationViewService.NavigateTo(typeof(DetailPage), media);
     }
 
     public override void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -166,7 +172,7 @@ public partial class MediaViewModel : BaseViewModel
         contentDialog.SecondaryButtonText = "Cancel";
         contentDialog.PrimaryButtonClick += (s, e) =>
         {
-            App.Current.JsonNavigationViewService.NavigateTo(typeof(ServersPage));
+            JsonNavigationViewService.NavigateTo(typeof(ServersPage));
         };
 
         await contentDialog.ShowAsyncQueue();

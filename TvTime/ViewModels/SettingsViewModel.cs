@@ -3,6 +3,12 @@
 namespace TvTime.ViewModels;
 public partial class SettingsViewModel : ObservableObject
 {
+    public IJsonNavigationViewService JsonNavigationViewService;
+    public SettingsViewModel(IJsonNavigationViewService jsonNavigationViewService)
+    {
+        JsonNavigationViewService = jsonNavigationViewService;
+    }
+
     [RelayCommand]
     private void GoToSettingPage(object sender)
     {
@@ -14,7 +20,7 @@ public partial class SettingsViewModel : ObservableObject
             if (pageType != null)
             {
                 DrillInNavigationTransitionInfo entranceNavigation = new DrillInNavigationTransitionInfo();
-                App.Current.JsonNavigationViewService.NavigateTo(pageType, item.Header);
+                JsonNavigationViewService.NavigateTo(pageType, item.Header);
             }
         }
     }

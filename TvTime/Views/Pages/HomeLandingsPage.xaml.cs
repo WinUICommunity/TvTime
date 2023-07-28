@@ -8,14 +8,14 @@ public sealed partial class HomeLandingsPage : Page
 
     public HomeLandingsPage()
     {
-        this.InitializeComponent();
         ViewModel = App.GetService<HomeLandingsViewModel>();
+        this.InitializeComponent();
         TvTimeVersion = $"TvTime v{App.Current.TvTimeVersion}";
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        allLandingPage.GetData(App.Current.JsonNavigationViewService.DataSource);
+       allLandingPage.GetData(ViewModel.JsonNavigationViewService.DataSource);
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace TvTime.Views;
+﻿using TvTime.ViewModels;
+
+using WinUICommunity;
+
+namespace TvTime.Views;
 public sealed partial class MainPage : Page
 {
     public string TvTimeVersion { get; set; } =
@@ -9,18 +13,19 @@ public sealed partial class MainPage : Page
 #endif
     public static MainPage Instance { get; set; }
     private AutoSuggestBoxTextChangedEventArgs args;
+
+    public MainViewModel ViewModel { get; }
     public MainPage()
     {
+        ViewModel = App.GetService<MainViewModel>();
         this.InitializeComponent();
         appTitleBar.Window = App.currentWindow;
         Instance = this;
-        Loaded += MainPage_Loaded;
 
-        App.Current.JsonNavigationViewService.Initialize(NavView, NavFrame);
-        App.Current.JsonNavigationViewService.ConfigJson("DataModel/AppData.json");
-        App.Current.JsonNavigationViewService.ConfigDefaultPage(typeof(HomeLandingsPage));
-        App.Current.JsonNavigationViewService.ConfigSettingsPage(typeof(SettingsPage));
-        App.Current.JsonNavigationViewService.ConfigAutoSuggestBox(ControlsSearchBox, true, null, "ms-appx:///Assets/Fluent/icon.png");
+        ViewModel.JsonNavigationViewService.Initialize(NavView, NavFrame);
+        ViewModel.JsonNavigationViewService.ConfigAutoSuggestBox(ControlsSearchBox, true, null, "ms-appx:///Assets/Fluent/icon.png");
+
+        Loaded += MainPage_Loaded;
 
         NavFrame.Navigating += (s, e) =>
         {
@@ -63,7 +68,7 @@ public sealed partial class MainPage : Page
     private void TxtSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         // Subtitles can not be searched realtime because of server issues
-        var rootFrame = App.Current.JsonNavigationViewService.Frame;
+        var rootFrame = ViewModel.JsonNavigationViewService.Frame;
         dynamic viewModel = null;
         if (rootFrame.Content is SubscenePage)
         {
@@ -108,7 +113,7 @@ public sealed partial class MainPage : Page
 
     private dynamic GetCurrentViewModel()
     {
-        var rootFrame = App.Current.JsonNavigationViewService.Frame;
+        var rootFrame = ViewModel.JsonNavigationViewService.Frame;
         dynamic root = rootFrame.Content;
         dynamic viewModel = null;
         if (root is MediaPage)

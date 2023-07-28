@@ -7,7 +7,6 @@ namespace TvTime;
 
 public partial class App : Application
 {
-    public IJsonNavigationViewService JsonNavigationViewService { get; set; }
     public IThemeService ThemeService { get; set; }
     public static Window currentWindow = Window.Current;
     public string TvTimeVersion { get; set; }
@@ -27,7 +26,6 @@ public partial class App : Application
 
     public App()
     {
-        JsonNavigationViewService = new JsonNavigationViewService();
         Services = ConfigureServices();
 
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
@@ -41,7 +39,10 @@ public partial class App : Application
     private static IServiceProvider ConfigureServices()
     {
         var services = new ServiceCollection();
+        services.AddSingleton<IJsonNavigationViewService, JsonNavigationViewService>();
 
+        services.AddTransient<MainViewModel>();
+        services.AddTransient<BreadCrumbBarViewModel>();
         services.AddTransient<HomeLandingsViewModel>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<ServerViewModel>();
@@ -67,20 +68,22 @@ public partial class App : Application
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         currentWindow = new Window();
+        
         currentWindow.AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
         currentWindow.AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+
         if (currentWindow.Content is not Frame rootFrame)
         {
             currentWindow.Content = rootFrame = new Frame();
         }
-
-        rootFrame.Navigate(typeof(MainPage));
 
         ThemeService = new ThemeService();
         ThemeService.Initialize(currentWindow);
         ThemeService.ConfigBackdrop(BackdropType.Mica);
         ThemeService.ConfigElementTheme(ElementTheme.Default);
         ThemeService.ConfigBackdropFallBackColorForWindow10(Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush);
+
+        rootFrame.Navigate(typeof(MainPage));
 
         if (Settings.SubtitleLanguagesCollection == null || Settings.SubtitleLanguagesCollection.Count == 0)
         {

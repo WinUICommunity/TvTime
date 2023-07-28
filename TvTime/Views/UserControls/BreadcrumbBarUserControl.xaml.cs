@@ -1,13 +1,8 @@
-﻿namespace TvTime.Views;
+﻿using TvTime.ViewModels;
+
+namespace TvTime.Views;
 public sealed partial class BreadcrumbBarUserControl : UserControl
 {
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected void OnPropertyChanged([CallerMemberName] string name = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    }
-
     public List<string> Items
     {
         get => (List<string>) GetValue(ItemsProperty);
@@ -26,47 +21,28 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
     public static readonly DependencyProperty SingleItemProperty =
         DependencyProperty.Register("SingleItem", typeof(string), typeof(BreadcrumbBarUserControl), new PropertyMetadata(default(string)));
 
-    private ObservableCollection<string> breadcrumbBarCollection;
-
-    public ObservableCollection<string> BreadcrumbBarCollection
-    {
-        get => breadcrumbBarCollection;
-        set
-        {
-            breadcrumbBarCollection = value;
-            OnPropertyChanged();
-        }
-    }
+    public BreadCrumbBarViewModel ViewModel { get; }
 
     public BreadcrumbBarUserControl()
     {
+        ViewModel = App.GetService<BreadCrumbBarViewModel>();
         this.InitializeComponent();
-        BreadcrumbBarCollection = new();
         Loaded += BreadcrumbBarUserControl_Loaded;
     }
 
     private void BreadcrumbBarUserControl_Loaded(object sender, RoutedEventArgs e)
     {
-        BreadcrumbBarCollection.Add(Application.Current.Resources["BreadCrumbBarRootText"] as string);
+        ViewModel.BreadcrumbBarCollection.Add(Application.Current.Resources["BreadCrumbBarRootText"] as string);
         if (Items != null)
         {
             foreach (var item in Items)
             {
-                BreadcrumbBarCollection.Add(item);
+                ViewModel.BreadcrumbBarCollection.Add(item);
             }
         }
         else
         {
-            BreadcrumbBarCollection.Add(SingleItem);
-        }
-    }
-
-    private void BreadcrumbBar_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
-    {
-        int numItemsToGoBack = BreadcrumbBarCollection.Count - args.Index - 1;
-        for (int i = 0; i < numItemsToGoBack; i++)
-        {
-            App.Current.JsonNavigationViewService.GoBack();
+            ViewModel.BreadcrumbBarCollection.Add(SingleItem);
         }
     }
 }

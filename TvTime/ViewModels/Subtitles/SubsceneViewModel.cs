@@ -15,8 +15,12 @@ public partial class SubsceneViewModel : BaseViewModel
     [ObservableProperty]
     public object tokenItemSelectedItem = null;
 
-    public SubsceneViewModel()
+    public IJsonNavigationViewService JsonNavigationViewService;
+
+    public SubsceneViewModel(IJsonNavigationViewService jsonNavigationViewService)
     {
+        JsonNavigationViewService = jsonNavigationViewService;
+
         var tokens = Settings.SubtitleServers.Where(x => x.IsActive)
             .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
 
@@ -37,7 +41,7 @@ public partial class SubsceneViewModel : BaseViewModel
             Title = headerText
         };
 
-        App.Current.JsonNavigationViewService.NavigateTo(typeof(SubsceneDetailPage), subtitle);
+        JsonNavigationViewService.NavigateTo(typeof(SubsceneDetailPage), subtitle);
     }
 
     public override void OnRefresh()

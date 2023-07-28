@@ -414,4 +414,13 @@ public static class TvTimeHelper
 
         return false;
     }
+
+    public static ObservableCollection<TvTimeLanguage> TvTimeLanguagesCollection()
+    {
+        return new ObservableCollection<TvTimeLanguage>
+        {
+            new TvTimeLanguage("English", "en-US"),
+            new TvTimeLanguage("Persian", "fa-IR")
+        };
+    }
 }

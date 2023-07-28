@@ -69,4 +69,5 @@ public class TvTimeConfig : NotifiyingJsonSettings, IVersionable
 
     public virtual DescriptionTemplateType DescriptionTemplate { get; set; } = DescriptionTemplateType.HyperLink;
     public virtual IconPackType IconPack { get; set; } = IconPackType.Glyph;
+    public virtual TvTimeLanguage TvTimeLanguage { get; set; } = TvTimeLanguagesCollection().FirstOrDefault();
 }

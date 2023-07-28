@@ -32,6 +32,14 @@ public partial class App : Application
         TvTimeVersion = VersionHelper.GetVersion();
 
         CreateDirectory();
+
+        if (Settings.TvTimeLanguage.LanguageCode == "fa-IR")
+        {
+            ResourceDictionary fontsResourceDict = new ResourceDictionary();
+            fontsResourceDict.Source = new Uri("ms-appx:///Themes/Fonts.xaml");
+
+            App.Current.Resources.MergedDictionaries.Add(fontsResourceDict);
+        }
     }
 
     private static IServiceProvider ConfigureServices()

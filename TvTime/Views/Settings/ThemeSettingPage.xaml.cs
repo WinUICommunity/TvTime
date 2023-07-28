@@ -15,8 +15,8 @@ public sealed partial class ThemeSettingPage : Page
 
     private void ThemeSettingPage_Loaded(object sender, RoutedEventArgs e)
     {
-        App.Current.ThemeService.SetThemeComboBoxDefaultItem(CmbTheme);
-        App.Current.ThemeService.SetBackdropComboBoxDefaultItem(CmbBackdrop);
+        ViewModel.ThemeService.SetThemeComboBoxDefaultItem(CmbTheme);
+        ViewModel.ThemeService.SetBackdropComboBoxDefaultItem(CmbBackdrop);
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -1,5 +1,4 @@
 ﻿using Microsoft.UI;
-using Microsoft.UI.Xaml.Media;
 
 using TvTime.ViewModels;
 
@@ -7,7 +6,6 @@ namespace TvTime;
 
 public partial class App : Application
 {
-    public IThemeService ThemeService { get; set; }
     public static Window currentWindow = Window.Current;
     public string TvTimeVersion { get; set; }
     public IServiceProvider Services { get; }
@@ -39,7 +37,15 @@ public partial class App : Application
     private static IServiceProvider ConfigureServices()
     {
         var services = new ServiceCollection();
-        services.AddSingleton<IJsonNavigationViewService, JsonNavigationViewService>();
+        services.AddSingleton<IJsonNavigationViewService>(factory =>
+        {
+            var json = new JsonNavigationViewService();
+            json.ConfigJson("DataModel/AppData.json");
+            json.ConfigDefaultPage(typeof(HomeLandingsPage));
+            json.ConfigSettingsPage(typeof(SettingsPage));
+            return json;
+        });
+        services.AddSingleton<IThemeService, ThemeService>();
 
         services.AddTransient<MainViewModel>();
         services.AddTransient<BreadCrumbBarViewModel>();
@@ -76,12 +82,6 @@ public partial class App : Application
         {
             currentWindow.Content = rootFrame = new Frame();
         }
-
-        ThemeService = new ThemeService();
-        ThemeService.Initialize(currentWindow);
-        ThemeService.ConfigBackdrop(BackdropType.Mica);
-        ThemeService.ConfigElementTheme(ElementTheme.Default);
-        ThemeService.ConfigBackdropFallBackColorForWindow10(Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush);
 
         rootFrame.Navigate(typeof(MainPage));
 

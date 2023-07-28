@@ -1,16 +1,22 @@
 ﻿namespace TvTime.ViewModels;
 public partial class ThemeSettingViewModel : ObservableObject
 {
+    public IThemeService ThemeService;
+    public ThemeSettingViewModel(IThemeService themeService)
+    {
+        ThemeService = themeService;
+    }
+
     [RelayCommand]
     private void OnBackdropChanged(object sender)
     {
-        App.Current.ThemeService.OnBackdropComboBoxSelectionChanged(sender);
+        ThemeService.OnBackdropComboBoxSelectionChanged(sender);
     }
 
     [RelayCommand]
     private void OnThemeChanged(object sender)
     {
-        App.Current.ThemeService.OnThemeComboBoxSelectionChanged(sender);
+        ThemeService.OnThemeComboBoxSelectionChanged(sender);
     }
 
     [RelayCommand]

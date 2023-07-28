@@ -31,8 +31,27 @@ public sealed partial class MainPage : Page
             if (page != null && e.SourcePageType != typeof(DetailPage))
             {
                 page.NavigationCacheMode = NavigationCacheMode.Disabled;
+                if (MediaPage.Instance != null && CanDisableCache(e.Parameter, MediaPage.Instance.PageType.ToString()))
+                {
+                    MediaPage.Instance.NavigationCacheMode = NavigationCacheMode.Disabled;
+                }
             }
         };
+    }
+
+    private bool CanDisableCache(object parameter, string pageType)
+    {
+        var parameterItem = parameter as DataItem;
+
+        if (parameterItem != null)
+        {
+            var item = parameterItem.Parameter?.ToString();
+            if (!string.IsNullOrEmpty(item) && item.Equals(pageType))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void MainPage_Loaded(object sender, RoutedEventArgs e)

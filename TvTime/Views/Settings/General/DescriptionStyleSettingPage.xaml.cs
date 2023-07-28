@@ -8,7 +8,7 @@ public sealed partial class DescriptionStyleSettingPage : Page
 
     public DescriptionStyleSettingPage()
     {
-        ViewModel = App.Current.Services.GetService<DescriptionStyleSettingViewModel>();
+        ViewModel = App.GetService<DescriptionStyleSettingViewModel>();
         GeneralViewModel = GeneralSettingPage.Instance.ViewModel;
         GeneralViewModel.BreadCrumbBarCollection.Add("Description Style");
         this.InitializeComponent();

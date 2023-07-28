@@ -7,7 +7,7 @@ public sealed partial class SubscenePage : Page
     public SubsceneViewModel ViewModel { get; set; }
     public SubscenePage()
     {
-        ViewModel = App.Current.Services.GetService<SubsceneViewModel>();
+        ViewModel = App.GetService<SubsceneViewModel>();
         this.InitializeComponent();
         Instance = this;
         DataContext = this;

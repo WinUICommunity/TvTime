@@ -8,7 +8,7 @@ public sealed partial class HeaderStyleSettingPage : Page
 
     public HeaderStyleSettingPage()
     {
-        ViewModel = App.Current.Services.GetService<HeaderStyleSettingViewModel>();
+        ViewModel = App.GetService<HeaderStyleSettingViewModel>();
         GeneralViewModel = GeneralSettingPage.Instance.ViewModel;
         GeneralViewModel.BreadCrumbBarCollection.Add("Header Style");
         this.InitializeComponent();

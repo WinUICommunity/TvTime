@@ -8,7 +8,7 @@ public sealed partial class ThemeSettingPage : Page
 
     public ThemeSettingPage()
     {
-        ViewModel = App.Current.Services.GetService<ThemeSettingViewModel>();
+        ViewModel = App.GetService<ThemeSettingViewModel>();
         this.InitializeComponent();
         Loaded += ThemeSettingPage_Loaded;
     }

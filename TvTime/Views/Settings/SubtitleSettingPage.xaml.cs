@@ -8,7 +8,7 @@ public sealed partial class SubtitleSettingPage : Page
 
     public SubtitleSettingPage()
     {
-        ViewModel = App.Current.Services.GetService<SubtitleSettingViewModel>();
+        ViewModel = App.GetService<SubtitleSettingViewModel>();
         this.InitializeComponent();
     }
 

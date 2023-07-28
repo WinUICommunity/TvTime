@@ -8,7 +8,7 @@ public sealed partial class IMDBDetailsPage : Page
 
     public IMDBDetailsPage()
     {
-        ViewModel = App.Current.Services.GetService<IMDBDetailsViewModel>();
+        ViewModel = App.GetService<IMDBDetailsViewModel>();
         this.InitializeComponent();
         Instance = this;
     }

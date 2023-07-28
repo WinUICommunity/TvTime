@@ -8,7 +8,7 @@ public sealed partial class AppUpdateSettingPage : Page
 
     public AppUpdateSettingPage()
     {
-        ViewModel = App.Current.Services.GetService<AppUpdateSettingViewModel>();
+        ViewModel = App.GetService<AppUpdateSettingViewModel>();
         this.InitializeComponent();
     }
 

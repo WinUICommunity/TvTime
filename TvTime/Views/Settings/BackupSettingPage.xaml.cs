@@ -7,7 +7,7 @@ public sealed partial class BackupSettingPage : Page
     public string BreadCrumbBarItemText { get; set; }
     public BackupSettingPage()
     {
-        ViewModel = App.Current.Services.GetService<BackupSettingViewModel>();
+        ViewModel = App.GetService<BackupSettingViewModel>();
         this.InitializeComponent();
     }
 

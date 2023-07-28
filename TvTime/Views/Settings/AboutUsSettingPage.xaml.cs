@@ -7,7 +7,7 @@ public sealed partial class AboutUsSettingPage : Page
     public string BreadCrumbBarItemText { get; set; }
     public AboutUsSettingPage()
     {
-        ViewModel = App.Current.Services.GetService<AboutUsSettingViewModel>();
+        ViewModel = App.GetService<AboutUsSettingViewModel>();
         this.InitializeComponent();
     }
 

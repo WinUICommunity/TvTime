@@ -17,7 +17,7 @@ public sealed partial class ServerUserControl : UserControl
 
     public ServerUserControl()
     {
-        ViewModel = App.Current.Services.GetService<ServerViewModel>();
+        ViewModel = App.GetService<ServerViewModel>();
         this.InitializeComponent();
         DataContext = this;
     }

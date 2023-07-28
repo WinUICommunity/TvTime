@@ -9,7 +9,7 @@ public sealed partial class HomeLandingsPage : Page
     public HomeLandingsPage()
     {
         this.InitializeComponent();
-        ViewModel = App.Current.Services.GetService<HomeLandingsViewModel>();
+        ViewModel = App.GetService<HomeLandingsViewModel>();
         TvTimeVersion = $"TvTime v{App.Current.TvTimeVersion}";
     }
 

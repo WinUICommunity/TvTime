@@ -8,7 +8,7 @@ public sealed partial class DetailPage : Page
     public DetailsViewModel ViewModel { get; }
     public DetailPage()
     {
-        ViewModel = App.Current.Services.GetService<DetailsViewModel>();
+        ViewModel = App.GetService<DetailsViewModel>();
         this.InitializeComponent();
         Instance = this;
         DataContext = this;

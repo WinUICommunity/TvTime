@@ -11,7 +11,7 @@ public sealed partial class MediaPage : Page
     public MediaPage()
     {
         this.InitializeComponent();
-        ViewModel = App.Current.Services.GetService<MediaViewModel>();
+        ViewModel = App.GetService<MediaViewModel>();
         this.InitializeComponent();
         Instance = this;
         DataContext = this;

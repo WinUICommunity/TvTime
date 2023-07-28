@@ -7,7 +7,7 @@ public sealed partial class GeneralSettingPage : Page
     public static GeneralSettingPage Instance { get; set; }
     public GeneralSettingPage()
     {
-        ViewModel = App.Current.Services.GetService<GeneralSettingViewModel>();
+        ViewModel = App.GetService<GeneralSettingViewModel>();
         this.InitializeComponent();
         Instance = this;
         Loaded += GeneralSettingPage_Loaded;

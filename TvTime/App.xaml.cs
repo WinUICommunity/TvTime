@@ -14,6 +14,17 @@ public partial class App : Application
     public IServiceProvider Services { get; }
     public new static App Current => (App) Application.Current;
 
+    public static T GetService<T>()
+        where T : class
+    {
+        if ((App.Current as App)!.Services.GetService(typeof(T)) is not T service)
+        {
+            throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs.");
+        }
+
+        return service;
+    }
+
     public App()
     {
         JsonNavigationViewService = new JsonNavigationViewService();

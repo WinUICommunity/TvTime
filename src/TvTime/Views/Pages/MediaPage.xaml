@@ -82,7 +82,7 @@
                         Grid.Row="1"
                         Margin="10,10,0,0">
             <labs:SegmentedItem x:Name="SegRefresh"
-                                Content="Refresh"
+                                x:Uid="MediaPage.RefreshItem"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                                 Tag="Refresh" />
@@ -126,7 +126,7 @@
                                 Spacing="5">
                         <SymbolIcon Symbol="Admin" />
                         <TextBlock Margin="5,0,0,0"
-                                   Text="Server Status" />
+                                   x:Uid="MediaPage.InfoBarActionButton" />
                         <InfoBadge HorizontalAlignment="Right"
                                    VerticalAlignment="Top"
                                    Value="{x:Bind ViewModel.InfoBadgeValue}" />

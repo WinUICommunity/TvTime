@@ -27,26 +27,23 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <ScrollViewer>
-            <wuc:SettingsGroup Header="TvTime Servers">
+            <wuc:SettingsGroup x:Uid="ServerUC.SettingGroup">
                 <wuc:SettingsExpander x:Name="ServerExpander"
-                                      Description="Manage Servers that can be used in the TvTime"
-                                      Header="Servers"
+                                      x:Uid="ServerUC.SettingServer"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/save.png}">
                     <Button Command="{x:Bind ViewModel.AddItemCommand}"
-                            Content="Add new server"
+                            x:Uid="ServerUC.AddButton"
                             Style="{ThemeResource AccentButtonStyle}" />
                     <wuc:SettingsExpander.Items>
-                        <wuc:SettingsCard Description="We have a number of specific and predefined servers, you can load them."
-                                          Header="Load predefined servers"
+                        <wuc:SettingsCard x:Uid="ServerUC.LoadCard"
                                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}">
                             <Button Click="{x:Bind OnLoadPredefinedServer}"
-                                    Content="Load predefined servers" />
+                                    x:Uid="ServerUC.LoadButton" />
                         </wuc:SettingsCard>
-                        <wuc:SettingsCard Description="This will delete all saved servers"
-                                          Header="Clear all servers"
+                        <wuc:SettingsCard x:Uid="ServerUC.ClearCard"
                                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/trash.png}">
                             <Button Click="{x:Bind OnClearAllServer}"
-                                    Content="Clear All servers" />
+                                    x:Uid="ServerUC.ClearButton" />
                         </wuc:SettingsCard>
                     </wuc:SettingsExpander.Items>
                 </wuc:SettingsExpander>

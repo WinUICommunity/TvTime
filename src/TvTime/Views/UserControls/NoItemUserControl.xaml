@@ -22,7 +22,7 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Style="{ThemeResource HeaderTextBlockStyle}"
-                   Text="Item not found!" />
+                   x:Uid="NoItemUC.NoItem" />
         <i:Interaction.Behaviors>
             <ic:DataTriggerBehavior Binding="{x:Bind Count}"
                                     ComparisonCondition="Equal"

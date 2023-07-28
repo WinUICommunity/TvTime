@@ -73,7 +73,7 @@
                         Grid.Row="1"
                         Margin="10,10,0,0">
             <labs:SegmentedItem x:Name="SegRefresh"
-                                Content="Refresh"
+                                x:Uid="SubscenePage.RefreshItem"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                                 Tag="Refresh" />

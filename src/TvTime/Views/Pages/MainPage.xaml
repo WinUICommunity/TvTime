@@ -14,7 +14,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <wuc:TitleBar x:Name="appTitleBar"
-                      Title="TvTime"
+                      x:Uid="MainPage.TitleBar"
                       BackButtonClick="appTitleBar_BackButtonClick"
                       IsBackButtonVisible="True"
                       IsPaneButtonVisible="True"
@@ -26,7 +26,7 @@
             </wuc:TitleBar.Icon>
             <wuc:TitleBar.Content>
                 <AutoSuggestBox x:Name="TxtSearch"
-                                PlaceholderText="Search Movies, Series, Anime and more"
+                                x:Uid="MainPage.TitleBar.Search"
                                 QueryIcon="Find"
                                 QuerySubmitted="TxtSearch_QuerySubmitted"
                                 SuggestionChosen="TxtSearch_SuggestionChosen"
@@ -38,12 +38,14 @@
                         Height="32"
                         Margin="0,0,4,0"
                         Click="ThemeButton_Click"
-                        Style="{ThemeResource SubtleButtonStyle}"
-                        ToolTipService.ToolTip="Toggle theme">
+                        Style="{ThemeResource SubtleButtonStyle}">
                     <Button.Content>
                         <FontIcon FontSize="16"
                                   Glyph="&#xE793;" />
                     </Button.Content>
+                    <ToolTipService.ToolTip>
+                        <ToolTip x:Uid="MainPage.TitleBar.ThemeToggle" />
+                    </ToolTipService.ToolTip>
                 </Button>
             </wuc:TitleBar.Footer>
         </wuc:TitleBar>
@@ -57,7 +59,7 @@
                                 VerticalAlignment="Center"
                                 x:FieldModifier="public"
                                 KeyboardAcceleratorPlacementMode="Hidden"
-                                PlaceholderText="Search"
+                                x:Uid="MainPage.NavSearch"
                                 QueryIcon="Find" />
             </NavigationView.AutoSuggestBox>
 

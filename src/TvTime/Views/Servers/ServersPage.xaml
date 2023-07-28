@@ -14,8 +14,8 @@
                         Margin="10"
                         HorizontalAlignment="Center"
                         SelectionChanged="{x:Bind OnSegmentedServerChanged}">
-            <labs:SegmentedItem Content="Media Servers" />
-            <labs:SegmentedItem Content="Subtitle Servers" />
+            <labs:SegmentedItem x:Uid="ServerPage.MediaItem" />
+            <labs:SegmentedItem x:Uid="ServerPage.SubtitleItem" />
         </labs:Segmented>
         <Frame x:Name="ServerFrame"
                Grid.Row="1" />

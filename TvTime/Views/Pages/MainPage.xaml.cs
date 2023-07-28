@@ -1,7 +1,5 @@
 ﻿using TvTime.ViewModels;
 
-using WinUICommunity;
-
 namespace TvTime.Views;
 public sealed partial class MainPage : Page
 {

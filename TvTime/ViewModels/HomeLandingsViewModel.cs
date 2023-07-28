@@ -13,6 +13,6 @@ public partial class HomeLandingsViewModel : ObservableObject
         var args = (ItemClickEventArgs) e;
         var item = (DataItem) args.ClickedItem;
 
-        JsonNavigationViewService.NavigateTo(item.UniqueId+item.Parameter?.ToString(), item);
+        JsonNavigationViewService.NavigateTo(item.UniqueId + item.Parameter?.ToString(), item);
     }
 }

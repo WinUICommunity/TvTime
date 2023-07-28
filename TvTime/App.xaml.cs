@@ -68,7 +68,7 @@ public partial class App : Application
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         currentWindow = new Window();
-        
+
         currentWindow.AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
         currentWindow.AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
 

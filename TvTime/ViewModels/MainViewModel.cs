@@ -1,7 +1,4 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-
-namespace TvTime.ViewModels;
+﻿namespace TvTime.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
     public IJsonNavigationViewService JsonNavigationViewService;

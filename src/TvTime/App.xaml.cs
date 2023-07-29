@@ -32,14 +32,6 @@ public partial class App : Application
         TvTimeVersion = VersionHelper.GetVersion();
 
         CreateDirectory();
-
-        if (Settings.TvTimeLanguage?.LanguageCode == "fa-IR")
-        {
-            ResourceDictionary fontsResourceDict = new ResourceDictionary();
-            fontsResourceDict.Source = new Uri("ms-appx:///Themes/Fonts.xaml");
-
-            App.Current.Resources.MergedDictionaries.Add(fontsResourceDict);
-        }
     }
 
     private static IServiceProvider ConfigureServices()
@@ -93,6 +85,16 @@ public partial class App : Application
             currentWindow.Content = rootFrame = new Frame();
         }
 
+        if (Settings.TvTimeLanguage?.LanguageCode == "fa-IR")
+        {
+            ResourceDictionary fontsResource = new ResourceDictionary
+            {
+                Source = new Uri("ms-appx:///Themes/Fonts.xaml")
+            };
+            Application.Current.Resources.MergedDictionaries.Add(fontsResource);
+        }
+
+        
         rootFrame.Navigate(typeof(MainPage));
 
         if (Settings.SubtitleLanguagesCollection == null || Settings.SubtitleLanguagesCollection.Count == 0)

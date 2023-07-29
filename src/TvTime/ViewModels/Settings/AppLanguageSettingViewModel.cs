@@ -7,6 +7,14 @@ public partial class AppLanguageSettingViewModel : ObservableRecipient
     [RelayCommand]
     private void OnLanguageChanged(object sender)
     {
-        
+        var cmb = sender as ComboBox;
+        if (cmb != null)
+        {
+            var selectedItem = cmb.SelectedItem as TvTimeLanguage;
+            if (selectedItem != null)
+            {
+                Settings.TvTimeLanguage = selectedItem;
+            }
+        }
     }
 }

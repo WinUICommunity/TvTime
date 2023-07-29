@@ -300,6 +300,84 @@
   <data name="ServerUC_ClearButton.Content" xml:space="preserve">
     <value>Clear all servers</value>
   </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextCustomFontSize.OffContent" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextCustomFontSize.OnContent" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextFontSize.Description" xml:space="preserve">
+    <value>Specify the font size of the description</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextFontSize.Header" xml:space="preserve">
+    <value>Description Text Font Size</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextFontSizeExpander.Description" xml:space="preserve">
+    <value>Use Style Default Font Size</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextFontSizeExpander.Header" xml:space="preserve">
+    <value>Description Text Font Size</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextStyle.Description" xml:space="preserve">
+    <value>Specify the style of the description</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextStyle.Header" xml:space="preserve">
+    <value>Description Text Style</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTruncateText.Description" xml:space="preserve">
+    <value>Append an ellipsis (...) at the end</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTruncateText.Header" xml:space="preserve">
+    <value>Truncate Text</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionType.Description" xml:space="preserve">
+    <value>Choose which control to use to display the description in the listview</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionType.Header" xml:space="preserve">
+    <value>Description Type</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextCustomFontSize.OffContent" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextCustomFontSize.OnContent" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextFontSize.Description" xml:space="preserve">
+    <value>Specify the font size of the header</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextFontSize.Header" xml:space="preserve">
+    <value>Header Text Font Size</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextFontSizeExpander.Description" xml:space="preserve">
+    <value>Use Style Default Font Size</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextFontSizeExpander.Header" xml:space="preserve">
+    <value>Header Text Font Size</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextStyle.Description" xml:space="preserve">
+    <value>Specify the style of the header</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextStyle.Header" xml:space="preserve">
+    <value>Header Text Style</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTruncateText.Description" xml:space="preserve">
+    <value>Append an ellipsis (...) at the end</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTruncateText.Header" xml:space="preserve">
+    <value>Truncate Text</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HyperlinkBorderThickness.Description" xml:space="preserve">
+    <value>Specify the borderThickness of the hyperlink</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HyperlinkBorderThickness.Header" xml:space="preserve">
+    <value>HyperLink BorderThickness</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_PreviewDescription.Text" xml:space="preserve">
+    <value>Preview Description</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_PreviewHeader.Text" xml:space="preserve">
+    <value>Preview Header</value>
+  </data>
   <data name="ItemUC_MenuCopy.Text" xml:space="preserve">
     <value>Copy Link(s)</value>
     <comment>MenuFlyoutItem</comment>

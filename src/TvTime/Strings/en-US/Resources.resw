@@ -117,221 +117,222 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DetailPage.RefreshItem.Content" xml:space="preserve">
+  <data name="DetailPage_RefreshItem.Content" xml:space="preserve">
     <value>Refresh</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="DetailPage.IMDBItem.Content" xml:space="preserve">
+  <data name="DetailPage_IMDBItem.Content" xml:space="preserve">
     <value>Get IMDB Details</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="DetailPage.DownloadItem.Content" xml:space="preserve">
+  <data name="DetailPage_DownloadItem.Content" xml:space="preserve">
     <value>Download All</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="IMDBDetailsPage.Media.Id.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Id.Text" xml:space="preserve">
     <value>Id:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Year.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Year.Text" xml:space="preserve">
     <value>Year:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Released.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Released.Text" xml:space="preserve">
     <value>Released:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Type.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Type.Text" xml:space="preserve">
     <value>Type:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Rated.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Rated.Text" xml:space="preserve">
     <value>Rated:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.TotalSeason.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_TotalSeason.Text" xml:space="preserve">
     <value>Total Season:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Language.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Language.Text" xml:space="preserve">
     <value>Language:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Country.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Country.Text" xml:space="preserve">
     <value>Country:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Genre.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Genre.Text" xml:space="preserve">
     <value>Genre:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Director.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Director.Text" xml:space="preserve">
     <value>Director:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Writer.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Writer.Text" xml:space="preserve">
     <value>Writer:</value>
   </data>
-  <data name="IMDBDetailsPage.Media.Actor.Text" xml:space="preserve">
+  <data name="IMDBDetailsPage_Actor.Text" xml:space="preserve">
     <value>Actor:</value>
   </data>
-  <data name="MainPage.TitleBar.Title" xml:space="preserve">
+  <data name="MainPage_TitleBar.Title" xml:space="preserve">
     <value>TvTime</value>
     <comment>TitleBar</comment>
   </data>
-  <data name="MainPage.TitleBar.Search.PlaceholderText" xml:space="preserve">
+  <data name="MainPage_TitleBarSearch.PlaceholderText" xml:space="preserve">
     <value>Search Movies, Series, Anime and more</value>
     <comment>AutoSuggestBox in TitleBar</comment>
   </data>
-  <data name="MainPage.TitleBar.ThemeToggle.Content" xml:space="preserve">
+  <data name="MainPage_TitleBarThemeToggle.Content" xml:space="preserve">
     <value>Toggle Theme</value>
+    <comment>TitleBar</comment>
   </data>
-  <data name="MainPage.NavSearch.PlaceholderText" xml:space="preserve">
+  <data name="MainPage_NavSearch.PlaceholderText" xml:space="preserve">
     <value>Search</value>
     <comment>AutoSuggestBox in NavigationView</comment>
   </data>
-  <data name="MediaPage.RefreshItem.Content" xml:space="preserve">
+  <data name="MediaPage_RefreshItem.Content" xml:space="preserve">
     <value>Refresh</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="MediaPage.InfoBarActionButton.Text" xml:space="preserve">
+  <data name="MediaPage_InfoBarActionButton.Text" xml:space="preserve">
     <value>Server Status</value>
   </data>
-  <data name="SubsceneDetailPage.RefreshItem.Content" xml:space="preserve">
+  <data name="SubsceneDetailPage_RefreshItem.Content" xml:space="preserve">
     <value>Refresh</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="SubsceneDetailPage.IMDBItem.Content" xml:space="preserve">
+  <data name="SubsceneDetailPage_IMDBItem.Content" xml:space="preserve">
     <value>Get IMDB Details</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="SettingsPage.AppUpdateSetting.Header" xml:space="preserve">
+  <data name="SettingsPage_AppUpdateSetting.Header" xml:space="preserve">
     <value>Update App</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.AppUpdateSetting.Description" xml:space="preserve">
+  <data name="SettingsPage_AppUpdateSetting.Description" xml:space="preserve">
     <value>Check for TvTime Update and Download it.</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.ThemeSetting.Header" xml:space="preserve">
+  <data name="SettingsPage_ThemeSetting.Header" xml:space="preserve">
     <value>Appearance &amp; behavior</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.ThemeSetting.Description" xml:space="preserve">
+  <data name="SettingsPage_ThemeSetting.Description" xml:space="preserve">
     <value>Select your Theme and Material</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.GeneralSetting.Header" xml:space="preserve">
+  <data name="SettingsPage_GeneralSetting.Header" xml:space="preserve">
     <value>General</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.SubtitleSetting.Header" xml:space="preserve">
+  <data name="SettingsPage_SubtitleSetting.Header" xml:space="preserve">
     <value>Subtitle</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.BackupSetting.Header" xml:space="preserve">
+  <data name="SettingsPage_BackupSetting.Header" xml:space="preserve">
     <value>Backup &amp; restore</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.AboutSetting.Header" xml:space="preserve">
+  <data name="SettingsPage_AboutSetting.Header" xml:space="preserve">
     <value>About us</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.AboutSetting.Description" xml:space="preserve">
+  <data name="SettingsPage_AboutSetting.Description" xml:space="preserve">
     <value>About TvTime and Developer</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.BackupSetting.Description" xml:space="preserve">
+  <data name="SettingsPage_BackupSetting.Description" xml:space="preserve">
     <value>Back up and Restore TvTime Servers and Settings</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.GeneralSetting.Description" xml:space="preserve">
+  <data name="SettingsPage_GeneralSetting.Description" xml:space="preserve">
     <value>TvTime General Settings</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="SettingsPage.SubtitleSetting.Description" xml:space="preserve">
+  <data name="SettingsPage_SubtitleSetting.Description" xml:space="preserve">
     <value>Subtitle Settings</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="ServerPage.MediaItem.Content" xml:space="preserve">
+  <data name="ServerPage_MediaItem.Content" xml:space="preserve">
     <value>Media Servers</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="ServerPage.SubtitleItem.Content" xml:space="preserve">
+  <data name="ServerPage_SubtitleItem.Content" xml:space="preserve">
     <value>Subtitle Server</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="SubscenePage.RefreshItem.Content" xml:space="preserve">
+  <data name="SubscenePage_RefreshItem.Content" xml:space="preserve">
     <value>Refresh</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="IMDBDetailWindow.TitleBar.Search.PlaceholderText" xml:space="preserve">
+  <data name="IMDBDetailWindow_TitleBarSearch.PlaceholderText" xml:space="preserve">
     <value>Movie/Serial Title</value>
     <comment>TitleBar</comment>
   </data>
-  <data name="NoItemUC.NoItem.Text" xml:space="preserve">
+  <data name="NoItemUC_NoItem.Text" xml:space="preserve">
     <value>Item not found!</value>
   </data>
-  <data name="ServerUC.SettingGroup.Header" xml:space="preserve">
+  <data name="ServerUC_SettingGroup.Header" xml:space="preserve">
     <value>TvTime Servers</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="ServerUC.SettingServer.Header" xml:space="preserve">
+  <data name="ServerUC_SettingServer.Header" xml:space="preserve">
     <value>Servers</value>
     <comment>SettingsExpander</comment>
   </data>
-  <data name="ServerUC.SettingServer.Description" xml:space="preserve">
+  <data name="ServerUC_SettingServer.Description" xml:space="preserve">
     <value>Manage Servers that can be used in the TvTime</value>
     <comment>SettingsExpander</comment>
   </data>
-  <data name="ServerUC.AddButton.Content" xml:space="preserve">
+  <data name="ServerUC_AddButton.Content" xml:space="preserve">
     <value>Add new server</value>
   </data>
-  <data name="ServerUC.LoadButton.Content" xml:space="preserve">
+  <data name="ServerUC_LoadButton.Content" xml:space="preserve">
     <value>Load predefined servers</value>
   </data>
-  <data name="ServerUC.LoadCard.Header" xml:space="preserve">
+  <data name="ServerUC_LoadCard.Header" xml:space="preserve">
     <value>Load predefined servers</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="ServerUC.LoadCard.Description" xml:space="preserve">
+  <data name="ServerUC_LoadCard.Description" xml:space="preserve">
     <value>We have a number of specific and predefined servers, you can load them.</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="ServerUC.ClearCard.Header" xml:space="preserve">
+  <data name="ServerUC_ClearCard.Header" xml:space="preserve">
     <value>Clear all servers</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="ServerUC.ClearCard.Description" xml:space="preserve">
+  <data name="ServerUC_ClearCard.Description" xml:space="preserve">
     <value>This will delete all saved servers</value>
     <comment>SettingsCard</comment>
   </data>
-  <data name="ServerUC.ClearButton.Content" xml:space="preserve">
+  <data name="ServerUC_ClearButton.Content" xml:space="preserve">
     <value>Clear all servers</value>
   </data>
-  <data name="ItemUC.MenuCopy.Text" xml:space="preserve">
+  <data name="ItemUC_MenuCopy.Text" xml:space="preserve">
     <value>Copy Link(s)</value>
     <comment>MenuFlyoutItem</comment>
   </data>
-  <data name="ItemUC.MenuDirectory.Text" xml:space="preserve">
+  <data name="ItemUC_MenuDirectory.Text" xml:space="preserve">
     <value>Open Web Directory</value>
     <comment>MenuFlyoutItem</comment>
   </data>
-  <data name="ItemUC.MenuDownload.Text" xml:space="preserve">
+  <data name="ItemUC_MenuDownload.Text" xml:space="preserve">
     <value>Download With IDM</value>
     <comment>MenuFlyoutItem</comment>
   </data>
-  <data name="ItemUC.MenuFile.Text" xml:space="preserve">
+  <data name="ItemUC_MenuFile.Text" xml:space="preserve">
     <value>Open File</value>
     <comment>MenuFlyoutItem</comment>
   </data>
-  <data name="ItemUC.MenuIMDB.Text" xml:space="preserve">
+  <data name="ItemUC_MenuIMDB.Text" xml:space="preserve">
     <value>Get IMDB Details</value>
     <comment>MenuFlyoutItem</comment>
   </data>
-  <data name="ItemUC.SubMenuCopy.Text" xml:space="preserve">
+  <data name="ItemUC_SubMenuCopy.Text" xml:space="preserve">
     <value>Copy Selected Item Link</value>
     <comment>MenuFlyoutItem</comment>
   </data>
-  <data name="ItemUC.SubMenuCopyAll.Text" xml:space="preserve">
+  <data name="ItemUC_SubMenuCopyAll.Text" xml:space="preserve">
     <value>Copy All Links</value>
     <comment>MenuFlyoutItem</comment>
   </data>
-  <data name="ItemUC.SubMenuDownload.Text" xml:space="preserve">
+  <data name="ItemUC_SubMenuDownload.Text" xml:space="preserve">
     <value>Download Selected Item With IDM</value>
     <comment>MenuFlyoutItem</comment>
   </data>
-  <data name="ItemUC.SubMenuDownloadAll.Text" xml:space="preserve">
+  <data name="ItemUC_SubMenuDownloadAll.Text" xml:space="preserve">
     <value>Download All Items With IDM</value>
     <comment>MenuFlyoutItem</comment>
   </data>

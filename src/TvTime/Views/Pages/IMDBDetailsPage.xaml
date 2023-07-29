@@ -40,7 +40,7 @@
                                Value="{x:Bind ViewModel.MediaRateValue}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Id"
+                <TextBlock x:Uid="IMDBDetailsPage_Id"
                            Margin="10,0,5,0"
                            Style="{ThemeResource SubtitleTextBlockStyle}" />
                 <HyperlinkButton Content="{x:Bind ViewModel.MediaIMDBId}"
@@ -49,7 +49,7 @@
                            Visibility="Collapsed" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Year"
+                <TextBlock x:Uid="IMDBDetailsPage_Year"
                            Margin="10,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3,10,0"
@@ -57,13 +57,13 @@
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="{x:Bind ViewModel.MediaYear}" />
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Released"
+                <TextBlock x:Uid="IMDBDetailsPage_Released"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="5,3"
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="{x:Bind ViewModel.MediaReleased}" />
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Type"
+                <TextBlock x:Uid="IMDBDetailsPage_Type"
                            Margin="5,0,5,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
@@ -72,14 +72,14 @@
                            Text="{x:Bind ViewModel.MediaType}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Rated"
+                <TextBlock x:Uid="IMDBDetailsPage_Rated"
                            Margin="10,0,0,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="5,3,5,0"
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="{x:Bind ViewModel.MediaRated}" />
-                <TextBlock x:Uid="IMDBDetailsPage.Media.TotalSeason"
+                <TextBlock x:Uid="IMDBDetailsPage_TotalSeason"
                            Margin="10,0,5,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
@@ -88,14 +88,14 @@
                            Text="{x:Bind ViewModel.MediaTotalSeason}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Language"
+                <TextBlock x:Uid="IMDBDetailsPage_Language"
                            Margin="10,0,5,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="{x:Bind ViewModel.MediaLanguage}" />
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Country"
+                <TextBlock x:Uid="IMDBDetailsPage_Country"
                            Margin="10,0,5,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
@@ -104,7 +104,7 @@
                            Text="{x:Bind ViewModel.MediaCountry}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Genre"
+                <TextBlock x:Uid="IMDBDetailsPage_Genre"
                            Margin="10,0,5,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
@@ -113,7 +113,7 @@
                            Text="{x:Bind ViewModel.MediaGener}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Director"
+                <TextBlock x:Uid="IMDBDetailsPage_Director"
                            Margin="10,0,5,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
@@ -122,7 +122,7 @@
                            Text="{x:Bind ViewModel.MediaDirector}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Writer"
+                <TextBlock x:Uid="IMDBDetailsPage_Writer"
                            Margin="10,0,5,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
@@ -132,7 +132,7 @@
                            TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage.Media.Actor"
+                <TextBlock x:Uid="IMDBDetailsPage_Actor"
                            Margin="10,0,5,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"

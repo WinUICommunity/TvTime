@@ -75,14 +75,14 @@
 
         <labs:Segmented x:Name="Segmented"
                         Margin="10,10,0,0">
-            <labs:SegmentedItem x:Uid="DetailPage.RefreshItem"
+            <labs:SegmentedItem x:Uid="DetailPage_RefreshItem"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                                 Tag="Refresh" />
-            <labs:SegmentedItem x:Uid="DetailPage.IMDBItem"
+            <labs:SegmentedItem x:Uid="DetailPage_IMDBItem"
                                 Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
                                 Tag="IMDBDetails" />
-            <labs:SegmentedItem x:Uid="DetailPage.DownloadItem"
+            <labs:SegmentedItem x:Uid="DetailPage_DownloadItem"
                                 Icon="{wuc:SymbolIcon Symbol=Download}"
                                 Tag="DownloadAll" />
             <i:Interaction.Behaviors>

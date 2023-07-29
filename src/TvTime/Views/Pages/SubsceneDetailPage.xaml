@@ -83,11 +83,11 @@
         <labs:Segmented x:Name="Segmented"
                         Grid.Row="1"
                         Margin="10,10,0,0">
-            <labs:SegmentedItem x:Uid="SubsceneDetailPage.RefreshItem"
+            <labs:SegmentedItem x:Uid="SubsceneDetailPage_RefreshItem"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                                 Tag="Refresh" />
-            <labs:SegmentedItem x:Uid="SubsceneDetailPage.IMDBItem"
+            <labs:SegmentedItem x:Uid="SubsceneDetailPage_IMDBItem"
                                 Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
                                 Tag="IMDBDetails" />
             <i:Interaction.Behaviors>

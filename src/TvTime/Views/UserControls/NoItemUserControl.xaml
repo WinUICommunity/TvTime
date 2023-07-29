@@ -18,7 +18,7 @@
                    StrokeDashArray="20"
                    StrokeThickness="2" />
         <TextBlock x:Name="TxtNoItem"
-                   x:Uid="NoItemUC.NoItem"
+                   x:Uid="NoItemUC_NoItem"
                    Margin="20,0,10,10"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

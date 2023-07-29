@@ -19,7 +19,7 @@ public sealed partial class MainPage : Page
         this.InitializeComponent();
         appTitleBar.Window = App.currentWindow;
         Instance = this;
-
+        SetFlowDirection();
         ViewModel.JsonNavigationViewService.Initialize(NavView, NavFrame);
         ViewModel.JsonNavigationViewService.ConfigAutoSuggestBox(ControlsSearchBox, true, null, "ms-appx:///Assets/Fluent/icon.png");
 
@@ -37,6 +37,25 @@ public sealed partial class MainPage : Page
                 }
             }
         };
+    }
+
+    public void SetFlowDirection()
+    {
+        var flow = App.Current.Localizer.GetLocalizedString("MainPage_FlowDirection");
+        if (flow.Equals(FlowDirection.RightToLeft.ToString()))
+        {
+            NavView.FlowDirection = FlowDirection.RightToLeft;
+            NavFrame.FlowDirection = FlowDirection.RightToLeft;
+            ControlsSearchBox.FlowDirection = FlowDirection.RightToLeft;
+            TxtSearch.FlowDirection = FlowDirection.RightToLeft;
+        }
+        else
+        {
+            NavView.FlowDirection = FlowDirection.LeftToRight;
+            NavFrame.FlowDirection = FlowDirection.LeftToRight;
+            ControlsSearchBox.FlowDirection = FlowDirection.LeftToRight;
+            TxtSearch.FlowDirection = FlowDirection.LeftToRight;
+        }
     }
 
     private bool CanDisableCache(object parameter, string pageType)

@@ -17,7 +17,7 @@
                     Spacing="5">
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard x:Uid="AppLanguageSettingPage_LanguageCard"
+            <wuc:SettingsCard wuc:Localizer.Uid="AppLanguageSettingPage_LanguageCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
                 <ComboBox x:Name="CmbLanguage"
                           ItemsSource="{x:Bind ViewModel.Languages, Mode=OneWay}">

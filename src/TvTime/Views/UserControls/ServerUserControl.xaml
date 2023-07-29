@@ -27,22 +27,22 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <ScrollViewer>
-            <wuc:SettingsGroup x:Uid="ServerUC_SettingGroup">
+            <wuc:SettingsGroup wuc:Localizer.Uid="ServerUC_SettingGroup">
                 <wuc:SettingsExpander x:Name="ServerExpander"
-                                      x:Uid="ServerUC_SettingServer"
+                                      wuc:Localizer.Uid="ServerUC_SettingServer"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/save.png}">
-                    <Button x:Uid="ServerUC_AddButton"
+                    <Button wuc:Localizer.Uid="ServerUC_AddButton"
                             Command="{x:Bind ViewModel.AddItemCommand}"
                             Style="{ThemeResource AccentButtonStyle}" />
                     <wuc:SettingsExpander.Items>
-                        <wuc:SettingsCard x:Uid="ServerUC_LoadCard"
+                        <wuc:SettingsCard wuc:Localizer.Uid="ServerUC_LoadCard"
                                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}">
-                            <Button x:Uid="ServerUC_LoadButton"
+                            <Button wuc:Localizer.Uid="ServerUC_LoadButton"
                                     Click="{x:Bind OnLoadPredefinedServer}" />
                         </wuc:SettingsCard>
-                        <wuc:SettingsCard x:Uid="ServerUC_ClearCard"
+                        <wuc:SettingsCard wuc:Localizer.Uid="ServerUC_ClearCard"
                                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/trash.png}">
-                            <Button x:Uid="ServerUC_ClearButton"
+                            <Button wuc:Localizer.Uid="ServerUC_ClearButton"
                                     Click="{x:Bind OnClearAllServer}" />
                         </wuc:SettingsCard>
                     </wuc:SettingsExpander.Items>

@@ -15,16 +15,20 @@
         <wuc:SettingsCard Header="{x:Bind ViewModel.CurrentVersion}"
                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/update.png}">
             <wuc:SettingsCard.Description>
-                <TextBlock Style="{StaticResource SecondaryTextStyle}">
-                    <Run x:Uid="AppUpdateSettingPage_LastCheck" />
-                    <Run Text="{x:Bind ViewModel.LastUpdateCheck}" />
-                </TextBlock>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="5">
+                    <TextBlock wuc:Localizer.Uid="AppUpdateSettingPage_LastCheck"
+                               Style="{StaticResource SecondaryTextStyle}" />
+                    <TextBlock FlowDirection="LeftToRight"
+                               Style="{StaticResource SecondaryTextStyle}"
+                               Text="{x:Bind ViewModel.LastUpdateCheck}" />
+                </StackPanel>
             </wuc:SettingsCard.Description>
             <StackPanel Orientation="Horizontal"
                         Spacing="10">
                 <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
-                <Button x:Uid="AppUpdateSettingPage_CheckUpdate"
-                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                        wuc:Localizer.Uid="AppUpdateSettingPage_CheckUpdate"
                         Command="{x:Bind ViewModel.CheckForUpdateAsyncCommand}"
                         IsEnabled="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
                         Style="{ThemeResource AccentButtonStyle}" />
@@ -34,16 +38,16 @@
         <wuc:SettingsCard Header="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/info.png}">
             <wuc:SettingsCard.Description>
-                <HyperlinkButton x:Uid="AppUpdateSettingPage_ReleaseNotes"
-                                 Padding="5,0"
+                <HyperlinkButton Padding="5,0"
+                                 wuc:Localizer.Uid="AppUpdateSettingPage_ReleaseNotes"
                                  Command="{x:Bind ViewModel.GetReleaseNotesAsyncCommand}"
                                  Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}" />
             </wuc:SettingsCard.Description>
             <StackPanel VerticalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="10">
-                <Button x:Uid="AppUpdateSettingPage_DownloadUpdate"
-                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                        wuc:Localizer.Uid="AppUpdateSettingPage_DownloadUpdate"
                         Command="{x:Bind ViewModel.GoToUpdateAsyncCommand}"
                         Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}" />
             </StackPanel>

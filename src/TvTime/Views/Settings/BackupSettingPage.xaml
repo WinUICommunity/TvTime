@@ -20,15 +20,15 @@
                      IsOpen="True"
                      Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
 
-            <wuc:SettingsExpander x:Uid="BackupSettingPage_MediaExpander"
+            <wuc:SettingsExpander wuc:Localizer.Uid="BackupSettingPage_MediaExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}">
                 <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard x:Uid="BackupSettingPage_MediaBackup"
+                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_MediaBackup"
                                       Command="{x:Bind ViewModel.BackupServerCommand}"
                                       CommandParameter="True"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}"
                                       IsClickEnabled="True" />
-                    <wuc:SettingsCard x:Uid="BackupSettingPage_MediaRestore"
+                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_MediaRestore"
                                       Command="{x:Bind ViewModel.RestoreServerCommand}"
                                       CommandParameter="True"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
@@ -36,15 +36,15 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsExpander x:Uid="BackupSettingPage_SubtitleExpander"
+            <wuc:SettingsExpander wuc:Localizer.Uid="BackupSettingPage_SubtitleExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}">
                 <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard x:Uid="BackupSettingPage_SubtitleBackup"
+                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_SubtitleBackup"
                                       Command="{x:Bind ViewModel.BackupServerCommand}"
                                       CommandParameter="False"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
                                       IsClickEnabled="True" />
-                    <wuc:SettingsCard x:Uid="BackupSettingPage_SubtitleRestore"
+                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_SubtitleRestore"
                                       Command="{x:Bind ViewModel.RestoreServerCommand}"
                                       CommandParameter="False"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
@@ -52,14 +52,14 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsExpander x:Uid="BackupSettingPage_TvTimeExpander"
+            <wuc:SettingsExpander wuc:Localizer.Uid="BackupSettingPage_TvTimeExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}">
                 <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard x:Uid="BackupSettingPage_TvTimeBackup"
+                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_TvTimeBackup"
                                       Command="{x:Bind ViewModel.BackupSettingsCommand}"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
                                       IsClickEnabled="True" />
-                    <wuc:SettingsCard x:Uid="BackupSettingPage_TvTimeRestore"
+                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_TvTimeRestore"
                                       Command="{x:Bind ViewModel.RestoreSettingsCommand}"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
                                       IsClickEnabled="True" />

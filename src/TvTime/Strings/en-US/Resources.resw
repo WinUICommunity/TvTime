@@ -609,4 +609,25 @@
   <data name="SettingsPage_AppLanguageSetting.Header" xml:space="preserve">
     <value>App UI Language</value>
   </data>
+  <data name="MainPage_FlowDirection.FlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+  </data>
+  <data name="AppUpdateSettingPage_InfoBarTitle.Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="BackupSettingPage_InfoBarTitle.Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_BreadCrumbBar" xml:space="preserve">
+    <value>Description Style</value>
+  </data>
+  <data name="HeaderStyleSettingPage_BreadCrumbBar" xml:space="preserve">
+    <value>Header Style</value>
+  </data>
+  <data name="LayoutSettingPage_BreadCrumbBar" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="BreadCrumbBarRootText" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>

@@ -18,7 +18,7 @@
 
             <views:BreadcrumbBarUserControl Items="{x:Bind LayoutSettingViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
-            <wuc:SettingsCard x:Uid="DescriptionStyleSettingPage_HeaderTextStyle"
+            <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTextStyle"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
                 <ComboBox x:Name="CmbHeader"
                           ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}"
@@ -33,15 +33,15 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard x:Uid="DescriptionStyleSettingPage_HeaderTruncateText"
+            <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTruncateText"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTruncateInHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
-            <wuc:SettingsExpander x:Uid="DescriptionStyleSettingPage_HeaderTextFontSizeExpander"
+            <wuc:SettingsExpander wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTextFontSizeExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                   IsExpanded="True">
                 <ToggleSwitch x:Name="TgCustomFontSize"
-                              x:Uid="DescriptionStyleSettingPage_HeaderTextCustomFontSize"
+                              wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTextCustomFontSize"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseCustomFontSizeForHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="Toggled">
@@ -53,7 +53,7 @@
                     </i:Interaction.Behaviors>
                 </ToggleSwitch>
                 <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard x:Uid="DescriptionStyleSettingPage_HeaderTextFontSize"
+                    <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTextFontSize"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                       IsEnabled="{x:Bind ViewModel.IsEnabledSettingsCard, Mode=OneWay}">
                         <NumberBox Minimum="8"
@@ -64,7 +64,7 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <TextBlock x:Uid="DescriptionStyleSettingPage_PreviewHeader"
+            <TextBlock wuc:Localizer.Uid="DescriptionStyleSettingPage_PreviewHeader"
                        Margin="10"
                        HorizontalAlignment="Center"
                        FontSize="{x:Bind ViewModel.PreviewFontSize, Mode=OneWay}"

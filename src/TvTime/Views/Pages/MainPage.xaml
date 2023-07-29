@@ -14,7 +14,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <wuc:TitleBar x:Name="appTitleBar"
-                      x:Uid="MainPage_TitleBar"
+                      wuc:Localizer.Uid="MainPage_TitleBar"
                       BackButtonClick="appTitleBar_BackButtonClick"
                       IsBackButtonVisible="True"
                       IsPaneButtonVisible="True"
@@ -26,7 +26,7 @@
             </wuc:TitleBar.Icon>
             <wuc:TitleBar.Content>
                 <AutoSuggestBox x:Name="TxtSearch"
-                                x:Uid="MainPage_TitleBarSearch"
+                                wuc:Localizer.Uid="MainPage_TitleBarSearch"
                                 QueryIcon="Find"
                                 QuerySubmitted="TxtSearch_QuerySubmitted"
                                 SuggestionChosen="TxtSearch_SuggestionChosen"
@@ -44,7 +44,7 @@
                                   Glyph="&#xE793;" />
                     </Button.Content>
                     <ToolTipService.ToolTip>
-                        <ToolTip x:Uid="MainPage_TitleBarThemeToggle" />
+                        <ToolTip wuc:Localizer.Uid="MainPage_TitleBarThemeToggle" />
                     </ToolTipService.ToolTip>
                 </Button>
             </wuc:TitleBar.Footer>
@@ -55,9 +55,9 @@
                         IsPaneToggleButtonVisible="False">
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="ControlsSearchBox"
-                                x:Uid="MainPage_NavSearch"
                                 MinWidth="200"
                                 VerticalAlignment="Center"
+                                wuc:Localizer.Uid="MainPage_NavSearch"
                                 KeyboardAcceleratorPlacementMode="Hidden"
                                 QueryIcon="Find" />
             </NavigationView.AutoSuggestBox>

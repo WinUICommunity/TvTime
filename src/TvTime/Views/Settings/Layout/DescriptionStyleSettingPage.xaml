@@ -18,7 +18,7 @@
 
             <views:BreadcrumbBarUserControl Items="{x:Bind LayoutSettingViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
-            <wuc:SettingsCard x:Uid="DescriptionStyleSettingPage_DescriptionTextStyle"
+            <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_DescriptionTextStyle"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
                 <ComboBox x:Name="CmbDescription"
                           ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}"
@@ -32,11 +32,11 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard x:Uid="DescriptionStyleSettingPage_DescriptionTruncateText"
+            <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_DescriptionTruncateText"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
-            <wuc:SettingsExpander x:Uid="DescriptionStyleSettingPage_DescriptionTextFontSizeExpander"
+            <wuc:SettingsExpander wuc:Localizer.Uid="DescriptionStyleSettingPage_DescriptionTextFontSizeExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                   IsExpanded="True">
                 <ToggleSwitch x:Name="TgCustomFontSize"
@@ -53,7 +53,7 @@
                     </i:Interaction.Behaviors>
                 </ToggleSwitch>
                 <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard x:Uid="DescriptionStyleSettingPage_DescriptionTextFontSize"
+                    <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_DescriptionTextFontSize"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                       IsEnabled="{x:Bind ViewModel.IsEnabledSettingsCard, Mode=OneWay}">
                         <NumberBox Minimum="8"
@@ -65,7 +65,7 @@
             </wuc:SettingsExpander>
 
             <wuc:SettingsCard x:Name="SettingCardDescType"
-                              x:Uid="DescriptionStyleSettingPage_DescriptionType"
+                              wuc:Localizer.Uid="DescriptionStyleSettingPage_DescriptionType"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}">
                 <ComboBox x:Name="CmbDescriptionType">
                     <ComboBoxItem Content="TextBlock"
@@ -82,7 +82,7 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard x:Uid="DescriptionStyleSettingPage_HyperlinkBorderThickness"
+            <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_HyperlinkBorderThickness"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/border.png}">
                 <ToggleSwitch x:Name="TgHyperLinkBorderThickness"
                               IsEnabled="False"
@@ -99,7 +99,7 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <TextBlock x:Uid="DescriptionStyleSettingPage_PreviewDescription"
+            <TextBlock wuc:Localizer.Uid="DescriptionStyleSettingPage_PreviewDescription"
                        Margin="10"
                        HorizontalAlignment="Center"
                        FontSize="{x:Bind ViewModel.PreviewFontSize, Mode=OneWay}"
@@ -110,7 +110,7 @@
                              HorizontalAlignment="Center"
                              Visibility="{x:Bind ViewModel.IsHyperLink, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                 <HyperlinkButton.Content>
-                    <TextBlock x:Uid="DescriptionStyleSettingPage_PreviewDescription"
+                    <TextBlock wuc:Localizer.Uid="DescriptionStyleSettingPage_PreviewDescription"
                                FontSize="{x:Bind ViewModel.PreviewFontSize, Mode=OneWay}"
                                Style="{Binding ElementName=CmbDescription, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}"
                                TextWrapping="Wrap" />

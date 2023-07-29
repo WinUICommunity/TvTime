@@ -9,6 +9,7 @@ public partial class App : Application
     public static Window currentWindow = Window.Current;
     public string TvTimeVersion { get; set; }
     public IServiceProvider Services { get; }
+    public ILocalizer Localizer { get; set; }
     public new static App Current => (App) Application.Current;
 
     public static T GetService<T>()
@@ -73,7 +74,7 @@ public partial class App : Application
         return services.BuildServiceProvider();
     }
 
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         currentWindow = new Window();
 
@@ -85,6 +86,8 @@ public partial class App : Application
             currentWindow.Content = rootFrame = new Frame();
         }
 
+        await InitializeLocalizer(GetAvailableLanguages());
+
         if (Settings.TvTimeLanguage?.LanguageCode == "fa-IR")
         {
             ResourceDictionary fontsResource = new ResourceDictionary
@@ -94,7 +97,6 @@ public partial class App : Application
             Application.Current.Resources.MergedDictionaries.Add(fontsResource);
         }
 
-        
         rootFrame.Navigate(typeof(MainPage));
 
         if (Settings.SubtitleLanguagesCollection == null || Settings.SubtitleLanguagesCollection.Count == 0)
@@ -130,5 +132,41 @@ public partial class App : Application
             // Handle any exceptions that occur during logging
             Console.WriteLine($"Error writing to log file: {ex.Message}");
         }
+    }
+
+    private static string StringsFolderPath { get; set; } = string.Empty;
+
+    private async Task InitializeLocalizer(params string[] languages)
+    {
+        if (ApplicationHelper.IsPackaged)
+        {
+            // Create string resources file from app resources if doesn't exists.
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFolder stringsFolder = await localFolder.CreateFolderAsync(
+              "Strings",
+                CreationCollisionOption.OpenIfExists);
+            string resourceFileName = "Resources.resw";
+            foreach (var item in languages)
+            {
+                await LocalizerBuilder.CreateStringResourceFileIfNotExists(stringsFolder, item, resourceFileName);
+            }
+
+            StringsFolderPath = stringsFolder.Path;
+        }
+        else
+        {
+            // Initialize a "Strings" folder in the executables folder.
+            StringsFolderPath = Path.Combine(AppContext.BaseDirectory, "Strings");
+            var stringsFolder = await StorageFolder.GetFolderFromPathAsync(StringsFolderPath);
+        }
+
+        Localizer = await new LocalizerBuilder()
+        .AddStringResourcesFolderForLanguageDictionaries(StringsFolderPath)
+        .SetOptions(options =>
+        {
+            options.DefaultLanguage = Settings.TvTimeLanguage.LanguageCode;
+            options.UseUidWhenLocalizedStringNotFound = true;
+        })
+        .Build();
     }
 }

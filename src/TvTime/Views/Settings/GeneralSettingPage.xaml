@@ -18,7 +18,7 @@
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard x:Uid="GeneralSettingPage_OpenFileCard"
+            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_OpenFileCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch x:Name="TGOpenFile"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -34,7 +34,7 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard x:Uid="GeneralSettingPage_IDMDownloadCard"
+            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_IDMDownloadCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -50,28 +50,28 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard x:Uid="GeneralSettingPage_FilterTokenViewCard"
+            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_FilterTokenViewCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/tokenView.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard x:Uid="GeneralSettingPage_SoundCard"
+            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_SoundCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/audio.png}">
                 <ToggleSwitch x:Name="TGSound"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Toggled="Sound_Toggled" />
             </wuc:SettingsCard>
-            <wuc:SettingsCard x:Uid="GeneralSettingPage_DoubleClickNavigationCard"
+            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_DoubleClickNavigationCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/mouse.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard x:Uid="GeneralSettingPage_RealTimeSearchCard"
+            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_RealTimeSearchCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/search.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseRealTimeSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard x:Uid="GeneralSettingPage_IconPackCard"
+            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_IconPackCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}">
                 <ComboBox x:Name="CmbIconPack">
                     <ComboBoxItem Content="Glyph"
@@ -89,7 +89,7 @@
                 </ComboBox>
             </wuc:SettingsCard>
 
-            <wuc:SettingsExpander x:Uid="GeneralSettingPage_RegexExpander"
+            <wuc:SettingsExpander wuc:Localizer.Uid="GeneralSettingPage_RegexExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/regex.png}">
                 <ToggleSwitch x:Name="TGRegex"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseDefaultRegexEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

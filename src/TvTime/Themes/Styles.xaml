@@ -4,8 +4,6 @@
 
     <x:Double x:Key="TitleBarCompactHeight">48</x:Double>
 
-    <x:String x:Key="BreadCrumbBarRootText">Settings</x:String>
-
     <Thickness x:Key="ContentPageMargin">40,48,40,0</Thickness>
     <Thickness x:Key="SettingsCardMargin">0,0,0,4</Thickness>
 

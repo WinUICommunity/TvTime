@@ -15,7 +15,7 @@
                     Spacing="5">
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsExpander x:Uid="AboutPage_TvTimeExpander"
+            <wuc:SettingsExpander wuc:Localizer.Uid="AboutPage_TvTimeExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/icon.png}"
                                   IsExpanded="True">
 
@@ -27,10 +27,10 @@
                                       ContentAlignment="Left">
                         <StackPanel Orientation="Vertical"
                                     Spacing="5">
-                            <TextBlock x:Uid="AboutPage_RelatedLinks" />
-                            <HyperlinkButton x:Uid="AboutPage_SourceCode"
+                            <TextBlock wuc:Localizer.Uid="AboutPage_RelatedLinks" />
+                            <HyperlinkButton wuc:Localizer.Uid="AboutPage_SourceCode"
                                              NavigateUri="https://github.com/winUICommunity/TvTime" />
-                            <HyperlinkButton x:Uid="AboutPage_ReleaseNotes"
+                            <HyperlinkButton wuc:Localizer.Uid="AboutPage_ReleaseNotes"
                                              NavigateUri="https://github.com/WinUICommunity/TvTime/releases" />
                         </StackPanel>
                     </wuc:SettingsCard>

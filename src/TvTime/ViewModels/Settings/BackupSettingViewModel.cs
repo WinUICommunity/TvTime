@@ -4,7 +4,7 @@ public partial class BackupSettingViewModel : ObservableObject
     private bool isMediaServer;
 
     [ObservableProperty]
-    public string statusText = "Status";
+    public string statusText = App.Current.Localizer.GetLocalizedString("BackupSettingPage_InfoBarTitle");
 
     [ObservableProperty]
     public InfoBarSeverity statusSeverity = InfoBarSeverity.Informational;

@@ -6,6 +6,7 @@
              xmlns:i="using:Microsoft.Xaml.Interactivity"
              xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wuc="using:WinUICommunity"
              x:DefaultBindMode="OneWay"
              mc:Ignorable="d">
 
@@ -18,10 +19,10 @@
                    StrokeDashArray="20"
                    StrokeThickness="2" />
         <TextBlock x:Name="TxtNoItem"
-                   x:Uid="NoItemUC_NoItem"
                    Margin="20,0,10,10"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   wuc:Localizer.Uid="NoItemUC_NoItem"
                    Style="{ThemeResource HeaderTextBlockStyle}" />
         <i:Interaction.Behaviors>
             <ic:DataTriggerBehavior Binding="{x:Bind Count}"

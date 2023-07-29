@@ -14,7 +14,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     public bool isLoading;
 
     [ObservableProperty]
-    public string loadingStatus = "Status";
+    public string loadingStatus = App.Current.Localizer.GetLocalizedString("AppUpdateSettingPage_InfoBarTitle");
 
     private string changeLog = string.Empty;
 

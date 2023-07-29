@@ -144,11 +144,17 @@
   <data name="AppUpdateSettingPage_DownloadUpdate.Content" xml:space="preserve">
     <value>دانلود بروزرسانی</value>
   </data>
+  <data name="AppUpdateSettingPage_InfoBarTitle.Title" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
   <data name="AppUpdateSettingPage_LastCheck.Text" xml:space="preserve">
     <value>آخرین بررسی</value>
   </data>
   <data name="AppUpdateSettingPage_ReleaseNotes.Content" xml:space="preserve">
     <value>یادداشت انتشار</value>
+  </data>
+  <data name="BackupSettingPage_InfoBarTitle.Title" xml:space="preserve">
+    <value>عنوان</value>
   </data>
   <data name="BackupSettingPage_MediaBackup.Description" xml:space="preserve">
     <value>شما میتوانید سرورهای رسانه خود را در محل دلخواه ذخیره کنید</value>
@@ -203,6 +209,12 @@
   </data>
   <data name="BackupSettingPage_TvTimeRestore.Header" xml:space="preserve">
     <value>بازیابی تنظیمات برنامه</value>
+  </data>
+  <data name="BreadCrumbBarRootText" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_BreadCrumbBar" xml:space="preserve">
+    <value>استایل توضیحات</value>
   </data>
   <data name="DescriptionStyleSettingPage_DescriptionTextCustomFontSize.OffContent" xml:space="preserve">
     <value>پیشفرض</value>
@@ -342,6 +354,9 @@
   <data name="GeneralSettingPage_SoundCard.Header" xml:space="preserve">
     <value>صدا</value>
   </data>
+  <data name="HeaderStyleSettingPage_BreadCrumbBar" xml:space="preserve">
+    <value>استایل سرتیتر</value>
+  </data>
   <data name="IMDBDetailsPage_Actor.Text" xml:space="preserve">
     <value>بازیگر:</value>
   </data>
@@ -418,6 +433,9 @@
     <value>دانلود همه موارد با IDM</value>
     <comment>MenuFlyoutItem</comment>
   </data>
+  <data name="LayoutSettingPage_BreadCrumbBar" xml:space="preserve">
+    <value>لایوت</value>
+  </data>
   <data name="LayoutSettingPage_TvTimeDescriptionStyle.Description" xml:space="preserve">
     <value>توضیحات را با توجه به نیازهای خود، مانند سبک قلم، اندازه و نوع کنترل، سفارشی کنید</value>
   </data>
@@ -429,6 +447,9 @@
   </data>
   <data name="LayoutSettingPage_TvTimeHeaderStyle.Header" xml:space="preserve">
     <value>سبک و اندازه قلم سرتیتر</value>
+  </data>
+  <data name="MainPage_FlowDirection.FlowDirection" xml:space="preserve">
+    <value>RightToLeft</value>
   </data>
   <data name="MainPage_NavSearch.PlaceholderText" xml:space="preserve">
     <value>جستجو</value>

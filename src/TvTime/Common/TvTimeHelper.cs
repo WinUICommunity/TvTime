@@ -429,4 +429,9 @@ public static class TvTimeHelper
             new TvTimeLanguage("Persian", "fa-IR")
         };
     }
+
+    public static string[] GetAvailableLanguages()
+    {
+        return TvTimeLanguagesCollection().Select(x => x.LanguageCode).ToArray();
+    }
 }

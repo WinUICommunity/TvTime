@@ -6,6 +6,7 @@
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:wuc="using:WinUICommunity"
       x:DefaultBindMode="OneWay"
       mc:Ignorable="d">
 
@@ -40,8 +41,8 @@
                                Value="{x:Bind ViewModel.MediaRateValue}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage_Id"
-                           Margin="10,0,5,0"
+                <TextBlock Margin="10,0,5,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Id"
                            Style="{ThemeResource SubtitleTextBlockStyle}" />
                 <HyperlinkButton Content="{x:Bind ViewModel.MediaIMDBId}"
                                  NavigateUri="{x:Bind ViewModel.MediaIMDBId}" />
@@ -49,22 +50,22 @@
                            Visibility="Collapsed" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage_Year"
-                           Margin="10,0"
+                <TextBlock Margin="10,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Year"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3,10,0"
                            HorizontalAlignment="Left"
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="{x:Bind ViewModel.MediaYear}" />
-                <TextBlock x:Uid="IMDBDetailsPage_Released"
+                <TextBlock wuc:Localizer.Uid="IMDBDetailsPage_Released"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="5,3"
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="{x:Bind ViewModel.MediaReleased}" />
-                <TextBlock x:Uid="IMDBDetailsPage_Type"
-                           Margin="5,0,5,0"
+                <TextBlock Margin="5,0,5,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Type"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
                            Foreground="{ThemeResource SystemAccentColor}"
@@ -72,15 +73,15 @@
                            Text="{x:Bind ViewModel.MediaType}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage_Rated"
-                           Margin="10,0,0,0"
+                <TextBlock Margin="10,0,0,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Rated"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="5,3,5,0"
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="{x:Bind ViewModel.MediaRated}" />
-                <TextBlock x:Uid="IMDBDetailsPage_TotalSeason"
-                           Margin="10,0,5,0"
+                <TextBlock Margin="10,0,5,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_TotalSeason"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
                            Foreground="{ThemeResource SystemAccentColor}"
@@ -88,15 +89,15 @@
                            Text="{x:Bind ViewModel.MediaTotalSeason}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage_Language"
-                           Margin="10,0,5,0"
+                <TextBlock Margin="10,0,5,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Language"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
                            Foreground="{ThemeResource SystemAccentColor}"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="{x:Bind ViewModel.MediaLanguage}" />
-                <TextBlock x:Uid="IMDBDetailsPage_Country"
-                           Margin="10,0,5,0"
+                <TextBlock Margin="10,0,5,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Country"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
                            Foreground="{ThemeResource SystemAccentColor}"
@@ -104,8 +105,8 @@
                            Text="{x:Bind ViewModel.MediaCountry}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage_Genre"
-                           Margin="10,0,5,0"
+                <TextBlock Margin="10,0,5,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Genre"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
                            Foreground="{ThemeResource SystemAccentColor}"
@@ -113,8 +114,8 @@
                            Text="{x:Bind ViewModel.MediaGener}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage_Director"
-                           Margin="10,0,5,0"
+                <TextBlock Margin="10,0,5,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Director"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
                            Foreground="{ThemeResource SystemAccentColor}"
@@ -122,8 +123,8 @@
                            Text="{x:Bind ViewModel.MediaDirector}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage_Writer"
-                           Margin="10,0,5,0"
+                <TextBlock Margin="10,0,5,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Writer"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
                            Foreground="{ThemeResource SystemAccentColor}"
@@ -132,8 +133,8 @@
                            TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="IMDBDetailsPage_Actor"
-                           Margin="10,0,5,0"
+                <TextBlock Margin="10,0,5,0"
+                           wuc:Localizer.Uid="IMDBDetailsPage_Actor"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <TextBlock Margin="0,3"
                            Foreground="{ThemeResource SystemAccentColor}"

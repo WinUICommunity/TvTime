@@ -14,6 +14,8 @@ public partial class AppLanguageSettingViewModel : ObservableRecipient
             if (selectedItem != null)
             {
                 Settings.TvTimeLanguage = selectedItem;
+                App.Current.Localizer.SetLanguage(selectedItem.LanguageCode);
+                MainPage.Instance.SetFlowDirection();
             }
         }
     }

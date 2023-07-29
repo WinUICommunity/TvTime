@@ -16,52 +16,52 @@
     <UserControl.Resources>
         <MenuFlyout x:Key="menuFlyout">
             <MenuFlyoutItem x:Name="MenuDirectory"
-                            x:Uid="ItemUC_MenuDirectory"
+                            wuc:Localizer.Uid="ItemUC_MenuDirectory"
                             Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                             CommandParameter="{Binding ElementName=MenuDirectory}"
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/explorer.png}"
                             Tag="OpenWebDirectory" />
             <MenuFlyoutItem x:Name="MenuIMDB"
-                            x:Uid="ItemUC_MenuIMDB"
+                            wuc:Localizer.Uid="ItemUC_MenuIMDB"
                             Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                             CommandParameter="{Binding ElementName=MenuIMDB}"
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/imdb.png}"
                             Tag="IMDB" />
             <MenuFlyoutItem x:Name="MenuFile"
-                            x:Uid="ItemUC_MenuFile"
+                            wuc:Localizer.Uid="ItemUC_MenuFile"
                             Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                             CommandParameter="{Binding ElementName=MenuFile}"
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
                             Tag="OpenFile"
                             Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
-            <MenuFlyoutSubItem x:Uid="ItemUC_MenuCopy"
+            <MenuFlyoutSubItem wuc:Localizer.Uid="ItemUC_MenuCopy"
                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}">
 
                 <MenuFlyoutItem x:Name="MenuCopy"
-                                x:Uid="ItemUC_SubMenuCopy"
+                                wuc:Localizer.Uid="ItemUC_SubMenuCopy"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuCopy}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
                                 Tag="Copy" />
                 <MenuFlyoutItem x:Name="MenuCopyAll"
-                                x:Uid="ItemUC_SubMenuCopyAll"
+                                wuc:Localizer.Uid="ItemUC_SubMenuCopyAll"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuCopyAll}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
                                 Tag="CopyAll" />
             </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem x:Uid="ItemUC_MenuDownload"
+            <MenuFlyoutSubItem wuc:Localizer.Uid="ItemUC_MenuDownload"
                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
 
                 <MenuFlyoutItem x:Name="MenuDownload"
-                                x:Uid="ItemUC_SubMenuDownload"
+                                wuc:Localizer.Uid="ItemUC_SubMenuDownload"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuDownload}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                 Tag="Download" />
                 <MenuFlyoutItem x:Name="MenuDownloadAll"
-                                x:Uid="ItemUC_SubMenuDownloadAll"
+                                wuc:Localizer.Uid="ItemUC_SubMenuDownloadAll"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuDownloadAll}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"

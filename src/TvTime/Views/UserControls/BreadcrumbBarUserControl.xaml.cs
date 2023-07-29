@@ -32,7 +32,7 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
 
     private void BreadcrumbBarUserControl_Loaded(object sender, RoutedEventArgs e)
     {
-        ViewModel.BreadcrumbBarCollection.Add(Application.Current.Resources["BreadCrumbBarRootText"] as string);
+        ViewModel.BreadcrumbBarCollection.Add(App.Current.Localizer.GetLocalizedString("BreadCrumbBarRootText"));
         if (Items != null)
         {
             foreach (var item in Items)

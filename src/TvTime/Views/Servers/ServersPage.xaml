@@ -4,6 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:labs="using:CommunityToolkit.Labs.WinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -14,8 +15,8 @@
                         Margin="10"
                         HorizontalAlignment="Center"
                         SelectionChanged="{x:Bind OnSegmentedServerChanged}">
-            <labs:SegmentedItem x:Uid="ServerPage_MediaItem" />
-            <labs:SegmentedItem x:Uid="ServerPage_SubtitleItem" />
+            <labs:SegmentedItem wuc:Localizer.Uid="ServerPage_MediaItem" />
+            <labs:SegmentedItem wuc:Localizer.Uid="ServerPage_SubtitleItem" />
         </labs:Segmented>
         <Frame x:Name="ServerFrame"
                Grid.Row="1" />

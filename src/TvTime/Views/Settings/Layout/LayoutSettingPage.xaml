@@ -16,14 +16,14 @@
             <views:BreadcrumbBarUserControl Items="{x:Bind ViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
             <wuc:SettingsCard x:Name="HeaderStyleSetting"
-                              x:Uid="LayoutSettingPage_TvTimeHeaderStyle"
+                              wuc:Localizer.Uid="LayoutSettingPage_TvTimeHeaderStyle"
                               Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
                               CommandParameter="{Binding ElementName=HeaderStyleSetting}"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}"
                               IsClickEnabled="True"
                               Tag="HeaderStyleSettingPage" />
             <wuc:SettingsCard x:Name="DescriptionStyleSetting"
-                              x:Uid="LayoutSettingPage_TvTimeDescriptionStyle"
+                              wuc:Localizer.Uid="LayoutSettingPage_TvTimeDescriptionStyle"
                               Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
                               CommandParameter="{Binding ElementName=DescriptionStyleSetting}"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}"

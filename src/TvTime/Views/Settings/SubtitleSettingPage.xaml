@@ -18,15 +18,15 @@
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
             <InfoBar x:Name="StatusInfo"
-                     x:Uid="SubtitleSettingPage_InfoBarTitle"
+                     wuc:Localizer.Uid="SubtitleSettingPage_InfoBarTitle"
                      IsClosable="False"
                      IsOpen="True" />
 
-            <wuc:SettingsExpander x:Uid="SubtitleSettingPage_SubtitleLanguageExpander"
+            <wuc:SettingsExpander wuc:Localizer.Uid="SubtitleSettingPage_SubtitleLanguageExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard ContentAlignment="Left">
-                        <AutoSuggestBox x:Uid="SubtitleSettingPage_AutoSuggestBox"
+                        <AutoSuggestBox wuc:Localizer.Uid="SubtitleSettingPage_AutoSuggestBox"
                                         MinWidth="400"
                                         QueryIcon="Add"
                                         QuerySubmitted="SubtitleLanguage_QuerySubmitted" />
@@ -41,7 +41,7 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsCard x:Uid="SubtitleSettingPage_IDMDownloadCard"
+            <wuc:SettingsCard wuc:Localizer.Uid="SubtitleSettingPage_IDMDownloadCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

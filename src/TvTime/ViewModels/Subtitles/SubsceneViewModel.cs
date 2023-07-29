@@ -21,7 +21,7 @@ public partial class SubsceneViewModel : BaseViewModel
     {
         JsonNavigationViewService = jsonNavigationViewService;
 
-        var tokens = Settings.SubtitleServers.Where(x => x.IsActive)
+        var tokens = ServerSettings.SubtitleServers.Where(x => x.IsActive)
             .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
 
         TokenList = new(tokens);
@@ -81,7 +81,7 @@ public partial class SubsceneViewModel : BaseViewModel
                 {
                     IsActive = true;
                     DataList = new();
-                    var baseUrl = Settings?.SubtitleServers?.FirstOrDefault(x => x.Server.Contains(((TokenItem) TokenItemSelectedItem).Content.ToString(), StringComparison.OrdinalIgnoreCase));
+                    var baseUrl = ServerSettings?.SubtitleServers?.FirstOrDefault(x => x.Server.Contains(((TokenItem) TokenItemSelectedItem).Content.ToString(), StringComparison.OrdinalIgnoreCase));
                     var url = string.Format(Constants.SubsceneSearchAPI, baseUrl?.Server, QueryText);
                     var web = new HtmlWeb();
                     var doc = await web.LoadFromWebAsync(url);

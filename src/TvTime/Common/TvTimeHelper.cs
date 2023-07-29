@@ -26,6 +26,12 @@ public static class TvTimeHelper
                                .LoadNow()
                                .EnableAutosave();
 
+    public static TvTimeServerConfig ServerSettings = JsonSettings.Configure<TvTimeServerConfig>()
+                               .WithRecovery(RecoveryAction.RenameAndLoadDefault)
+                               .WithVersioning(VersioningResultAction.RenameAndLoadDefault)
+                               .LoadNow()
+                               .EnableAutosave();
+
     public static string GetMD5Hash(String strMsg)
     {
         string strAlgName = HashAlgorithmNames.Md5;

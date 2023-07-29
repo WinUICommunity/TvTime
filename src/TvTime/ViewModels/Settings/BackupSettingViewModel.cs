@@ -32,11 +32,11 @@ public partial class BackupSettingViewModel : ObservableObject
 
             if (file != null)
             {
-                var servers = Settings.TVTimeServers;
+                var servers = ServerSettings.TVTimeServers;
 
                 if (!this.isMediaServer)
                 {
-                    servers = Settings.SubtitleServers;
+                    servers = ServerSettings.SubtitleServers;
                 }
 
                 var json = JsonConvert.SerializeObject(servers, Formatting.Indented);
@@ -78,11 +78,11 @@ public partial class BackupSettingViewModel : ObservableObject
                 {
                     if (this.isMediaServer)
                     {
-                        Settings.TVTimeServers = content;
+                        ServerSettings.TVTimeServers = content;
                     }
                     else
                     {
-                        Settings.SubtitleServers = content;
+                        ServerSettings.SubtitleServers = content;
                     }
 
                     StatusText = "Restore completed successfully";

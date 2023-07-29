@@ -34,11 +34,11 @@ public sealed partial class ServerUserControl : UserControl
         {
             if (IsMediaServer)
             {
-                Settings.TVTimeServers?.Clear();
+                ServerSettings.TVTimeServers?.Clear();
             }
             else
             {
-                Settings.SubtitleServers?.Clear();
+                ServerSettings.SubtitleServers?.Clear();
             }
 
             ViewModel.DataListACV?.Clear();
@@ -57,11 +57,11 @@ public sealed partial class ServerUserControl : UserControl
             {
                 if (IsMediaServer)
                 {
-                    Settings.TVTimeServers = content;
+                    ServerSettings.TVTimeServers = content;
                 }
                 else
                 {
-                    Settings.SubtitleServers = content;
+                    ServerSettings.SubtitleServers = content;
                 }
                 ViewModel.DataListACV = new(content);
                 Status.Title = "Predefined Servers Loaded Successfully";
@@ -85,11 +85,11 @@ public sealed partial class ServerUserControl : UserControl
         {
             if (IsMediaServer)
             {
-                Settings.TVTimeServers?.Clear();
+                ServerSettings.TVTimeServers?.Clear();
             }
             else
             {
-                Settings.SubtitleServers?.Clear();
+                ServerSettings.SubtitleServers?.Clear();
             }
 
             ViewModel.DataListACV?.Clear();

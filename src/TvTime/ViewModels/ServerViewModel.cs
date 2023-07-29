@@ -18,7 +18,7 @@ public partial class ServerViewModel : BaseViewModel
         this.IsMediaServer = Convert.ToBoolean(isMediaServer);
         IsActive = true;
         await Task.Delay(150);
-        DataList = IsMediaServer ? new(Settings.TVTimeServers) : new(Settings.SubtitleServers);
+        DataList = IsMediaServer ? new(ServerSettings.TVTimeServers) : new(ServerSettings.SubtitleServers);
         DataListACV = new AdvancedCollectionView(DataList, true);
         currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
         DataListACV.SortDescriptions.Add(currentSortDescription);
@@ -39,11 +39,11 @@ public partial class ServerViewModel : BaseViewModel
 
                 if (IsMediaServer)
                 {
-                    Settings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
+                    ServerSettings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                 }
                 else
                 {
-                    Settings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
+                    ServerSettings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                 }
 
                 StatusSeverity = InfoBarSeverity.Success;
@@ -84,12 +84,12 @@ public partial class ServerViewModel : BaseViewModel
 
                 if (IsMediaServer)
                 {
-                    Settings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
+                    ServerSettings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
 
                 }
                 else
                 {
-                    Settings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
+                    ServerSettings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                 }
 
                 StatusSeverity = InfoBarSeverity.Success;
@@ -143,11 +143,11 @@ public partial class ServerViewModel : BaseViewModel
 
                     if (IsMediaServer)
                     {
-                        Settings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
+                        ServerSettings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                     }
                     else
                     {
-                        Settings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
+                        ServerSettings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
                     }
 
                     StatusSeverity = InfoBarSeverity.Success;

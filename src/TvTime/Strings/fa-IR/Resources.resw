@@ -132,6 +132,12 @@
   <data name="AboutPage_TvTimeExpander.Header" xml:space="preserve">
     <value>TvTime</value>
   </data>
+  <data name="AppLanguageSettingPage_LanguageCard.Description" xml:space="preserve">
+    <value>زبان رابط کاربری برنامه را مشخص کنید، بعد از انتخاب برنامه دوباره راه اندازی خواهد شد</value>
+  </data>
+  <data name="AppLanguageSettingPage_LanguageCard.Header" xml:space="preserve">
+    <value>زبان رابط کاربری</value>
+  </data>
   <data name="AppUpdateSettingPage_CheckUpdate.Content" xml:space="preserve">
     <value>بررسی برای نسخه جدید</value>
   </data>
@@ -502,6 +508,12 @@
   <data name="SettingsPage_AboutSetting.Header" xml:space="preserve">
     <value>درباره ما</value>
     <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_AppLanguageSetting.Description" xml:space="preserve">
+    <value>زبان رابط کاربری برنامه را مشخص کنید</value>
+  </data>
+  <data name="SettingsPage_AppLanguageSetting.Header" xml:space="preserve">
+    <value>زبان رابط کاربری</value>
   </data>
   <data name="SettingsPage_AppUpdateSetting.Description" xml:space="preserve">
     <value>بروزرسانی های TvTime را بررسی کنید و آنها را دانلود کنید</value>

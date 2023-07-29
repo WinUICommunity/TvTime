@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="TvTime.Views.AppLanguageSettingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:model="using:TvTime.Models"
+      xmlns:views="using:TvTime.Views"
+      xmlns:wuc="using:WinUICommunity"
+      mc:Ignorable="d">
+
+    <ScrollViewer>
+        <StackPanel Margin="10"
+                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
+                    Spacing="5">
+            <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
+
+            <wuc:SettingsCard x:Uid="AppLanguageSettingPage_LanguageCard"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
+                <ComboBox x:Name="CmbLanguage"
+                          ItemsSource="{x:Bind ViewModel.Languages, Mode=OneWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="model:TvTimeLanguage">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="5">
+                                <TextBlock Text="{x:Bind Title}" />
+                                <TextBlock Text="-" />
+                                <TextBlock Text="{x:Bind LanguageCode}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="SelectionChanged">
+                            <ic:EventTriggerBehavior.Actions>
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.LanguageChangedCommand}"
+                                                        CommandParameter="{Binding ElementName=CmbLanguage}" />
+                            </ic:EventTriggerBehavior.Actions>
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+            </wuc:SettingsCard>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

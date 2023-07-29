@@ -597,4 +597,16 @@
   <data name="ThemeSettingPage_WindowColorCard.Header" xml:space="preserve">
     <value>Windows Color Settings</value>
   </data>
+  <data name="AppLanguageSettingPage_LanguageCard.Description" xml:space="preserve">
+    <value>Specify the user interface language of the application, after selecting the application will be restarted</value>
+  </data>
+  <data name="AppLanguageSettingPage_LanguageCard.Header" xml:space="preserve">
+    <value>App UI Language</value>
+  </data>
+  <data name="SettingsPage_AppLanguageSetting.Description" xml:space="preserve">
+    <value>Specify the language of the user interface of the application</value>
+  </data>
+  <data name="SettingsPage_AppLanguageSetting.Header" xml:space="preserve">
+    <value>App UI Language</value>
+  </data>
 </root>

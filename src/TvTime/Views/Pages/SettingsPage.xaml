@@ -17,6 +17,13 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}"
                               IsClickEnabled="True"
                               Tag="GeneralSettingPage" />
+            <wuc:SettingsCard x:Name="AppLanguageSetting"
+                              x:Uid="SettingsPage_AppLanguageSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=AppLanguageSetting}"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}"
+                              IsClickEnabled="True"
+                              Tag="AppLanguageSettingPage" />
             <wuc:SettingsCard x:Name="ThemeSetting"
                               x:Uid="SettingsPage_ThemeSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"

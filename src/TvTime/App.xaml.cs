@@ -33,7 +33,7 @@ public partial class App : Application
 
         CreateDirectory();
 
-        if (Settings.TvTimeLanguage.LanguageCode == "fa-IR")
+        if (Settings.TvTimeLanguage?.LanguageCode == "fa-IR")
         {
             ResourceDictionary fontsResourceDict = new ResourceDictionary();
             fontsResourceDict.Source = new Uri("ms-appx:///Themes/Fonts.xaml");
@@ -67,15 +67,16 @@ public partial class App : Application
         services.AddTransient<SubsceneDetailViewModel>();
 
         //Settings
-        services.AddTransient<AppUpdateSettingViewModel>();
-        services.AddTransient<AboutUsSettingViewModel>();
-        services.AddTransient<BackupSettingViewModel>();
-        services.AddTransient<ThemeSettingViewModel>();
-        services.AddTransient<SubtitleSettingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
+        services.AddTransient<AppLanguageSettingViewModel>();
+        services.AddTransient<ThemeSettingViewModel>();
         services.AddTransient<LayoutSettingViewModel>();
         services.AddTransient<HeaderStyleSettingViewModel>();
         services.AddTransient<DescriptionStyleSettingViewModel>();
+        services.AddTransient<SubtitleSettingViewModel>();
+        services.AddTransient<BackupSettingViewModel>();
+        services.AddTransient<AppUpdateSettingViewModel>();
+        services.AddTransient<AboutUsSettingViewModel>();
 
         return services.BuildServiceProvider();
     }

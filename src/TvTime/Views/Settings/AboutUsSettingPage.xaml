@@ -15,8 +15,7 @@
                     Spacing="5">
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsExpander Description="TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities."
-                                  Header="TvTime"
+            <wuc:SettingsExpander x:Uid="AboutPage_TvTimeExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/icon.png}"
                                   IsExpanded="True">
 
@@ -28,10 +27,10 @@
                                       ContentAlignment="Left">
                         <StackPanel Orientation="Vertical"
                                     Spacing="5">
-                            <TextBlock Text="Related Links" />
-                            <HyperlinkButton Content="Source Code"
+                            <TextBlock x:Uid="AboutPage_RelatedLinks" />
+                            <HyperlinkButton x:Uid="AboutPage_SourceCode"
                                              NavigateUri="https://github.com/winUICommunity/TvTime" />
-                            <HyperlinkButton Content="Release Notes"
+                            <HyperlinkButton x:Uid="AboutPage_ReleaseNotes"
                                              NavigateUri="https://github.com/WinUICommunity/TvTime/releases" />
                         </StackPanel>
                     </wuc:SettingsCard>

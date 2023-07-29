@@ -16,16 +16,16 @@
                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/update.png}">
             <wuc:SettingsCard.Description>
                 <TextBlock Style="{StaticResource SecondaryTextStyle}">
-                    <Run Text="Last Update Check" />
+                    <Run x:Uid="AppUpdateSettingPage_LastCheck" />
                     <Run Text="{x:Bind ViewModel.LastUpdateCheck}" />
                 </TextBlock>
             </wuc:SettingsCard.Description>
             <StackPanel Orientation="Horizontal"
                         Spacing="10">
                 <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
-                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                <Button x:Uid="AppUpdateSettingPage_CheckUpdate"
+                        MinWidth="{StaticResource SettingActionControlMinWidth}"
                         Command="{x:Bind ViewModel.CheckForUpdateAsyncCommand}"
-                        Content="Check for New Version"
                         IsEnabled="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
                         Style="{ThemeResource AccentButtonStyle}" />
             </StackPanel>
@@ -34,17 +34,17 @@
         <wuc:SettingsCard Header="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
                           HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/info.png}">
             <wuc:SettingsCard.Description>
-                <HyperlinkButton Padding="5,0"
+                <HyperlinkButton x:Uid="AppUpdateSettingPage_ReleaseNotes"
+                                 Padding="5,0"
                                  Command="{x:Bind ViewModel.GetReleaseNotesAsyncCommand}"
-                                 Content="Release Notes"
                                  Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}" />
             </wuc:SettingsCard.Description>
             <StackPanel VerticalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="10">
-                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                <Button x:Uid="AppUpdateSettingPage_DownloadUpdate"
+                        MinWidth="{StaticResource SettingActionControlMinWidth}"
                         Command="{x:Bind ViewModel.GoToUpdateAsyncCommand}"
-                        Content="Download Update"
                         Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}" />
             </StackPanel>
         </wuc:SettingsCard>

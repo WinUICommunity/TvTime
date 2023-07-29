@@ -10,7 +10,7 @@ public class Constants
 
     public static readonly string AppConfigPath = Path.Combine(RootDirectoryPath, "AppConfig.json");
 
-    public const string FileNameRegex = @"(?:hd(?:tv|cam|r)|-|/720p/|/480p/|/1080p/|- -|-  -|/|EmpireBestTv|AceMovies|AvaMovie|@Parsi_Ser|mp4|mkv|EBTV|@Gemovies|GM|AvaMovie|FB|M3|\.)";
+    public const string FileNameRegex = @"(?:hd(?:tv|cam|r)|-|/720p/|/480p/|/1080p/|- -|-  -|/|EmpireBestTv|AceMovies|AvaMovie|@Parsi_Ser|mp4|mkv|@Gemovies|GM|AvaMovie|FB|M3|\.)";
     public const string IMDBTitleAPI = "http://www.omdbapi.com/?t={0}&apikey=2a59a17e";
     public const string IMDBBaseUrl = "https://www.imdb.com/title/{0}";
     public const string TVTIME_REPO = "https://github.com/winUICommunity/TvTime";

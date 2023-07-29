@@ -300,6 +300,87 @@
   <data name="ServerUC_ClearButton.Content" xml:space="preserve">
     <value>Clear all servers</value>
   </data>
+  <data name="AboutPage_RelatedLinks.Text" xml:space="preserve">
+    <value>Related Links</value>
+  </data>
+  <data name="AboutPage_ReleaseNotes.Content" xml:space="preserve">
+    <value>Release Notes</value>
+  </data>
+  <data name="AboutPage_SourceCode.Content" xml:space="preserve">
+    <value>Source Code</value>
+  </data>
+  <data name="AboutPage_TvTimeExpander.Description" xml:space="preserve">
+    <value>TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities.</value>
+  </data>
+  <data name="AboutPage_TvTimeExpander.Header" xml:space="preserve">
+    <value>TvTime</value>
+  </data>
+  <data name="AppUpdateSettingPage_CheckUpdate.Content" xml:space="preserve">
+    <value>Check for New Version</value>
+  </data>
+  <data name="AppUpdateSettingPage_DownloadUpdate.Content" xml:space="preserve">
+    <value>Download Update</value>
+  </data>
+  <data name="AppUpdateSettingPage_LastCheck.Text" xml:space="preserve">
+    <value>Last Update Check</value>
+  </data>
+  <data name="AppUpdateSettingPage_ReleaseNotes.Content" xml:space="preserve">
+    <value>Release Notes</value>
+  </data>
+  <data name="BackupSettingPage_MediaBackup.Description" xml:space="preserve">
+    <value>You can export your saved media servers to any location</value>
+  </data>
+  <data name="BackupSettingPage_MediaBackup.Header" xml:space="preserve">
+    <value>Backup Media Servers</value>
+  </data>
+  <data name="BackupSettingPage_MediaExpander.Description" xml:space="preserve">
+    <value>backup and restore media servers</value>
+  </data>
+  <data name="BackupSettingPage_MediaExpander.Header" xml:space="preserve">
+    <value>Backup &amp; Restore TvTime Media Servers</value>
+  </data>
+  <data name="BackupSettingPage_MediaRestore.Description" xml:space="preserve">
+    <value>You can import your saved media servers to the app</value>
+  </data>
+  <data name="BackupSettingPage_MediaRestore.Header" xml:space="preserve">
+    <value>Restore Media Servers</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleBackup.Description" xml:space="preserve">
+    <value>You can export your saved subtitle servers to any location</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleBackup.Header" xml:space="preserve">
+    <value>Backup Subtitle Servers</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleExpander.Description" xml:space="preserve">
+    <value>backup and restore subtitle servers</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleExpander.Header" xml:space="preserve">
+    <value>Backup &amp; Restore TvTime Subtitle Servers</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleRestore.Description" xml:space="preserve">
+    <value>You can import your saved subtitle servers to the app</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleRestore.Header" xml:space="preserve">
+    <value>Restore Subtitle Servers</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeBackup.Description" xml:space="preserve">
+    <value>You can export your saved settings to any location</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeBackup.Header" xml:space="preserve">
+    <value>Backup TvTime Settings</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeExpander.Description" xml:space="preserve">
+    <value>backup and restore TvTime settings</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeExpander.Header" xml:space="preserve">
+    <value>Backup &amp; Restore TvTime Settings</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeRestore.Description" xml:space="preserve">
+    <value>You can import your saved settings to the app</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeRestore.Header" xml:space="preserve">
+    <value>Restore TvTime Settings</value>
+  </data>
   <data name="DescriptionStyleSettingPage_DescriptionTextCustomFontSize.OffContent" xml:space="preserve">
     <value>Default</value>
   </data>
@@ -378,6 +459,72 @@
   <data name="DescriptionStyleSettingPage_PreviewHeader.Text" xml:space="preserve">
     <value>Preview Header</value>
   </data>
+  <data name="GeneralSettingPage_DoubleClickNavigationCard.Description" xml:space="preserve">
+    <value>Navigate to pages with Mouse Double Click</value>
+  </data>
+  <data name="GeneralSettingPage_DoubleClickNavigationCard.Header" xml:space="preserve">
+    <value>Use Double Click for Navigate</value>
+  </data>
+  <data name="GeneralSettingPage_FilterTokenViewCard.Description" xml:space="preserve">
+    <value>With the help of TokenView, you can see only the media related to the desired server, and with the help of the search, you can search the results more precisely.</value>
+  </data>
+  <data name="GeneralSettingPage_FilterTokenViewCard.Header" xml:space="preserve">
+    <value>Filter using TokenView</value>
+  </data>
+  <data name="GeneralSettingPage_IconPackCard.Description" xml:space="preserve">
+    <value>Choose Icon Pack to display for the season number</value>
+  </data>
+  <data name="GeneralSettingPage_IconPackCard.Header" xml:space="preserve">
+    <value>Icon Pack</value>
+  </data>
+  <data name="GeneralSettingPage_IDMDownloadCard.Description" xml:space="preserve">
+    <value>Download Files With Internet Download Manager (IDM) [if exist]</value>
+  </data>
+  <data name="GeneralSettingPage_IDMDownloadCard.Header" xml:space="preserve">
+    <value>Download with IDM</value>
+  </data>
+  <data name="GeneralSettingPage_OpenFileCard.Description" xml:space="preserve">
+    <value>If false is selected, the corresponding web page will be opened instead of the file itself</value>
+  </data>
+  <data name="GeneralSettingPage_OpenFileCard.Header" xml:space="preserve">
+    <value>Open the file in the browser</value>
+  </data>
+  <data name="GeneralSettingPage_RealTimeSearchCard.Description" xml:space="preserve">
+    <value>If you use RealTime search, the search will be done immediately after typing the character. Otherwise, you must press the enter button after typing.(Note that using RealTime search may be a bit slow if there are many items)</value>
+  </data>
+  <data name="GeneralSettingPage_RealTimeSearchCard.Header" xml:space="preserve">
+    <value>Use RealTime Search</value>
+  </data>
+  <data name="GeneralSettingPage_RegexExpander.Description" xml:space="preserve">
+    <value>following keywords will be removed from movie\series file name, if you see a word that can not be removed from file name you can add your keywords here</value>
+  </data>
+  <data name="GeneralSettingPage_RegexExpander.Header" xml:space="preserve">
+    <value>Use Default Regex</value>
+  </data>
+  <data name="GeneralSettingPage_SoundCard.Description" xml:space="preserve">
+    <value>Controls provide audible feedback</value>
+  </data>
+  <data name="GeneralSettingPage_SoundCard.Header" xml:space="preserve">
+    <value>Sound</value>
+  </data>
+  <data name="GeneralSettingPage_TvTimeDescriptionStyle.Description" xml:space="preserve">
+    <value>Customize description according to your needs, such as font style, size and control type</value>
+  </data>
+  <data name="GeneralSettingPage_TvTimeDescriptionStyle.Header" xml:space="preserve">
+    <value>Description Style and Font Size</value>
+  </data>
+  <data name="GeneralSettingPage_TvTimeHeaderStyle.Description" xml:space="preserve">
+    <value>Customize header according to your needs, such as font style, size</value>
+  </data>
+  <data name="GeneralSettingPage_TvTimeHeaderStyle.Header" xml:space="preserve">
+    <value>Header Style and Font Size</value>
+  </data>
+  <data name="GeneralSettingPage_TvTimeLayoutExpander.Description" xml:space="preserve">
+    <value>Specify Styles and Font Size</value>
+  </data>
+  <data name="GeneralSettingPage_TvTimeLayoutExpander.Header" xml:space="preserve">
+    <value>TvTime Layout</value>
+  </data>
   <data name="ItemUC_MenuCopy.Text" xml:space="preserve">
     <value>Copy Link(s)</value>
     <comment>MenuFlyoutItem</comment>
@@ -413,5 +560,41 @@
   <data name="ItemUC_SubMenuDownloadAll.Text" xml:space="preserve">
     <value>Download All Items With IDM</value>
     <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="SubtitleSettingPage_AutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>Add some new languages [Press enter to add]</value>
+  </data>
+  <data name="SubtitleSettingPage_IDMDownloadCard.Description" xml:space="preserve">
+    <value>Download Subtitles With Internet Download Manager (IDM) [if exist]</value>
+  </data>
+  <data name="SubtitleSettingPage_IDMDownloadCard.Header" xml:space="preserve">
+    <value>Download with IDM</value>
+  </data>
+  <data name="SubtitleSettingPage_InfoBarTitle.Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="SubtitleSettingPage_SubtitleLanguageExpander.Description" xml:space="preserve">
+    <value>Specify the language of the subtitles</value>
+  </data>
+  <data name="SubtitleSettingPage_SubtitleLanguageExpander.Header" xml:space="preserve">
+    <value>Subtitle Language</value>
+  </data>
+  <data name="ThemeSettingPage_AppearanceCard.Description" xml:space="preserve">
+    <value>Select your Application Theme and Material</value>
+  </data>
+  <data name="ThemeSettingPage_AppearanceCard.Header" xml:space="preserve">
+    <value>Appearance &amp; behavior</value>
+  </data>
+  <data name="ThemeSettingPage_MaterialCard.Description" xml:space="preserve">
+    <value>Change Application System Backdrop</value>
+  </data>
+  <data name="ThemeSettingPage_MaterialCard.Header" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="ThemeSettingPage_WindowColorCard.Description" xml:space="preserve">
+    <value>Change Windows Accent Color</value>
+  </data>
+  <data name="ThemeSettingPage_WindowColorCard.Header" xml:space="preserve">
+    <value>Windows Color Settings</value>
   </data>
 </root>

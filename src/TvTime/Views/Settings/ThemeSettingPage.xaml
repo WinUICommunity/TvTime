@@ -17,8 +17,7 @@
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard Description="Select your Application Theme and Material"
-                              Header="Appearance &amp; behavior"
+            <wuc:SettingsCard x:Uid="ThemeSettingPage_AppearanceCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}">
                 <ComboBox x:Name="CmbTheme">
                     <ComboBoxItem Content="Light"
@@ -37,8 +36,7 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard Description="Change Application System Backdrop"
-                              Header="Materials"
+            <wuc:SettingsCard x:Uid="ThemeSettingPage_MaterialCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backdrop.png}">
                 <ComboBox x:Name="CmbBackdrop">
                     <ComboBoxItem Content="Mica"
@@ -57,10 +55,9 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard ActionIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
+            <wuc:SettingsCard x:Uid="ThemeSettingPage_WindowColorCard"
+                              ActionIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
                               Command="{x:Bind ViewModel.OpenWindowsColorSettingsCommand}"
-                              Description="Change Windows Accent Color"
-                              Header="Windows Color Settings"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/color.png}"
                               IsClickEnabled="True" />
         </StackPanel>

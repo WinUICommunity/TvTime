@@ -18,8 +18,7 @@
 
             <views:BreadcrumbBarUserControl Items="{x:Bind ViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
-            <wuc:SettingsCard Description="If false is selected, the corresponding web page will be opened instead of the file itself"
-                              Header="Open the file in the browser"
+            <wuc:SettingsCard x:Uid="GeneralSettingPage_OpenFileCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch x:Name="TGOpenFile"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -35,8 +34,7 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="Download Files With Internet Download Manager (IDM) [if exist]"
-                              Header="Download with IDM"
+            <wuc:SettingsCard x:Uid="GeneralSettingPage_IDMDownloadCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -52,33 +50,28 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="With the help of TokenView, you can see only the media related to the desired server, and with the help of the search, you can search the results more precisely."
-                              Header="Filter using TokenView"
+            <wuc:SettingsCard x:Uid="GeneralSettingPage_FilterTokenViewCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/tokenView.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="Controls provide audible feedback"
-                              Header="Sound"
+            <wuc:SettingsCard x:Uid="GeneralSettingPage_SoundCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/audio.png}">
                 <ToggleSwitch x:Name="TGSound"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Toggled="Sound_Toggled" />
             </wuc:SettingsCard>
-            <wuc:SettingsCard Description="Navigate to pages with Mouse Double Click"
-                              Header="Use Double Click for Navigate"
+            <wuc:SettingsCard x:Uid="GeneralSettingPage_DoubleClickNavigationCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/mouse.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="If you use RealTime search, the search will be done immediately after typing the character. Otherwise, you must press the enter button after typing.(Note that using RealTime search may be a bit slow if there are many items)"
-                              Header="Use RealTime Search"
+            <wuc:SettingsCard x:Uid="GeneralSettingPage_RealTimeSearchCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/search.png}">
                 <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseRealTimeSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="Choose Icon Pack to display for the season number"
-                              Header="Icon Pack"
+            <wuc:SettingsCard x:Uid="GeneralSettingPage_IconPackCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}">
                 <ComboBox x:Name="CmbIconPack">
                     <ComboBoxItem Content="Glyph"
@@ -96,32 +89,28 @@
                 </ComboBox>
             </wuc:SettingsCard>
 
-            <wuc:SettingsExpander Description="Specify Styles and Font Size"
-                                  Header="TvTime Layout"
+            <wuc:SettingsExpander x:Uid="GeneralSettingPage_TvTimeLayoutExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}"
                                   IsExpanded="True">
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard x:Name="HeaderStyleSetting"
+                                      x:Uid="GeneralSettingPage_TvTimeHeaderStyle"
                                       Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
                                       CommandParameter="{Binding ElementName=HeaderStyleSetting}"
-                                      Description="Customize header according to your needs, such as font style, size"
-                                      Header="Header Style and Font Size"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}"
                                       IsClickEnabled="True"
                                       Tag="HeaderStyleSettingPage" />
                     <wuc:SettingsCard x:Name="DescriptionStyleSetting"
+                                      x:Uid="GeneralSettingPage_TvTimeDescriptionStyle"
                                       Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
                                       CommandParameter="{Binding ElementName=DescriptionStyleSetting}"
-                                      Description="Customize description according to your needs, such as font style, size and control type"
-                                      Header="Description Style and Font Size"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}"
                                       IsClickEnabled="True"
                                       Tag="DescriptionStyleSettingPage" />
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsExpander Description="following keywords will be removed from movie\series file name, if you see a word that can not be removed from file name you can add your keywords here"
-                                  Header="Use Default Regex"
+            <wuc:SettingsExpander x:Uid="GeneralSettingPage_RegexExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/regex.png}">
                 <ToggleSwitch x:Name="TGRegex"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseDefaultRegexEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

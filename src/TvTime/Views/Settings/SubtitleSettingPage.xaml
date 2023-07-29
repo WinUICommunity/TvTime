@@ -18,17 +18,16 @@
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
             <InfoBar x:Name="StatusInfo"
-                     Title="Status"
+                     x:Uid="SubtitleSettingPage_InfoBarTitle"
                      IsClosable="False"
                      IsOpen="True" />
 
-            <wuc:SettingsExpander Description="Specify the language of the subtitles"
-                                  Header="Subtitle Language"
+            <wuc:SettingsExpander x:Uid="SubtitleSettingPage_SubtitleLanguageExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard ContentAlignment="Left">
-                        <AutoSuggestBox MinWidth="400"
-                                        PlaceholderText="Add some new languages [Press enter to add]"
+                        <AutoSuggestBox x:Uid="SubtitleSettingPage_AutoSuggestBox"
+                                        MinWidth="400"
                                         QueryIcon="Add"
                                         QuerySubmitted="SubtitleLanguage_QuerySubmitted" />
                     </wuc:SettingsCard>
@@ -42,8 +41,7 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsCard Description="Download Subtitles With Internet Download Manager (IDM) [if exist]"
-                              Header="Download with IDM"
+            <wuc:SettingsCard x:Uid="SubtitleSettingPage_IDMDownloadCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

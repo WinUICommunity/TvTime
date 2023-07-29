@@ -10,20 +10,6 @@
                   VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
                     Spacing="5">
-            <wuc:SettingsCard x:Name="AppUpdateSetting"
-                              x:Uid="SettingsPage_AppUpdateSetting"
-                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
-                              CommandParameter="{Binding ElementName=AppUpdateSetting}"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/update.png}"
-                              IsClickEnabled="True"
-                              Tag="AppUpdateSettingPage" />
-            <wuc:SettingsCard x:Name="ThemeSetting"
-                              x:Uid="SettingsPage_ThemeSetting"
-                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
-                              CommandParameter="{Binding ElementName=ThemeSetting}"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}"
-                              IsClickEnabled="True"
-                              Tag="ThemeSettingPage" />
             <wuc:SettingsCard x:Name="GeneralSetting"
                               x:Uid="SettingsPage_GeneralSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
@@ -31,6 +17,20 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}"
                               IsClickEnabled="True"
                               Tag="GeneralSettingPage" />
+            <wuc:SettingsCard x:Name="ThemeSetting"
+                              x:Uid="SettingsPage_ThemeSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=ThemeSetting}"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}"
+                              IsClickEnabled="True"
+                              Tag="ThemeSettingPage" />
+            <wuc:SettingsCard x:Name="LayoutSetting"
+                              x:Uid="SettingsPage_TvTimeLayout"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=LayoutSetting}"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/widgets.png}"
+                              IsClickEnabled="True"
+                              Tag="LayoutSettingPage" />
             <wuc:SettingsCard x:Name="SubtitleSetting"
                               x:Uid="SettingsPage_SubtitleSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"
@@ -45,6 +45,13 @@
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
                               IsClickEnabled="True"
                               Tag="BackupSettingPage" />
+            <wuc:SettingsCard x:Name="AppUpdateSetting"
+                              x:Uid="SettingsPage_AppUpdateSetting"
+                              Command="{x:Bind ViewModel.GoToSettingPageCommand}"
+                              CommandParameter="{Binding ElementName=AppUpdateSetting}"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/update.png}"
+                              IsClickEnabled="True"
+                              Tag="AppUpdateSettingPage" />
             <wuc:SettingsCard x:Name="AboutSetting"
                               x:Uid="SettingsPage_AboutSetting"
                               Command="{x:Bind ViewModel.GoToSettingPageCommand}"

@@ -1,42 +1,600 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>  
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
             <xsd:complexType>
-                <xsd:choice maxOccurs="unbounded">
-                    <xsd:element name="data">
-                        <xsd:complexType>
-                            <xsd:sequence>
-                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-                            </xsd:sequence>
-                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-                        </xsd:complexType>
-                    </xsd:element>
-                    <xsd:element name="resheader">
-                        <xsd:complexType>
-                            <xsd:sequence>
-                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                            </xsd:sequence>
-                            <xsd:attribute name="name" type="xsd:string" use="required" />
-                        </xsd:complexType>
-                    </xsd:element>
-                </xsd:choice>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
-        </xsd:element>
-    </xsd:schema>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>1.3</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutPage_RelatedLinks.Text" xml:space="preserve">
+    <value>لینک های مرتبط</value>
+  </data>
+  <data name="AboutPage_ReleaseNotes.Content" xml:space="preserve">
+    <value>یادداشت انتشار</value>
+  </data>
+  <data name="AboutPage_SourceCode.Content" xml:space="preserve">
+    <value>سورس کد</value>
+  </data>
+  <data name="AboutPage_TvTimeExpander.Description" xml:space="preserve">
+    <value>TvTime به شما کمک می کند تا جدید ترین فیلم ها، سریال ها و انیمه ها را با کیفیت های متنوع از سرورهای مختلف پیدا کنید</value>
+  </data>
+  <data name="AboutPage_TvTimeExpander.Header" xml:space="preserve">
+    <value>TvTime</value>
+  </data>
+  <data name="AppUpdateSettingPage_CheckUpdate.Content" xml:space="preserve">
+    <value>بررسی برای نسخه جدید</value>
+  </data>
+  <data name="AppUpdateSettingPage_DownloadUpdate.Content" xml:space="preserve">
+    <value>دانلود بروزرسانی</value>
+  </data>
+  <data name="AppUpdateSettingPage_LastCheck.Text" xml:space="preserve">
+    <value>آخرین بررسی</value>
+  </data>
+  <data name="AppUpdateSettingPage_ReleaseNotes.Content" xml:space="preserve">
+    <value>یادداشت انتشار</value>
+  </data>
+  <data name="BackupSettingPage_MediaBackup.Description" xml:space="preserve">
+    <value>شما میتوانید سرورهای رسانه خود را در محل دلخواه ذخیره کنید</value>
+  </data>
+  <data name="BackupSettingPage_MediaBackup.Header" xml:space="preserve">
+    <value>پشتیبان گیری از سرورهای رسانه</value>
+  </data>
+  <data name="BackupSettingPage_MediaExpander.Description" xml:space="preserve">
+    <value>سرورهای رسانه را پشتیبان گیری کنید و یا آنها را بازگردانید</value>
+  </data>
+  <data name="BackupSettingPage_MediaExpander.Header" xml:space="preserve">
+    <value>پشتیبان گیری و بازیابی سرورهای رسانه</value>
+  </data>
+  <data name="BackupSettingPage_MediaRestore.Description" xml:space="preserve">
+    <value>شما میتوانید سرورهای رسانه ذخیره شده را به برنامه بازگردانید</value>
+  </data>
+  <data name="BackupSettingPage_MediaRestore.Header" xml:space="preserve">
+    <value>بازیابی سرورهای رسانه</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleBackup.Description" xml:space="preserve">
+    <value>شما میتوانید سرورهای زیرنویس خود را در محل دلخواه ذخیره کنید</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleBackup.Header" xml:space="preserve">
+    <value>پشتیبان گیری از سرورهای زیرنویس</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleExpander.Description" xml:space="preserve">
+    <value>سرورهای زیرنویس را پشتیبان گیری کنید و یا آنها را بازگردانید</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleExpander.Header" xml:space="preserve">
+    <value>پشتیبان گیری و بازیابی سرورهای زیرنویس</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleRestore.Description" xml:space="preserve">
+    <value>شما میتوانید سرورهای زیرنویس ذخیره شده را به برنامه بازگردانید</value>
+  </data>
+  <data name="BackupSettingPage_SubtitleRestore.Header" xml:space="preserve">
+    <value>بازیابی سرورهای زیرنویس</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeBackup.Description" xml:space="preserve">
+    <value>شما میتوانید تنظیمات برنامه را در محل دلخواه ذخیره کنید</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeBackup.Header" xml:space="preserve">
+    <value>پشتیبان گیری از تنظیمات برنامه</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeExpander.Description" xml:space="preserve">
+    <value>تنظیمات برنامه را پشتیبان گیری کنید و یا آنها را بازگردانید</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeExpander.Header" xml:space="preserve">
+    <value>پشتیبان گیری و بازیابی تنظیمات برنامه</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeRestore.Description" xml:space="preserve">
+    <value>شما میتوانید تنظیمات برنامه ذخیره شده را به برنامه بازگردانید</value>
+  </data>
+  <data name="BackupSettingPage_TvTimeRestore.Header" xml:space="preserve">
+    <value>بازیابی تنظیمات برنامه</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextCustomFontSize.OffContent" xml:space="preserve">
+    <value>پیشفرض</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextCustomFontSize.OnContent" xml:space="preserve">
+    <value>سفارشی</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextFontSize.Description" xml:space="preserve">
+    <value>اندازه فونت توضیحات را مشخص کنید</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextFontSize.Header" xml:space="preserve">
+    <value>اندازه متن توضیحات</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextFontSizeExpander.Description" xml:space="preserve">
+    <value>استفاده از اندازه فونت پیشفرض خود استایل</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextFontSizeExpander.Header" xml:space="preserve">
+    <value>اندازه متن توضیحات</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextStyle.Description" xml:space="preserve">
+    <value>استایل توضیحات را مشخص کنید</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTextStyle.Header" xml:space="preserve">
+    <value>استایل متن توضیحات</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTruncateText.Description" xml:space="preserve">
+    <value>در صورت طولانی بودن متن، سه نقطه (...) را به انتهای متن اضافه کن</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionTruncateText.Header" xml:space="preserve">
+    <value>کوتاه کردن متن</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionType.Description" xml:space="preserve">
+    <value>انتخاب کنید که از کدام کنترل برای نمایش توضیحات استفاده شود</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_DescriptionType.Header" xml:space="preserve">
+    <value>نوع توضیحات</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextCustomFontSize.OffContent" xml:space="preserve">
+    <value>پیشفرض</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextCustomFontSize.OnContent" xml:space="preserve">
+    <value>سفارشی</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextFontSize.Description" xml:space="preserve">
+    <value>اندازه فونت سرتیتر را مشخص کنید</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextFontSize.Header" xml:space="preserve">
+    <value>اندازه متن سرتیتر</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextFontSizeExpander.Description" xml:space="preserve">
+    <value>استفاده از اندازه فونت پیشفرض خود استایل</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextFontSizeExpander.Header" xml:space="preserve">
+    <value>اندازه متن سرتیتر</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextStyle.Description" xml:space="preserve">
+    <value>استایل سرتیتر را مشخص کنید</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTextStyle.Header" xml:space="preserve">
+    <value>استایل متن سرتیتر</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTruncateText.Description" xml:space="preserve">
+    <value>در صورت طولانی بودن متن، سه نقطه (...) را به انتهای متن اضافه کن</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HeaderTruncateText.Header" xml:space="preserve">
+    <value>کوتاه کردن متن</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HyperlinkBorderThickness.Description" xml:space="preserve">
+    <value>مرز ضخامت هایپرلینک را مشخص کنید</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_HyperlinkBorderThickness.Header" xml:space="preserve">
+    <value>ضخامت مرز هایپرلینک</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_PreviewDescription.Text" xml:space="preserve">
+    <value>پیش نمایش توضیحات</value>
+  </data>
+  <data name="DescriptionStyleSettingPage_PreviewHeader.Text" xml:space="preserve">
+    <value>پیش نمایش سرتیتر</value>
+  </data>
+  <data name="DetailPage_DownloadItem.Content" xml:space="preserve">
+    <value>دانلود همه</value>
+    <comment>Segmented Control</comment>
+  </data>
+  <data name="DetailPage_IMDBItem.Content" xml:space="preserve">
+    <value>جزئیات IMDB را دریافت کنید</value>
+    <comment>Segmented Control</comment>
+  </data>
+  <data name="DetailPage_RefreshItem.Content" xml:space="preserve">
+    <value>بروزرسانی</value>
+    <comment>Segmented Control</comment>
+  </data>
+  <data name="GeneralSettingPage_DoubleClickNavigationCard.Description" xml:space="preserve">
+    <value>با دوبار کلیک ماوس به صفحات بروید</value>
+  </data>
+  <data name="GeneralSettingPage_DoubleClickNavigationCard.Header" xml:space="preserve">
+    <value>از دابل کلیک برای پیمایش استفاده کنید</value>
+  </data>
+  <data name="GeneralSettingPage_FilterTokenViewCard.Description" xml:space="preserve">
+    <value>با کمک TokenView فقط می توانید رسانه های مربوط به سرور مورد نظر را مشاهده کنید و با کمک جستجو می توانید نتایج را با دقت بیشتری جستجو کنید.</value>
+  </data>
+  <data name="GeneralSettingPage_FilterTokenViewCard.Header" xml:space="preserve">
+    <value>با استفاده از TokenView فیلتر کنید</value>
+  </data>
+  <data name="GeneralSettingPage_IconPackCard.Description" xml:space="preserve">
+    <value>بسته نماد را برای نمایش شماره فصل انتخاب کنید</value>
+  </data>
+  <data name="GeneralSettingPage_IconPackCard.Header" xml:space="preserve">
+    <value>بسته آیکون</value>
+  </data>
+  <data name="GeneralSettingPage_IDMDownloadCard.Description" xml:space="preserve">
+    <value>دانلود فایل ها با اینترنت دانلود منیجر (IDM) [در صورت وجود]</value>
+  </data>
+  <data name="GeneralSettingPage_IDMDownloadCard.Header" xml:space="preserve">
+    <value>دانلود با IDM</value>
+  </data>
+  <data name="GeneralSettingPage_OpenFileCard.Description" xml:space="preserve">
+    <value>اگر false انتخاب شود، صفحه وب مربوطه به جای خود فایل باز می شود</value>
+  </data>
+  <data name="GeneralSettingPage_OpenFileCard.Header" xml:space="preserve">
+    <value>فایل را در مرورگر باز کنید</value>
+  </data>
+  <data name="GeneralSettingPage_RealTimeSearchCard.Description" xml:space="preserve">
+    <value>اگر از جستجوی لحظه ای استفاده می کنید، جستجو بلافاصله پس از تایپ کاراکتر انجام می شود. در غیر این صورت، پس از تایپ باید دکمه enter را فشار دهید.(توجه داشته باشید که در صورت وجود موارد زیاد، استفاده از جستجوی لحظه ای ممکن است کمی کند باشد)</value>
+  </data>
+  <data name="GeneralSettingPage_RealTimeSearchCard.Header" xml:space="preserve">
+    <value>از جستجوی لحظه ای استفاده کنید</value>
+  </data>
+  <data name="GeneralSettingPage_RegexExpander.Description" xml:space="preserve">
+    <value>کلمات کلیدی زیر از نام فایل فیلم/سریال حذف خواهند شد، اگر کلمه ای را مشاهده کردید که نمی تواند از نام فایل حذف شود، می توانید کلمات کلیدی خود را اینجا اضافه کنید.</value>
+  </data>
+  <data name="GeneralSettingPage_RegexExpander.Header" xml:space="preserve">
+    <value>از Regex پیش فرض استفاده کنید</value>
+  </data>
+  <data name="GeneralSettingPage_SoundCard.Description" xml:space="preserve">
+    <value>کنترل ها بازخورد شنیداری را ارائه می دهند</value>
+  </data>
+  <data name="GeneralSettingPage_SoundCard.Header" xml:space="preserve">
+    <value>صدا</value>
+  </data>
+  <data name="IMDBDetailsPage_Actor.Text" xml:space="preserve">
+    <value>بازیگر:</value>
+  </data>
+  <data name="IMDBDetailsPage_Country.Text" xml:space="preserve">
+    <value>کشور:</value>
+  </data>
+  <data name="IMDBDetailsPage_Director.Text" xml:space="preserve">
+    <value>کارگردان:</value>
+  </data>
+  <data name="IMDBDetailsPage_Genre.Text" xml:space="preserve">
+    <value>ژانر. دسته:</value>
+  </data>
+  <data name="IMDBDetailsPage_Id.Text" xml:space="preserve">
+    <value>شناسه:</value>
+  </data>
+  <data name="IMDBDetailsPage_Language.Text" xml:space="preserve">
+    <value>زبان:</value>
+  </data>
+  <data name="IMDBDetailsPage_Rated.Text" xml:space="preserve">
+    <value>دارای رتبه:</value>
+  </data>
+  <data name="IMDBDetailsPage_Released.Text" xml:space="preserve">
+    <value>منتشر شد:</value>
+  </data>
+  <data name="IMDBDetailsPage_TotalSeason.Text" xml:space="preserve">
+    <value>کل فصل:</value>
+  </data>
+  <data name="IMDBDetailsPage_Type.Text" xml:space="preserve">
+    <value>نوع:</value>
+  </data>
+  <data name="IMDBDetailsPage_Writer.Text" xml:space="preserve">
+    <value>نویسنده:</value>
+  </data>
+  <data name="IMDBDetailsPage_Year.Text" xml:space="preserve">
+    <value>سال:</value>
+  </data>
+  <data name="IMDBDetailWindow_TitleBarSearch.PlaceholderText" xml:space="preserve">
+    <value>عنوان فیلم/سریال</value>
+    <comment>TitleBar</comment>
+  </data>
+  <data name="ItemUC_MenuCopy.Text" xml:space="preserve">
+    <value>کپی لینک(ها)</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC_MenuDirectory.Text" xml:space="preserve">
+    <value>پوشه را در مرورگر باز کنید</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC_MenuDownload.Text" xml:space="preserve">
+    <value>دانلود با IDM</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC_MenuFile.Text" xml:space="preserve">
+    <value>فایل را باز کنید</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC_MenuIMDB.Text" xml:space="preserve">
+    <value>جزئیات IMDB را دریافت کنید</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC_SubMenuCopy.Text" xml:space="preserve">
+    <value>لینک مورد انتخاب شده را کپی کنید</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC_SubMenuCopyAll.Text" xml:space="preserve">
+    <value>همه لینک ها را کپی کنید</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC_SubMenuDownload.Text" xml:space="preserve">
+    <value>دانلود آیتم انتخاب شده با IDM</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC_SubMenuDownloadAll.Text" xml:space="preserve">
+    <value>دانلود همه موارد با IDM</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="LayoutSettingPage_TvTimeDescriptionStyle.Description" xml:space="preserve">
+    <value>توضیحات را با توجه به نیازهای خود، مانند سبک قلم، اندازه و نوع کنترل، سفارشی کنید</value>
+  </data>
+  <data name="LayoutSettingPage_TvTimeDescriptionStyle.Header" xml:space="preserve">
+    <value>سبک و اندازه قلم توضیحات</value>
+  </data>
+  <data name="LayoutSettingPage_TvTimeHeaderStyle.Description" xml:space="preserve">
+    <value>سرتیتر را با توجه به نیازهای خود، مانند سبک قلم، اندازه، سفارشی کنید</value>
+  </data>
+  <data name="LayoutSettingPage_TvTimeHeaderStyle.Header" xml:space="preserve">
+    <value>سبک و اندازه قلم سرتیتر</value>
+  </data>
+  <data name="MainPage_NavSearch.PlaceholderText" xml:space="preserve">
+    <value>جستجو</value>
+    <comment>AutoSuggestBox in NavigationView</comment>
+  </data>
+  <data name="MainPage_TitleBar.Title" xml:space="preserve">
+    <value>TvTime</value>
+    <comment>TitleBar</comment>
+  </data>
+  <data name="MainPage_TitleBarSearch.PlaceholderText" xml:space="preserve">
+    <value>جستجوی فیلم، سریال، انیمیشن و موارد دیگر</value>
+    <comment>AutoSuggestBox in TitleBar</comment>
+  </data>
+  <data name="MainPage_TitleBarThemeToggle.Content" xml:space="preserve">
+    <value>تغییر پوسته</value>
+    <comment>TitleBar</comment>
+  </data>
+  <data name="MediaPage_InfoBarActionButton.Text" xml:space="preserve">
+    <value>وضعیت سرور</value>
+  </data>
+  <data name="MediaPage_RefreshItem.Content" xml:space="preserve">
+    <value>بروزرسانی</value>
+    <comment>Segmented Control</comment>
+  </data>
+  <data name="NoItemUC_NoItem.Text" xml:space="preserve">
+    <value>موردی پیدا نشد!</value>
+  </data>
+  <data name="ServerPage_MediaItem.Content" xml:space="preserve">
+    <value>سرورهای رسانه</value>
+    <comment>Segmented Control</comment>
+  </data>
+  <data name="ServerPage_SubtitleItem.Content" xml:space="preserve">
+    <value>سرورهای زیرنویس</value>
+    <comment>Segmented Control</comment>
+  </data>
+  <data name="ServerUC_AddButton.Content" xml:space="preserve">
+    <value>سرور جدید اضافه کنید</value>
+  </data>
+  <data name="ServerUC_ClearButton.Content" xml:space="preserve">
+    <value>تمام سرورها را پاک کنید</value>
+  </data>
+  <data name="ServerUC_ClearCard.Description" xml:space="preserve">
+    <value>با این کار تمام سرورهای ذخیره شده حذف می شوند</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="ServerUC_ClearCard.Header" xml:space="preserve">
+    <value>تمام سرورها را پاک کنید</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="ServerUC_LoadButton.Content" xml:space="preserve">
+    <value>بارگذاری سرورهای از پیش تعریف شده</value>
+  </data>
+  <data name="ServerUC_LoadCard.Description" xml:space="preserve">
+    <value>ما تعدادی سرور خاص و از پیش تعریف شده داریم که می توانید آنها را بارگذاری کنید.</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="ServerUC_LoadCard.Header" xml:space="preserve">
+    <value>بارگذاری سرورهای از پیش تعریف شده</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="ServerUC_SettingGroup.Header" xml:space="preserve">
+    <value>سرورهای TvTime</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="ServerUC_SettingServer.Description" xml:space="preserve">
+    <value>سرورهای قابل استفاده در TvTime را مدیریت کنید</value>
+    <comment>SettingsExpander</comment>
+  </data>
+  <data name="ServerUC_SettingServer.Header" xml:space="preserve">
+    <value>سرورها</value>
+    <comment>SettingsExpander</comment>
+  </data>
+  <data name="SettingsPage_AboutSetting.Description" xml:space="preserve">
+    <value>درباره TvTime و توسعه دهنده</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_AboutSetting.Header" xml:space="preserve">
+    <value>درباره ما</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_AppUpdateSetting.Description" xml:space="preserve">
+    <value>بروزرسانی های TvTime را بررسی کنید و آنها را دانلود کنید</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_AppUpdateSetting.Header" xml:space="preserve">
+    <value>به روز رسانی برنامه</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_BackupSetting.Description" xml:space="preserve">
+    <value>از سرورها و تنظیمات TvTime نسخه پشتیبان تهیه و بازیابی کنید</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_BackupSetting.Header" xml:space="preserve">
+    <value>پشتیبان گیری و بازیابی</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_GeneralSetting.Description" xml:space="preserve">
+    <value>تنظیمات عمومی TvTime</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_GeneralSetting.Header" xml:space="preserve">
+    <value>عمومی</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_SubtitleSetting.Description" xml:space="preserve">
+    <value>تنظیمات زیرنویس</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_SubtitleSetting.Header" xml:space="preserve">
+    <value>زیرنویس</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_ThemeSetting.Description" xml:space="preserve">
+    <value>پوسته و متریال خود را انتخاب کنید</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_ThemeSetting.Header" xml:space="preserve">
+    <value>ظاهر و رفتار</value>
+    <comment>SettingsCard</comment>
+  </data>
+  <data name="SettingsPage_TvTimeLayout.Description" xml:space="preserve">
+    <value>سبک ها و اندازه قلم را مشخص کنید</value>
+  </data>
+  <data name="SettingsPage_TvTimeLayout.Header" xml:space="preserve">
+    <value>طرح بندی TvTime</value>
+  </data>
+  <data name="SubsceneDetailPage_IMDBItem.Content" xml:space="preserve">
+    <value>جزئیات IMDB را دریافت کنید</value>
+    <comment>Segmented Control</comment>
+  </data>
+  <data name="SubsceneDetailPage_RefreshItem.Content" xml:space="preserve">
+    <value>بروزرسانی</value>
+    <comment>Segmented Control</comment>
+  </data>
+  <data name="SubscenePage_RefreshItem.Content" xml:space="preserve">
+    <value>بروزرسانی</value>
+    <comment>Segmented Control</comment>
+  </data>
+  <data name="SubtitleSettingPage_AutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>چند زبان جدید اضافه کنید [برای افزودن اینتر را فشار دهید]</value>
+  </data>
+  <data name="SubtitleSettingPage_IDMDownloadCard.Description" xml:space="preserve">
+    <value>دانلود زیرنویس با اینترنت دانلود منیجر (IDM) [در صورت وجود]</value>
+  </data>
+  <data name="SubtitleSettingPage_IDMDownloadCard.Header" xml:space="preserve">
+    <value>دانلود با IDM</value>
+  </data>
+  <data name="SubtitleSettingPage_InfoBarTitle.Title" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="SubtitleSettingPage_SubtitleLanguageExpander.Description" xml:space="preserve">
+    <value>زبان زیرنویس ها را مشخص کنید</value>
+  </data>
+  <data name="SubtitleSettingPage_SubtitleLanguageExpander.Header" xml:space="preserve">
+    <value>زبان زیرنویس</value>
+  </data>
+  <data name="ThemeSettingPage_AppearanceCard.Description" xml:space="preserve">
+    <value>پوسته و متریال برنامه خود را انتخاب کنید</value>
+  </data>
+  <data name="ThemeSettingPage_AppearanceCard.Header" xml:space="preserve">
+    <value>ظاهر و رفتار</value>
+  </data>
+  <data name="ThemeSettingPage_MaterialCard.Description" xml:space="preserve">
+    <value>تغییر پس زمینه برنامه</value>
+  </data>
+  <data name="ThemeSettingPage_MaterialCard.Header" xml:space="preserve">
+    <value>متریال ها</value>
+  </data>
+  <data name="ThemeSettingPage_WindowColorCard.Description" xml:space="preserve">
+    <value>رنگ لهجه ویندوز را تغییر دهید</value>
+  </data>
+  <data name="ThemeSettingPage_WindowColorCard.Header" xml:space="preserve">
+    <value>تنظیمات رنگ ویندوز</value>
+  </data>
 </root>

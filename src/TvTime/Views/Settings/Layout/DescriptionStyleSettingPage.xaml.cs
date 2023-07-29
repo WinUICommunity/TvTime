@@ -4,13 +4,13 @@ namespace TvTime.Views;
 public sealed partial class DescriptionStyleSettingPage : Page
 {
     public DescriptionStyleSettingViewModel ViewModel { get; }
-    public GeneralSettingViewModel GeneralViewModel { get; }
+    public LayoutSettingViewModel LayoutSettingViewModel { get; }
 
     public DescriptionStyleSettingPage()
     {
         ViewModel = App.GetService<DescriptionStyleSettingViewModel>();
-        GeneralViewModel = GeneralSettingPage.Instance.ViewModel;
-        GeneralViewModel.BreadCrumbBarCollection.Add("Description Style");
+        LayoutSettingViewModel = LayoutSettingPage.Instance.ViewModel;
+        LayoutSettingViewModel.BreadCrumbBarCollection.Add("Description Style");
         this.InitializeComponent();
         Loaded += DescriptionStyleSettingPage_Loaded;
     }

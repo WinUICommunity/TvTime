@@ -4,13 +4,13 @@ namespace TvTime.Views;
 public sealed partial class HeaderStyleSettingPage : Page
 {
     public HeaderStyleSettingViewModel ViewModel { get; }
-    public GeneralSettingViewModel GeneralViewModel { get; }
+    public LayoutSettingViewModel LayoutSettingViewModel { get; }
 
     public HeaderStyleSettingPage()
     {
         ViewModel = App.GetService<HeaderStyleSettingViewModel>();
-        GeneralViewModel = GeneralSettingPage.Instance.ViewModel;
-        GeneralViewModel.BreadCrumbBarCollection.Add("Header Style");
+        LayoutSettingViewModel = LayoutSettingPage.Instance.ViewModel;
+        LayoutSettingViewModel.BreadCrumbBarCollection.Add("Header Style");
         this.InitializeComponent();
         Loaded += HeaderStyleSettingPage_Loaded;
     }

@@ -507,22 +507,22 @@
   <data name="GeneralSettingPage_SoundCard.Header" xml:space="preserve">
     <value>Sound</value>
   </data>
-  <data name="GeneralSettingPage_TvTimeDescriptionStyle.Description" xml:space="preserve">
+  <data name="LayoutSettingPage_TvTimeDescriptionStyle.Description" xml:space="preserve">
     <value>Customize description according to your needs, such as font style, size and control type</value>
   </data>
-  <data name="GeneralSettingPage_TvTimeDescriptionStyle.Header" xml:space="preserve">
+  <data name="LayoutSettingPage_TvTimeDescriptionStyle.Header" xml:space="preserve">
     <value>Description Style and Font Size</value>
   </data>
-  <data name="GeneralSettingPage_TvTimeHeaderStyle.Description" xml:space="preserve">
+  <data name="LayoutSettingPage_TvTimeHeaderStyle.Description" xml:space="preserve">
     <value>Customize header according to your needs, such as font style, size</value>
   </data>
-  <data name="GeneralSettingPage_TvTimeHeaderStyle.Header" xml:space="preserve">
+  <data name="LayoutSettingPage_TvTimeHeaderStyle.Header" xml:space="preserve">
     <value>Header Style and Font Size</value>
   </data>
-  <data name="GeneralSettingPage_TvTimeLayoutExpander.Description" xml:space="preserve">
+  <data name="SettingsPage_TvTimeLayout.Description" xml:space="preserve">
     <value>Specify Styles and Font Size</value>
   </data>
-  <data name="GeneralSettingPage_TvTimeLayoutExpander.Header" xml:space="preserve">
+  <data name="SettingsPage_TvTimeLayout.Header" xml:space="preserve">
     <value>TvTime Layout</value>
   </data>
   <data name="ItemUC_MenuCopy.Text" xml:space="preserve">

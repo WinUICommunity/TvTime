@@ -73,6 +73,7 @@ public partial class App : Application
         services.AddTransient<ThemeSettingViewModel>();
         services.AddTransient<SubtitleSettingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
+        services.AddTransient<LayoutSettingViewModel>();
         services.AddTransient<HeaderStyleSettingViewModel>();
         services.AddTransient<DescriptionStyleSettingViewModel>();
 

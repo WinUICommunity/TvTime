@@ -125,8 +125,8 @@
                     <StackPanel Orientation="Horizontal"
                                 Spacing="5">
                         <SymbolIcon Symbol="Admin" />
-                        <TextBlock Margin="5,0,0,0"
-                                   x:Uid="MediaPage.InfoBarActionButton" />
+                        <TextBlock x:Uid="MediaPage.InfoBarActionButton"
+                                   Margin="5,0,0,0" />
                         <InfoBadge HorizontalAlignment="Right"
                                    VerticalAlignment="Top"
                                    Value="{x:Bind ViewModel.InfoBadgeValue}" />

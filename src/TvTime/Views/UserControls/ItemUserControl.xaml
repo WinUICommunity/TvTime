@@ -16,56 +16,56 @@
     <UserControl.Resources>
         <MenuFlyout x:Key="menuFlyout">
             <MenuFlyoutItem x:Name="MenuDirectory"
+                            x:Uid="ItemUC.MenuDirectory"
                             Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                             CommandParameter="{Binding ElementName=MenuDirectory}"
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/explorer.png}"
-                            Tag="OpenWebDirectory"
-                            Text="Open Web Directory" />
+                            Tag="OpenWebDirectory" />
             <MenuFlyoutItem x:Name="MenuIMDB"
+                            x:Uid="ItemUC.MenuIMDB"
                             Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                             CommandParameter="{Binding ElementName=MenuIMDB}"
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/imdb.png}"
-                            Tag="IMDB"
-                            Text="Get IMDB Details" />
+                            Tag="IMDB" />
             <MenuFlyoutItem x:Name="MenuFile"
+                            x:Uid="ItemUC.MenuFile"
                             Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                             CommandParameter="{Binding ElementName=MenuFile}"
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
                             Tag="OpenFile"
-                            Text="Open File"
                             Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
-            <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
-                               Text="Copy Link(s)">
+            <MenuFlyoutSubItem x:Uid="ItemUC.MenuCopy"
+                               Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}">
 
                 <MenuFlyoutItem x:Name="MenuCopy"
+                                x:Uid="ItemUC.SubMenuCopy"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuCopy}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
-                                Tag="Copy"
-                                Text="Copy Selected Item Link" />
+                                Tag="Copy" />
                 <MenuFlyoutItem x:Name="MenuCopyAll"
+                                x:Uid="ItemUC.SubMenuCopyAll"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuCopyAll}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
-                                Tag="CopyAll"
-                                Text="Copy All Links" />
+                                Tag="CopyAll" />
             </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
-                               Text="Download With IDM"
+            <MenuFlyoutSubItem x:Uid="ItemUC.MenuDownload"
+                               Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
 
                 <MenuFlyoutItem x:Name="MenuDownload"
+                                x:Uid="ItemUC.SubMenuDownload"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuDownload}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
-                                Tag="Download"
-                                Text="Download Selected Item With IDM" />
+                                Tag="Download" />
                 <MenuFlyoutItem x:Name="MenuDownloadAll"
+                                x:Uid="ItemUC.SubMenuDownloadAll"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
                                 CommandParameter="{Binding ElementName=MenuDownloadAll}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
-                                Tag="DownloadAll"
-                                Text="Download All Items With IDM" />
+                                Tag="DownloadAll" />
             </MenuFlyoutSubItem>
         </MenuFlyout>
     </UserControl.Resources>

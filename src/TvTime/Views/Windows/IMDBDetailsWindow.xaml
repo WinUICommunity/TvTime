@@ -21,8 +21,8 @@
             </wuc:TitleBar.Icon>
             <wuc:TitleBar.Content>
                 <AutoSuggestBox x:Name="TxtSearch"
-                                MinWidth="360"
                                 x:Uid="IMDBDetailWindow.TitleBar.Search"
+                                MinWidth="360"
                                 QueryIcon="Find"
                                 QuerySubmitted="AutoSuggestBox_QuerySubmitted" />
             </wuc:TitleBar.Content>

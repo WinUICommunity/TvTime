@@ -55,11 +55,11 @@
                         IsPaneToggleButtonVisible="False">
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="ControlsSearchBox"
+                                x:Uid="MainPage.NavSearch"
                                 MinWidth="200"
                                 VerticalAlignment="Center"
                                 x:FieldModifier="public"
                                 KeyboardAcceleratorPlacementMode="Hidden"
-                                x:Uid="MainPage.NavSearch"
                                 QueryIcon="Find" />
             </NavigationView.AutoSuggestBox>
 

@@ -167,6 +167,7 @@
   </data>
   <data name="MainPage.TitleBar.Title" xml:space="preserve">
     <value>TvTime</value>
+    <comment>TitleBar</comment>
   </data>
   <data name="MainPage.TitleBar.Search.PlaceholderText" xml:space="preserve">
     <value>Search Movies, Series, Anime and more</value>
@@ -256,6 +257,7 @@
   </data>
   <data name="IMDBDetailWindow.TitleBar.Search.PlaceholderText" xml:space="preserve">
     <value>Movie/Serial Title</value>
+    <comment>TitleBar</comment>
   </data>
   <data name="NoItemUC.NoItem.Text" xml:space="preserve">
     <value>Item not found!</value>
@@ -296,5 +298,41 @@
   </data>
   <data name="ServerUC.ClearButton.Content" xml:space="preserve">
     <value>Clear all servers</value>
+  </data>
+  <data name="ItemUC.MenuCopy.Text" xml:space="preserve">
+    <value>Copy Link(s)</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC.MenuDirectory.Text" xml:space="preserve">
+    <value>Open Web Directory</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC.MenuDownload.Text" xml:space="preserve">
+    <value>Download With IDM</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC.MenuFile.Text" xml:space="preserve">
+    <value>Open File</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC.MenuIMDB.Text" xml:space="preserve">
+    <value>Get IMDB Details</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC.SubMenuCopy.Text" xml:space="preserve">
+    <value>Copy Selected Item Link</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC.SubMenuCopyAll.Text" xml:space="preserve">
+    <value>Copy All Links</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC.SubMenuDownload.Text" xml:space="preserve">
+    <value>Download Selected Item With IDM</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="ItemUC.SubMenuDownloadAll.Text" xml:space="preserve">
+    <value>Download All Items With IDM</value>
+    <comment>MenuFlyoutItem</comment>
   </data>
 </root>

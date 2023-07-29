@@ -18,11 +18,11 @@
                    StrokeDashArray="20"
                    StrokeThickness="2" />
         <TextBlock x:Name="TxtNoItem"
+                   x:Uid="NoItemUC.NoItem"
                    Margin="20,0,10,10"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Style="{ThemeResource HeaderTextBlockStyle}"
-                   x:Uid="NoItemUC.NoItem" />
+                   Style="{ThemeResource HeaderTextBlockStyle}" />
         <i:Interaction.Behaviors>
             <ic:DataTriggerBehavior Binding="{x:Bind Count}"
                                     ComparisonCondition="Equal"

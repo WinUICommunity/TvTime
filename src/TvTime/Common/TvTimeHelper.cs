@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Web;
 
 using CommunityToolkit.Labs.WinUI;
@@ -433,5 +435,23 @@ public static class TvTimeHelper
     public static string[] GetAvailableLanguages()
     {
         return TvTimeLanguagesCollection().Select(x => x.LanguageCode).ToArray();
+    }
+
+    public static void Restart()
+    {
+        ProcessStartInfo processStartInfo = new ProcessStartInfo(GetExecutablePathNative());
+
+        Process.Start(processStartInfo);
+        Environment.Exit(0);
+    }
+
+    [DllImport("kernel32.dll")]
+    public static extern uint GetModuleFileName(IntPtr hModule, StringBuilder lpFilename, int nSize);
+    private static readonly int MAX_PATH = 255;
+    public static string GetExecutablePathNative()
+    {
+        var sb = new System.Text.StringBuilder(MAX_PATH);
+        GetModuleFileName(IntPtr.Zero, sb, MAX_PATH);
+        return sb.ToString();
     }
 }

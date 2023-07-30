@@ -16,6 +16,14 @@ public partial class AppLanguageSettingViewModel : ObservableRecipient
                 Settings.TvTimeLanguage = selectedItem;
                 App.Current.Localizer.SetLanguage(selectedItem.LanguageCode);
                 MainPage.Instance.SetFlowDirection();
+                if (ApplicationHelper.IsPackaged)
+                {
+                    Microsoft.Windows.AppLifecycle.AppInstance.Restart("");
+                }
+                else
+                {
+                    Restart();
+                }
             }
         }
     }

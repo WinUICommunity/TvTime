@@ -90,11 +90,7 @@ public partial class App : Application
 
         if (Settings.TvTimeLanguage?.LanguageCode == "fa-IR")
         {
-            ResourceDictionary fontsResource = new ResourceDictionary
-            {
-                Source = new Uri("ms-appx:///Themes/Fonts.xaml")
-            };
-            Application.Current.Resources.MergedDictionaries.Add(fontsResource);
+            AddPersianFontStyles();
         }
 
         rootFrame.Navigate(typeof(MainPage));
@@ -168,5 +164,14 @@ public partial class App : Application
             options.UseUidWhenLocalizedStringNotFound = true;
         })
         .Build();
+    }
+
+    public void AddPersianFontStyles()
+    {
+        ResourceDictionary fontsResource = new ResourceDictionary
+        {
+            Source = new Uri("ms-appx:///Themes/Fonts.xaml")
+        };
+        Application.Current.Resources.MergedDictionaries.Add(fontsResource);
     }
 }

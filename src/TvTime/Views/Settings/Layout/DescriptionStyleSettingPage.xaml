@@ -34,15 +34,15 @@
             </wuc:SettingsCard>
             <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_DescriptionTruncateText"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
-                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch wuc:Localizer.Uid="ToggleSwitch"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseTruncateInDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
             <wuc:SettingsExpander wuc:Localizer.Uid="DescriptionStyleSettingPage_DescriptionTextFontSizeExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                   IsExpanded="True">
                 <ToggleSwitch x:Name="TgCustomFontSize"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseCustomFontSizeForDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              OffContent="Default"
-                              OnContent="Custom">
+                              wuc:Localizer.Uid="DescriptionStyleSettingPage_DescriptionTextCustomFontSize"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseCustomFontSizeForDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="Toggled">
                             <ic:EventTriggerBehavior.Actions>
@@ -85,6 +85,7 @@
             <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_HyperlinkBorderThickness"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/border.png}">
                 <ToggleSwitch x:Name="TgHyperLinkBorderThickness"
+                              wuc:Localizer.Uid="ToggleSwitch"
                               IsEnabled="False"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.HasHyperLinkBorderThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
@@ -99,9 +100,9 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <TextBlock wuc:Localizer.Uid="DescriptionStyleSettingPage_PreviewDescription"
-                       Margin="10"
+            <TextBlock Margin="10"
                        HorizontalAlignment="Center"
+                       wuc:Localizer.Uid="DescriptionStyleSettingPage_PreviewDescription"
                        FontSize="{x:Bind ViewModel.PreviewFontSize, Mode=OneWay}"
                        Style="{Binding ElementName=CmbDescription, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}"
                        Visibility="{x:Bind ViewModel.IsTextBlock, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />

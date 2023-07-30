@@ -417,34 +417,34 @@
   <data name="DescriptionStyleSettingPage_DescriptionType.Header" xml:space="preserve">
     <value>Description Type</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextCustomFontSize.OffContent" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTextCustomFontSize.OffContent" xml:space="preserve">
     <value>Default</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextCustomFontSize.OnContent" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTextCustomFontSize.OnContent" xml:space="preserve">
     <value>Custom</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextFontSize.Description" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTextFontSize.Description" xml:space="preserve">
     <value>Specify the font size of the header</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextFontSize.Header" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTextFontSize.Header" xml:space="preserve">
     <value>Header Text Font Size</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextFontSizeExpander.Description" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTextFontSizeExpander.Description" xml:space="preserve">
     <value>Use Style Default Font Size</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextFontSizeExpander.Header" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTextFontSizeExpander.Header" xml:space="preserve">
     <value>Header Text Font Size</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextStyle.Description" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTextStyle.Description" xml:space="preserve">
     <value>Specify the style of the header</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextStyle.Header" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTextStyle.Header" xml:space="preserve">
     <value>Header Text Style</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTruncateText.Description" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTruncateText.Description" xml:space="preserve">
     <value>Append an ellipsis (...) at the end</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTruncateText.Header" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_HeaderTruncateText.Header" xml:space="preserve">
     <value>Truncate Text</value>
   </data>
   <data name="DescriptionStyleSettingPage_HyperlinkBorderThickness.Description" xml:space="preserve">
@@ -456,7 +456,7 @@
   <data name="DescriptionStyleSettingPage_PreviewDescription.Text" xml:space="preserve">
     <value>Preview Description</value>
   </data>
-  <data name="DescriptionStyleSettingPage_PreviewHeader.Text" xml:space="preserve">
+  <data name="HeaderStyleSettingPage_PreviewHeader.Text" xml:space="preserve">
     <value>Preview Header</value>
   </data>
   <data name="GeneralSettingPage_DoubleClickNavigationCard.Description" xml:space="preserve">
@@ -860,5 +860,11 @@
   </data>
   <data name="SubtitleSettingPage_StatusTextNull" xml:space="preserve">
     <value>Text is Null or Empty</value>
+  </data>
+  <data name="ToggleSwitch.OffContent" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="ToggleSwitch.OnContent" xml:space="preserve">
+    <value>On</value>
   </data>
 </root>

@@ -21,6 +21,7 @@
             <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_OpenFileCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch x:Name="TGOpenFile"
+                              wuc:Localizer.Uid="ToggleSwitch"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGOpenFile}"
@@ -37,6 +38,7 @@
             <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_IDMDownloadCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"
+                              wuc:Localizer.Uid="ToggleSwitch"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGUseIDM}"
@@ -52,23 +54,27 @@
 
             <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_FilterTokenViewCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/tokenView.png}">
-                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch wuc:Localizer.Uid="ToggleSwitch"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
             <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_SoundCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/audio.png}">
                 <ToggleSwitch x:Name="TGSound"
+                              wuc:Localizer.Uid="ToggleSwitch"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Toggled="Sound_Toggled" />
             </wuc:SettingsCard>
             <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_DoubleClickNavigationCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/mouse.png}">
-                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch wuc:Localizer.Uid="ToggleSwitch"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
             <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_RealTimeSearchCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/search.png}">
-                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseRealTimeSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch wuc:Localizer.Uid="ToggleSwitch"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseRealTimeSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
             <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_IconPackCard"
@@ -92,6 +98,7 @@
             <wuc:SettingsExpander wuc:Localizer.Uid="GeneralSettingPage_RegexExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/regex.png}">
                 <ToggleSwitch x:Name="TGRegex"
+                              wuc:Localizer.Uid="ToggleSwitch"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseDefaultRegexEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Toggled="TGRegex_Toggled" />
                 <wuc:SettingsExpander.ItemsHeader>

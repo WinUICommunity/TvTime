@@ -18,7 +18,7 @@
 
             <views:BreadcrumbBarUserControl Items="{x:Bind LayoutSettingViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
-            <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTextStyle"
+            <wuc:SettingsCard wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTextStyle"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
                 <ComboBox x:Name="CmbHeader"
                           ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}"
@@ -33,15 +33,16 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTruncateText"
+            <wuc:SettingsCard wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTruncateText"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
-                <ToggleSwitch IsOn="{x:Bind local:TvTimeHelper.Settings.UseTruncateInHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch wuc:Localizer.Uid="ToggleSwitch"
+                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseTruncateInHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
-            <wuc:SettingsExpander wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTextFontSizeExpander"
+            <wuc:SettingsExpander wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTextFontSizeExpander"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                   IsExpanded="True">
                 <ToggleSwitch x:Name="TgCustomFontSize"
-                              wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTextCustomFontSize"
+                              wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTextCustomFontSize"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseCustomFontSizeForHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="Toggled">
@@ -53,7 +54,7 @@
                     </i:Interaction.Behaviors>
                 </ToggleSwitch>
                 <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard wuc:Localizer.Uid="DescriptionStyleSettingPage_HeaderTextFontSize"
+                    <wuc:SettingsCard wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTextFontSize"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
                                       IsEnabled="{x:Bind ViewModel.IsEnabledSettingsCard, Mode=OneWay}">
                         <NumberBox Minimum="8"
@@ -64,9 +65,9 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <TextBlock wuc:Localizer.Uid="DescriptionStyleSettingPage_PreviewHeader"
-                       Margin="10"
+            <TextBlock Margin="10"
                        HorizontalAlignment="Center"
+                       wuc:Localizer.Uid="HeaderStyleSettingPage_PreviewHeader"
                        FontSize="{x:Bind ViewModel.PreviewFontSize, Mode=OneWay}"
                        Style="{Binding ElementName=CmbHeader, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}" />
         </StackPanel>

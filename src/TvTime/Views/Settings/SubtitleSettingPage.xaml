@@ -26,8 +26,8 @@
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard ContentAlignment="Left">
-                        <AutoSuggestBox wuc:Localizer.Uid="SubtitleSettingPage_AutoSuggestBox"
-                                        MinWidth="400"
+                        <AutoSuggestBox MinWidth="400"
+                                        wuc:Localizer.Uid="SubtitleSettingPage_AutoSuggestBox"
                                         QueryIcon="Add"
                                         QuerySubmitted="SubtitleLanguage_QuerySubmitted" />
                     </wuc:SettingsCard>
@@ -44,6 +44,7 @@
             <wuc:SettingsCard wuc:Localizer.Uid="SubtitleSettingPage_IDMDownloadCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"
+                              wuc:Localizer.Uid="ToggleSwitch"
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
         </StackPanel>

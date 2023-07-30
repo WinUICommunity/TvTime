@@ -294,36 +294,6 @@
   <data name="DescriptionStyleSettingPage_DescriptionType.Header" xml:space="preserve">
     <value>نوع توضیحات</value>
   </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextCustomFontSize.OffContent" xml:space="preserve">
-    <value>پیشفرض</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextCustomFontSize.OnContent" xml:space="preserve">
-    <value>سفارشی</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextFontSize.Description" xml:space="preserve">
-    <value>اندازه فونت سرتیتر را مشخص کنید</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextFontSize.Header" xml:space="preserve">
-    <value>اندازه متن سرتیتر</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextFontSizeExpander.Description" xml:space="preserve">
-    <value>استفاده از اندازه فونت پیشفرض خود استایل</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextFontSizeExpander.Header" xml:space="preserve">
-    <value>اندازه متن سرتیتر</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextStyle.Description" xml:space="preserve">
-    <value>استایل سرتیتر را مشخص کنید</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_HeaderTextStyle.Header" xml:space="preserve">
-    <value>استایل متن سرتیتر</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_HeaderTruncateText.Description" xml:space="preserve">
-    <value>در صورت طولانی بودن متن، سه نقطه (...) را به انتهای متن اضافه کن</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_HeaderTruncateText.Header" xml:space="preserve">
-    <value>کوتاه کردن متن</value>
-  </data>
   <data name="DescriptionStyleSettingPage_HyperlinkBorderThickness.Description" xml:space="preserve">
     <value>مرز ضخامت هایپرلینک را مشخص کنید</value>
   </data>
@@ -332,9 +302,6 @@
   </data>
   <data name="DescriptionStyleSettingPage_PreviewDescription.Text" xml:space="preserve">
     <value>پیش نمایش توضیحات</value>
-  </data>
-  <data name="DescriptionStyleSettingPage_PreviewHeader.Text" xml:space="preserve">
-    <value>پیش نمایش سرتیتر</value>
   </data>
   <data name="DetailPage_DownloadItem.Content" xml:space="preserve">
     <value>دانلود همه</value>
@@ -398,6 +365,39 @@
   </data>
   <data name="HeaderStyleSettingPage_BreadCrumbBar" xml:space="preserve">
     <value>استایل سرتیتر</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTextCustomFontSize.OffContent" xml:space="preserve">
+    <value>پیشفرض</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTextCustomFontSize.OnContent" xml:space="preserve">
+    <value>سفارشی</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTextFontSize.Description" xml:space="preserve">
+    <value>اندازه فونت سرتیتر را مشخص کنید</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTextFontSize.Header" xml:space="preserve">
+    <value>اندازه متن سرتیتر</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTextFontSizeExpander.Description" xml:space="preserve">
+    <value>استفاده از اندازه فونت پیشفرض خود استایل</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTextFontSizeExpander.Header" xml:space="preserve">
+    <value>اندازه متن سرتیتر</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTextStyle.Description" xml:space="preserve">
+    <value>استایل سرتیتر را مشخص کنید</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTextStyle.Header" xml:space="preserve">
+    <value>استایل متن سرتیتر</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTruncateText.Description" xml:space="preserve">
+    <value>در صورت طولانی بودن متن، سه نقطه (...) را به انتهای متن اضافه کن</value>
+  </data>
+  <data name="HeaderStyleSettingPage_HeaderTruncateText.Header" xml:space="preserve">
+    <value>کوتاه کردن متن</value>
+  </data>
+  <data name="HeaderStyleSettingPage_PreviewHeader.Text" xml:space="preserve">
+    <value>پیش نمایش سرتیتر</value>
   </data>
   <data name="IMDBDetailsPage_Actor.Text" xml:space="preserve">
     <value>بازیگر:</value>
@@ -848,5 +848,11 @@
   </data>
   <data name="ThemeSettingPage_WindowColorCard.Header" xml:space="preserve">
     <value>تنظیمات رنگ ویندوز</value>
+  </data>
+  <data name="ToggleSwitch.OffContent" xml:space="preserve">
+    <value>غیر فعال</value>
+  </data>
+  <data name="ToggleSwitch.OnContent" xml:space="preserve">
+    <value>فعال</value>
   </data>
 </root>

@@ -34,36 +34,36 @@
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
                             Tag="OpenFile"
                             Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
-            <MenuFlyoutSubItem wuc:Localizer.Uid="ItemUC_MenuCopy"
+            <MenuFlyoutSubItem wuc:Localizer.Uid="ItemUC_MenuCopy" x:Name="MenuCopy"
                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}">
 
-                <MenuFlyoutItem x:Name="MenuCopy"
+                <MenuFlyoutItem x:Name="SubMenuCopy"
                                 wuc:Localizer.Uid="ItemUC_SubMenuCopy"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
-                                CommandParameter="{Binding ElementName=MenuCopy}"
+                                CommandParameter="{Binding ElementName=SubMenuCopy}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
                                 Tag="Copy" />
-                <MenuFlyoutItem x:Name="MenuCopyAll"
+                <MenuFlyoutItem x:Name="SubMenuCopyAll"
                                 wuc:Localizer.Uid="ItemUC_SubMenuCopyAll"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
-                                CommandParameter="{Binding ElementName=MenuCopyAll}"
+                                CommandParameter="{Binding ElementName=SubMenuCopyAll}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
                                 Tag="CopyAll" />
             </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem wuc:Localizer.Uid="ItemUC_MenuDownload"
+            <MenuFlyoutSubItem wuc:Localizer.Uid="ItemUC_MenuDownload" x:Name="MenuDownload"
                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
 
-                <MenuFlyoutItem x:Name="MenuDownload"
+                <MenuFlyoutItem x:Name="SubMenuDownload"
                                 wuc:Localizer.Uid="ItemUC_SubMenuDownload"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
-                                CommandParameter="{Binding ElementName=MenuDownload}"
+                                CommandParameter="{Binding ElementName=SubMenuDownload}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                 Tag="Download" />
-                <MenuFlyoutItem x:Name="MenuDownloadAll"
+                <MenuFlyoutItem x:Name="SubMenuDownloadAll"
                                 wuc:Localizer.Uid="ItemUC_SubMenuDownloadAll"
                                 Command="{x:Bind ViewModel.MenuFlyoutItemCommand}"
-                                CommandParameter="{Binding ElementName=MenuDownloadAll}"
+                                CommandParameter="{Binding ElementName=SubMenuDownloadAll}"
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                 Tag="DownloadAll" />
             </MenuFlyoutSubItem>

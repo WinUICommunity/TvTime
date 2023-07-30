@@ -10,154 +10,156 @@
       x:DefaultBindMode="OneWay"
       mc:Ignorable="d">
 
-    <Grid Margin="5"
-          Style="{ThemeResource GridCardPanel}"
-          Visibility="{x:Bind ViewModel.IsActive}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Border Margin="5,5,0,0"
-                VerticalAlignment="Top"
-                CornerRadius="{ThemeResource OverlayCornerRadius}">
-            <Image VerticalAlignment="Top"
-                   Source="{x:Bind ViewModel.MediaCover}"
-                   Stretch="Uniform" />
-        </Border>
+    <ScrollViewer>
+        <Grid Margin="5"
+              Style="{ThemeResource GridCardPanel}"
+              Visibility="{x:Bind ViewModel.IsActive}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border Margin="5,5,0,0"
+                    VerticalAlignment="Top"
+                    CornerRadius="{ThemeResource OverlayCornerRadius}">
+                <Image VerticalAlignment="Top"
+                       Source="{x:Bind ViewModel.MediaCover}"
+                       Stretch="Uniform" />
+            </Border>
 
-        <StackPanel Grid.Column="1"
-                    Margin="10,0">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10"
-                           VerticalAlignment="Top"
-                           Style="{ThemeResource HeaderTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaTitle}" />
-                <RatingControl Margin="10,20,0,0"
-                               IsReadOnly="True"
-                               Value="{x:Bind ViewModel.MediaRateValue}" />
+            <StackPanel Grid.Column="1"
+                        Margin="10,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10"
+                               VerticalAlignment="Top"
+                               Style="{ThemeResource HeaderTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaTitle}" />
+                    <RatingControl Margin="10,20,0,0"
+                                   IsReadOnly="True"
+                                   Value="{x:Bind ViewModel.MediaRateValue}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0,5,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Id"
+                               Style="{ThemeResource SubtitleTextBlockStyle}" />
+                    <HyperlinkButton Content="{x:Bind ViewModel.MediaIMDBId}"
+                                     NavigateUri="{x:Bind ViewModel.MediaIMDBId}" />
+                    <TextBlock Text="{x:Bind ViewModel.MediaIMDBId}"
+                               Visibility="Collapsed" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Year"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="0,3,10,0"
+                               HorizontalAlignment="Left"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaYear}" />
+                    <TextBlock wuc:Localizer.Uid="IMDBDetailsPage_Released"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="5,3"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaReleased}" />
+                    <TextBlock Margin="5,0,5,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Type"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="0,3"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaType}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0,0,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Rated"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="5,3,5,0"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaRated}" />
+                    <TextBlock Margin="10,0,5,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_TotalSeason"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="0,3"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaTotalSeason}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0,5,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Language"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="0,3"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaLanguage}" />
+                    <TextBlock Margin="10,0,5,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Country"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="0,3"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaCountry}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0,5,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Genre"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="0,3"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaGener}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0,5,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Director"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="0,3"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaDirector}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0,5,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Writer"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="0,3"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaWriter}"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0,5,0"
+                               wuc:Localizer.Uid="IMDBDetailsPage_Actor"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBlock Margin="0,3"
+                               Foreground="{ThemeResource SystemAccentColor}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.MediaActors}"
+                               TextWrapping="Wrap" />
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10,0,5,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Id"
-                           Style="{ThemeResource SubtitleTextBlockStyle}" />
-                <HyperlinkButton Content="{x:Bind ViewModel.MediaIMDBId}"
-                                 NavigateUri="{x:Bind ViewModel.MediaIMDBId}" />
-                <TextBlock Text="{x:Bind ViewModel.MediaIMDBId}"
-                           Visibility="Collapsed" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Year"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="0,3,10,0"
-                           HorizontalAlignment="Left"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaYear}" />
-                <TextBlock wuc:Localizer.Uid="IMDBDetailsPage_Released"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="5,3"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaReleased}" />
-                <TextBlock Margin="5,0,5,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Type"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="0,3"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaType}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10,0,0,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Rated"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="5,3,5,0"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaRated}" />
-                <TextBlock Margin="10,0,5,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_TotalSeason"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="0,3"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaTotalSeason}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10,0,5,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Language"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="0,3"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaLanguage}" />
-                <TextBlock Margin="10,0,5,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Country"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="0,3"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaCountry}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10,0,5,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Genre"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="0,3"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaGener}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10,0,5,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Director"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="0,3"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaDirector}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10,0,5,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Writer"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="0,3"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaWriter}"
-                           TextWrapping="Wrap" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10,0,5,0"
-                           wuc:Localizer.Uid="IMDBDetailsPage_Actor"
-                           Style="{ThemeResource TitleTextBlockStyle}" />
-                <TextBlock Margin="0,3"
-                           Foreground="{ThemeResource SystemAccentColor}"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind ViewModel.MediaActors}"
-                           TextWrapping="Wrap" />
-            </StackPanel>
-        </StackPanel>
-        <TextBox Grid.Row="1"
-                 Grid.ColumnSpan="2"
-                 Margin="10"
-                 HorizontalAlignment="Stretch"
-                 Background="Transparent"
-                 FontSize="18"
-                 IsReadOnly="True"
-                 Text="{x:Bind ViewModel.MediaPlot}"
-                 TextWrapping="Wrap" />
-        <i:Interaction.Behaviors>
-            <ic:EventTriggerBehavior EventName="Loaded">
-                <ic:EventTriggerBehavior.Actions>
-                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.GridLoadedCommand}" />
-                </ic:EventTriggerBehavior.Actions>
-            </ic:EventTriggerBehavior>
-        </i:Interaction.Behaviors>
-    </Grid>
+            <TextBox Grid.Row="1"
+                     Grid.ColumnSpan="2"
+                     Margin="10"
+                     HorizontalAlignment="Stretch"
+                     Background="Transparent"
+                     FontSize="18"
+                     IsReadOnly="True"
+                     Text="{x:Bind ViewModel.MediaPlot}"
+                     TextWrapping="Wrap" />
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="Loaded">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.GridLoadedCommand}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Grid>
+    </ScrollViewer>
 </Page>

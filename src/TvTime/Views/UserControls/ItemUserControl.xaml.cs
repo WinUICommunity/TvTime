@@ -104,21 +104,27 @@ public sealed partial class ItemUserControl : UserControl
 
         if (Settings.TvTimeLanguage.FlowDirection == FlowDirection.RightToLeft)
         {
-            MenuCopy.FlowDirection = FlowDirection.RightToLeft;
-            MenuCopyAll.FlowDirection = FlowDirection.RightToLeft;
             MenuDirectory.FlowDirection = FlowDirection.RightToLeft;
-            MenuDownload.FlowDirection = FlowDirection.RightToLeft;
-            MenuDownloadAll.FlowDirection = FlowDirection.RightToLeft;
+            MenuIMDB.FlowDirection = FlowDirection.RightToLeft;
             MenuFile.FlowDirection = FlowDirection.RightToLeft;
+            MenuCopy.FlowDirection = FlowDirection.RightToLeft;
+            SubMenuCopy.FlowDirection = FlowDirection.RightToLeft;
+            SubMenuCopyAll.FlowDirection = FlowDirection.RightToLeft;
+            MenuDownload.FlowDirection = FlowDirection.RightToLeft;
+            SubMenuDownload.FlowDirection = FlowDirection.RightToLeft;
+            SubMenuDownloadAll.FlowDirection = FlowDirection.RightToLeft;
         }
         else
         {
-            MenuCopy.FlowDirection = FlowDirection.LeftToRight;
-            MenuCopyAll.FlowDirection = FlowDirection.LeftToRight;
             MenuDirectory.FlowDirection = FlowDirection.LeftToRight;
-            MenuDownload.FlowDirection = FlowDirection.LeftToRight;
-            MenuDownloadAll.FlowDirection = FlowDirection.LeftToRight;
+            MenuIMDB.FlowDirection = FlowDirection.LeftToRight;
             MenuFile.FlowDirection = FlowDirection.LeftToRight;
+            MenuCopy.FlowDirection = FlowDirection.LeftToRight;
+            SubMenuCopy.FlowDirection = FlowDirection.LeftToRight;
+            SubMenuCopyAll.FlowDirection = FlowDirection.LeftToRight;
+            MenuDownload.FlowDirection = FlowDirection.LeftToRight;
+            SubMenuDownload.FlowDirection = FlowDirection.LeftToRight;
+            SubMenuDownloadAll.FlowDirection = FlowDirection.LeftToRight;
         }
     }
 }

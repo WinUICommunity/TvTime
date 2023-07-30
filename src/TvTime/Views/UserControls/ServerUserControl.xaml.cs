@@ -50,7 +50,7 @@ public sealed partial class ServerUserControl : UserControl
                 filePath = "Assets/Files/TvTime-SubtitleServers.json";
             }
 
-            using var streamReader = File.OpenText(await GetFilePath(filePath));
+            using var streamReader = File.OpenText(await FileLoaderHelper.GetPath(filePath));
             var json = await streamReader.ReadToEndAsync();
             var content = JsonConvert.DeserializeObject<ObservableCollection<ServerModel>>(json);
             if (content is not null)

@@ -22,6 +22,7 @@ public sealed partial class MainPage : Page
         SetFlowDirection();
         ViewModel.JsonNavigationViewService.Initialize(NavView, NavFrame);
         ViewModel.JsonNavigationViewService.ConfigAutoSuggestBox(ControlsSearchBox, true, null, "ms-appx:///Assets/Fluent/icon.png");
+        ViewModel.JsonNavigationViewService.ConfigLocalizer(App.Current.Localizer);
 
         Loaded += MainPage_Loaded;
 
@@ -79,6 +80,7 @@ public sealed partial class MainPage : Page
         if (settings != null)
         {
             settings.Icon = new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/settings.png"), ShowAsMonochrome = false };
+            settings.Content = App.Current.Localizer.GetLocalizedString("Nav_Settings");
         }
         ElementSoundPlayer.State = Settings.UseSound ? ElementSoundPlayerState.On : ElementSoundPlayerState.Off;
     }

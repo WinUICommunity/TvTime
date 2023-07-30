@@ -582,6 +582,51 @@
   <data name="MediaViewModel_StatusNoServerTitle" xml:space="preserve">
     <value>سرور یافت نشد</value>
   </data>
+  <data name="Nav_AnimeSubtitle" xml:space="preserve">
+    <value>در میان انیمه ها جستجو کنید و انیمه مورد نظر را دانلود کنید</value>
+  </data>
+  <data name="Nav_AnimeTitle" xml:space="preserve">
+    <value>انیمه</value>
+  </data>
+  <data name="Nav_HomeSubtitle" xml:space="preserve">
+    <value>در میان انیمه ها جستجو کنید و انیمه مورد نظر را دانلود کنید</value>
+  </data>
+  <data name="Nav_HomeTitle" xml:space="preserve">
+    <value>خانه</value>
+  </data>
+  <data name="Nav_IMDBDetails.Subtitle" xml:space="preserve">
+    <value>جزئیات فیلم، سریال یا انیمیشن را از IMDB دریافت کنید</value>
+  </data>
+  <data name="Nav_IMDBDetailsTitle" xml:space="preserve">
+    <value>جزئیات IMDB</value>
+  </data>
+  <data name="Nav_MoviesSubtitle" xml:space="preserve">
+    <value>در میان فیلم ها جستجو کنید و فیلم مورد نظر را دانلود کنید</value>
+  </data>
+  <data name="Nav_MoviesTitle" xml:space="preserve">
+    <value>فیلم</value>
+  </data>
+  <data name="Nav_SeriesSubtitle" xml:space="preserve">
+    <value>در میان سریال ها جستجو کنید و سریال مورد نظر را دانلود کنید</value>
+  </data>
+  <data name="Nav_SeriesTitle" xml:space="preserve">
+    <value>سریال</value>
+  </data>
+  <data name="Nav_ServersSubtitle" xml:space="preserve">
+    <value>افزودن، به روز رسانی یا حذف سرورها</value>
+  </data>
+  <data name="Nav_ServersTitle" xml:space="preserve">
+    <value>سرورها</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="Nav_SubtitlesSubtitle" xml:space="preserve">
+    <value>زیرنویس مورد نیاز خود را از سرورهای subscene جستجو و دانلود کنید</value>
+  </data>
+  <data name="Nav_SubtitlesTitle" xml:space="preserve">
+    <value>زیرنویس</value>
+  </data>
   <data name="NoItemUC_NoItem.Text" xml:space="preserve">
     <value>موردی پیدا نشد!</value>
   </data>

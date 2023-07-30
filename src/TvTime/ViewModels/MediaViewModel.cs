@@ -293,7 +293,7 @@ public partial class MediaViewModel : BaseViewModel
 
                 StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_DownloadServerStatusSerializing"), item.Title);
 
-                var filePath = Path.Combine(Constants.ServerDirectoryPath, GetPageType(), $"{GetMD5Hash(item.Server)}.txt");
+                var filePath = Path.Combine(Constants.ServerDirectoryPath, GetPageType(), $"{ApplicationHelper.GetMD5Hash(item.Server)}.txt");
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
@@ -401,7 +401,7 @@ public partial class MediaViewModel : BaseViewModel
                 }
 
                 string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
-                i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
+                i.Title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(t));
 
                 if (i.Server.Equals($"{server.Server}/../") || i.Server.Equals($"{server.Server}../") ||
                     i.Title.Equals("[To Parent Directory]") ||

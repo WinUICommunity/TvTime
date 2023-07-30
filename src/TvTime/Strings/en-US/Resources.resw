@@ -891,4 +891,49 @@
   <data name="ThemeSettingPage_MicaAlt.Content" xml:space="preserve">
     <value>MicaAlt</value>
   </data>
+  <data name="Nav_AnimeSubtitle" xml:space="preserve">
+    <value>Search among anime and download the desired anime</value>
+  </data>
+  <data name="Nav_AnimeTitle" xml:space="preserve">
+    <value>Anime</value>
+  </data>
+  <data name="Nav_HomeSubtitle" xml:space="preserve">
+    <value>Search among anime and download the desired anime</value>
+  </data>
+  <data name="Nav_HomeTitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Nav_IMDBDetails.Subtitle" xml:space="preserve">
+    <value>Get Details about Movie, Series or Anime from IMDB</value>
+  </data>
+  <data name="Nav_IMDBDetailsTitle" xml:space="preserve">
+    <value>IMDB Details</value>
+  </data>
+  <data name="Nav_MoviesSubtitle" xml:space="preserve">
+    <value>Search among Movies and download the desired movie</value>
+  </data>
+  <data name="Nav_MoviesTitle" xml:space="preserve">
+    <value>Movies</value>
+  </data>
+  <data name="Nav_SeriesSubtitle" xml:space="preserve">
+    <value>Search among Series and download the desired series</value>
+  </data>
+  <data name="Nav_SeriesTitle" xml:space="preserve">
+    <value>Series</value>
+  </data>
+  <data name="Nav_ServersSubtitle" xml:space="preserve">
+    <value>Add, Update or Remove Servers</value>
+  </data>
+  <data name="Nav_ServersTitle" xml:space="preserve">
+    <value>Servers</value>
+  </data>
+  <data name="Nav_SubtitlesSubtitle" xml:space="preserve">
+    <value>Search and Download the subtitle you need from subscene servers</value>
+  </data>
+  <data name="Nav_SubtitlesTitle" xml:space="preserve">
+    <value>Subtitles</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>

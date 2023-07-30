@@ -116,7 +116,7 @@ public partial class SubsceneViewModel : BaseViewModel
                                         var subtitle = new SubsceneModel
                                         {
                                             Title = name,
-                                            Server = GetDecodedStringFromHtml(baseUrl.Server + subNode?.Attributes["href"]?.Value?.Trim()),
+                                            Server = ApplicationHelper.GetDecodedStringFromHtml(baseUrl.Server + subNode?.Attributes["href"]?.Value?.Trim()),
                                             Desc = count?.InnerText?.Trim(),
                                             GroupKey = GetSubtitleKey(i)
                                         };

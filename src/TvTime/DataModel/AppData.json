@@ -12,59 +12,66 @@
       "Items": [
         {
           "UniqueId": "TvTime.Views.HomeLandingsPage",
-          "Title": "Home",
-          "Subtitle": "Search among anime and download the desired anime",
+          "Title": "Nav_HomeTitle",
+          "Subtitle": "Nav_HomeSubtitle",
+          "UsexUid": true,
           "ImagePath": "ms-appx:///Assets/Fluent/icon.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/icon.png",
           "HideItem": true
         },
         {
           "UniqueId": "TvTime.Views.MediaPage",
-          "Title": "Series",
+          "Title": "Nav_SeriesTitle",
+          "UsexUid": true,
           "Parameter": "Series",
-          "Subtitle": "Search among Series and download the desired series",
+          "Subtitle": "Nav_SeriesSubtitle",
           "ImagePath": "ms-appx:///Assets/Fluent/media.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/media.png",
           "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.MediaPage",
-          "Title": "Movies",
+          "Title": "Nav_MoviesTitle",
+          "UsexUid": true,
           "Parameter": "Movie",
-          "Subtitle": "Search among Movies and download the desired movie",
+          "Subtitle": "Nav_MoviesSubtitle",
           "ImagePath": "ms-appx:///Assets/Fluent/movie.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/movie.png",
           "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.MediaPage",
-          "Title": "Anime",
+          "Title": "Nav_AnimeTitle",
+          "UsexUid": true,
           "Parameter": "Anime",
-          "Subtitle": "Search among anime and download the desired anime",
+          "Subtitle": "Nav_AnimeSubtitle",
           "ImagePath": "ms-appx:///Assets/Fluent/anime.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/anime.png",
           "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.SubscenePage",
-          "Title": "Subtitles",
-          "Subtitle": "Search and Download the subtitle you need from subscene servers",
+          "Title": "Nav_SubtitlesTitle",
+          "Subtitle": "Nav_SubtitlesSubtitle",
+          "UsexUid": true,
           "ImagePath": "ms-appx:///Assets/Fluent/subtitle.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/subtitle.png",
           "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.IMDBDetailsPage",
-          "Title": "IMDB Details",
-          "Subtitle": "Get Details about Movie, Series or Anime from IMDB",
+          "Title": "Nav_IMDBDetailsTitle",
+          "Subtitle": "Nav_IMDBDetails.Subtitle",
+          "UsexUid": true,
           "ImagePath": "ms-appx:///Assets/Fluent/imdb.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/imdb.png",
           "IsUpdated": true
         },
         {
           "UniqueId": "TvTime.Views.ServersPage",
-          "Title": "Servers",
-          "Subtitle": "Add, Update or Remove Servers",
+          "Title": "Nav_ServersTitle",
+          "Subtitle": "Nav_ServersSubtitle",
+          "UsexUid": true,
           "ImagePath": "ms-appx:///Assets/Fluent/server.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/server.png",
           "IsUpdated": true

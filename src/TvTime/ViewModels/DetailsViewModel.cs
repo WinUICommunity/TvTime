@@ -188,7 +188,7 @@ public partial class DetailsViewModel : BaseViewModel
 
                 string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
 
-                i.Title = RemoveSpecialWords(GetDecodedStringFromHtml(t));
+                i.Title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(t));
                 if (i.Server.Equals($"{tvTimeItem.Server}../") || i.Title.Equals("[To Parent Directory]") ||
                     ((i.Server.Contains("aiocdn") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
                 {
@@ -210,7 +210,7 @@ public partial class DetailsViewModel : BaseViewModel
                             filesize = fileSizeMatches[index + 1].Value;
                         }
                         filesize = ReplaceForFileSize(filesize, i.DateTime);
-                        i.FileSize = GetFileSize((long) Convert.ToDouble(filesize));
+                        i.FileSize = ApplicationHelper.GetFileSize((long) Convert.ToDouble(filesize));
                     }
                 }
                 index++;

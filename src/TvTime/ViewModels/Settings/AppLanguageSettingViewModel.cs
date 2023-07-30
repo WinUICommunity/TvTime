@@ -22,7 +22,7 @@ public partial class AppLanguageSettingViewModel : ObservableRecipient
                 }
                 else
                 {
-                    Restart();
+                    ApplicationHelper.Restart();
                 }
             }
         }

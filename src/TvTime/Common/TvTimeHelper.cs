@@ -1,8 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Web;
 
 using CommunityToolkit.Labs.WinUI;
 
@@ -14,10 +10,7 @@ using Nucs.JsonSettings.Modulation.Recovery;
 
 using TvTime.ViewModels;
 
-using Windows.Security.Cryptography;
-using Windows.Security.Cryptography.Core;
 using Windows.Storage.Pickers;
-using Windows.Storage.Streams;
 
 namespace TvTime.Common;
 public static class TvTimeHelper
@@ -34,52 +27,6 @@ public static class TvTimeHelper
                                .LoadNow()
                                .EnableAutosave();
 
-    public static string GetMD5Hash(String strMsg)
-    {
-        string strAlgName = HashAlgorithmNames.Md5;
-        IBuffer buffUtf8Msg = CryptographicBuffer.ConvertStringToBinary(strMsg, BinaryStringEncoding.Utf8);
-
-        HashAlgorithmProvider objAlgProv = HashAlgorithmProvider.OpenAlgorithm(strAlgName);
-
-        IBuffer buffHash = objAlgProv.HashData(buffUtf8Msg);
-
-        if (buffHash.Length != objAlgProv.HashLength)
-        {
-            throw new Exception("There was an error creating the hash");
-        }
-
-        string hex = CryptographicBuffer.EncodeToHexString(buffHash);
-
-        return hex;
-    }
-    public static string GetSHA256Hash(String strMsg)
-    {
-        string strAlgName = HashAlgorithmNames.Sha256;
-        IBuffer buffUtf8Msg = CryptographicBuffer.ConvertStringToBinary(strMsg, BinaryStringEncoding.Utf8);
-
-        HashAlgorithmProvider objAlgProv = HashAlgorithmProvider.OpenAlgorithm(strAlgName);
-
-        IBuffer buffHash = objAlgProv.HashData(buffUtf8Msg);
-
-        if (buffHash.Length != objAlgProv.HashLength)
-        {
-            throw new Exception("There was an error creating the hash");
-        }
-
-        string hex = CryptographicBuffer.EncodeToHexString(buffHash);
-
-        return hex;
-    }
-
-    public static string GetDecodedStringFromHtml(string text)
-    {
-        if (string.IsNullOrEmpty(text))
-            return text;
-
-        var decoded = HttpUtility.HtmlDecode(text);
-        var result = decoded != text;
-        return result ? decoded : text;
-    }
 
     public static string RemoveSpecialWords(string stringToClean)
     {
@@ -142,29 +89,6 @@ public static class TvTimeHelper
         {
             Directory.CreateDirectory(Constants.AnimesDirectoryPath);
         }
-    }
-
-    public static string GetFileSize(long size)
-    {
-        string[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
-        const string formatTemplate = "{0}{1:0.#} {2}";
-
-        if (size == 0)
-        {
-            return string.Format(formatTemplate, null, 0, sizeSuffixes[0]);
-        }
-
-        var absSize = Math.Abs((double) size);
-        var fpPower = Math.Log(absSize, 1000);
-        var intPower = (int) fpPower;
-        var iUnit = intPower >= sizeSuffixes.Length
-            ? sizeSuffixes.Length - 1
-            : intPower;
-        var normSize = absSize / Math.Pow(1000, iUnit);
-
-        return string.Format(
-            formatTemplate,
-            size < 0 ? "-" : null, normSize, sizeSuffixes[iUnit]);
     }
 
     public static ObservableCollection<string> GenerateTextBlockStyles()
@@ -251,39 +175,6 @@ public static class TvTimeHelper
             "Hungarian",
             "Portuguese"
         };
-    }
-
-    public async static Task<string> GetFilePath(string filePath, PathType pathType = PathType.Relative)
-    {
-        StorageFile file = null;
-        if (ApplicationHelper.IsPackaged)
-        {
-            switch (pathType)
-            {
-                case PathType.Relative:
-                    var sourceUri = new Uri("ms-appx:///" + filePath);
-                    file = await StorageFile.GetFileFromApplicationUriAsync(sourceUri);
-                    break;
-                case PathType.Absolute:
-                    file = await StorageFile.GetFileFromPathAsync(filePath);
-                    break;
-            }
-        }
-        else
-        {
-            switch (pathType)
-            {
-                case PathType.Relative:
-                    var sourcePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), filePath));
-                    file = await StorageFile.GetFileFromPathAsync(sourcePath);
-                    break;
-                case PathType.Absolute:
-                    file = await StorageFile.GetFileFromPathAsync(filePath);
-                    break;
-            }
-        }
-
-        return file.Path;
     }
 
     public static string GetServerUrlWithoutLeftAndRightPart(string url)
@@ -435,23 +326,5 @@ public static class TvTimeHelper
     public static string[] GetAvailableLanguages()
     {
         return TvTimeLanguagesCollection().Select(x => x.LanguageCode).ToArray();
-    }
-
-    public static void Restart()
-    {
-        ProcessStartInfo processStartInfo = new ProcessStartInfo(GetExecutablePathNative());
-
-        Process.Start(processStartInfo);
-        Environment.Exit(0);
-    }
-
-    [DllImport("kernel32.dll")]
-    public static extern uint GetModuleFileName(IntPtr hModule, StringBuilder lpFilename, int nSize);
-    private static readonly int MAX_PATH = 255;
-    public static string GetExecutablePathNative()
-    {
-        var sb = new System.Text.StringBuilder(MAX_PATH);
-        GetModuleFileName(IntPtr.Zero, sb, MAX_PATH);
-        return sb.ToString();
-    }
+    }  
 }

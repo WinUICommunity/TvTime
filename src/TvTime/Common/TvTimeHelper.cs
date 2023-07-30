@@ -10,10 +10,8 @@ using Nucs.JsonSettings.Modulation.Recovery;
 
 using TvTime.ViewModels;
 
-using Windows.Storage.Pickers;
-
 namespace TvTime.Common;
-public static class TvTimeHelper
+public static partial class TvTimeHelper
 {
     public static TvTimeConfig Settings = JsonSettings.Configure<TvTimeConfig>()
                                .WithRecovery(RecoveryAction.RenameAndLoadDefault)
@@ -32,9 +30,9 @@ public static class TvTimeHelper
     {
         if (!string.IsNullOrEmpty(stringToClean))
         {
-            Regex wordFilter = new Regex(Constants.FileNameRegex, RegexOptions.IgnoreCase);
+            var wordFilter = new Regex(Constants.FileNameRegex, RegexOptions.IgnoreCase);
             var cleaned = wordFilter.Replace(stringToClean, " ").Trim();
-            cleaned = Regex.Replace(cleaned, "[ ]{2,}", " "); // remove space [More than 2 space] and replace with one space
+            cleaned = CleanRegex().Replace(cleaned, " "); // remove space [More than 2 space] and replace with one space
 
             return cleaned.Trim();
         }
@@ -43,17 +41,13 @@ public static class TvTimeHelper
 
     public static bool ExistDirectory(PageOrDirectoryType directoryType)
     {
-        switch (directoryType)
+        return directoryType switch
         {
-            case PageOrDirectoryType.Anime:
-                return Directory.Exists(Constants.AnimesDirectoryPath);
-            case PageOrDirectoryType.Movie:
-                return Directory.Exists(Constants.MoviesDirectoryPath);
-            case PageOrDirectoryType.Series:
-                return Directory.Exists(Constants.SeriesDirectoryPath);
-            default:
-                return false;
-        }
+            PageOrDirectoryType.Anime => Directory.Exists(Constants.AnimesDirectoryPath),
+            PageOrDirectoryType.Movie => Directory.Exists(Constants.MoviesDirectoryPath),
+            PageOrDirectoryType.Series => Directory.Exists(Constants.SeriesDirectoryPath),
+            _ => false,
+        };
     }
 
     public static void DeleteDirectory(PageOrDirectoryType directoryType)
@@ -185,9 +179,9 @@ public static class TvTimeHelper
         }
         else
         {
-            Uri uri = new Uri(url);
-            string host = uri.Host;
-            string[] parts = host.Split('.');
+            var uri = new Uri(url);
+            var host = uri.Host;
+            var parts = host.Split('.');
             return string.Join(".", parts.Take(parts.Length - 1));
         }
     }
@@ -200,7 +194,7 @@ public static class TvTimeHelper
         }
         else
         {
-            Uri uri = new Uri(url);
+            var uri = new Uri(url);
             return uri.Scheme + "://" + uri.Host;
         }
     }
@@ -216,10 +210,7 @@ public static class TvTimeHelper
         {
             dynamic selectedItem = e.AddedItems.Count > 0 ? e.AddedItems[0] as TokenItem : null;
 
-            if (selectedItem == null)
-            {
-                selectedItem = e.RemovedItems.Count > 0 ? e.RemovedItems[0] as TokenItem : null;
-            }
+            selectedItem ??= e.RemovedItems.Count > 0 ? e.RemovedItems[0] as TokenItem : null;
 
             if (selectedItem == null)
             {
@@ -264,20 +255,14 @@ public static class TvTimeHelper
         }
     }
 
-    public async static Task<string> OpenFolderPicker()
-    {
-        StorageFolder folder = await ApplicationHelper.PickSingleFolderAsync(App.currentWindow);
-        return folder is not null ? folder.Path : null;
-    }
-
     public static void LaunchIDM(string idmPath, string link)
     {
         Process.Start(idmPath, $"/d \"{link}\"");
     }
 
-    public async static void IDMNotFoundDialog()
+    public static async void IDMNotFoundDialog()
     {
-        ContentDialog contentDialog = new ContentDialog
+        var contentDialog = new ContentDialog
         {
             XamlRoot = App.currentWindow.Content.XamlRoot,
             Title = "IDM not found",
@@ -296,10 +281,9 @@ public static class TvTimeHelper
 
     public static bool IsUrlFile(string url)
     {
-        Uri uri;
-        if (Uri.TryCreate(url, UriKind.Absolute, out uri))
+        if (Uri.TryCreate(url, UriKind.Absolute, out var uri))
         {
-            string extension = System.IO.Path.GetExtension(uri.AbsolutePath);
+            var extension = Path.GetExtension(uri.AbsolutePath);
             if (!string.IsNullOrEmpty(extension))
             {
                 return true;
@@ -321,5 +305,8 @@ public static class TvTimeHelper
     public static string[] GetAvailableLanguages()
     {
         return TvTimeLanguagesCollection().Select(x => x.LanguageCode).ToArray();
-    }  
+    }
+
+    [GeneratedRegex("[ ]{2,}")]
+    private static partial Regex CleanRegex();
 }

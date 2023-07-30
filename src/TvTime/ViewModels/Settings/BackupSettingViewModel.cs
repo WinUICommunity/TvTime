@@ -22,8 +22,10 @@ public partial class BackupSettingViewModel : ObservableObject
                 fileName = $"TvTime-SubtitleServers-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
             }
 
-            var fileTypeChoices = new Dictionary<string, IList<string>>();
-            fileTypeChoices.Add("Json", new List<string>() { ".json" });
+            var fileTypeChoices = new Dictionary<string, IList<string>>
+            {
+                { "Json", new List<string>() { ".json" } }
+            };
             var file = await ApplicationHelper.PickSaveFileAsync(App.currentWindow, fileTypeChoices, fileName);
             
             if (file != null)
@@ -93,8 +95,10 @@ public partial class BackupSettingViewModel : ObservableObject
     {
         try
         {
-            var fileTypeChoices = new Dictionary<string, IList<string>>();
-            fileTypeChoices.Add("Json", new List<string>() { ".json" });
+            var fileTypeChoices = new Dictionary<string, IList<string>>
+            {
+                { "Json", new List<string>() { ".json" } }
+            };
             var suggestedFileName = $"TvTime-Settings-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
 
             var file = await ApplicationHelper.PickSaveFileAsync(App.currentWindow, fileTypeChoices, suggestedFileName);

@@ -34,7 +34,8 @@
                             Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
                             Tag="OpenFile"
                             Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}" />
-            <MenuFlyoutSubItem wuc:Localizer.Uid="ItemUC_MenuCopy" x:Name="MenuCopy"
+            <MenuFlyoutSubItem x:Name="MenuCopy"
+                               wuc:Localizer.Uid="ItemUC_MenuCopy"
                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}">
 
                 <MenuFlyoutItem x:Name="SubMenuCopy"
@@ -50,7 +51,8 @@
                                 Icon="{wuc:BitmapIcon Source=Assets/Fluent/copy.png}"
                                 Tag="CopyAll" />
             </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem wuc:Localizer.Uid="ItemUC_MenuDownload" x:Name="MenuDownload"
+            <MenuFlyoutSubItem x:Name="MenuDownload"
+                               wuc:Localizer.Uid="ItemUC_MenuDownload"
                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}"
                                Visibility="{x:Bind Server, Converter={StaticResource StringExtensions2VisibilityConverter}}">
 

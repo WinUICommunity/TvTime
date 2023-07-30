@@ -17,5 +17,6 @@ public sealed partial class HomeLandingsPage : Page
     {
         base.OnNavigatedTo(e);
         allLandingPage.GetLocalizedData(ViewModel.JsonNavigationViewService.DataSource, App.Current.Localizer);
+        allLandingPage.OrderBy(i => i.Title);
     }
 }

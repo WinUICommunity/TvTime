@@ -266,12 +266,7 @@ public static class TvTimeHelper
 
     public async static Task<string> OpenFolderPicker()
     {
-        FolderPicker folderPicker = new();
-        folderPicker.FileTypeFilter.Add("*");
-
-        WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
-
-        StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+        StorageFolder folder = await ApplicationHelper.PickSingleFolderAsync(App.currentWindow);
         return folder is not null ? folder.Path : null;
     }
 

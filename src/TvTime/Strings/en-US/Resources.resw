@@ -903,7 +903,7 @@
   <data name="Nav_HomeTitle" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="Nav_IMDBDetails.Subtitle" xml:space="preserve">
+  <data name="Nav_IMDBDetailsSubtitle" xml:space="preserve">
     <value>Get Details about Movie, Series or Anime from IMDB</value>
   </data>
   <data name="Nav_IMDBDetailsTitle" xml:space="preserve">

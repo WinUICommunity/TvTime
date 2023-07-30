@@ -61,7 +61,7 @@
         {
           "UniqueId": "TvTime.Views.IMDBDetailsPage",
           "Title": "Nav_IMDBDetailsTitle",
-          "Subtitle": "Nav_IMDBDetails.Subtitle",
+          "Subtitle": "Nav_IMDBDetailsSubtitle",
           "UsexUid": true,
           "ImagePath": "ms-appx:///Assets/Fluent/imdb.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/imdb.png",

@@ -594,7 +594,7 @@
   <data name="Nav_HomeTitle" xml:space="preserve">
     <value>خانه</value>
   </data>
-  <data name="Nav_IMDBDetails.Subtitle" xml:space="preserve">
+  <data name="Nav_IMDBDetailsSubtitle" xml:space="preserve">
     <value>جزئیات فیلم، سریال یا انیمیشن را از IMDB دریافت کنید</value>
   </data>
   <data name="Nav_IMDBDetailsTitle" xml:space="preserve">

@@ -22,14 +22,10 @@ public partial class BackupSettingViewModel : ObservableObject
                 fileName = $"TvTime-SubtitleServers-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
             }
 
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
-            savePicker.FileTypeChoices.Add("Json", new List<string>() { ".json" });
-            savePicker.SuggestedFileName = fileName;
-            WinRT.Interop.InitializeWithWindow.Initialize(savePicker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
-
-            StorageFile file = await savePicker.PickSaveFileAsync();
-
+            var fileTypeChoices = new Dictionary<string, IList<string>>();
+            fileTypeChoices.Add("Json", new List<string>() { ".json" });
+            var file = await ApplicationHelper.PickSaveFileAsync(App.currentWindow, fileTypeChoices, fileName);
+            
             if (file != null)
             {
                 var servers = ServerSettings.TVTimeServers;
@@ -62,13 +58,8 @@ public partial class BackupSettingViewModel : ObservableObject
         try
         {
             this.isMediaServer = Convert.ToBoolean(isMediaServer);
-            var picker = new Windows.Storage.Pickers.FileOpenPicker();
-            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
-            picker.FileTypeFilter.Add(".json");
-            WinRT.Interop.InitializeWithWindow.Initialize(picker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
 
-            StorageFile file = await picker.PickSingleFileAsync();
+            var file = await ApplicationHelper.PickSingleFileAsync(App.currentWindow, new string[] { ".json" });
             if (file != null)
             {
                 using var streamReader = File.OpenText(file.Path);
@@ -102,13 +93,11 @@ public partial class BackupSettingViewModel : ObservableObject
     {
         try
         {
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
-            savePicker.FileTypeChoices.Add("Json", new List<string>() { ".json" });
-            savePicker.SuggestedFileName = $"TvTime-Settings-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
-            WinRT.Interop.InitializeWithWindow.Initialize(savePicker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
+            var fileTypeChoices = new Dictionary<string, IList<string>>();
+            fileTypeChoices.Add("Json", new List<string>() { ".json" });
+            var suggestedFileName = $"TvTime-Settings-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
 
-            StorageFile file = await savePicker.PickSaveFileAsync();
+            var file = await ApplicationHelper.PickSaveFileAsync(App.currentWindow, fileTypeChoices, suggestedFileName);
 
             if (file != null)
             {
@@ -133,13 +122,8 @@ public partial class BackupSettingViewModel : ObservableObject
     {
         try
         {
-            var picker = new Windows.Storage.Pickers.FileOpenPicker();
-            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Desktop;
-            picker.FileTypeFilter.Add(".json");
-            WinRT.Interop.InitializeWithWindow.Initialize(picker, WindowHelper.GetWindowHandleForCurrentWindow(App.currentWindow));
+            var file = await ApplicationHelper.PickSingleFileAsync(App.currentWindow, new string[] { ".json" });
 
-            StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
                 using var streamReader = File.OpenText(file.Path);

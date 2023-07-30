@@ -340,11 +340,11 @@ public static class TvTimeHelper
                 selectedItem = allItem;
             }
 
-            if (selectedItem.Content.ToString().Equals(Constants.ALL_FILTER) && selectedItem.IsSelected)
+            if (selectedItem.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter")) && selectedItem.IsSelected)
             {
                 foreach (TokenItem item in token.Items)
                 {
-                    if (item.Content.ToString().Equals(Constants.ALL_FILTER))
+                    if (item.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter")))
                     {
                         continue;
                     }
@@ -353,11 +353,11 @@ public static class TvTimeHelper
 
                 viewModel.DataListACV.Filter = null;
             }
-            else if (!selectedItem.Content.ToString().Equals(Constants.ALL_FILTER))
+            else if (!selectedItem.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter")))
             {
                 foreach (TokenItem item in token.Items)
                 {
-                    if (item.Content.ToString().Equals(Constants.ALL_FILTER) && item.IsSelected)
+                    if (item.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter")) && item.IsSelected)
                     {
                         item.IsSelected = false;
                     }
@@ -425,8 +425,8 @@ public static class TvTimeHelper
     {
         return new ObservableCollection<TvTimeLanguage>
         {
-            new TvTimeLanguage("English", "en-US"),
-            new TvTimeLanguage("Persian", "fa-IR")
+            new TvTimeLanguage("English", "en-US", FlowDirection.LeftToRight),
+            new TvTimeLanguage("Persian", "fa-IR", FlowDirection.RightToLeft)
         };
     }
 

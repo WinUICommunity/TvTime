@@ -74,7 +74,7 @@ public partial class SubsceneViewModel : BaseViewModel
                 IsActive = true;
                 IsStatusOpen = true;
                 StatusSeverity = InfoBarSeverity.Informational;
-                StatusTitle = "Please Wait...";
+                StatusTitle = App.Current.Localizer.GetLocalizedString("SubsceneViewModel_StatusWait");
                 StatusMessage = "";
 
                 if (!string.IsNullOrEmpty(QueryText))
@@ -89,7 +89,7 @@ public partial class SubsceneViewModel : BaseViewModel
                     var titleCollection = doc?.DocumentNode?.SelectSingleNode("//div[@class='search-result']");
                     if (titleCollection == null || titleCollection.InnerText.Contains("No results found"))
                     {
-                        ShowError(Constants.NotFoundOrExist);
+                        ShowError(App.Current.Localizer.GetLocalizedString("Constants_SubtitleNotFound"));
                     }
                     else
                     {
@@ -126,7 +126,7 @@ public partial class SubsceneViewModel : BaseViewModel
                                 }
                                 else
                                 {
-                                    ShowError(Constants.NotFoundOrExist);
+                                    ShowError(App.Current.Localizer.GetLocalizedString("Constants_SubtitleNotFound"));
                                 }
                             }
                         }
@@ -147,7 +147,7 @@ public partial class SubsceneViewModel : BaseViewModel
         }
         else
         {
-            ShowError(Constants.InternetIsNotAvailable);
+            ShowError(App.Current.Localizer.GetLocalizedString("Constants_InternetNotAvailable"));
         }
     }
 
@@ -167,7 +167,7 @@ public partial class SubsceneViewModel : BaseViewModel
 
     private void ShowError(string message)
     {
-        StatusTitle = "Error";
+        StatusTitle = App.Current.Localizer.GetLocalizedString("SubsceneViewModel_StatusError");
         StatusSeverity = InfoBarSeverity.Error;
         StatusMessage = message;
         IsStatusOpen = true;

@@ -103,6 +103,7 @@
         <BreadcrumbBar x:Name="BreadcrumbBar"
                        Grid.Row="2"
                        Margin="10,5,5,5"
+                       FlowDirection="LeftToRight"
                        ItemsSource="{x:Bind ViewModel.BreadcrumbBarList}">
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="ItemClicked">
@@ -123,6 +124,7 @@
         <ListView Grid.Row="3"
                   Margin="5,0,5,5"
                   HorizontalAlignment="Stretch"
+                  FlowDirection="LeftToRight"
                   IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                   ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
                   ItemsSource="{x:Bind ViewModel.DataListACV}"

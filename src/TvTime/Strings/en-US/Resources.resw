@@ -630,4 +630,235 @@
   <data name="BreadCrumbBarRootText" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="Constants_AllFilter" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Constants_InternetNotAvailable" xml:space="preserve">
+    <value>Oh no! You're not connected to the internet.</value>
+  </data>
+  <data name="Constants_SubtitleNotFound" xml:space="preserve">
+    <value>Subtitles not found or server is unavailable, please try again!</value>
+  </data>
+  <data name="DetailsViewModel_StatusParsing" xml:space="preserve">
+    <value>Parsing {0}</value>
+  </data>
+  <data name="DetailsViewModel_StatusUpdated" xml:space="preserve">
+    <value>Updated Successfully</value>
+  </data>
+  <data name="DetailsViewModel_StatusWait" xml:space="preserve">
+    <value>Please Wait...</value>
+  </data>
+  <data name="DetailsViewModel_StatusWorking" xml:space="preserve">
+    <value>Working on {0}</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_CurrentVersion" xml:space="preserve">
+    <value>Current Version v{0}"</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_ReleaseNoteContentDialogCloseButton" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_ReleaseNoteContentDialogTitle" xml:space="preserve">
+    <value>Release Notes</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_StatusCheckUpdate" xml:space="preserve">
+    <value>Checking for new updates</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_StatusErrorConnection" xml:space="preserve">
+    <value>Error in Connection</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_StatusLatestVersion" xml:space="preserve">
+    <value>You are using Latest version.</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_StatusUpdateFound" xml:space="preserve">
+    <value>We found a new version {0} that created in {1} and published in {2}</value>
+  </data>
+  <data name="BackupSettingViewModel_BackupConfigCompleted" xml:space="preserve">
+    <value>Backup completed successfully</value>
+  </data>
+  <data name="BackupSettingViewModel_BackupServerCompleted" xml:space="preserve">
+    <value>Backup completed successfully</value>
+  </data>
+  <data name="BackupSettingViewModel_RestoreConfigCompleted" xml:space="preserve">
+    <value>Restore completed successfully</value>
+  </data>
+  <data name="BackupSettingViewModel_RestoreServerCompleted" xml:space="preserve">
+    <value>Restore completed successfully</value>
+  </data>
+  <data name="MediaViewModel_AddedLocalServer" xml:space="preserve">
+    <value>{0} Local {1} Added</value>
+  </data>
+  <data name="MediaViewModel_AddedServer" xml:space="preserve">
+    <value>Added {0}/{1} Servers</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogAddServerTitle" xml:space="preserve">
+    <value>Add New Servers</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogInfoBarMessage" xml:space="preserve">
+    <value>Would you like to go to the servers page and add some servers?</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogInfoBarPrimaryButton" xml:space="preserve">
+    <value>Go To Servers</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogInfoBarSecondaryButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogInfoBarTitle" xml:space="preserve">
+    <value>No servers found, please add some servers first</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusError" xml:space="preserve">
+    <value>Error: Added {0}/{1} Servers</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusParsing" xml:space="preserve">
+    <value>Parsing {0}</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusSaved" xml:space="preserve">
+    <value>{0} Saved</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusSerializing" xml:space="preserve">
+    <value>Serializing {0}</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusUpdated" xml:space="preserve">
+    <value>Updated Successfully: Added {0}/{1} Servers</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusUpdatedLocal" xml:space="preserve">
+    <value>We Updated our Local Storage</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusWait" xml:space="preserve">
+    <value>Please Wait...</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusWorking" xml:space="preserve">
+    <value>Working on {0} - {1}/{2}</value>
+  </data>
+  <data name="MediaViewModel_LoadingLocal" xml:space="preserve">
+    <value>Loading Local {0}...</value>
+  </data>
+  <data name="MediaViewModel_ServerStatus" xml:space="preserve">
+    <value>Server Status - {0} Server(s) Added</value>
+  </data>
+  <data name="MediaViewModel_ServerStatusPrimaryButton" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="MediaViewModel_StatusNoServerMessage" xml:space="preserve">
+    <value>No servers found, please add some servers first</value>
+  </data>
+  <data name="MediaViewModel_StatusNoServerTitle" xml:space="preserve">
+    <value>Server not found</value>
+  </data>
+  <data name="ServerUC_ClearContentDialogCloseButton" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ServerUC_ClearContentDialogContent" xml:space="preserve">
+    <value>Are you sure to clear all servers?</value>
+  </data>
+  <data name="ServerUC_ClearContentDialogPrimaryButton" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="ServerUC_ClearContentDialogStatus" xml:space="preserve">
+    <value>All Servers Removed Successfully</value>
+  </data>
+  <data name="ServerUC_ClearContentDialogTitle" xml:space="preserve">
+    <value>Clear All Servers</value>
+  </data>
+  <data name="ServerUC_LoadContentDialogCloseButton" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ServerUC_LoadContentDialogContent" xml:space="preserve">
+    <value>Are you sure to load predefined servers? This will overwrite all your servers!</value>
+  </data>
+  <data name="ServerUC_LoadContentDialogPrimaryButton" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="ServerUC_LoadContentDialogStatus" xml:space="preserve">
+    <value>Predefined Servers Loaded Successfully</value>
+  </data>
+  <data name="ServerUC_LoadContentDialogTitle" xml:space="preserve">
+    <value>Load Predefined Servers</value>
+  </data>
+  <data name="ServerViewModel_AddedStatus" xml:space="preserve">
+    <value>New Server Added Successfully</value>
+  </data>
+  <data name="ServerViewModel_AddStatusTitle" xml:space="preserve">
+    <value>Add new Server</value>
+  </data>
+  <data name="ServerViewModel_CanNotAddStatus" xml:space="preserve">
+    <value>Server Can not be Added</value>
+  </data>
+  <data name="ServerViewModel_CanNotUpdateServerStatus" xml:space="preserve">
+    <value>Server Can not be Updated</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogCloseButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogComboBoxHeader" xml:space="preserve">
+    <value>Choose Series, Movie or Anime</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogComboBoxPlaceholder" xml:space="preserve">
+    <value>Choose Series, Movie or Anime</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogPrimaryButton" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogServerHeader" xml:space="preserve">
+    <value>Server Url</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogServerPlaceholder" xml:space="preserve">
+    <value>Server Title</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogServerTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogServerUrlPlaceholder" xml:space="preserve">
+    <value>Server Url</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogToggleSwitchHeader" xml:space="preserve">
+    <value>Activate Server</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogToggleSwitchOffContent" xml:space="preserve">
+    <value>DeActive</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogToggleSwitchOnContent" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="ServerViewModel_RemoveStatus" xml:space="preserve">
+    <value>Selected Server Removed Successfully</value>
+  </data>
+  <data name="ServerViewModel_UpdateServerStatus" xml:space="preserve">
+    <value>Server Changed Successfully</value>
+  </data>
+  <data name="ServerViewModel_UpdateStatusTitle" xml:space="preserve">
+    <value>Update Server</value>
+  </data>
+  <data name="SubsceneDetailViewModel_StatusError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="SubsceneDetailViewModel_StatusParsing" xml:space="preserve">
+    <value>Parsing {0}</value>
+  </data>
+  <data name="SubsceneDetailViewModel_StatusUpdated" xml:space="preserve">
+    <value>Updated Successfully</value>
+  </data>
+  <data name="SubsceneDetailViewModel_StatusWait" xml:space="preserve">
+    <value>Please Wait...</value>
+  </data>
+  <data name="SubsceneDetailViewModel_StatusWorking" xml:space="preserve">
+    <value>Working on {0}</value>
+  </data>
+  <data name="SubsceneViewModel_StatusError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="SubsceneViewModel_StatusWait" xml:space="preserve">
+    <value>Please Wait...</value>
+  </data>
+  <data name="SubtitleSettingPage_StatusLanguageAdded" xml:space="preserve">
+    <value>Language Added Successfully!</value>
+  </data>
+  <data name="SubtitleSettingPage_StatusLanguageExist" xml:space="preserve">
+    <value>This Language is Exist, try another</value>
+  </data>
+  <data name="SubtitleSettingPage_StatusRemoved" xml:space="preserve">
+    <value>'{0}' Removed</value>
+  </data>
+  <data name="SubtitleSettingPage_StatusTextNull" xml:space="preserve">
+    <value>Text is Null or Empty</value>
+  </data>
 </root>

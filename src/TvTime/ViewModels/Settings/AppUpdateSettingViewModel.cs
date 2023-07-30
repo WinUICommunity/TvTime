@@ -20,7 +20,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
 
     public AppUpdateSettingViewModel()
     {
-        currentVersion = $"Current Version v{App.Current.TvTimeVersion}";
+        currentVersion = string.Format(App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_CurrentVersion"), App.Current.TvTimeVersion);
         lastUpdateCheck = Settings.LastUpdateCheck;
     }
 
@@ -29,7 +29,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     {
         IsLoading = true;
         IsUpdateAvailable = false;
-        LoadingStatus = "Checking for new updates";
+        LoadingStatus = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_StatusCheckUpdate");
         if (ApplicationHelper.IsNetworkAvailable())
         {
             LastUpdateCheck = DateTime.Now.ToShortDateString();
@@ -42,11 +42,11 @@ public partial class AppUpdateSettingViewModel : ObservableObject
                 {
                     IsUpdateAvailable = true;
                     changeLog = update.Changelog;
-                    LoadingStatus = $"We found a new version {update.TagName} that created in {update.CreatedAt} and published in {update.PublishedAt} ";
+                    LoadingStatus = string.Format(App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_StatusUpdateFound"), update.TagName, update.CreatedAt, update.PublishedAt);
                 }
                 else
                 {
-                    LoadingStatus = "You are using Latest version.";
+                    LoadingStatus = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_StatusLatestVersion");
                 }
             }
             catch (Exception ex)
@@ -56,7 +56,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
         }
         else
         {
-            LoadingStatus = "Error in Connection";
+            LoadingStatus = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_StatusErrorConnection");
         }
         IsLoading = false;
     }
@@ -66,8 +66,8 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     {
         ContentDialog dialog = new ContentDialog()
         {
-            Title = "Release Notes",
-            CloseButtonText = "Close",
+            Title = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_ReleaseNoteContentDialogTitle"),
+            CloseButtonText = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_ReleaseNoteContentDialogCloseButton"),
             Content = new ScrollViewer
             {
                 Content = new MarkdownTextBlock

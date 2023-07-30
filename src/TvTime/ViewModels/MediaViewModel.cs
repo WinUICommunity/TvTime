@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Labs.WinUI;
 
+using static WinUICommunity.LanguageDictionary;
+
 namespace TvTime.ViewModels;
 public partial class MediaViewModel : BaseViewModel
 {
@@ -32,7 +34,7 @@ public partial class MediaViewModel : BaseViewModel
             .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
 
         TokenList = new(tokens);
-        TokenList.Insert(0, new TokenItem { Content = Constants.ALL_FILTER, IsSelected = true });
+        TokenList.Insert(0, new TokenItem { Content = App.Current.Localizer.GetLocalizedString("Constants_AllFilter"), IsSelected = true });
 
         if (ExistDirectory(PageType))
         {
@@ -46,8 +48,8 @@ public partial class MediaViewModel : BaseViewModel
         if (ServerSettings.TVTimeServers.Count == 0)
         {
             IsStatusOpen = true;
-            StatusTitle = "Server not found";
-            StatusMessage = "No servers found, please add some servers first";
+            StatusTitle = App.Current.Localizer.GetLocalizedString("MediaViewModel_StatusNoServerTitle");
+            StatusMessage = App.Current.Localizer.GetLocalizedString("MediaViewModel_StatusNoServerMessage");
             StatusSeverity = InfoBarSeverity.Warning;
             IsServerStatusOpen = false;
             GoToServerPage();
@@ -79,7 +81,7 @@ public partial class MediaViewModel : BaseViewModel
         {
             var items = MediaPage.Instance.GetTokenSelectedItems();
 
-            if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
+            if (items.Any(token => token.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter"))))
             {
                 AutoSuggestBoxHelper.LoadSuggestions(sender, args, DataList.Select(x => x.Title).ToList());
             }
@@ -101,7 +103,7 @@ public partial class MediaViewModel : BaseViewModel
         var txtSearch = MainPage.Instance.GetTxtSearch();
         var items = MediaPage.Instance.GetTokenSelectedItems();
 
-        if (items.Any(token => token.Content.ToString().Equals(Constants.ALL_FILTER)))
+        if (items.Any(token => token.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter"))))
         {
             return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
                 server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
@@ -125,7 +127,7 @@ public partial class MediaViewModel : BaseViewModel
     {
         ContentDialog contentDialog = new ContentDialog();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
-        contentDialog.Title = $"Server Status - {existServer.Count} Server(s) Added";
+        contentDialog.Title = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_ServerStatus"), existServer.Count);
         var stck = new StackPanel
         {
             Spacing = 10,
@@ -144,7 +146,7 @@ public partial class MediaViewModel : BaseViewModel
 
         contentDialog.Content = new ScrollViewer { Content = stck };
 
-        contentDialog.PrimaryButtonText = "OK";
+        contentDialog.PrimaryButtonText = App.Current.Localizer.GetLocalizedString("MediaViewModel_ServerStatusPrimaryButton");
         await contentDialog.ShowAsyncQueue();
     }
 
@@ -152,7 +154,7 @@ public partial class MediaViewModel : BaseViewModel
     {
         ContentDialog contentDialog = new ContentDialog();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
-        contentDialog.Title = $"Add New Servers";
+        contentDialog.Title = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogAddServerTitle");
         var stck = new StackPanel
         {
             Spacing = 10,
@@ -161,15 +163,15 @@ public partial class MediaViewModel : BaseViewModel
 
         var infoBar = new InfoBar();
         infoBar.Severity = InfoBarSeverity.Warning;
-        infoBar.Title = "No servers found, please add some servers first";
-        infoBar.Message = "Would you like to go to the servers page and add some servers?";
+        infoBar.Title = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogInfoBarTitle");
+        infoBar.Message = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogInfoBarMessage");
         infoBar.IsOpen = true;
         infoBar.IsClosable = false;
         stck.Children.Add(infoBar);
 
         contentDialog.Content = new ScrollViewer { Content = stck };
-        contentDialog.PrimaryButtonText = "Go To Servers";
-        contentDialog.SecondaryButtonText = "Cancel";
+        contentDialog.PrimaryButtonText = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogInfoBarPrimaryButton");
+        contentDialog.SecondaryButtonText = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogInfoBarSecondaryButton");
         contentDialog.PrimaryButtonClick += (s, e) =>
         {
             JsonNavigationViewService.NavigateTo(typeof(ServersPage));
@@ -183,7 +185,7 @@ public partial class MediaViewModel : BaseViewModel
         IsActive = true;
         IsStatusOpen = true;
         StatusSeverity = InfoBarSeverity.Informational;
-        StatusTitle = $"Loading Local {PageType}...";
+        StatusTitle = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_LoadingLocal"), PageType);
         var files = Directory.GetFiles(Path.Combine(Constants.ServerDirectoryPath, GetPageType()), "*.txt");
         if (files.Any())
         {
@@ -245,9 +247,9 @@ public partial class MediaViewModel : BaseViewModel
         }
         if (totalServerCount > 0)
         {
-            StatusMessage = $"Added {existServer.Count}/{totalServerCount} Servers";
+            StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_AddedServer"), existServer.Count, totalServerCount);
         }
-        StatusTitle = $"{DataListACV?.Count} Local {PageType} Added";
+        StatusTitle = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_AddedServer"), DataListACV?.Count, PageType);
         IsActive = false;
     }
 
@@ -266,7 +268,7 @@ public partial class MediaViewModel : BaseViewModel
             var urls = ServerSettings.TVTimeServers.Where(x => x.ServerType == ApplicationHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
             IsStatusOpen = true;
             StatusSeverity = InfoBarSeverity.Informational;
-            StatusTitle = "Please Wait...";
+            StatusTitle = App.Current.Localizer.GetLocalizedString("MediaViewModel_DownloadServerStatusWait");
             StatusMessage = "";
             totalServerCount = urls.Count;
 
@@ -279,17 +281,17 @@ public partial class MediaViewModel : BaseViewModel
                 HtmlWeb web = new HtmlWeb();
                 HtmlDocument doc = await web.LoadFromWebAsync(item.Server);
 
-                StatusMessage = $"Working on {item.Title} - {index}/{urls.Count()}";
+                StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_DownloadServerStatusWorking"), item.Title, index, urls.Count());
                 if (doc.DocumentNode.InnerHtml is null)
                 {
                     continue;
                 }
                 string result = doc.DocumentNode?.InnerHtml?.ToString();
-                StatusMessage = $"Parsing {item.Title}";
+                StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_DownloadServerStatusParsing"), item.Title);
 
                 var details = GetServerDetails(result, item);
 
-                StatusMessage = $"Serializing {item.Title}";
+                StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_DownloadServerStatusSerializing"), item.Title);
 
                 var filePath = Path.Combine(Constants.ServerDirectoryPath, GetPageType(), $"{GetMD5Hash(item.Server)}.txt");
                 if (File.Exists(filePath))
@@ -307,11 +309,11 @@ public partial class MediaViewModel : BaseViewModel
                     existServer.Add(item.Server);
                 }
 
-                StatusMessage = $"{item.Title} Saved";
+                StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_DownloadServerStatusSaved"), item.Title);
             }
             IsActive = false;
-            StatusTitle = $"Updated Successfully: Added {existServer.Count}/{totalServerCount} Servers";
-            StatusMessage = "We Updated our Local Storage";
+            StatusTitle = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_DownloadServerStatusUpdated"), existServer.Count, totalServerCount);
+            StatusMessage = App.Current.Localizer.GetLocalizedString("MediaViewModel_DownloadServerStatusUpdatedLocal");
             StatusSeverity = InfoBarSeverity.Success;
             IsServerStatusOpen = true;
             InfoBadgeValue = existServer.Count;
@@ -320,7 +322,7 @@ public partial class MediaViewModel : BaseViewModel
         {
             InfoBadgeValue = existServer.Count;
             IsActive = false;
-            StatusTitle = $"Error: Added {existServer.Count}/{totalServerCount} Servers";
+            StatusTitle = string.Format(App.Current.Localizer.GetLocalizedString("MediaViewModel_DownloadServerStatusError"), existServer.Count, totalServerCount);
             StatusMessage = ex.Message;
             StatusSeverity = InfoBarSeverity.Error;
             IsServerStatusOpen = true;

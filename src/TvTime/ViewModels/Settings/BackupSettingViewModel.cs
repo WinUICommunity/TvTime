@@ -45,7 +45,7 @@ public partial class BackupSettingViewModel : ObservableObject
                     await outfile.WriteAsync(json);
                 }
 
-                StatusText = "Backup completed successfully";
+                StatusText = App.Current.Localizer.GetLocalizedString("BackupSettingViewModel_BackupServerCompleted");
                 StatusSeverity = InfoBarSeverity.Success;
             }
         }
@@ -85,7 +85,7 @@ public partial class BackupSettingViewModel : ObservableObject
                         ServerSettings.SubtitleServers = content;
                     }
 
-                    StatusText = "Restore completed successfully";
+                    StatusText = App.Current.Localizer.GetLocalizedString("BackupSettingViewModel_RestoreServerCompleted");
                     StatusSeverity = InfoBarSeverity.Success;
                 }
             }
@@ -117,7 +117,7 @@ public partial class BackupSettingViewModel : ObservableObject
                 {
                     await outfile.WriteAsync(json);
                 }
-                StatusText = "Backup completed successfully";
+                StatusText = App.Current.Localizer.GetLocalizedString("BackupSettingViewModel_BackupConfigCompleted");
                 StatusSeverity = InfoBarSeverity.Success;
             }
         }
@@ -149,7 +149,7 @@ public partial class BackupSettingViewModel : ObservableObject
                 {
                     Settings = content;
                     Settings.Save();
-                    StatusText = "Restore completed successfully";
+                    StatusText = App.Current.Localizer.GetLocalizedString("BackupSettingViewModel_RestoreConfigCompleted");
                     StatusSeverity = InfoBarSeverity.Success;
                 }
             }

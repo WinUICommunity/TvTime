@@ -153,6 +153,27 @@
   <data name="AppUpdateSettingPage_ReleaseNotes.Content" xml:space="preserve">
     <value>یادداشت انتشار</value>
   </data>
+  <data name="AppUpdateSettingViewModel_CurrentVersion" xml:space="preserve">
+    <value>نسخه فعلی v{0}</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_ReleaseNoteContentDialogCloseButton" xml:space="preserve">
+    <value>بستن</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_ReleaseNoteContentDialogTitle" xml:space="preserve">
+    <value>یادداشت های انتشار</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_StatusCheckUpdate" xml:space="preserve">
+    <value>در حال بررسی به‌روزرسانی‌های جدید</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_StatusErrorConnection" xml:space="preserve">
+    <value>خطا در اتصال</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_StatusLatestVersion" xml:space="preserve">
+    <value>شما از آخرین نسخه استفاده می کنید.</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_StatusUpdateFound" xml:space="preserve">
+    <value>ما یک نسخه جدید {0} پیدا کردیم که در {1} ایجاد و در {2} منتشر شد</value>
+  </data>
   <data name="BackupSettingPage_InfoBarTitle.Title" xml:space="preserve">
     <value>عنوان</value>
   </data>
@@ -210,8 +231,29 @@
   <data name="BackupSettingPage_TvTimeRestore.Header" xml:space="preserve">
     <value>بازیابی تنظیمات برنامه</value>
   </data>
+  <data name="BackupSettingViewModel_BackupConfigCompleted" xml:space="preserve">
+    <value>پشتیبان گیری با موفقیت انجام شد</value>
+  </data>
+  <data name="BackupSettingViewModel_BackupServerCompleted" xml:space="preserve">
+    <value>پشتیبان گیری با موفقیت انجام شد</value>
+  </data>
+  <data name="BackupSettingViewModel_RestoreConfigCompleted" xml:space="preserve">
+    <value>بازیابی با موفقیت انجام شد</value>
+  </data>
+  <data name="BackupSettingViewModel_RestoreServerCompleted" xml:space="preserve">
+    <value>بازیابی با موفقیت انجام شد</value>
+  </data>
   <data name="BreadCrumbBarRootText" xml:space="preserve">
     <value>تنظیمات</value>
+  </data>
+  <data name="Constants_AllFilter" xml:space="preserve">
+    <value>همه</value>
+  </data>
+  <data name="Constants_InternetNotAvailable" xml:space="preserve">
+    <value>وای نه! شما به اینترنت متصل نیستید.</value>
+  </data>
+  <data name="Constants_SubtitleNotFound" xml:space="preserve">
+    <value>زیرنویس پیدا نشد یا سرور در دسترس نیست، لطفا دوباره امتحان کنید!</value>
   </data>
   <data name="DescriptionStyleSettingPage_BreadCrumbBar" xml:space="preserve">
     <value>استایل توضیحات</value>
@@ -474,6 +516,66 @@
     <value>بروزرسانی</value>
     <comment>Segmented Control</comment>
   </data>
+  <data name="MediaViewModel_AddedLocalServer" xml:space="preserve">
+    <value>{0} محلی {1} اضافه شد</value>
+  </data>
+  <data name="MediaViewModel_AddedServer" xml:space="preserve">
+    <value>{0} سرور از {1} سرور اضافه شد</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogAddServerTitle" xml:space="preserve">
+    <value>افزودن سرورهای جدید</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogInfoBarMessage" xml:space="preserve">
+    <value>آیا می خواهید به صفحه سرورها بروید و چند سرور اضافه کنید؟</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogInfoBarPrimaryButton" xml:space="preserve">
+    <value>به سرورها بروید</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogInfoBarSecondaryButton" xml:space="preserve">
+    <value>لغو کنید</value>
+  </data>
+  <data name="MediaViewModel_ContentDialogInfoBarTitle" xml:space="preserve">
+    <value>هیچ سروری پیدا نشد، لطفا ابتدا چند سرور اضافه کنید</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusError" xml:space="preserve">
+    <value>خطا: {0} سرور از {1} سرور اضافه شد</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusParsing" xml:space="preserve">
+    <value>تجزیه {0}</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusSaved" xml:space="preserve">
+    <value>ذخیره شد {0}</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusSerializing" xml:space="preserve">
+    <value>تجزیه {0}</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusUpdated" xml:space="preserve">
+    <value>با موفقیت به روز شد: سرورهای {0}/{1} اضافه شدند</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusUpdatedLocal" xml:space="preserve">
+    <value>ما فضای ذخیره‌سازی محلی خود را به‌روزرسانی کردیم</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusWait" xml:space="preserve">
+    <value>لطفا صبر کنید...</value>
+  </data>
+  <data name="MediaViewModel_DownloadServerStatusWorking" xml:space="preserve">
+    <value>در حال کار بر روی {0} - {1}/{2}</value>
+  </data>
+  <data name="MediaViewModel_LoadingLocal" xml:space="preserve">
+    <value>در حال بارگیری محلی {0}...</value>
+  </data>
+  <data name="MediaViewModel_ServerStatus" xml:space="preserve">
+    <value>وضعیت سرور - {0} سرور اضافه شد</value>
+  </data>
+  <data name="MediaViewModel_ServerStatusPrimaryButton" xml:space="preserve">
+    <value>باشه</value>
+  </data>
+  <data name="MediaViewModel_StatusNoServerMessage" xml:space="preserve">
+    <value>هیچ سروری پیدا نشد، لطفا ابتدا چند سرور اضافه کنید</value>
+  </data>
+  <data name="MediaViewModel_StatusNoServerTitle" xml:space="preserve">
+    <value>سرور یافت نشد</value>
+  </data>
   <data name="NoItemUC_NoItem.Text" xml:space="preserve">
     <value>موردی پیدا نشد!</value>
   </data>
@@ -499,6 +601,21 @@
     <value>تمام سرورها را پاک کنید</value>
     <comment>SettingsCard</comment>
   </data>
+  <data name="ServerUC_ClearContentDialogCloseButton" xml:space="preserve">
+    <value>خیر</value>
+  </data>
+  <data name="ServerUC_ClearContentDialogContent" xml:space="preserve">
+    <value>آیا مطمئن هستید که همه سرورها را پاک می کنید؟</value>
+  </data>
+  <data name="ServerUC_ClearContentDialogPrimaryButton" xml:space="preserve">
+    <value>بله</value>
+  </data>
+  <data name="ServerUC_ClearContentDialogStatus" xml:space="preserve">
+    <value>همه سرورها با موفقیت حذف شدند</value>
+  </data>
+  <data name="ServerUC_ClearContentDialogTitle" xml:space="preserve">
+    <value>پاک کردن همه سرورها</value>
+  </data>
   <data name="ServerUC_LoadButton.Content" xml:space="preserve">
     <value>بارگذاری سرورهای از پیش تعریف شده</value>
   </data>
@@ -509,6 +626,21 @@
   <data name="ServerUC_LoadCard.Header" xml:space="preserve">
     <value>بارگذاری سرورهای از پیش تعریف شده</value>
     <comment>SettingsCard</comment>
+  </data>
+  <data name="ServerUC_LoadContentDialogCloseButton" xml:space="preserve">
+    <value>خیر</value>
+  </data>
+  <data name="ServerUC_LoadContentDialogContent" xml:space="preserve">
+    <value>آیا مطمئن هستید که سرورهای از پیش تعریف شده را بارگیری می کنید؟ این همه سرورهای شما را بازنویسی می کند!</value>
+  </data>
+  <data name="ServerUC_LoadContentDialogPrimaryButton" xml:space="preserve">
+    <value>بله</value>
+  </data>
+  <data name="ServerUC_LoadContentDialogStatus" xml:space="preserve">
+    <value>سرورهای از پیش تعریف شده با موفقیت بارگیری شدند</value>
+  </data>
+  <data name="ServerUC_LoadContentDialogTitle" xml:space="preserve">
+    <value>بارگذاری سرورهای از پیش تعریف شده</value>
   </data>
   <data name="ServerUC_SettingGroup.Header" xml:space="preserve">
     <value>سرورهای TvTime</value>
@@ -521,6 +653,60 @@
   <data name="ServerUC_SettingServer.Header" xml:space="preserve">
     <value>سرورها</value>
     <comment>SettingsExpander</comment>
+  </data>
+  <data name="ServerViewModel_AddedStatus" xml:space="preserve">
+    <value>سرور جدید با موفقیت اضافه شد</value>
+  </data>
+  <data name="ServerViewModel_AddStatusTitle" xml:space="preserve">
+    <value>سرور جدید اضافه کنید</value>
+  </data>
+  <data name="ServerViewModel_CanNotAddStatus" xml:space="preserve">
+    <value>سرور اضافه نمی شود</value>
+  </data>
+  <data name="ServerViewModel_CanNotUpdateServerStatus" xml:space="preserve">
+    <value>سرور آپدیت نمیشه</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogCloseButton" xml:space="preserve">
+    <value>لغو کنید</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogComboBoxHeader" xml:space="preserve">
+    <value>سریال، فیلم یا انیمیشن را انتخاب کنید</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogComboBoxPlaceholder" xml:space="preserve">
+    <value>سریال، فیلم یا انیمیشن را انتخاب کنید</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogPrimaryButton" xml:space="preserve">
+    <value>ذخیره تغییرات</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogServerHeader" xml:space="preserve">
+    <value>آدرس سرور</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogServerPlaceholder" xml:space="preserve">
+    <value>عنوان سرور</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogServerTitle" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogServerUrlPlaceholder" xml:space="preserve">
+    <value>آدرس سرور</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogToggleSwitchHeader" xml:space="preserve">
+    <value>سرور را فعال کنید</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogToggleSwitchOffContent" xml:space="preserve">
+    <value>غیرفعال</value>
+  </data>
+  <data name="ServerViewModel_CreateContentDialogToggleSwitchOnContent" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="ServerViewModel_RemoveStatus" xml:space="preserve">
+    <value>سرور انتخاب شده با موفقیت حذف شد</value>
+  </data>
+  <data name="ServerViewModel_UpdateServerStatus" xml:space="preserve">
+    <value>سرور با موفقیت تغییر کرد</value>
+  </data>
+  <data name="ServerViewModel_UpdateStatusTitle" xml:space="preserve">
+    <value>به روز رسانی سرور</value>
   </data>
   <data name="SettingsPage_AboutSetting.Description" xml:space="preserve">
     <value>درباره TvTime و توسعه دهنده</value>
@@ -590,9 +776,30 @@
     <value>بروزرسانی</value>
     <comment>Segmented Control</comment>
   </data>
+  <data name="SubsceneDetailViewModel_StatusError" xml:space="preserve">
+    <value>خطا</value>
+  </data>
+  <data name="SubsceneDetailViewModel_StatusParsing" xml:space="preserve">
+    <value>تجزیه {0}</value>
+  </data>
+  <data name="SubsceneDetailViewModel_StatusUpdated" xml:space="preserve">
+    <value>با موفقیت به روز شد</value>
+  </data>
+  <data name="SubsceneDetailViewModel_StatusWait" xml:space="preserve">
+    <value>لطفا صبر کنید...</value>
+  </data>
+  <data name="SubsceneDetailViewModel_StatusWorking" xml:space="preserve">
+    <value>در حال کار بر روی {0}</value>
+  </data>
   <data name="SubscenePage_RefreshItem.Content" xml:space="preserve">
     <value>بروزرسانی</value>
     <comment>Segmented Control</comment>
+  </data>
+  <data name="SubsceneViewModel_StatusError" xml:space="preserve">
+    <value>خطا</value>
+  </data>
+  <data name="SubsceneViewModel_StatusWait" xml:space="preserve">
+    <value>لطفا صبر کنید...</value>
   </data>
   <data name="SubtitleSettingPage_AutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>چند زبان جدید اضافه کنید [برای افزودن اینتر را فشار دهید]</value>
@@ -605,6 +812,18 @@
   </data>
   <data name="SubtitleSettingPage_InfoBarTitle.Title" xml:space="preserve">
     <value>عنوان</value>
+  </data>
+  <data name="SubtitleSettingPage_StatusLanguageAdded" xml:space="preserve">
+    <value>زبان با موفقیت اضافه شد!</value>
+  </data>
+  <data name="SubtitleSettingPage_StatusLanguageExist" xml:space="preserve">
+    <value>این زبان موجود است، زبان دیگری را امتحان کنید</value>
+  </data>
+  <data name="SubtitleSettingPage_StatusRemoved" xml:space="preserve">
+    <value>'{0}' حذف شد</value>
+  </data>
+  <data name="SubtitleSettingPage_StatusTextNull" xml:space="preserve">
+    <value>متن پوچ یا خالی است</value>
   </data>
   <data name="SubtitleSettingPage_SubtitleLanguageExpander.Description" xml:space="preserve">
     <value>زبان زیرنویس ها را مشخص کنید</value>

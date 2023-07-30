@@ -101,5 +101,24 @@ public sealed partial class ItemUserControl : UserControl
         {
             ActionIcon = new FontIcon { Glyph = "\ue974" };
         }
+
+        if (Settings.TvTimeLanguage.FlowDirection == FlowDirection.RightToLeft)
+        {
+            MenuCopy.FlowDirection = FlowDirection.RightToLeft;
+            MenuCopyAll.FlowDirection = FlowDirection.RightToLeft;
+            MenuDirectory.FlowDirection = FlowDirection.RightToLeft;
+            MenuDownload.FlowDirection = FlowDirection.RightToLeft;
+            MenuDownloadAll.FlowDirection = FlowDirection.RightToLeft;
+            MenuFile.FlowDirection = FlowDirection.RightToLeft;
+        }
+        else
+        {
+            MenuCopy.FlowDirection = FlowDirection.LeftToRight;
+            MenuCopyAll.FlowDirection = FlowDirection.LeftToRight;
+            MenuDirectory.FlowDirection = FlowDirection.LeftToRight;
+            MenuDownload.FlowDirection = FlowDirection.LeftToRight;
+            MenuDownloadAll.FlowDirection = FlowDirection.LeftToRight;
+            MenuFile.FlowDirection = FlowDirection.LeftToRight;
+        }
     }
 }

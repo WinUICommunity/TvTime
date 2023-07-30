@@ -87,15 +87,15 @@ public partial class DetailsViewModel : BaseViewModel
             IsActive = true;
             IsStatusOpen = true;
             StatusSeverity = InfoBarSeverity.Informational;
-            StatusTitle = "Please Wait...";
+            StatusTitle = App.Current.Localizer.GetLocalizedString("DetailsViewModel_StatusWait");
             StatusMessage = "";
             HtmlWeb web = new HtmlWeb();
             HtmlDocument doc = await web.LoadFromWebAsync(tvTimeItem.Server);
 
-            StatusMessage = $"Working on {tvTimeItem.Title}";
+            StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("DetailsViewModel_StatusWorking"), tvTimeItem.Title);
 
             string result = doc.DocumentNode?.InnerHtml?.ToString();
-            StatusMessage = $"Parsing {tvTimeItem.Title}";
+            StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("DetailsViewModel_StatusParsing"), tvTimeItem.Title);
 
             var details = GetServerDetails(result, tvTimeItem);
             DataList = new(details.Cast<ITvTimeModel>());
@@ -105,7 +105,7 @@ public partial class DetailsViewModel : BaseViewModel
             suggestList = DataListACV.Select(x => ((MediaItem) x).Title).ToList();
 
             IsActive = false;
-            StatusTitle = "Updated Successfully";
+            StatusTitle = App.Current.Localizer.GetLocalizedString("DetailsViewModel_StatusUpdated");
             StatusMessage = "";
             StatusSeverity = InfoBarSeverity.Success;
         }

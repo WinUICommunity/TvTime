@@ -47,7 +47,8 @@
                         </wuc:SettingsCard>
                     </wuc:SettingsExpander.Items>
                 </wuc:SettingsExpander>
-                <ListView ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}"
+                <ListView FlowDirection="LeftToRight"
+                          ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}"
                           SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate x:Name="SingleLineDataTemplate"

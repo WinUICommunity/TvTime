@@ -23,16 +23,16 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Labs.WinUI.TokenView" Version="0.0.6" />
     <PackageReference Include="CommunityToolkit.WinUI.UI" Version="7.1.2" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.49" />
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230602002" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.50" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230724000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
     <PackageReference Include="CommunityToolkit.Labs.WinUI.SegmentedControl" Version="0.0.3" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
-    <PackageReference Include="WinUICommunity.Components" Version="5.0.0" />
-    <PackageReference Include="WinUICommunity.Core" Version="5.0.0" />
+    <PackageReference Include="WinUICommunity.Components" Version="5.0.1" />
+    <PackageReference Include="WinUICommunity.Core" Version="5.0.1" />
     <PackageReference Include="WinUICommunity.LandingPages" Version="5.0.0" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>

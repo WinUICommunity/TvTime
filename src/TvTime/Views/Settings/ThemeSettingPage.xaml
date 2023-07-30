@@ -20,11 +20,11 @@
             <wuc:SettingsCard wuc:Localizer.Uid="ThemeSettingPage_AppearanceCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}">
                 <ComboBox x:Name="CmbTheme">
-                    <ComboBoxItem Content="Light"
+                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Light"
                                   Tag="Light" />
-                    <ComboBoxItem Content="Dark"
+                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Dark"
                                   Tag="Dark" />
-                    <ComboBoxItem Content="Default"
+                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Default"
                                   Tag="Default" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
@@ -39,11 +39,11 @@
             <wuc:SettingsCard wuc:Localizer.Uid="ThemeSettingPage_MaterialCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backdrop.png}">
                 <ComboBox x:Name="CmbBackdrop">
-                    <ComboBoxItem Content="Mica"
+                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Mica"
                                   Tag="Mica" />
-                    <ComboBoxItem Content="Mica Alt"
+                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_MicaAlt"
                                   Tag="MicaAlt" />
-                    <ComboBoxItem Content="Acrylic"
+                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Acrylic"
                                   Tag="DesktopAcrylic" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">

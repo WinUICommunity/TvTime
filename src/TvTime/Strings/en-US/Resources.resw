@@ -867,4 +867,28 @@
   <data name="ToggleSwitch.OnContent" xml:space="preserve">
     <value>On</value>
   </data>
+  <data name="GeneralSettingPage_IconPackFluent.Content" xml:space="preserve">
+    <value>Fluent</value>
+  </data>
+  <data name="GeneralSettingPage_IconPackGlyph.Content" xml:space="preserve">
+    <value>Glyph</value>
+  </data>
+  <data name="ThemeSettingPage_Acrylic.Content" xml:space="preserve">
+    <value>Acrylic</value>
+  </data>
+  <data name="ThemeSettingPage_Dark.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeSettingPage_Default.Content" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="ThemeSettingPage_Light.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ThemeSettingPage_Mica.Content" xml:space="preserve">
+    <value>Mica</value>
+  </data>
+  <data name="ThemeSettingPage_MicaAlt.Content" xml:space="preserve">
+    <value>MicaAlt</value>
+  </data>
 </root>

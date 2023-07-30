@@ -333,6 +333,12 @@
   <data name="GeneralSettingPage_IconPackCard.Header" xml:space="preserve">
     <value>بسته آیکون</value>
   </data>
+  <data name="GeneralSettingPage_IconPackFluent.Content" xml:space="preserve">
+    <value>فلوئنت</value>
+  </data>
+  <data name="GeneralSettingPage_IconPackGlyph.Content" xml:space="preserve">
+    <value>گلیف</value>
+  </data>
   <data name="GeneralSettingPage_IDMDownloadCard.Description" xml:space="preserve">
     <value>دانلود فایل ها با اینترنت دانلود منیجر (IDM) [در صورت وجود]</value>
   </data>
@@ -831,17 +837,35 @@
   <data name="SubtitleSettingPage_SubtitleLanguageExpander.Header" xml:space="preserve">
     <value>زبان زیرنویس</value>
   </data>
+  <data name="ThemeSettingPage_Acrylic.Content" xml:space="preserve">
+    <value>آکریلیک</value>
+  </data>
   <data name="ThemeSettingPage_AppearanceCard.Description" xml:space="preserve">
     <value>پوسته و متریال برنامه خود را انتخاب کنید</value>
   </data>
   <data name="ThemeSettingPage_AppearanceCard.Header" xml:space="preserve">
     <value>ظاهر و رفتار</value>
   </data>
+  <data name="ThemeSettingPage_Dark.Content" xml:space="preserve">
+    <value>تاریک</value>
+  </data>
+  <data name="ThemeSettingPage_Default.Content" xml:space="preserve">
+    <value>پیشفرض</value>
+  </data>
+  <data name="ThemeSettingPage_Light.Content" xml:space="preserve">
+    <value>روشن</value>
+  </data>
   <data name="ThemeSettingPage_MaterialCard.Description" xml:space="preserve">
     <value>تغییر پس زمینه برنامه</value>
   </data>
   <data name="ThemeSettingPage_MaterialCard.Header" xml:space="preserve">
     <value>متریال ها</value>
+  </data>
+  <data name="ThemeSettingPage_Mica.Content" xml:space="preserve">
+    <value>میکا</value>
+  </data>
+  <data name="ThemeSettingPage_MicaAlt.Content" xml:space="preserve">
+    <value>میکا آلت</value>
   </data>
   <data name="ThemeSettingPage_WindowColorCard.Description" xml:space="preserve">
     <value>رنگ لهجه ویندوز را تغییر دهید</value>

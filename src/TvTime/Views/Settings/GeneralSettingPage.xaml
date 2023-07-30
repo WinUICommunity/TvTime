@@ -80,9 +80,9 @@
             <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_IconPackCard"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}">
                 <ComboBox x:Name="CmbIconPack">
-                    <ComboBoxItem Content="Glyph"
+                    <ComboBoxItem wuc:Localizer.Uid="GeneralSettingPage_IconPackGlyph"
                                   Tag="Glyph" />
-                    <ComboBoxItem Content="Fluent"
+                    <ComboBoxItem wuc:Localizer.Uid="GeneralSettingPage_IconPackFluent"
                                   Tag="Fluent" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">

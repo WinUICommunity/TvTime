@@ -14,7 +14,7 @@
 	  <LangVersion>latest</LangVersion>
     <ApplicationIcon>Assets\Fluent\icon.ico</ApplicationIcon>
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-    <Version>2.3.0</Version>
+    <Version>2.4.0</Version>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <NoWarn>WMC1506;CS0628</NoWarn>
     <ExcludedLanguages>en-US;fa-IR</ExcludedLanguages>

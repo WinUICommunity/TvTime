@@ -24,6 +24,7 @@ public partial class LayoutSettingViewModel : ObservableObject
             if (pageType != null)
             {
                 SlideNavigationTransitionInfo entranceNavigation = new SlideNavigationTransitionInfo();
+                entranceNavigation.Effect = SlideNavigationTransitionEffect.FromRight;
                 JsonNavigationViewService.NavigateTo(pageType, item.Header, false, entranceNavigation);
             }
         }

@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   
 env:
-  PROJECT_PATH: TvTime/TvTime.csproj
+  PROJECT_PATH: src/TvTime/TvTime.csproj
   DIR_PATH: publish
   
 jobs:

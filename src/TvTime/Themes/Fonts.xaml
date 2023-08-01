@@ -2,10 +2,13 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <FontFamily x:Key="ContentControlThemeFontFamily">Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
+    <FontFamily x:Key="ContentControlThemeFontFamily">Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX</FontFamily>
     <FontFamily x:Key="VazirmatnBold">Assets/Fonts/Vazirmatn-Bold.ttf#Vazirmatn</FontFamily>
     <FontFamily x:Key="VazirmatnMedium">Assets/Fonts/Vazirmatn-Medium.ttf#Vazirmatn Medium</FontFamily>
     <FontFamily x:Key="VazirmatnRegular">Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
+    <FontFamily x:Key="IRANSansXBold">Assets/Fonts/IRANSansX-Bold.ttf#IRANSansX</FontFamily>
+    <FontFamily x:Key="IRANSansXMedium">Assets/Fonts/IRANSansX-Medium.ttf#IRANSansX Medium</FontFamily>
+    <FontFamily x:Key="IRANSansXRegular">Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX</FontFamily>
 
     <Style TargetType="InfoBar">
         <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />

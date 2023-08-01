@@ -9,7 +9,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="using:TvTime.Views"
              xmlns:wuc="using:WinUICommunity"
-             x:Name="This"
              x:DefaultBindMode="OneWay"
              mc:Ignorable="d">
 

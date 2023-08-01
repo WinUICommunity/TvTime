@@ -936,4 +936,25 @@
   <data name="Nav_Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="SubsceneViewModel_ContentDialogAddServerTitle" xml:space="preserve">
+    <value>Add New Servers</value>
+  </data>
+  <data name="SubsceneViewModel_ContentDialogInfoBarMessage" xml:space="preserve">
+    <value>Would you like to go to the servers page and add some servers?</value>
+  </data>
+  <data name="SubsceneViewModel_ContentDialogInfoBarPrimaryButton" xml:space="preserve">
+    <value>Go To Servers</value>
+  </data>
+  <data name="SubsceneViewModel_ContentDialogInfoBarSecondaryButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SubsceneViewModel_ContentDialogInfoBarTitle" xml:space="preserve">
+    <value>No servers found, please add some servers first</value>
+  </data>
+  <data name="SubsceneViewModel_StatusNoServerTitle" xml:space="preserve">
+    <value>No servers found, please add some servers first</value>
+  </data>
+  <data name="SubsceneViewModel_StatusNoServerMessage" xml:space="preserve">
+    <value>Server not found</value>
+  </data>
 </root>

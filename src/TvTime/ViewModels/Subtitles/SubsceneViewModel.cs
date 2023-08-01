@@ -28,6 +28,15 @@ public partial class SubsceneViewModel : BaseViewModel
 
         var defaultTokenItem = TokenList.FirstOrDefault(x => x.Content.ToString().Contains("subscene", StringComparison.OrdinalIgnoreCase));
         TokenItemSelectedIndex = TokenList.IndexOf(defaultTokenItem);
+
+        if (ServerSettings.SubtitleServers.Count == 0)
+        {
+            IsStatusOpen = true;
+            StatusTitle = App.Current.Localizer.GetLocalizedString("SubsceneViewModel_StatusNoServerTitle");
+            StatusMessage = App.Current.Localizer.GetLocalizedString("SubsceneViewModel_StatusNoServerMessage");
+            StatusSeverity = InfoBarSeverity.Warning;
+            GoToServerPage(JsonNavigationViewService, true);
+        }
     }
 
     #region Override Methods
@@ -71,6 +80,12 @@ public partial class SubsceneViewModel : BaseViewModel
         {
             try
             {
+                if (ServerSettings.SubtitleServers.Count == 0)
+                {
+                    GoToServerPage(JsonNavigationViewService, true);
+                    return;
+                }
+
                 IsActive = true;
                 IsStatusOpen = true;
                 StatusSeverity = InfoBarSeverity.Informational;

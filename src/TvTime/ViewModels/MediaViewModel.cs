@@ -54,7 +54,7 @@ public partial class MediaViewModel : BaseViewModel
             StatusMessage = App.Current.Localizer.GetLocalizedString("MediaViewModel_StatusNoServerMessage");
             StatusSeverity = InfoBarSeverity.Warning;
             IsServerStatusOpen = false;
-            GoToServerPage();
+            GoToServerPage(JsonNavigationViewService);
         }
     }
 
@@ -152,36 +152,6 @@ public partial class MediaViewModel : BaseViewModel
         await contentDialog.ShowAsyncQueue();
     }
 
-    private async void GoToServerPage()
-    {
-        ContentDialog contentDialog = new ContentDialog();
-        contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
-        contentDialog.Title = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogAddServerTitle");
-        var stck = new StackPanel
-        {
-            Spacing = 10,
-            Margin = new Thickness(10)
-        };
-
-        var infoBar = new InfoBar();
-        infoBar.Severity = InfoBarSeverity.Warning;
-        infoBar.Title = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogInfoBarTitle");
-        infoBar.Message = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogInfoBarMessage");
-        infoBar.IsOpen = true;
-        infoBar.IsClosable = false;
-        stck.Children.Add(infoBar);
-
-        contentDialog.Content = new ScrollViewer { Content = stck };
-        contentDialog.PrimaryButtonText = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogInfoBarPrimaryButton");
-        contentDialog.SecondaryButtonText = App.Current.Localizer.GetLocalizedString("MediaViewModel_ContentDialogInfoBarSecondaryButton");
-        contentDialog.PrimaryButtonClick += (s, e) =>
-        {
-            JsonNavigationViewService.NavigateTo(typeof(ServersPage));
-        };
-
-        await contentDialog.ShowAsyncQueue();
-    }
-
     private async void LoadLocalStorage()
     {
         IsActive = true;
@@ -261,7 +231,7 @@ public partial class MediaViewModel : BaseViewModel
         {
             if (ServerSettings.TVTimeServers.Count == 0)
             {
-                GoToServerPage();
+                GoToServerPage(JsonNavigationViewService);
                 return;
             }
 

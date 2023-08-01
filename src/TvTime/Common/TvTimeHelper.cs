@@ -8,6 +8,7 @@ using Nucs.JsonSettings.Fluent;
 using Nucs.JsonSettings.Modulation;
 using Nucs.JsonSettings.Modulation.Recovery;
 
+using TvTime.Models;
 using TvTime.ViewModels;
 
 namespace TvTime.Common;
@@ -309,4 +310,43 @@ public static partial class TvTimeHelper
 
     [GeneratedRegex("[ ]{2,}")]
     private static partial Regex CleanRegex();
+
+    public static async void GoToServerPage(IJsonNavigationViewService jsonNavigationViewService, bool isSubtitle = false)
+    {
+        ContentDialog contentDialog = new ContentDialog();
+        var infoBar = new InfoBar();
+        contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
+
+        var serverType = "Media";
+        if (isSubtitle)
+        {
+            serverType = "Subscene";
+        }
+        contentDialog.Title = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogAddServerTitle");
+        infoBar.Title = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogInfoBarTitle");
+        infoBar.Message = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogInfoBarMessage");
+        contentDialog.PrimaryButtonText = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogInfoBarPrimaryButton");
+        contentDialog.SecondaryButtonText = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogInfoBarSecondaryButton");
+
+        var stck = new StackPanel
+        {
+            Spacing = 10,
+            Margin = new Thickness(10)
+        };
+
+        infoBar.Severity = InfoBarSeverity.Warning;
+        
+        infoBar.IsOpen = true;
+        infoBar.IsClosable = false;
+        stck.Children.Add(infoBar);
+
+        contentDialog.Content = new ScrollViewer { Content = stck };
+        
+        contentDialog.PrimaryButtonClick += (s, e) =>
+        {
+            jsonNavigationViewService.NavigateTo(typeof(ServersPage));
+        };
+
+        await contentDialog.ShowAsyncQueue();
+    }
 }

@@ -936,4 +936,25 @@
   <data name="ToggleSwitch.OnContent" xml:space="preserve">
     <value>فعال</value>
   </data>
+  <data name="SubsceneViewModel_ContentDialogAddServerTitle" xml:space="preserve">
+    <value>افزودن سرورهای جدید</value>
+  </data>
+  <data name="SubsceneViewModel_ContentDialogInfoBarMessage" xml:space="preserve">
+    <value>آیا می خواهید به صفحه سرورها بروید و چند سرور اضافه کنید؟</value>
+  </data>
+  <data name="SubsceneViewModel_ContentDialogInfoBarPrimaryButton" xml:space="preserve">
+    <value>به سرورها بروید</value>
+  </data>
+  <data name="SubsceneViewModel_ContentDialogInfoBarSecondaryButton" xml:space="preserve">
+    <value>لغو کنید</value>
+  </data>
+  <data name="SubsceneViewModel_ContentDialogInfoBarTitle" xml:space="preserve">
+    <value>هیچ سروری پیدا نشد، لطفا ابتدا چند سرور اضافه کنید</value>
+  </data>
+  <data name="SubsceneViewModel_StatusNoServerMessage" xml:space="preserve">
+    <value>سرور یافت نشد</value>
+  </data>
+  <data name="SubsceneViewModel_StatusNoServerTitle" xml:space="preserve">
+    <value>هیچ سروری پیدا نشد، لطفا ابتدا چند سرور اضافه کنید</value>
+  </data>
 </root>

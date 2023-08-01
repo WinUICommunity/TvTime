@@ -16,7 +16,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
 
     public override void OnPageLoaded(object param)
     {
-        var languageTokens = SubtitleLanguageCollection()
+        var languageTokens = Settings.SubtitleLanguagesCollection
             .Select(x => new TokenItem { Content = x });
 
         LanguageTokenList = new(languageTokens);

@@ -315,6 +315,18 @@
     <value>بروزرسانی</value>
     <comment>Segmented Control</comment>
   </data>
+  <data name="DetailsViewModel_StatusParsing" xml:space="preserve">
+    <value>تجزیه {0}</value>
+  </data>
+  <data name="DetailsViewModel_StatusUpdated" xml:space="preserve">
+    <value>با موفقیت به روز شد</value>
+  </data>
+  <data name="DetailsViewModel_StatusWait" xml:space="preserve">
+    <value>لطفا صبر کنید...</value>
+  </data>
+  <data name="DetailsViewModel_StatusWorking" xml:space="preserve">
+    <value>در حال کار بر روی {0}</value>
+  </data>
   <data name="GeneralSettingPage_DoubleClickNavigationCard.Description" xml:space="preserve">
     <value>با دوبار کلیک ماوس به صفحات بروید</value>
   </data>

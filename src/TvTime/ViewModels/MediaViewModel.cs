@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Labs.WinUI;
 
+using Microsoft.UI.Xaml.Media.Animation;
+
 using static WinUICommunity.LanguageDictionary;
 
 namespace TvTime.ViewModels;
@@ -72,7 +74,7 @@ public partial class MediaViewModel : BaseViewModel
             Title = headerText,
             ServerType = ApplicationHelper.GetEnum<ServerType>(PageType.ToString())
         };
-        JsonNavigationViewService.NavigateTo(typeof(DetailPage), media);
+        JsonNavigationViewService.NavigateTo(typeof(DetailPage), media, false, new DrillInNavigationTransitionInfo());
     }
 
     public override void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)

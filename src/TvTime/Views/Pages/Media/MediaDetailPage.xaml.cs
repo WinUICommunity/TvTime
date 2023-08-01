@@ -2,13 +2,13 @@
 
 namespace TvTime.Views;
 
-public sealed partial class DetailPage : Page
+public sealed partial class MediaDetailPage : Page
 {
-    public static DetailPage Instance { get; set; }
-    public DetailsViewModel ViewModel { get; }
-    public DetailPage()
+    public static MediaDetailPage Instance { get; set; }
+    public MediaDetailsViewModel ViewModel { get; }
+    public MediaDetailPage()
     {
-        ViewModel = App.GetService<DetailsViewModel>();
+        ViewModel = App.GetService<MediaDetailsViewModel>();
         this.InitializeComponent();
         Instance = this;
         DataContext = this;

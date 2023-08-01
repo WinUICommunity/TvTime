@@ -1,5 +1,5 @@
 ﻿namespace TvTime.ViewModels;
-public partial class DetailsViewModel : BaseViewModel
+public partial class MediaDetailsViewModel : BaseViewModel
 {
     [ObservableProperty]
     public ObservableCollection<ITvTimeModel> breadcrumbBarList = new();
@@ -87,15 +87,15 @@ public partial class DetailsViewModel : BaseViewModel
             IsActive = true;
             IsStatusOpen = true;
             StatusSeverity = InfoBarSeverity.Informational;
-            StatusTitle = App.Current.Localizer.GetLocalizedString("DetailsViewModel_StatusWait");
+            StatusTitle = App.Current.Localizer.GetLocalizedString("MediaDetailsViewModel_StatusWait");
             StatusMessage = "";
             HtmlWeb web = new HtmlWeb();
             HtmlDocument doc = await web.LoadFromWebAsync(tvTimeItem.Server);
 
-            StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("DetailsViewModel_StatusWorking"), tvTimeItem.Title);
+            StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("MediaDetailsViewModel_StatusWorking"), tvTimeItem.Title);
 
             string result = doc.DocumentNode?.InnerHtml?.ToString();
-            StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("DetailsViewModel_StatusParsing"), tvTimeItem.Title);
+            StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("MediaDetailsViewModel_StatusParsing"), tvTimeItem.Title);
 
             var details = GetServerDetails(result, tvTimeItem);
             DataList = new(details.Cast<ITvTimeModel>());
@@ -105,7 +105,7 @@ public partial class DetailsViewModel : BaseViewModel
             suggestList = DataListACV.Select(x => ((MediaItem) x).Title).ToList();
 
             IsActive = false;
-            StatusTitle = App.Current.Localizer.GetLocalizedString("DetailsViewModel_StatusUpdated");
+            StatusTitle = App.Current.Localizer.GetLocalizedString("MediaDetailsViewModel_StatusUpdated");
             StatusMessage = "";
             StatusSeverity = InfoBarSeverity.Success;
         }

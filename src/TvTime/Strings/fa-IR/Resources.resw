@@ -303,28 +303,28 @@
   <data name="DescriptionStyleSettingPage_PreviewDescription.Text" xml:space="preserve">
     <value>پیش نمایش توضیحات</value>
   </data>
-  <data name="DetailPage_DownloadItem.Content" xml:space="preserve">
+  <data name="MediaDetailPage_DownloadItem.Content" xml:space="preserve">
     <value>دانلود همه</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="DetailPage_IMDBItem.Content" xml:space="preserve">
+  <data name="MediaDetailPage_IMDBItem.Content" xml:space="preserve">
     <value>جزئیات IMDB را دریافت کنید</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="DetailPage_RefreshItem.Content" xml:space="preserve">
+  <data name="MediaDetailPage_RefreshItem.Content" xml:space="preserve">
     <value>بروزرسانی</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="DetailsViewModel_StatusParsing" xml:space="preserve">
+  <data name="MediaDetailsViewModel_StatusParsing" xml:space="preserve">
     <value>تجزیه {0}</value>
   </data>
-  <data name="DetailsViewModel_StatusUpdated" xml:space="preserve">
+  <data name="MediaDetailsViewModel_StatusUpdated" xml:space="preserve">
     <value>با موفقیت به روز شد</value>
   </data>
-  <data name="DetailsViewModel_StatusWait" xml:space="preserve">
+  <data name="MediaDetailsViewModel_StatusWait" xml:space="preserve">
     <value>لطفا صبر کنید...</value>
   </data>
-  <data name="DetailsViewModel_StatusWorking" xml:space="preserve">
+  <data name="MediaDetailsViewModel_StatusWorking" xml:space="preserve">
     <value>در حال کار بر روی {0}</value>
   </data>
   <data name="GeneralSettingPage_DoubleClickNavigationCard.Description" xml:space="preserve">

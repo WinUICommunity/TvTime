@@ -29,7 +29,7 @@ public sealed partial class MainPage : Page
         NavFrame.Navigating += (s, e) =>
         {
             var page = NavFrame.Content as Page;
-            if (page != null && e.SourcePageType != typeof(DetailPage))
+            if (page != null && e.SourcePageType != typeof(MediaDetailPage))
             {
                 page.NavigationCacheMode = NavigationCacheMode.Disabled;
                 if (MediaPage.Instance != null && CanDisableCache(e.Parameter, MediaPage.Instance.PageType.ToString()))
@@ -158,9 +158,9 @@ public sealed partial class MainPage : Page
         {
             viewModel = MediaPage.Instance.ViewModel;
         }
-        else if (rootFrame.Content is DetailPage)
+        else if (rootFrame.Content is MediaDetailPage)
         {
-            viewModel = DetailPage.Instance.ViewModel;
+            viewModel = MediaDetailPage.Instance.ViewModel;
         }
         else if (rootFrame.Content is ServersPage)
         {

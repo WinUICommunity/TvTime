@@ -1,4 +1,4 @@
-﻿<Page x:Class="TvTime.Views.DetailPage"
+﻿<Page x:Class="TvTime.Views.MediaDetailPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -75,14 +75,14 @@
 
         <labs:Segmented x:Name="Segmented"
                         Margin="10,10,0,0">
-            <labs:SegmentedItem wuc:Localizer.Uid="DetailPage_RefreshItem"
+            <labs:SegmentedItem wuc:Localizer.Uid="MediaDetailPage_RefreshItem"
                                 Icon="{wuc:SymbolIcon Symbol=Refresh}"
                                 IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
                                 Tag="Refresh" />
-            <labs:SegmentedItem wuc:Localizer.Uid="DetailPage_IMDBItem"
+            <labs:SegmentedItem wuc:Localizer.Uid="MediaDetailPage_IMDBItem"
                                 Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
                                 Tag="IMDBDetails" />
-            <labs:SegmentedItem wuc:Localizer.Uid="DetailPage_DownloadItem"
+            <labs:SegmentedItem wuc:Localizer.Uid="MediaDetailPage_DownloadItem"
                                 Icon="{wuc:SymbolIcon Symbol=Download}"
                                 Tag="DownloadAll" />
             <i:Interaction.Behaviors>

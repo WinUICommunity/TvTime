@@ -74,7 +74,7 @@ public partial class MediaViewModel : BaseViewModel
             Title = headerText,
             ServerType = ApplicationHelper.GetEnum<ServerType>(PageType.ToString())
         };
-        JsonNavigationViewService.NavigateTo(typeof(DetailPage), media, false, new DrillInNavigationTransitionInfo());
+        JsonNavigationViewService.NavigateTo(typeof(MediaDetailPage), media, false, new DrillInNavigationTransitionInfo());
     }
 
     public override void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)

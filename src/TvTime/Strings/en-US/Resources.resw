@@ -117,15 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DetailPage_RefreshItem.Content" xml:space="preserve">
+  <data name="MediaDetailPage_RefreshItem.Content" xml:space="preserve">
     <value>Refresh</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="DetailPage_IMDBItem.Content" xml:space="preserve">
+  <data name="MediaDetailPage_IMDBItem.Content" xml:space="preserve">
     <value>Get IMDB Details</value>
     <comment>Segmented Control</comment>
   </data>
-  <data name="DetailPage_DownloadItem.Content" xml:space="preserve">
+  <data name="MediaDetailPage_DownloadItem.Content" xml:space="preserve">
     <value>Download All</value>
     <comment>Segmented Control</comment>
   </data>
@@ -639,16 +639,16 @@
   <data name="Constants_SubtitleNotFound" xml:space="preserve">
     <value>Subtitles not found or server is unavailable, please try again!</value>
   </data>
-  <data name="DetailsViewModel_StatusParsing" xml:space="preserve">
+  <data name="MediaDetailsViewModel_StatusParsing" xml:space="preserve">
     <value>Parsing {0}</value>
   </data>
-  <data name="DetailsViewModel_StatusUpdated" xml:space="preserve">
+  <data name="MediaDetailsViewModel_StatusUpdated" xml:space="preserve">
     <value>Updated Successfully</value>
   </data>
-  <data name="DetailsViewModel_StatusWait" xml:space="preserve">
+  <data name="MediaDetailsViewModel_StatusWait" xml:space="preserve">
     <value>Please Wait...</value>
   </data>
-  <data name="DetailsViewModel_StatusWorking" xml:space="preserve">
+  <data name="MediaDetailsViewModel_StatusWorking" xml:space="preserve">
     <value>Working on {0}</value>
   </data>
   <data name="AppUpdateSettingViewModel_CurrentVersion" xml:space="preserve">

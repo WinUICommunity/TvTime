@@ -26,10 +26,10 @@ public sealed partial class ServerUserControl : UserControl
     {
         ContentDialog contentDialog = new ContentDialog();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
-        contentDialog.Title = App.Current.Localizer.GetLocalizedString("ServerUC_LoadContentDialogTitle");
-        contentDialog.Content = App.Current.Localizer.GetLocalizedString("ServerUC_LoadContentDialogContent");
-        contentDialog.PrimaryButtonText = App.Current.Localizer.GetLocalizedString("ServerUC_LoadContentDialogPrimaryButton");
-        contentDialog.CloseButtonText = App.Current.Localizer.GetLocalizedString("ServerUC_LoadContentDialogCloseButton");
+        contentDialog.Title = App.Current.ResourceHelper.GetString("ServerUC_LoadContentDialogTitle");
+        contentDialog.Content = App.Current.ResourceHelper.GetString("ServerUC_LoadContentDialogContent");
+        contentDialog.PrimaryButtonText = App.Current.ResourceHelper.GetString("ServerUC_LoadContentDialogPrimaryButton");
+        contentDialog.CloseButtonText = App.Current.ResourceHelper.GetString("ServerUC_LoadContentDialogCloseButton");
         contentDialog.PrimaryButtonClick += async (s, e) =>
         {
             if (IsMediaServer)
@@ -64,7 +64,7 @@ public sealed partial class ServerUserControl : UserControl
                     ServerSettings.SubtitleServers = content;
                 }
                 ViewModel.DataListACV = new(content);
-                Status.Title = App.Current.Localizer.GetLocalizedString("ServerUC_LoadContentDialogStatus");
+                Status.Title = App.Current.ResourceHelper.GetString("ServerUC_LoadContentDialogStatus");
                 Status.Severity = InfoBarSeverity.Success;
                 Status.IsOpen = true;
             }
@@ -77,10 +77,10 @@ public sealed partial class ServerUserControl : UserControl
     {
         ContentDialog contentDialog = new ContentDialog();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
-        contentDialog.Title = App.Current.Localizer.GetLocalizedString("ServerUC_ClearContentDialogTitle");
-        contentDialog.Content = App.Current.Localizer.GetLocalizedString("ServerUC_ClearContentDialogContent");
-        contentDialog.PrimaryButtonText = App.Current.Localizer.GetLocalizedString("ServerUC_ClearContentDialogPrimaryButton");
-        contentDialog.CloseButtonText = App.Current.Localizer.GetLocalizedString("ServerUC_ClearContentDialogCloseButton");
+        contentDialog.Title = App.Current.ResourceHelper.GetString("ServerUC_ClearContentDialogTitle");
+        contentDialog.Content = App.Current.ResourceHelper.GetString("ServerUC_ClearContentDialogContent");
+        contentDialog.PrimaryButtonText = App.Current.ResourceHelper.GetString("ServerUC_ClearContentDialogPrimaryButton");
+        contentDialog.CloseButtonText = App.Current.ResourceHelper.GetString("ServerUC_ClearContentDialogCloseButton");
         contentDialog.PrimaryButtonClick += (s, e) =>
         {
             if (IsMediaServer)
@@ -93,7 +93,7 @@ public sealed partial class ServerUserControl : UserControl
             }
 
             ViewModel.DataListACV?.Clear();
-            Status.Title = App.Current.Localizer.GetLocalizedString("ServerUC_ClearContentDialogStatus");
+            Status.Title = App.Current.ResourceHelper.GetString("ServerUC_ClearContentDialogStatus");
             Status.Severity = InfoBarSeverity.Success;
             Status.IsOpen = true;
         };

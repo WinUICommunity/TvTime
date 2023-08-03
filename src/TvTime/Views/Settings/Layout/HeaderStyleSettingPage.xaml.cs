@@ -10,7 +10,7 @@ public sealed partial class HeaderStyleSettingPage : Page
     {
         ViewModel = App.GetService<HeaderStyleSettingViewModel>();
         LayoutSettingViewModel = LayoutSettingPage.Instance.ViewModel;
-        LayoutSettingViewModel.BreadCrumbBarCollection.Add(App.Current.Localizer.GetLocalizedString("HeaderStyleSettingPage_BreadCrumbBar"));
+        LayoutSettingViewModel.BreadCrumbBarCollection.Add(App.Current.ResourceHelper.GetString("HeaderStyleSettingPage_BreadCrumbBar"));
         this.InitializeComponent();
         Loaded += HeaderStyleSettingPage_Loaded;
     }

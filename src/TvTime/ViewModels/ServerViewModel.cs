@@ -47,7 +47,7 @@ public partial class ServerViewModel : BaseViewModel
                 }
 
                 StatusSeverity = InfoBarSeverity.Success;
-                StatusMessage = App.Current.Localizer.GetLocalizedString("ServerViewModel_RemoveStatus");
+                StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_RemoveStatus");
                 IsStatusOpen = true;
             }
         }
@@ -58,7 +58,7 @@ public partial class ServerViewModel : BaseViewModel
     {
         var inputDialog = CreateContentDialog("", "", -1, null, true);
 
-        inputDialog.Title = App.Current.Localizer.GetLocalizedString("ServerViewModel_AddStatusTitle");
+        inputDialog.Title = App.Current.ResourceHelper.GetString("ServerViewModel_AddStatusTitle");
         inputDialog.PrimaryButtonClick += (s, e) =>
         {
             if (IsMediaServer && ComboBoxSelectedItem == null)
@@ -93,13 +93,13 @@ public partial class ServerViewModel : BaseViewModel
                 }
 
                 StatusSeverity = InfoBarSeverity.Success;
-                StatusMessage = App.Current.Localizer.GetLocalizedString("ServerViewModel_AddedStatus");
+                StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_AddedStatus");
                 IsStatusOpen = true;
             }
             else
             {
                 StatusSeverity = InfoBarSeverity.Error;
-                StatusMessage = App.Current.Localizer.GetLocalizedString("ServerViewModel_CanNotAddStatus");
+                StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_CanNotAddStatus");
                 IsStatusOpen = true;
             }
         };
@@ -115,7 +115,7 @@ public partial class ServerViewModel : BaseViewModel
         {
             var item = btn.DataContext as ServerModel;
             var inputDialog = CreateContentDialog(item.Title, item.Server, (int) item.ServerType, null, item.IsActive);
-            inputDialog.Title = App.Current.Localizer.GetLocalizedString("ServerViewModel_UpdateStatusTitle");
+            inputDialog.Title = App.Current.ResourceHelper.GetString("ServerViewModel_UpdateStatusTitle");
             inputDialog.PrimaryButtonClick += (s, e) =>
             {
                 if (IsMediaServer && ComboBoxSelectedItem == null)
@@ -151,13 +151,13 @@ public partial class ServerViewModel : BaseViewModel
                     }
 
                     StatusSeverity = InfoBarSeverity.Success;
-                    StatusMessage = App.Current.Localizer.GetLocalizedString("ServerViewModel_UpdateServerStatus");
+                    StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_UpdateServerStatus");
                     IsStatusOpen = true;
                 }
                 else
                 {
                     StatusSeverity = InfoBarSeverity.Error;
-                    StatusMessage = App.Current.Localizer.GetLocalizedString("ServerViewModel_CanNotUpdateServerStatus");
+                    StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_CanNotUpdateServerStatus");
                     IsStatusOpen = true;
                 }
             };
@@ -180,9 +180,9 @@ public partial class ServerViewModel : BaseViewModel
     {
         var inputDialog = new ContentDialog
         {
-            CloseButtonText = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogCloseButton"),
+            CloseButtonText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogCloseButton"),
             DefaultButton = ContentDialogButton.Primary,
-            PrimaryButtonText = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogPrimaryButton"),
+            PrimaryButtonText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogPrimaryButton"),
             XamlRoot = App.currentWindow.Content.XamlRoot
         };
 
@@ -201,8 +201,8 @@ public partial class ServerViewModel : BaseViewModel
         {
             Width = 360,
             HorizontalAlignment = HorizontalAlignment.Left,
-            Header = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogServerTitle"),
-            PlaceholderText = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogServerPlaceholder"),
+            Header = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogServerTitle"),
+            PlaceholderText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogServerPlaceholder"),
             Text = title
         };
 
@@ -210,8 +210,8 @@ public partial class ServerViewModel : BaseViewModel
         {
             Width = 360,
             HorizontalAlignment = HorizontalAlignment.Left,
-            Header = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogServerHeader"),
-            PlaceholderText = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogServerUrlPlaceholder"),
+            Header = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogServerHeader"),
+            PlaceholderText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogServerUrlPlaceholder"),
             Text = server
         };
 
@@ -219,8 +219,8 @@ public partial class ServerViewModel : BaseViewModel
         {
             Width = 360,
             HorizontalAlignment = HorizontalAlignment.Left,
-            Header = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogComboBoxHeader"),
-            PlaceholderText = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogComboBoxPlaceholder"),
+            Header = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogComboBoxHeader"),
+            PlaceholderText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogComboBoxPlaceholder"),
             SelectedIndex = cmbSelectedIndex,
             SelectedItem = cmbSelectedItem,
         };
@@ -233,9 +233,9 @@ public partial class ServerViewModel : BaseViewModel
         {
             Width = 360,
             HorizontalAlignment = HorizontalAlignment.Left,
-            Header = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogToggleSwitchHeader"),
-            OffContent = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogToggleSwitchOffContent"),
-            OnContent = App.Current.Localizer.GetLocalizedString("ServerViewModel_CreateContentDialogToggleSwitchOnContent"),
+            Header = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogToggleSwitchHeader"),
+            OffContent = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogToggleSwitchOffContent"),
+            OnContent = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogToggleSwitchOnContent"),
             IsOn = isServerActive
         };
 

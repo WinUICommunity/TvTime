@@ -10,7 +10,7 @@ public sealed partial class DescriptionStyleSettingPage : Page
     {
         ViewModel = App.GetService<DescriptionStyleSettingViewModel>();
         LayoutSettingViewModel = LayoutSettingPage.Instance.ViewModel;
-        LayoutSettingViewModel.BreadCrumbBarCollection.Add(App.Current.Localizer.GetLocalizedString("DescriptionStyleSettingPage_BreadCrumbBar"));
+        LayoutSettingViewModel.BreadCrumbBarCollection.Add(App.Current.ResourceHelper.GetString("DescriptionStyleSettingPage_BreadCrumbBar"));
         this.InitializeComponent();
         Loaded += DescriptionStyleSettingPage_Loaded;
     }

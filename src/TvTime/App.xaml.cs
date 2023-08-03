@@ -10,6 +10,7 @@ public partial class App : Application
     public string TvTimeVersion { get; set; }
     public IServiceProvider Services { get; }
     public ILocalizer Localizer { get; set; }
+    public ResourceHelper ResourceHelper { get; set; }
     public new static App Current => (App) Application.Current;
 
     public static T GetService<T>()
@@ -25,6 +26,8 @@ public partial class App : Application
 
     public App()
     {
+        ResourceHelper = new ResourceHelper();
+        ResourceHelper.SetLanguage(Settings.TvTimeLanguage.LanguageCode);
         Services = ConfigureServices();
 
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;

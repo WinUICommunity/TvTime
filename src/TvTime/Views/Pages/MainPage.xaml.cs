@@ -42,7 +42,7 @@ public sealed partial class MainPage : Page
 
     public void SetFlowDirection()
     {
-        var flow = App.Current.Localizer.GetLocalizedString("MainPage_FlowDirection");
+        var flow = App.Current.ResourceHelper.GetString("MainPage_FlowDirection/FlowDirection");
         if (flow.Equals(FlowDirection.RightToLeft.ToString()))
         {
             NavView.FlowDirection = FlowDirection.RightToLeft;
@@ -80,7 +80,7 @@ public sealed partial class MainPage : Page
         if (settings != null)
         {
             settings.Icon = new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/settings.png"), ShowAsMonochrome = false };
-            settings.Content = App.Current.Localizer.GetLocalizedString("Nav_Settings");
+            settings.Content = App.Current.ResourceHelper.GetString("Nav_Settings");
         }
         ElementSoundPlayer.State = Settings.UseSound ? ElementSoundPlayerState.On : ElementSoundPlayerState.Off;
     }

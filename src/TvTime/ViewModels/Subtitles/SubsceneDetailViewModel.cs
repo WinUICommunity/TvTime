@@ -20,7 +20,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
             .Select(x => new TokenItem { Content = x });
 
         LanguageTokenList = new(languageTokens);
-        LanguageTokenList.Insert(0, new TokenItem { Content = App.Current.Localizer.GetLocalizedString("Constants_AllFilter"), IsSelected = true });
+        LanguageTokenList.Insert(0, new TokenItem { Content = App.Current.ResourceHelper.GetString("Constants_AllFilter"), IsSelected = true });
 
         DownloadDetails(rootTvTimeItem);
     }
@@ -47,7 +47,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
         var lang = query.Language ?? "";
         var txtSearch = MainPage.Instance.GetTxtSearch();
         var languageItems = SubsceneDetailPage.Instance.GetLanguageTokenViewSelectedItems();
-        return languageItems.Any(token => token.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter")))
+        return languageItems.Any(token => token.Content.ToString().Equals(App.Current.ResourceHelper.GetString("Constants_AllFilter")))
             ? name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
             : (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)) &&
                 (languageItems.Any(token => lang.Contains(token.Content.ToString())));
@@ -94,7 +94,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
             else
             {
                 StatusTitle = "";
-                StatusMessage = App.Current.Localizer.GetLocalizedString("Constants_InternetNotAvailable");
+                StatusMessage = App.Current.ResourceHelper.GetString("Constants_InternetNotAvailable");
                 StatusSeverity = InfoBarSeverity.Error;
                 IsStatusOpen = true;
             }
@@ -117,14 +117,14 @@ public partial class SubsceneDetailViewModel : BaseViewModel
             IsActive = true;
             IsStatusOpen = true;
             StatusSeverity = InfoBarSeverity.Informational;
-            StatusTitle = App.Current.Localizer.GetLocalizedString("SubsceneDetailViewModel_StatusWait");
+            StatusTitle = App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusWait");
             StatusMessage = "";
             HtmlWeb web = new HtmlWeb();
             HtmlDocument doc = await web.LoadFromWebAsync(tvTimeItem.Server);
 
-            StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("SubsceneDetailViewModel_StatusWorking"), tvTimeItem.Title);
+            StatusMessage = string.Format(App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusWorking"), tvTimeItem.Title);
 
-            StatusMessage = string.Format(App.Current.Localizer.GetLocalizedString("SubsceneDetailViewModel_StatusParsing"), tvTimeItem.Title);
+            StatusMessage = string.Format(App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusParsing"), tvTimeItem.Title);
 
             var details = GetServerDetails(doc, tvTimeItem);
             DataList = new(details.Cast<ITvTimeModel>());
@@ -134,7 +134,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
             suggestList = DataListACV.Select(x => ((SubsceneModel) x).Title).ToList();
 
             IsActive = false;
-            StatusTitle = App.Current.Localizer.GetLocalizedString("SubsceneDetailViewModel_StatusUpdated");
+            StatusTitle = App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusUpdated");
             StatusMessage = "";
             StatusSeverity = InfoBarSeverity.Success;
         }
@@ -142,7 +142,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
         {
             IsStatusOpen = true;
             IsActive = false;
-            StatusTitle = App.Current.Localizer.GetLocalizedString("SubsceneDetailViewModel_StatusError");
+            StatusTitle = App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusError");
             StatusMessage = ex.Message + Environment.NewLine + ex.InnerException;
             StatusSeverity = InfoBarSeverity.Error;
         }
@@ -188,7 +188,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
         {
             IsActive = false;
             IsStatusOpen = true;
-            StatusTitle = App.Current.Localizer.GetLocalizedString("Constants_SubtitleNotFound");
+            StatusTitle = App.Current.ResourceHelper.GetString("Constants_SubtitleNotFound");
             StatusSeverity = InfoBarSeverity.Error;
         }
 

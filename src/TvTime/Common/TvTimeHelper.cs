@@ -224,11 +224,11 @@ public static partial class TvTimeHelper
                 selectedItem = allItem;
             }
 
-            if (selectedItem.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter")) && selectedItem.IsSelected)
+            if (selectedItem.Content.ToString().Equals(App.Current.ResourceHelper.GetString("Constants_AllFilter")) && selectedItem.IsSelected)
             {
                 foreach (TokenItem item in token.Items)
                 {
-                    if (item.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter")))
+                    if (item.Content.ToString().Equals(App.Current.ResourceHelper.GetString("Constants_AllFilter")))
                     {
                         continue;
                     }
@@ -237,11 +237,11 @@ public static partial class TvTimeHelper
 
                 viewModel.DataListACV.Filter = null;
             }
-            else if (!selectedItem.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter")))
+            else if (!selectedItem.Content.ToString().Equals(App.Current.ResourceHelper.GetString("Constants_AllFilter")))
             {
                 foreach (TokenItem item in token.Items)
                 {
-                    if (item.Content.ToString().Equals(App.Current.Localizer.GetLocalizedString("Constants_AllFilter")) && item.IsSelected)
+                    if (item.Content.ToString().Equals(App.Current.ResourceHelper.GetString("Constants_AllFilter")) && item.IsSelected)
                     {
                         item.IsSelected = false;
                     }
@@ -321,11 +321,11 @@ public static partial class TvTimeHelper
         {
             serverType = "Subscene";
         }
-        contentDialog.Title = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogAddServerTitle");
-        infoBar.Title = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogInfoBarTitle");
-        infoBar.Message = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogInfoBarMessage");
-        contentDialog.PrimaryButtonText = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogInfoBarPrimaryButton");
-        contentDialog.SecondaryButtonText = App.Current.Localizer.GetLocalizedString($"{serverType}ViewModel_ContentDialogInfoBarSecondaryButton");
+        contentDialog.Title = App.Current.ResourceHelper.GetString($"{serverType}ViewModel_ContentDialogAddServerTitle");
+        infoBar.Title = App.Current.ResourceHelper.GetString($"{serverType}ViewModel_ContentDialogInfoBarTitle");
+        infoBar.Message = App.Current.ResourceHelper.GetString($"{serverType}ViewModel_ContentDialogInfoBarMessage");
+        contentDialog.PrimaryButtonText = App.Current.ResourceHelper.GetString($"{serverType}ViewModel_ContentDialogInfoBarPrimaryButton");
+        contentDialog.SecondaryButtonText = App.Current.ResourceHelper.GetString($"{serverType}ViewModel_ContentDialogInfoBarSecondaryButton");
 
         var stck = new StackPanel
         {

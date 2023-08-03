@@ -25,27 +25,27 @@ public sealed partial class SubtitleSettingPage : Page
             var exist = Settings.SubtitleLanguagesCollection.Any(x => x.Equals(sender.Text));
             if (exist)
             {
-                StatusInfo.Title = App.Current.Localizer.GetLocalizedString("SubtitleSettingPage_StatusLanguageExist");
+                StatusInfo.Title = App.Current.ResourceHelper.GetString("SubtitleSettingPage_StatusLanguageExist");
                 StatusInfo.Severity = InfoBarSeverity.Error;
             }
             else
             {
                 Settings.SubtitleLanguagesCollection.Add(sender.Text);
                 sender.Text = string.Empty;
-                StatusInfo.Title = App.Current.Localizer.GetLocalizedString("SubtitleSettingPage_StatusLanguageAdded");
+                StatusInfo.Title = App.Current.ResourceHelper.GetString("SubtitleSettingPage_StatusLanguageAdded");
                 StatusInfo.Severity = InfoBarSeverity.Success;
             }
         }
         else
         {
-            StatusInfo.Title = App.Current.Localizer.GetLocalizedString("SubtitleSettingPage_StatusTextNull");
+            StatusInfo.Title = App.Current.ResourceHelper.GetString("SubtitleSettingPage_StatusTextNull");
             StatusInfo.Severity = InfoBarSeverity.Error;
         }
     }
 
     private void TokenView_TokenItemRemoving(object sender, CommunityToolkit.Labs.WinUI.TokenItemRemovingEventArgs e)
     {
-        StatusInfo.Title = string.Format(App.Current.Localizer.GetLocalizedString("SubtitleSettingPage_StatusRemoved"), e.TokenItem?.Content?.ToString());
+        StatusInfo.Title = string.Format(App.Current.ResourceHelper.GetString("SubtitleSettingPage_StatusRemoved"), e.TokenItem?.Content?.ToString());
         StatusInfo.Severity = InfoBarSeverity.Informational;
     }
 }

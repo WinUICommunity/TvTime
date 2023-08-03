@@ -32,8 +32,8 @@ public partial class SubsceneViewModel : BaseViewModel
         if (ServerSettings.SubtitleServers.Count == 0)
         {
             IsStatusOpen = true;
-            StatusTitle = App.Current.Localizer.GetLocalizedString("SubsceneViewModel_StatusNoServerTitle");
-            StatusMessage = App.Current.Localizer.GetLocalizedString("SubsceneViewModel_StatusNoServerMessage");
+            StatusTitle = App.Current.ResourceHelper.GetString("SubsceneViewModel_StatusNoServerTitle");
+            StatusMessage = App.Current.ResourceHelper.GetString("SubsceneViewModel_StatusNoServerMessage");
             StatusSeverity = InfoBarSeverity.Warning;
             GoToServerPage(JsonNavigationViewService, true);
         }
@@ -89,7 +89,7 @@ public partial class SubsceneViewModel : BaseViewModel
                 IsActive = true;
                 IsStatusOpen = true;
                 StatusSeverity = InfoBarSeverity.Informational;
-                StatusTitle = App.Current.Localizer.GetLocalizedString("SubsceneViewModel_StatusWait");
+                StatusTitle = App.Current.ResourceHelper.GetString("SubsceneViewModel_StatusWait");
                 StatusMessage = "";
 
                 if (!string.IsNullOrEmpty(QueryText))
@@ -104,7 +104,7 @@ public partial class SubsceneViewModel : BaseViewModel
                     var titleCollection = doc?.DocumentNode?.SelectSingleNode("//div[@class='search-result']");
                     if (titleCollection == null || titleCollection.InnerText.Contains("No results found"))
                     {
-                        ShowError(App.Current.Localizer.GetLocalizedString("Constants_SubtitleNotFound"));
+                        ShowError(App.Current.ResourceHelper.GetString("Constants_SubtitleNotFound"));
                     }
                     else
                     {
@@ -141,7 +141,7 @@ public partial class SubsceneViewModel : BaseViewModel
                                 }
                                 else
                                 {
-                                    ShowError(App.Current.Localizer.GetLocalizedString("Constants_SubtitleNotFound"));
+                                    ShowError(App.Current.ResourceHelper.GetString("Constants_SubtitleNotFound"));
                                 }
                             }
                         }
@@ -162,7 +162,7 @@ public partial class SubsceneViewModel : BaseViewModel
         }
         else
         {
-            ShowError(App.Current.Localizer.GetLocalizedString("Constants_InternetNotAvailable"));
+            ShowError(App.Current.ResourceHelper.GetString("Constants_InternetNotAvailable"));
         }
     }
 
@@ -182,7 +182,7 @@ public partial class SubsceneViewModel : BaseViewModel
 
     private void ShowError(string message)
     {
-        StatusTitle = App.Current.Localizer.GetLocalizedString("SubsceneViewModel_StatusError");
+        StatusTitle = App.Current.ResourceHelper.GetString("SubsceneViewModel_StatusError");
         StatusSeverity = InfoBarSeverity.Error;
         StatusMessage = message;
         IsStatusOpen = true;

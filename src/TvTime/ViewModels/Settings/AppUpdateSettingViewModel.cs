@@ -14,13 +14,13 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     public bool isLoading;
 
     [ObservableProperty]
-    public string loadingStatus = App.Current.Localizer.GetLocalizedString("AppUpdateSettingPage_InfoBarTitle");
+    public string loadingStatus = App.Current.ResourceHelper.GetString("AppUpdateSettingPage_InfoBarTitle/Title");
 
     private string changeLog = string.Empty;
 
     public AppUpdateSettingViewModel()
     {
-        currentVersion = string.Format(App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_CurrentVersion"), App.Current.TvTimeVersion);
+        currentVersion = string.Format(App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_CurrentVersion"), App.Current.TvTimeVersion);
         lastUpdateCheck = Settings.LastUpdateCheck;
     }
 
@@ -29,7 +29,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     {
         IsLoading = true;
         IsUpdateAvailable = false;
-        LoadingStatus = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_StatusCheckUpdate");
+        LoadingStatus = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_StatusCheckUpdate");
         if (ApplicationHelper.IsNetworkAvailable())
         {
             LastUpdateCheck = DateTime.Now.ToShortDateString();
@@ -42,11 +42,11 @@ public partial class AppUpdateSettingViewModel : ObservableObject
                 {
                     IsUpdateAvailable = true;
                     changeLog = update.Changelog;
-                    LoadingStatus = string.Format(App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_StatusUpdateFound"), update.TagName, update.CreatedAt, update.PublishedAt);
+                    LoadingStatus = string.Format(App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_StatusUpdateFound"), update.TagName, update.CreatedAt, update.PublishedAt);
                 }
                 else
                 {
-                    LoadingStatus = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_StatusLatestVersion");
+                    LoadingStatus = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_StatusLatestVersion");
                 }
             }
             catch (Exception ex)
@@ -56,7 +56,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
         }
         else
         {
-            LoadingStatus = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_StatusErrorConnection");
+            LoadingStatus = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_StatusErrorConnection");
         }
         IsLoading = false;
     }
@@ -66,8 +66,8 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     {
         ContentDialog dialog = new ContentDialog()
         {
-            Title = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_ReleaseNoteContentDialogTitle"),
-            CloseButtonText = App.Current.Localizer.GetLocalizedString("AppUpdateSettingViewModel_ReleaseNoteContentDialogCloseButton"),
+            Title = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_ReleaseNoteContentDialogTitle"),
+            CloseButtonText = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_ReleaseNoteContentDialogCloseButton"),
             Content = new ScrollViewer
             {
                 Content = new MarkdownTextBlock

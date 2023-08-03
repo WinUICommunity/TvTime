@@ -10,7 +10,7 @@ public partial class LayoutSettingViewModel : ObservableObject
     public LayoutSettingViewModel(IJsonNavigationViewService jsonNavigationViewService)
     {
         JsonNavigationViewService = jsonNavigationViewService;
-        BreadCrumbBarCollection.Add(App.Current.Localizer.GetLocalizedString("LayoutSettingPage_BreadCrumbBar"));
+        BreadCrumbBarCollection.Add(App.Current.ResourceHelper.GetString("LayoutSettingPage_BreadCrumbBar"));
     }
 
     [RelayCommand]

@@ -4,7 +4,7 @@ public partial class BackupSettingViewModel : ObservableObject
     private bool isMediaServer;
 
     [ObservableProperty]
-    public string statusText = App.Current.Localizer.GetLocalizedString("BackupSettingPage_InfoBarTitle");
+    public string statusText = App.Current.ResourceHelper.GetString("BackupSettingPage_InfoBarTitle/Title");
 
     [ObservableProperty]
     public InfoBarSeverity statusSeverity = InfoBarSeverity.Informational;
@@ -43,7 +43,7 @@ public partial class BackupSettingViewModel : ObservableObject
                     await outfile.WriteAsync(json);
                 }
 
-                StatusText = App.Current.Localizer.GetLocalizedString("BackupSettingViewModel_BackupServerCompleted");
+                StatusText = App.Current.ResourceHelper.GetString("BackupSettingViewModel_BackupServerCompleted");
                 StatusSeverity = InfoBarSeverity.Success;
             }
         }
@@ -78,7 +78,7 @@ public partial class BackupSettingViewModel : ObservableObject
                         ServerSettings.SubtitleServers = content;
                     }
 
-                    StatusText = App.Current.Localizer.GetLocalizedString("BackupSettingViewModel_RestoreServerCompleted");
+                    StatusText = App.Current.ResourceHelper.GetString("BackupSettingViewModel_RestoreServerCompleted");
                     StatusSeverity = InfoBarSeverity.Success;
                 }
             }
@@ -110,7 +110,7 @@ public partial class BackupSettingViewModel : ObservableObject
                 {
                     await outfile.WriteAsync(json);
                 }
-                StatusText = App.Current.Localizer.GetLocalizedString("BackupSettingViewModel_BackupConfigCompleted");
+                StatusText = App.Current.ResourceHelper.GetString("BackupSettingViewModel_BackupConfigCompleted");
                 StatusSeverity = InfoBarSeverity.Success;
             }
         }
@@ -137,7 +137,7 @@ public partial class BackupSettingViewModel : ObservableObject
                 {
                     Settings = content;
                     Settings.Save();
-                    StatusText = App.Current.Localizer.GetLocalizedString("BackupSettingViewModel_RestoreConfigCompleted");
+                    StatusText = App.Current.ResourceHelper.GetString("BackupSettingViewModel_RestoreConfigCompleted");
                     StatusSeverity = InfoBarSeverity.Success;
                 }
             }

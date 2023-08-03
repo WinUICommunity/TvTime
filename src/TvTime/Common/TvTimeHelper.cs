@@ -8,7 +8,6 @@ using Nucs.JsonSettings.Fluent;
 using Nucs.JsonSettings.Modulation;
 using Nucs.JsonSettings.Modulation.Recovery;
 
-using TvTime.Models;
 using TvTime.ViewModels;
 
 namespace TvTime.Common;
@@ -335,13 +334,13 @@ public static partial class TvTimeHelper
         };
 
         infoBar.Severity = InfoBarSeverity.Warning;
-        
+
         infoBar.IsOpen = true;
         infoBar.IsClosable = false;
         stck.Children.Add(infoBar);
 
         contentDialog.Content = new ScrollViewer { Content = stck };
-        
+
         contentDialog.PrimaryButtonClick += (s, e) =>
         {
             jsonNavigationViewService.NavigateTo(typeof(ServersPage));

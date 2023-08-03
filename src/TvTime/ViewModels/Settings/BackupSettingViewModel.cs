@@ -27,7 +27,7 @@ public partial class BackupSettingViewModel : ObservableObject
                 { "Json", new List<string>() { ".json" } }
             };
             var file = await ApplicationHelper.PickSaveFileAsync(App.currentWindow, fileTypeChoices, fileName);
-            
+
             if (file != null)
             {
                 var servers = ServerSettings.TVTimeServers;

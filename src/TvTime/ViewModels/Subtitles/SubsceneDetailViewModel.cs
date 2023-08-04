@@ -16,8 +16,15 @@ public partial class SubsceneDetailViewModel : BaseViewModel
 
     public override void OnPageLoaded(object param)
     {
-        var languageTokens = Settings.SubtitleLanguagesCollection
-            .Select(x => new TokenItem { Content = x });
+        ObservableCollection<TokenItem> languageTokens = new ObservableCollection<TokenItem>();
+        foreach (var item in SubtitleLanguageCollection())
+        {
+            if (Settings.SubtitleLanguagesCollection.Any(x => x.Equals(item.Content.ToString())))
+            {
+                item.IsSelected = false;
+                languageTokens.Add(item);
+            }
+        }
 
         LanguageTokenList = new(languageTokens);
         LanguageTokenList.Insert(0, new TokenItem { Content = App.Current.ResourceHelper.GetString("Constants_AllFilter"), IsSelected = true });

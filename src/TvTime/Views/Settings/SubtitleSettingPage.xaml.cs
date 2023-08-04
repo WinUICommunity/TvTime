@@ -1,4 +1,6 @@
-﻿using TvTime.ViewModels;
+﻿using CommunityToolkit.Labs.WinUI;
+
+using TvTime.ViewModels;
 
 namespace TvTime.Views;
 public sealed partial class SubtitleSettingPage : Page
@@ -10,6 +12,23 @@ public sealed partial class SubtitleSettingPage : Page
     {
         ViewModel = App.GetService<SubtitleSettingViewModel>();
         this.InitializeComponent();
+        Loaded += SubtitleSettingPage_Loaded;
+    }
+
+    private void SubtitleSettingPage_Loaded(object sender, RoutedEventArgs e)
+    {
+        foreach (var item in SubtitleLanguageCollection())
+        {
+            if (Settings.SubtitleLanguagesCollection.Any(x => x.Equals(item.Content)))
+            {
+               item.IsSelected = true;
+            }
+            else
+            {
+                item.IsSelected = false;
+            }
+            tokenView.Items.Add(item);
+        }
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -18,34 +37,29 @@ public sealed partial class SubtitleSettingPage : Page
         BreadCrumbBarItemText = e.Parameter as string;
     }
 
-    private void SubtitleLanguage_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    private void tokenView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!string.IsNullOrEmpty(sender.Text))
-        {
-            var exist = Settings.SubtitleLanguagesCollection.Any(x => x.Equals(sender.Text));
-            if (exist)
-            {
-                StatusInfo.Title = App.Current.ResourceHelper.GetString("SubtitleSettingPage_StatusLanguageExist");
-                StatusInfo.Severity = InfoBarSeverity.Error;
-            }
-            else
-            {
-                Settings.SubtitleLanguagesCollection.Add(sender.Text);
-                sender.Text = string.Empty;
-                StatusInfo.Title = App.Current.ResourceHelper.GetString("SubtitleSettingPage_StatusLanguageAdded");
-                StatusInfo.Severity = InfoBarSeverity.Success;
-            }
-        }
-        else
-        {
-            StatusInfo.Title = App.Current.ResourceHelper.GetString("SubtitleSettingPage_StatusTextNull");
-            StatusInfo.Severity = InfoBarSeverity.Error;
-        }
-    }
+        var selectedItemCount = e.AddedItems.Count;
+        var unSelectedItemCount = e.RemovedItems.Count;
 
-    private void TokenView_TokenItemRemoving(object sender, CommunityToolkit.Labs.WinUI.TokenItemRemovingEventArgs e)
-    {
-        StatusInfo.Title = string.Format(App.Current.ResourceHelper.GetString("SubtitleSettingPage_StatusRemoved"), e.TokenItem?.Content?.ToString());
-        StatusInfo.Severity = InfoBarSeverity.Informational;
+        if (selectedItemCount > 0)
+        {
+            var selectedItem = e.AddedItems[0] as TokenItem;
+            var itemContent = selectedItem.Content.ToString();
+            if (!Settings.SubtitleLanguagesCollection.Any(x=>x.Equals(itemContent)))
+            {
+                Settings.SubtitleLanguagesCollection.Add(itemContent);
+            }
+        }
+
+        if (unSelectedItemCount > 0)
+        {
+            var unSelectedItem = e.RemovedItems[0] as TokenItem;
+            var removeItem = Settings.SubtitleLanguagesCollection.FirstOrDefault(x => x.Equals(unSelectedItem.Content.ToString()));
+            if (removeItem != null)
+            {
+                Settings.SubtitleLanguagesCollection.Remove(removeItem);
+            }
+        }
     }
 }

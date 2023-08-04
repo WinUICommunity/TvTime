@@ -5,8 +5,8 @@ namespace TvTime.Common;
 
 public class TvTimeServerConfig : NotifiyingJsonSettings, IVersionable
 {
-    [EnforcedVersion("2.3.0.0")]
-    public virtual Version Version { get; set; } = new Version(2, 3, 0, 0);
+    [EnforcedVersion("2.6.0.0")]
+    public virtual Version Version { get; set; } = new Version(2, 6, 0, 0);
     public override string FileName { get; set; } = Constants.ServerConfigPath;
 
     private ObservableCollection<ServerModel> _TVTimeServers = new();

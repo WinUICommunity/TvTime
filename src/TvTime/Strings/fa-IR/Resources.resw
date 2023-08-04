@@ -860,29 +860,11 @@
   <data name="SubsceneViewModel_StatusWait" xml:space="preserve">
     <value>لطفا صبر کنید...</value>
   </data>
-  <data name="SubtitleSettingPage_AutoSuggestBox.PlaceholderText" xml:space="preserve">
-    <value>چند زبان جدید اضافه کنید [برای افزودن اینتر را فشار دهید]</value>
-  </data>
   <data name="SubtitleSettingPage_IDMDownloadCard.Description" xml:space="preserve">
     <value>دانلود زیرنویس با اینترنت دانلود منیجر (IDM) [در صورت وجود]</value>
   </data>
   <data name="SubtitleSettingPage_IDMDownloadCard.Header" xml:space="preserve">
     <value>دانلود با IDM</value>
-  </data>
-  <data name="SubtitleSettingPage_InfoBarTitle.Title" xml:space="preserve">
-    <value>وضعیت</value>
-  </data>
-  <data name="SubtitleSettingPage_StatusLanguageAdded" xml:space="preserve">
-    <value>زبان با موفقیت اضافه شد!</value>
-  </data>
-  <data name="SubtitleSettingPage_StatusLanguageExist" xml:space="preserve">
-    <value>این زبان موجود است، زبان دیگری را امتحان کنید</value>
-  </data>
-  <data name="SubtitleSettingPage_StatusRemoved" xml:space="preserve">
-    <value>'{0}' حذف شد</value>
-  </data>
-  <data name="SubtitleSettingPage_StatusTextNull" xml:space="preserve">
-    <value>متن پوچ یا خالی است</value>
   </data>
   <data name="SubtitleSettingPage_SubtitleLanguageExpander.Description" xml:space="preserve">
     <value>زبان زیرنویس ها را مشخص کنید</value>

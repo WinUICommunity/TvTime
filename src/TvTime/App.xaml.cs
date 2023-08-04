@@ -100,7 +100,7 @@ public partial class App : Application
 
         if (Settings.SubtitleLanguagesCollection == null || Settings.SubtitleLanguagesCollection.Count == 0)
         {
-            Settings.SubtitleLanguagesCollection = SubtitleLanguageCollection();
+            Settings.SubtitleLanguagesCollection = new(SubtitleLanguageCollection().Where(x=>x.IsSelected == true).Select(x=>x.Content.ToString()));
         }
 
         currentWindow.Title = currentWindow.AppWindow.Title = $"TvTime v{TvTimeVersion}";

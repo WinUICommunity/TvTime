@@ -3,8 +3,6 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:labs="using:CommunityToolkit.Labs.WinUI"
       xmlns:local="using:TvTime.Common"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,26 +15,15 @@
                     Spacing="5">
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
-            <InfoBar x:Name="StatusInfo"
-                     wuc:Localizer.Uid="SubtitleSettingPage_InfoBarTitle"
-                     IsClosable="False"
-                     IsOpen="True" />
 
             <wuc:SettingsExpander wuc:Localizer.Uid="SubtitleSettingPage_SubtitleLanguageExpander"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}">
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}"
+                                  IsExpanded="True">
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard ContentAlignment="Left">
-                        <AutoSuggestBox MinWidth="400"
-                                        wuc:Localizer.Uid="SubtitleSettingPage_AutoSuggestBox"
-                                        QueryIcon="Add"
-                                        QuerySubmitted="SubtitleLanguage_QuerySubmitted" />
-                    </wuc:SettingsCard>
-
-                    <wuc:SettingsCard ContentAlignment="Left">
-                        <labs:TokenView CanRemoveTokens="True"
-                                        ItemsSource="{x:Bind local:TvTimeHelper.Settings.SubtitleLanguagesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        SelectionMode="None"
-                                        TokenItemRemoving="TokenView_TokenItemRemoving" />
+                        <labs:TokenView x:Name="tokenView"
+                                        SelectionChanged="tokenView_SelectionChanged"
+                                        SelectionMode="Multiple" />
                     </wuc:SettingsCard>
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>

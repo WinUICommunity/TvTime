@@ -557,17 +557,11 @@
     <value>Download All Items With IDM</value>
     <comment>MenuFlyoutItem</comment>
   </data>
-  <data name="SubtitleSettingPage_AutoSuggestBox.PlaceholderText" xml:space="preserve">
-    <value>Add some new languages [Press enter to add]</value>
-  </data>
   <data name="SubtitleSettingPage_IDMDownloadCard.Description" xml:space="preserve">
     <value>Download Subtitles With Internet Download Manager (IDM) [if exist]</value>
   </data>
   <data name="SubtitleSettingPage_IDMDownloadCard.Header" xml:space="preserve">
     <value>Download with IDM</value>
-  </data>
-  <data name="SubtitleSettingPage_InfoBarTitle.Title" xml:space="preserve">
-    <value>Status</value>
   </data>
   <data name="SubtitleSettingPage_SubtitleLanguageExpander.Description" xml:space="preserve">
     <value>Specify the language of the subtitles</value>
@@ -844,18 +838,6 @@
   </data>
   <data name="SubsceneViewModel_StatusWait" xml:space="preserve">
     <value>Please Wait...</value>
-  </data>
-  <data name="SubtitleSettingPage_StatusLanguageAdded" xml:space="preserve">
-    <value>Language Added Successfully!</value>
-  </data>
-  <data name="SubtitleSettingPage_StatusLanguageExist" xml:space="preserve">
-    <value>This Language is Exist, try another</value>
-  </data>
-  <data name="SubtitleSettingPage_StatusRemoved" xml:space="preserve">
-    <value>'{0}' Removed</value>
-  </data>
-  <data name="SubtitleSettingPage_StatusTextNull" xml:space="preserve">
-    <value>Text is Null or Empty</value>
   </data>
   <data name="ToggleSwitch.OffContent" xml:space="preserve">
     <value>Off</value>

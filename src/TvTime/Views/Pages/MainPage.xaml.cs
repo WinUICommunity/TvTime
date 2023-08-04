@@ -21,7 +21,6 @@ public sealed partial class MainPage : Page
         Instance = this;
         SetFlowDirection();
         ViewModel.JsonNavigationViewService.Initialize(NavView, NavFrame);
-        ViewModel.JsonNavigationViewService.ConfigAutoSuggestBox(ControlsSearchBox, true, null, "ms-appx:///Assets/Fluent/icon.png");
         ViewModel.JsonNavigationViewService.ConfigLocalizer(App.Current.Localizer);
 
         Loaded += MainPage_Loaded;
@@ -47,14 +46,12 @@ public sealed partial class MainPage : Page
         {
             NavView.FlowDirection = FlowDirection.RightToLeft;
             NavFrame.FlowDirection = FlowDirection.RightToLeft;
-            ControlsSearchBox.FlowDirection = FlowDirection.RightToLeft;
             TxtSearch.FlowDirection = FlowDirection.RightToLeft;
         }
         else
         {
             NavView.FlowDirection = FlowDirection.LeftToRight;
             NavFrame.FlowDirection = FlowDirection.LeftToRight;
-            ControlsSearchBox.FlowDirection = FlowDirection.LeftToRight;
             TxtSearch.FlowDirection = FlowDirection.LeftToRight;
         }
     }

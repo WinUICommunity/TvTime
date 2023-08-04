@@ -145,7 +145,7 @@
     <value>دانلود بروزرسانی</value>
   </data>
   <data name="AppUpdateSettingPage_InfoBarTitle.Title" xml:space="preserve">
-    <value>عنوان</value>
+    <value>وضعیت</value>
   </data>
   <data name="AppUpdateSettingPage_LastCheck.Text" xml:space="preserve">
     <value>آخرین بررسی</value>
@@ -175,7 +175,7 @@
     <value>ما یک نسخه جدید {0} پیدا کردیم که در {1} ایجاد و در {2} منتشر شد</value>
   </data>
   <data name="BackupSettingPage_InfoBarTitle.Title" xml:space="preserve">
-    <value>عنوان</value>
+    <value>وضعیت</value>
   </data>
   <data name="BackupSettingPage_MediaBackup.Description" xml:space="preserve">
     <value>شما میتوانید سرورهای رسانه خود را در محل دلخواه ذخیره کنید</value>
@@ -510,10 +510,6 @@
   </data>
   <data name="MainPage_FlowDirection.FlowDirection" xml:space="preserve">
     <value>RightToLeft</value>
-  </data>
-  <data name="MainPage_NavSearch.PlaceholderText" xml:space="preserve">
-    <value>جستجو</value>
-    <comment>AutoSuggestBox in NavigationView</comment>
   </data>
   <data name="MainPage_TitleBar.Title" xml:space="preserve">
     <value>TvTime</value>
@@ -874,7 +870,7 @@
     <value>دانلود با IDM</value>
   </data>
   <data name="SubtitleSettingPage_InfoBarTitle.Title" xml:space="preserve">
-    <value>عنوان</value>
+    <value>وضعیت</value>
   </data>
   <data name="SubtitleSettingPage_StatusLanguageAdded" xml:space="preserve">
     <value>زبان با موفقیت اضافه شد!</value>

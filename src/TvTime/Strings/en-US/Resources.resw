@@ -177,10 +177,6 @@
     <value>Toggle Theme</value>
     <comment>TitleBar</comment>
   </data>
-  <data name="MainPage_NavSearch.PlaceholderText" xml:space="preserve">
-    <value>Search</value>
-    <comment>AutoSuggestBox in NavigationView</comment>
-  </data>
   <data name="MediaPage_RefreshItem.Content" xml:space="preserve">
     <value>Refresh</value>
     <comment>Segmented Control</comment>
@@ -571,7 +567,7 @@
     <value>Download with IDM</value>
   </data>
   <data name="SubtitleSettingPage_InfoBarTitle.Title" xml:space="preserve">
-    <value>Title</value>
+    <value>Status</value>
   </data>
   <data name="SubtitleSettingPage_SubtitleLanguageExpander.Description" xml:space="preserve">
     <value>Specify the language of the subtitles</value>
@@ -613,10 +609,10 @@
     <value>LeftToRight</value>
   </data>
   <data name="AppUpdateSettingPage_InfoBarTitle.Title" xml:space="preserve">
-    <value>Title</value>
+    <value>Status</value>
   </data>
   <data name="BackupSettingPage_InfoBarTitle.Title" xml:space="preserve">
-    <value>Title</value>
+    <value>Status</value>
   </data>
   <data name="DescriptionStyleSettingPage_BreadCrumbBar" xml:space="preserve">
     <value>Description Style</value>

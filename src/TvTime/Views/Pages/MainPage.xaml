@@ -53,14 +53,6 @@
                         Grid.Row="1"
                         IsBackButtonVisible="Collapsed"
                         IsPaneToggleButtonVisible="False">
-            <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox x:Name="ControlsSearchBox"
-                                MinWidth="200"
-                                VerticalAlignment="Center"
-                                wuc:Localizer.Uid="MainPage_NavSearch"
-                                KeyboardAcceleratorPlacementMode="Hidden"
-                                QueryIcon="Find" />
-            </NavigationView.AutoSuggestBox>
 
             <Frame x:Name="NavFrame"
                    Navigated="NavFrame_Navigated" />

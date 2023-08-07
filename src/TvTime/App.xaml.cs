@@ -44,7 +44,6 @@ public partial class App : Application
         services.AddSingleton<IJsonNavigationViewService>(factory =>
         {
             var json = new JsonNavigationViewService();
-            json.ConfigJson("DataModel/AppData.json");
             json.ConfigDefaultPage(typeof(HomeLandingsPage));
             json.ConfigSettingsPage(typeof(SettingsPage));
             return json;

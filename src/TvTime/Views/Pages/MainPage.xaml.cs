@@ -21,6 +21,7 @@ public sealed partial class MainPage : Page
         Instance = this;
         SetFlowDirection();
         ViewModel.JsonNavigationViewService.Initialize(NavView, NavFrame);
+        ViewModel.JsonNavigationViewService.ConfigJson("DataModel/AppData.json");
         ViewModel.JsonNavigationViewService.ConfigLocalizer(App.Current.Localizer);
 
         Loaded += MainPage_Loaded;

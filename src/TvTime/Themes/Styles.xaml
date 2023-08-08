@@ -23,7 +23,9 @@
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style BasedOn="{StaticResource DefaultListViewItemStyle}"
-                       TargetType="ListViewItem" />
+                       TargetType="ListViewItem">
+                    <Setter Property="FlowDirection" Value="LeftToRight" />
+                </Style>
             </Setter.Value>
         </Setter>
     </Style>

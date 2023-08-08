@@ -315,7 +315,7 @@ public static partial class TvTimeHelper
         ContentDialog contentDialog = new ContentDialog();
         var infoBar = new InfoBar();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
-
+        contentDialog.FlowDirection = ApplicationHelper.GetEnum<FlowDirection>(App.Current.ResourceHelper.GetString("MainPage_FlowDirection/FlowDirection"));
         var serverType = "Media";
         if (isSubtitle)
         {

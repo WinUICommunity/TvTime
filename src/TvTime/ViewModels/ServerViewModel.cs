@@ -1,4 +1,6 @@
-﻿namespace TvTime.ViewModels;
+﻿using Microsoft.UI.Xaml.Controls;
+
+namespace TvTime.ViewModels;
 
 public partial class ServerViewModel : BaseViewModel
 {
@@ -183,8 +185,9 @@ public partial class ServerViewModel : BaseViewModel
             CloseButtonText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogCloseButton"),
             DefaultButton = ContentDialogButton.Primary,
             PrimaryButtonText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogPrimaryButton"),
-            XamlRoot = App.currentWindow.Content.XamlRoot
-        };
+            XamlRoot = App.currentWindow.Content.XamlRoot,
+            FlowDirection = ApplicationHelper.GetEnum<FlowDirection>(App.Current.ResourceHelper.GetString("MainPage_FlowDirection/FlowDirection"))
+    };
 
         var grid = new Grid
         {

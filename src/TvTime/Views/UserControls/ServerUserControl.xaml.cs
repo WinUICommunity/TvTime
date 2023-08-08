@@ -26,6 +26,7 @@ public sealed partial class ServerUserControl : UserControl
     {
         ContentDialog contentDialog = new ContentDialog();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
+        contentDialog.FlowDirection = ApplicationHelper.GetEnum<FlowDirection>(App.Current.ResourceHelper.GetString("MainPage_FlowDirection/FlowDirection"));
         contentDialog.Title = App.Current.ResourceHelper.GetString("ServerUC_LoadContentDialogTitle");
         contentDialog.Content = App.Current.ResourceHelper.GetString("ServerUC_LoadContentDialogContent");
         contentDialog.PrimaryButtonText = App.Current.ResourceHelper.GetString("ServerUC_LoadContentDialogPrimaryButton");
@@ -77,6 +78,7 @@ public sealed partial class ServerUserControl : UserControl
     {
         ContentDialog contentDialog = new ContentDialog();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
+        contentDialog.FlowDirection = ApplicationHelper.GetEnum<FlowDirection>(App.Current.ResourceHelper.GetString("MainPage_FlowDirection/FlowDirection"));
         contentDialog.Title = App.Current.ResourceHelper.GetString("ServerUC_ClearContentDialogTitle");
         contentDialog.Content = App.Current.ResourceHelper.GetString("ServerUC_ClearContentDialogContent");
         contentDialog.PrimaryButtonText = App.Current.ResourceHelper.GetString("ServerUC_ClearContentDialogPrimaryButton");

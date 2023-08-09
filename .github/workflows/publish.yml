@@ -1,10 +1,10 @@
-name: Publish Release
+﻿name: Publish Release
 
 on:
   workflow_dispatch:
   
 env:
-  PROJECT_PATH: src/TvTime/TvTime.csproj
+  PROJECT_PATH: dev/TvTime.csproj
   DIR_PATH: publish
   
 jobs:

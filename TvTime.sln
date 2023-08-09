@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvTime", "TvTime\TvTime.csproj", "{CC2E4DE1-39A4-4C88-BF39-264A32F16374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvTime", "dev\TvTime.csproj", "{CC2E4DE1-39A4-4C88-BF39-264A32F16374}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{00C9BF41-5B20-4525-8179-82E5203D262C}"
 	ProjectSection(SolutionItems) = preProject
-		..\.editorconfig = ..\.editorconfig
-		..\.gitignore = ..\.gitignore
-		..\CHANGELOG.md = ..\CHANGELOG.md
-		..\LICENSE = ..\LICENSE
-		..\README.md = ..\README.md
-		..\settings.xamlstyler = ..\settings.xamlstyler
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		CHANGELOG.md = CHANGELOG.md
+		LICENSE = LICENSE
+		README.md = README.md
+		settings.xamlstyler = settings.xamlstyler
 	EndProjectSection
 EndProject
 Global

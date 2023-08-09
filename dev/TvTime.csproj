@@ -45,11 +45,6 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\AppData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Assets\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

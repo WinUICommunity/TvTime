@@ -2,6 +2,73 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.7.0](https://github.com/WinUICommunity/TvTime/compare/v2.6.0...v2.7.0)
+
+> 22 August 2023
+
+- refactor [`6fe4350`](https://github.com/WinUICommunity/TvTime/commit/6fe4350d712fc4a2d7f2036bdc6acded2e23131a)
+- Improve RTL [`bdcbc18`](https://github.com/WinUICommunity/TvTime/commit/bdcbc1889521c9630f1568d1020821a6fd6165a1)
+- refactor [`b1b305d`](https://github.com/WinUICommunity/TvTime/commit/b1b305dfe731b20aad2f02e9c9125144bbb94188)
+- update yml [`9397199`](https://github.com/WinUICommunity/TvTime/commit/939719911559149ca030b67872c30c7d43057518)
+- Update TvTime.csproj [`ba1bfed`](https://github.com/WinUICommunity/TvTime/commit/ba1bfedfd855917b78779c25b6c96649a8aeca7f)
+- Update Core [`033c63f`](https://github.com/WinUICommunity/TvTime/commit/033c63fd47840d9f66b78c739bbe7985123706fd)
+
+#### [v2.6.0](https://github.com/WinUICommunity/TvTime/compare/v2.5.0...v2.6.0)
+
+> 4 August 2023
+
+- Improve Subtitle Language Setting [`0276dee`](https://github.com/WinUICommunity/TvTime/commit/0276deea7c693e396e5de7ad9a52d89d5fe55641)
+- Improve Localization [`4191387`](https://github.com/WinUICommunity/TvTime/commit/4191387b4648642cfc61914963ecb8c0860fc0ed)
+- remove AutoSuggestBox [`c7d4fde`](https://github.com/WinUICommunity/TvTime/commit/c7d4fde631658836f62379d380c0799c3c30db92)
+- refactor [`344dcbd`](https://github.com/WinUICommunity/TvTime/commit/344dcbdc89c27a6717f310d2e2e591cad70ecc8c)
+- Update TvTime.csproj [`30e4fa1`](https://github.com/WinUICommunity/TvTime/commit/30e4fa1e7500ece586055b532c04bc541f7f7ed5)
+
+#### [v2.5.0](https://github.com/WinUICommunity/TvTime/compare/v2.4.0...v2.5.0)
+
+> 1 August 2023
+
+- Fix #4 [`#4`](https://github.com/WinUICommunity/TvTime/issues/4)
+- Show Message if there is no Subtitle Server [`4104739`](https://github.com/WinUICommunity/TvTime/commit/4104739d601caafff7a893e8a57b518cdba1b72a)
+- Refactor [`89a4c9d`](https://github.com/WinUICommunity/TvTime/commit/89a4c9d712770481d1ef3f03f775b2f4feca4670)
+- Update Resources.resw [`0bb1252`](https://github.com/WinUICommunity/TvTime/commit/0bb12522f46ff356434e15068991a98e1ca8eeef)
+- add new font [`be1162c`](https://github.com/WinUICommunity/TvTime/commit/be1162c678c5411b1f0cfa5a7cd834f4d0d22d35)
+- Update MediaViewModel.cs [`97c40d9`](https://github.com/WinUICommunity/TvTime/commit/97c40d9db21ef3d5f47585ed2afbd8dd2dc95432)
+- Update TvTime.csproj [`06cb179`](https://github.com/WinUICommunity/TvTime/commit/06cb179cd83361b21a4b413c86bf642e8521e838)
+
+#### [v2.4.0](https://github.com/WinUICommunity/TvTime/compare/v2.3.0...v2.4.0)
+
+> 31 July 2023
+
+- add Persian Resources [`b4a56b2`](https://github.com/WinUICommunity/TvTime/commit/b4a56b2a233bce058d9a10cc1865d1ad24c51062)
+- add more resources [`f2c22b4`](https://github.com/WinUICommunity/TvTime/commit/f2c22b4c76cbb7bfd6832b11432d78c8e59d8335)
+- update resources [`ec8dec5`](https://github.com/WinUICommunity/TvTime/commit/ec8dec54131780efab524fe96a20d9b14f48b958)
+- Improve Multilanguage [`d4b0aa8`](https://github.com/WinUICommunity/TvTime/commit/d4b0aa8477e30c266411c9167a4bd9e7edc48e1d)
+- improve ui [`f8eca0e`](https://github.com/WinUICommunity/TvTime/commit/f8eca0ea41d30af307e2400e067ba46a8f99a6c4)
+- Localized AppData.json [`3d0b427`](https://github.com/WinUICommunity/TvTime/commit/3d0b42745b4db3a133c8848954e51cdc621f36b1)
+- add more resources [`e445bd0`](https://github.com/WinUICommunity/TvTime/commit/e445bd0f177b225e2994b4a81d6ac6ff1baf701a)
+- add some resources [`d638db7`](https://github.com/WinUICommunity/TvTime/commit/d638db7804180b586a77bd04bd95499cc0d28b8d)
+- Update resources [`426c544`](https://github.com/WinUICommunity/TvTime/commit/426c544665ef17dae50409703032e603f4d03551)
+- Create CHANGELOG.md [`8f13d02`](https://github.com/WinUICommunity/TvTime/commit/8f13d02c10e744f37c5e22b79bd78ae391ec035c)
+- add more resources [`6ba8964`](https://github.com/WinUICommunity/TvTime/commit/6ba89646caa5fa9b3d49f59ae1200cfcd7926f88)
+- add more resources [`dc355cb`](https://github.com/WinUICommunity/TvTime/commit/dc355cb72a3ae28bfc07b0ee2aa66d20357a7884)
+- add fonts and init multilanguage [`ecaef1d`](https://github.com/WinUICommunity/TvTime/commit/ecaef1d82d7136df1164f772b44628ae694d1b32)
+- add more resources [`bdd8fa7`](https://github.com/WinUICommunity/TvTime/commit/bdd8fa7b3e39cea8c6d6d0494af043f0c3e04e75)
+- Add App UI Language Setting [`1d33734`](https://github.com/WinUICommunity/TvTime/commit/1d33734aa39d34a97ed5dcac5ff5b864c9c278ca)
+- Seperate Servers from Config file [`4ff9b95`](https://github.com/WinUICommunity/TvTime/commit/4ff9b952e069c9837bdbebc35460e492775ed56a)
+- refactor [`b947530`](https://github.com/WinUICommunity/TvTime/commit/b947530ba32e71d1c4d265f5857e4335fd1317e9)
+- add more resources [`be22fcd`](https://github.com/WinUICommunity/TvTime/commit/be22fcd8a4a5b057ba6582b25692b4b42a3e9d30)
+- use Core Helper Methods [`b5d0e02`](https://github.com/WinUICommunity/TvTime/commit/b5d0e024358d80b6113df731fb9528532bbee413)
+- improve [`280d5ce`](https://github.com/WinUICommunity/TvTime/commit/280d5ce7a12d52ae76011848658501f275c9ddb3)
+- move project to src folder [`77a8c99`](https://github.com/WinUICommunity/TvTime/commit/77a8c99f9c9318f0313bb15f1fa98bcb2b0c8e63)
+- Add Font If Language is Persian [`9fe2bc0`](https://github.com/WinUICommunity/TvTime/commit/9fe2bc0ba06d89ca362417fd677d620208c497c0)
+- Update TvTime.sln [`b2b16c7`](https://github.com/WinUICommunity/TvTime/commit/b2b16c71e0bf00d740607ecadacab63577dffe00)
+- Update TvTime.csproj [`8eee19e`](https://github.com/WinUICommunity/TvTime/commit/8eee19eebcc44646e4db08641bf806dae86ac156)
+- add TransitionInfo for Navigation [`8a25fd3`](https://github.com/WinUICommunity/TvTime/commit/8a25fd37b10a20a431f9ca14d9d2c67c3419a854)
+- Update publish.yml [`1ef4b2a`](https://github.com/WinUICommunity/TvTime/commit/1ef4b2a287ba88f2f966d9aedef0c06da8a8bd67)
+- Update TvTime.csproj [`4fc9d33`](https://github.com/WinUICommunity/TvTime/commit/4fc9d33fe719b1bb2503e4e41bda69a22f0454b7)
+- improve effect [`90302b3`](https://github.com/WinUICommunity/TvTime/commit/90302b3dd16fdbd22d28c713f22fc18a66afb910)
+- Update cover1.jpg [`750470b`](https://github.com/WinUICommunity/TvTime/commit/750470b6d3817e5a3dda69b439adc113be144a12)
+
 #### [v2.3.0](https://github.com/WinUICommunity/TvTime/compare/v2.2.0...v2.3.0)
 
 > 28 July 2023

@@ -8,8 +8,8 @@
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
 
-    <ScrollViewer Margin="{ThemeResource ContentPageMargin}"
-                  VerticalScrollBarVisibility="Auto">
+    <ScrollView Margin="{ThemeResource ContentPageMargin}"
+                VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
@@ -37,5 +37,5 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
         </StackPanel>
-    </ScrollViewer>
+    </ScrollView>
 </Page>

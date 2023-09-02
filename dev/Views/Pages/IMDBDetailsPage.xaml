@@ -10,7 +10,7 @@
       x:DefaultBindMode="OneWay"
       mc:Ignorable="d">
 
-    <ScrollViewer>
+    <ScrollView>
         <Grid Margin="5"
               Style="{ThemeResource GridCardPanel}"
               Visibility="{x:Bind ViewModel.IsActive}">
@@ -161,5 +161,5 @@
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </Grid>
-    </ScrollViewer>
+    </ScrollView>
 </Page>

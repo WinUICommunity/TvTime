@@ -26,7 +26,7 @@
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer>
+        <ScrollView>
             <wuc:SettingsGroup wuc:Localizer.Uid="ServerUC_SettingGroup">
                 <wuc:SettingsExpander x:Name="ServerExpander"
                                       wuc:Localizer.Uid="ServerUC_SettingServer"
@@ -96,7 +96,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </wuc:SettingsGroup>
-        </ScrollViewer>
+        </ScrollView>
 
         <views:NoItemUserControl x:Name="NoItemUC"
                                  HorizontalAlignment="Center"

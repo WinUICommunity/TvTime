@@ -8,7 +8,7 @@
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
 
-    <ScrollViewer>
+    <ScrollView>
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
@@ -30,5 +30,5 @@
                               IsClickEnabled="True"
                               Tag="DescriptionStyleSettingPage" />
         </StackPanel>
-    </ScrollViewer>
+    </ScrollView>
 </Page>

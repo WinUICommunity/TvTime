@@ -9,7 +9,7 @@
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
-    <ScrollViewer>
+    <ScrollView>
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
@@ -35,5 +35,5 @@
                               IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
         </StackPanel>
-    </ScrollViewer>
+    </ScrollView>
 </Page>

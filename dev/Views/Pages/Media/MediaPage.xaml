@@ -2,6 +2,7 @@
 <Page x:Class="TvTime.Views.MediaPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:community="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
@@ -78,14 +79,14 @@
                         SelectionChanged="token_SelectionChanged"
                         SelectionMode="Multiple"
                         Visibility="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <labs:Segmented x:Name="Segmented"
-                        Grid.Row="1"
-                        Margin="10,10,0,0">
-            <labs:SegmentedItem x:Name="SegRefresh"
-                                wuc:Localizer.Uid="MediaPage_RefreshItem"
-                                Icon="{wuc:SymbolIcon Symbol=Refresh}"
-                                IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
-                                Tag="Refresh" />
+        <community:Segmented x:Name="Segmented"
+                             Grid.Row="1"
+                             Margin="10,10,0,0">
+            <community:SegmentedItem x:Name="SegRefresh"
+                                     wuc:Localizer.Uid="MediaPage_RefreshItem"
+                                     Icon="{wuc:SymbolIcon Symbol=Refresh}"
+                                     IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
+                                     Tag="Refresh" />
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
                     <ic:EventTriggerBehavior.Actions>
@@ -94,7 +95,7 @@
                     </ic:EventTriggerBehavior.Actions>
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
-        </labs:Segmented>
+        </community:Segmented>
         <ListView Grid.Row="2"
                   Margin="5,10,5,5"
                   HorizontalAlignment="Stretch"

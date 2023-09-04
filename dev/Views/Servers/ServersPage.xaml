@@ -1,8 +1,8 @@
 ﻿<Page x:Class="TvTime.Views.ServersPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:community="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:labs="using:CommunityToolkit.Labs.WinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
@@ -11,13 +11,13 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <labs:Segmented x:Name="SegmentedServer"
-                        Margin="10"
-                        HorizontalAlignment="Center"
-                        SelectionChanged="{x:Bind OnSegmentedServerChanged}">
-            <labs:SegmentedItem wuc:Localizer.Uid="ServerPage_MediaItem" />
-            <labs:SegmentedItem wuc:Localizer.Uid="ServerPage_SubtitleItem" />
-        </labs:Segmented>
+        <community:Segmented x:Name="SegmentedServer"
+                             Margin="10"
+                             HorizontalAlignment="Center"
+                             SelectionChanged="{x:Bind OnSegmentedServerChanged}">
+            <community:SegmentedItem wuc:Localizer.Uid="ServerPage_MediaItem" />
+            <community:SegmentedItem wuc:Localizer.Uid="ServerPage_SubtitleItem" />
+        </community:Segmented>
         <Frame x:Name="ServerFrame"
                Grid.Row="1" />
     </Grid>

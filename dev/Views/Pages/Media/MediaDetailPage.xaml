@@ -1,10 +1,10 @@
 ﻿<Page x:Class="TvTime.Views.MediaDetailPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:community="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:labs="using:CommunityToolkit.Labs.WinUI"
       xmlns:local="using:TvTime.Common"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:TvTime.Models"
@@ -73,18 +73,18 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <labs:Segmented x:Name="Segmented"
-                        Margin="10,10,0,0">
-            <labs:SegmentedItem wuc:Localizer.Uid="MediaDetailPage_RefreshItem"
-                                Icon="{wuc:SymbolIcon Symbol=Refresh}"
-                                IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
-                                Tag="Refresh" />
-            <labs:SegmentedItem wuc:Localizer.Uid="MediaDetailPage_IMDBItem"
-                                Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
-                                Tag="IMDBDetails" />
-            <labs:SegmentedItem wuc:Localizer.Uid="MediaDetailPage_DownloadItem"
-                                Icon="{wuc:SymbolIcon Symbol=Download}"
-                                Tag="DownloadAll" />
+        <community:Segmented x:Name="Segmented"
+                             Margin="10,10,0,0">
+            <community:SegmentedItem wuc:Localizer.Uid="MediaDetailPage_RefreshItem"
+                                     Icon="{wuc:SymbolIcon Symbol=Refresh}"
+                                     IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
+                                     Tag="Refresh" />
+            <community:SegmentedItem wuc:Localizer.Uid="MediaDetailPage_IMDBItem"
+                                     Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
+                                     Tag="IMDBDetails" />
+            <community:SegmentedItem wuc:Localizer.Uid="MediaDetailPage_DownloadItem"
+                                     Icon="{wuc:SymbolIcon Symbol=Download}"
+                                     Tag="DownloadAll" />
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
                     <ic:EventTriggerBehavior.Actions>
@@ -93,7 +93,7 @@
                     </ic:EventTriggerBehavior.Actions>
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
-        </labs:Segmented>
+        </community:Segmented>
 
         <BreadcrumbBar x:Name="BreadcrumbBar"
                        Grid.Row="1"

@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Windows.Input;
 
-using CommunityToolkit.Labs.WinUI;
+using CommunityToolkit.WinUI.Controls;
 
 using Windows.ApplicationModel.DataTransfer;
 

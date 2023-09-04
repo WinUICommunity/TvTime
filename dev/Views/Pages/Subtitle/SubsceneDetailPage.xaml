@@ -2,6 +2,7 @@
 <Page x:Class="TvTime.Views.SubsceneDetailPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:community="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
@@ -80,16 +81,16 @@
                         SelectionChanged="LanguageTokenView_SelectionChanged"
                         SelectionMode="Multiple" />
 
-        <labs:Segmented x:Name="Segmented"
-                        Grid.Row="1"
-                        Margin="10,10,0,0">
-            <labs:SegmentedItem wuc:Localizer.Uid="SubsceneDetailPage_RefreshItem"
-                                Icon="{wuc:SymbolIcon Symbol=Refresh}"
-                                IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
-                                Tag="Refresh" />
-            <labs:SegmentedItem wuc:Localizer.Uid="SubsceneDetailPage_IMDBItem"
-                                Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
-                                Tag="IMDBDetails" />
+        <community:Segmented x:Name="Segmented"
+                             Grid.Row="1"
+                             Margin="10,10,0,0">
+            <community:SegmentedItem wuc:Localizer.Uid="SubsceneDetailPage_RefreshItem"
+                                     Icon="{wuc:SymbolIcon Symbol=Refresh}"
+                                     IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
+                                     Tag="Refresh" />
+            <community:SegmentedItem wuc:Localizer.Uid="SubsceneDetailPage_IMDBItem"
+                                     Icon="{wuc:SymbolIcon Symbol=PostUpdate}"
+                                     Tag="IMDBDetails" />
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
                     <ic:EventTriggerBehavior.Actions>
@@ -98,7 +99,7 @@
                     </ic:EventTriggerBehavior.Actions>
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
-        </labs:Segmented>
+        </community:Segmented>
 
         <BreadcrumbBar x:Name="BreadcrumbBar"
                        Grid.Row="2"

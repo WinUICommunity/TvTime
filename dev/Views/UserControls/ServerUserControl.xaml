@@ -100,7 +100,8 @@
 
         <views:NoItemUserControl x:Name="NoItemUC"
                                  HorizontalAlignment="Center"
-                                 Count="{x:Bind ViewModel.DataListACV.Count, Mode=OneWay}">
+                                 Count="{x:Bind ViewModel.DataListACV.Count, Mode=OneWay}"
+                                 IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}">
             <i:Interaction.Behaviors>
                 <ic:DataTriggerBehavior Binding="{Binding IsExpanded, ElementName=ServerExpander}"
                                         ComparisonCondition="Equal"

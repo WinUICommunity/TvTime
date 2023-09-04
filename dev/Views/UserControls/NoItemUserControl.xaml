@@ -39,6 +39,21 @@
                                          TargetObject="{Binding ElementName=NotFoundGrid}"
                                          Value="Collapsed" />
             </ic:DataTriggerBehavior>
+
+            <ic:DataTriggerBehavior Binding="{x:Bind IsActive}"
+                                    ComparisonCondition="Equal"
+                                    Value="False">
+                <ic:ChangePropertyAction PropertyName="Visibility"
+                                         TargetObject="{Binding ElementName=NotFoundGrid}"
+                                         Value="Visible" />
+            </ic:DataTriggerBehavior>
+            <ic:DataTriggerBehavior Binding="{x:Bind IsActive}"
+                                    ComparisonCondition="NotEqual"
+                                    Value="True">
+                <ic:ChangePropertyAction PropertyName="Visibility"
+                                         TargetObject="{Binding ElementName=NotFoundGrid}"
+                                         Value="Collapsed" />
+            </ic:DataTriggerBehavior>
         </i:Interaction.Behaviors>
     </Grid>
 </UserControl>

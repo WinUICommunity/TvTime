@@ -128,7 +128,8 @@
         <views:NoItemUserControl Grid.Row="2"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
-                                 Count="{x:Bind ViewModel.DataListACV.Count}" />
+                                 Count="{x:Bind ViewModel.DataListACV.Count}"
+                                 IsActive="{x:Bind ViewModel.IsActive}" />
 
         <ProgressRing Grid.Row="2"
                       IsActive="{x:Bind ViewModel.IsActive}" />

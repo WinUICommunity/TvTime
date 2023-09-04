@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.8.0](https://github.com/WinUICommunity/TvTime/compare/v2.7.0...v2.8.0)
+
+> 4 September 2023
+
+- Update Segmented Lib [`3c83786`](https://github.com/WinUICommunity/TvTime/commit/3c837863ab26b9e1a49145ed76f48f36d5c9ac23)
+- Update CHANGELOG.md [`17f71c8`](https://github.com/WinUICommunity/TvTime/commit/17f71c8a0dbc75104f491e1339ad12f6c889f85c)
+- Use new ScrollView Control from WASD 1.4 [`11f58c2`](https://github.com/WinUICommunity/TvTime/commit/11f58c27b8d7a38fbbbbcfc7f71f6ff32b50ff43)
+- Improve Displaying No Item Message [`0a323b3`](https://github.com/WinUICommunity/TvTime/commit/0a323b3e7295d08712f5d93499eddd4c2f3ba362)
+- Update to WASDK 1.4 [`a0f46a8`](https://github.com/WinUICommunity/TvTime/commit/a0f46a875edc4ff271c47cf37a0a5ab9787da7c3)
+- Fix a bug that all the subtitles displayed even if that language is not available in the settings [`0f3e20d`](https://github.com/WinUICommunity/TvTime/commit/0f3e20d690a4f8c1fab9dc81e58c96744eb03fb7)
+- Update publish.yml [`0ced1bb`](https://github.com/WinUICommunity/TvTime/commit/0ced1bbb3aa08a1b0e5801da93179153b2dccc3f)
+- Update TvTime.csproj [`cc00d4a`](https://github.com/WinUICommunity/TvTime/commit/cc00d4a5ee9727a6df3fd857620e4db954ed60ab)
+- Update TvTime.csproj [`8c56eab`](https://github.com/WinUICommunity/TvTime/commit/8c56eabd96a59040e6f23947b870329cdee5b618)
+
 #### [v2.7.0](https://github.com/WinUICommunity/TvTime/compare/v2.6.0...v2.7.0)
 
 > 22 August 2023

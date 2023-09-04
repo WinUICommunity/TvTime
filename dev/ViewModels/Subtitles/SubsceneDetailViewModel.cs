@@ -168,6 +168,13 @@ public partial class SubsceneDetailViewModel : BaseViewModel
                     break;
 
                 var Language = cell.SelectSingleNode(".//td[@class='a1']//a//span[1]")?.InnerText.Trim();
+
+                // respect Subtitle Language Settings
+                if (!string.IsNullOrEmpty(Language) && !Settings.SubtitleLanguagesCollection.Any(x=> Language.Contains(x, StringComparison.OrdinalIgnoreCase)))
+                {
+                    continue;
+                }
+
                 var Name = cell.SelectSingleNode(".//td[@class='a1']//a//span[2]")?.InnerText.Trim();
                 var Translator = cell.SelectSingleNode(".//td[@class='a5']//a")?.InnerText.Trim();
                 var Comment = cell.SelectSingleNode(".//td[@class='a6']//div")?.InnerText.Trim();

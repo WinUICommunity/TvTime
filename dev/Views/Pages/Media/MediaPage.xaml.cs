@@ -14,7 +14,6 @@ public sealed partial class MediaPage : Page
         ViewModel = App.GetService<MediaViewModel>();
         this.InitializeComponent();
         Instance = this;
-
         MediaItemsView.ItemTemplate = GetItemsViewDataTemplate(this);
     }
 

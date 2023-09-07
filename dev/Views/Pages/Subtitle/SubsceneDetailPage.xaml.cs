@@ -12,7 +12,7 @@ public sealed partial class SubsceneDetailPage : Page
         ViewModel = App.GetService<SubsceneDetailViewModel>();
         this.InitializeComponent();
         Instance = this;
-        DataContext = this;
+        SubsceneDetailItemsView.ItemTemplate = GetItemsViewDataTemplate(this);
     }
 
     public List<TokenItem> GetLanguageTokenViewSelectedItems()
@@ -40,5 +40,13 @@ public sealed partial class SubsceneDetailPage : Page
             var query = (SubsceneModel) item;
             return LanguageTokenView.SelectedItems.Cast<TokenItem>().Any(x => query.Language.Contains(x.Content.ToString()));
         };
+    }
+
+    private void ItemUserControl_Loading(FrameworkElement sender, object args)
+    {
+        var item = sender as ItemUserControl;
+        item.ViewModel = ViewModel;
+        item.SettingsCardCommand = ViewModel.SettingsCardCommand;
+        item.SettingsCardDoubleClickCommand = ViewModel.SettingsCardDoubleClickCommand;
     }
 }

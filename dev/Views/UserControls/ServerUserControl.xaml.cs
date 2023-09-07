@@ -19,7 +19,6 @@ public sealed partial class ServerUserControl : UserControl
     {
         ViewModel = App.GetService<ServerViewModel>();
         this.InitializeComponent();
-        DataContext = this;
     }
 
     private async void OnLoadPredefinedServer(object sender, RoutedEventArgs e)
@@ -101,5 +100,15 @@ public sealed partial class ServerUserControl : UserControl
         };
 
         await contentDialog.ShowAsync();
+    }
+
+    private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.UpdateItemCommand.Execute(sender);
+    }
+
+    private void BtnRemove_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.RemoveItemCommand.Execute(sender);
     }
 }

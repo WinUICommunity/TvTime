@@ -7,54 +7,47 @@
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:labs="using:CommunityToolkit.Labs.WinUI"
-      xmlns:local="using:TvTime.Common"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:TvTime.Models"
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
-      x:Name="This"
       x:DefaultBindMode="OneWay"
       NavigationCacheMode="Required"
       mc:Ignorable="d">
-
     <Page.Resources>
         <DataTemplate x:Key="TextBlockTemplate"
                       x:DataType="model:SubsceneModel">
-            <views:ItemUserControl Title="{x:Bind Title}"
-                                   ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
-                                   DateTime="{x:Bind Desc}"
-                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
-                                   Server="{x:Bind Server}"
-                                   SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                   SettingsCardDoubleClickCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardDoubleClickCommand}"
-                                   ViewModel="{Binding ElementName=This, Path=DataContext.ViewModel}">
-                <views:ItemUserControl.Description>
-                    <views:DescriptionTextBlockUserControl Text="{x:Bind Server}" />
-                </views:ItemUserControl.Description>
-            </views:ItemUserControl>
-
+            <ItemContainer Margin="5,0,15,0">
+                <views:ItemUserControl Title="{x:Bind Title}"
+                                       ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
+                                       DateTime="{x:Bind Desc}"
+                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
+                                       Loading="ItemUserControl_Loading"
+                                       Server="{x:Bind Server}"
+                                       TvTimeModel="{x:Bind}">
+                    <views:ItemUserControl.Description>
+                        <views:DescriptionTextBlockUserControl Text="{x:Bind Server}" />
+                    </views:ItemUserControl.Description>
+                </views:ItemUserControl>
+            </ItemContainer>
         </DataTemplate>
 
         <DataTemplate x:Key="HyperLinkTemplate"
                       x:DataType="model:SubsceneModel">
-            <views:ItemUserControl Title="{x:Bind Title}"
-                                   ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
-                                   DateTime="{x:Bind Desc}"
-                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
-                                   Server="{x:Bind Server}"
-                                   SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                   SettingsCardDoubleClickCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardDoubleClickCommand}"
-                                   ViewModel="{Binding ElementName=This, Path=DataContext.ViewModel}">
-                <views:ItemUserControl.Description>
-                    <views:DescriptionHyperLinkUserControl Text="{x:Bind Server}" />
-                </views:ItemUserControl.Description>
-            </views:ItemUserControl>
+            <ItemContainer Margin="5,0,15,0">
+                <views:ItemUserControl Title="{x:Bind Title}"
+                                       ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
+                                       DateTime="{x:Bind Desc}"
+                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
+                                       Loading="ItemUserControl_Loading"
+                                       Server="{x:Bind Server}"
+                                       TvTimeModel="{x:Bind}">
+                    <views:ItemUserControl.Description>
+                        <views:DescriptionHyperLinkUserControl Text="{x:Bind Server}" />
+                    </views:ItemUserControl.Description>
+                </views:ItemUserControl>
+            </ItemContainer>
         </DataTemplate>
-
-        <local:ListViewItemTemplateSelector x:Key="ListViewItemTemplateSelector"
-                                            HyperLinkTemplate="{StaticResource HyperLinkTemplate}"
-                                            TextBlockTemplate="{StaticResource TextBlockTemplate}" />
-
     </Page.Resources>
 
     <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
@@ -87,14 +80,18 @@
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </community:Segmented>
-        <ListView Grid.Row="2"
-                  Margin="5,10,5,5"
-                  HorizontalAlignment="Stretch"
-                  FlowDirection="LeftToRight"
-                  IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
-                  ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
-                  ItemsSource="{x:Bind ViewModel.DataListACV}"
-                  SelectionMode="None" />
+        <ItemsView x:Name="SubsceneItemsView"
+                   Grid.Row="2"
+                   Margin="5,10,5,5"
+                   HorizontalAlignment="Stretch"
+                   FlowDirection="LeftToRight"
+                   IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
+                   ItemsSource="{x:Bind ViewModel.DataListACV}"
+                   SelectionMode="None">
+            <ItemsView.Layout>
+                <StackLayout Spacing="5" />
+            </ItemsView.Layout>
+        </ItemsView>
 
         <views:NoItemUserControl Grid.Row="2"
                                  HorizontalAlignment="Center"

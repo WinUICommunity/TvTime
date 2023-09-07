@@ -9,7 +9,6 @@
              xmlns:model="using:TvTime.Models"
              xmlns:views="using:TvTime.Views"
              xmlns:wuc="using:WinUICommunity"
-             x:Name="This"
              mc:Ignorable="d">
 
     <i:Interaction.Behaviors>
@@ -47,54 +46,59 @@
                         </wuc:SettingsCard>
                     </wuc:SettingsExpander.Items>
                 </wuc:SettingsExpander>
-                <ListView FlowDirection="LeftToRight"
-                          ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}"
-                          SelectionMode="None">
-                    <ListView.ItemTemplate>
+                <ItemsView FlowDirection="LeftToRight"
+                           ItemsSource="{x:Bind ViewModel.DataListACV, Mode=OneWay}"
+                           SelectionMode="None">
+                    <ItemsView.ItemTemplate>
                         <DataTemplate x:Name="SingleLineDataTemplate"
                                       x:DataType="model:ServerModel">
-                            <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}"
-                                              HeaderIcon="{x:Bind IsActive, Converter={StaticResource Bool2IconConverter}, ConverterParameter=bitmap}">
-                                <wuc:SettingsCard.Resources>
-                                    <x:Double x:Key="SettingsCardLeftIndention">42</x:Double>
-                                </wuc:SettingsCard.Resources>
-                                <wuc:SettingsCard.Description>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="0,0,4,0"
-                                                   FontWeight="SemiBold"
-                                                   Style="{ThemeResource SecondaryTextStyle}"
-                                                   Text="{x:Bind ServerType, Mode=OneWay}" />
-                                        <HyperlinkButton Margin="0,0,4,0"
-                                                         Padding="2,1,2,1"
-                                                         BorderThickness="0"
-                                                         NavigateUri="{x:Bind Server}">
-                                            <TextBlock Style="{ThemeResource SecondaryTextStyle}"
-                                                       Text="{x:Bind Server}" />
-                                        </HyperlinkButton>
+                            <ItemContainer>
+                                <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}"
+                                                  HeaderIcon="{x:Bind IsActive, Converter={StaticResource Bool2IconConverter}, ConverterParameter=bitmap}">
+                                    <wuc:SettingsCard.Resources>
+                                        <x:Double x:Key="SettingsCardLeftIndention">42</x:Double>
+                                    </wuc:SettingsCard.Resources>
+                                    <wuc:SettingsCard.Description>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="0,0,4,0"
+                                                       FontWeight="SemiBold"
+                                                       Style="{ThemeResource SecondaryTextStyle}"
+                                                       Text="{x:Bind ServerType, Mode=OneWay}" />
+                                            <HyperlinkButton Margin="0,0,4,0"
+                                                             Padding="2,1,2,1"
+                                                             BorderThickness="0"
+                                                             NavigateUri="{x:Bind Server}">
+                                                <TextBlock Style="{ThemeResource SecondaryTextStyle}"
+                                                           Text="{x:Bind Server}" />
+                                            </HyperlinkButton>
+                                        </StackPanel>
+                                    </wuc:SettingsCard.Description>
+                                    <StackPanel HorizontalAlignment="Right"
+                                                Orientation="Horizontal"
+                                                Spacing="8">
+                                        <Button x:Name="BtnUpdate"
+                                                Width="40"
+                                                Height="36"
+                                                Click="BtnUpdate_Click"
+                                                Content="{wuc:BitmapIcon Source=Assets/Fluent/edit.png}"
+                                                DataContext="{x:Bind}"
+                                                Style="{StaticResource SubtleButtonStyle}" />
+                                        <Button x:Name="BtnRemove"
+                                                Width="40"
+                                                Height="36"
+                                                Click="BtnRemove_Click"
+                                                Content="{wuc:BitmapIcon Source=Assets/Fluent/trash.png}"
+                                                DataContext="{x:Bind}"
+                                                Style="{StaticResource SubtleButtonStyle}" />
                                     </StackPanel>
-                                </wuc:SettingsCard.Description>
-                                <StackPanel HorizontalAlignment="Right"
-                                            Orientation="Horizontal"
-                                            Spacing="8">
-                                    <Button x:Name="BtnUpdate"
-                                            Width="40"
-                                            Height="36"
-                                            Command="{Binding ElementName=This, Path=DataContext.ViewModel.UpdateItemCommand}"
-                                            CommandParameter="{Binding ElementName=BtnUpdate}"
-                                            Content="{wuc:BitmapIcon Source=Assets/Fluent/edit.png}"
-                                            Style="{StaticResource SubtleButtonStyle}" />
-                                    <Button x:Name="BtnRemove"
-                                            Width="40"
-                                            Height="36"
-                                            Command="{Binding ElementName=This, Path=DataContext.ViewModel.RemoveItemCommand}"
-                                            CommandParameter="{Binding ElementName=BtnRemove}"
-                                            Content="{wuc:BitmapIcon Source=Assets/Fluent/trash.png}"
-                                            Style="{StaticResource SubtleButtonStyle}" />
-                                </StackPanel>
-                            </wuc:SettingsCard>
+                                </wuc:SettingsCard>
+                            </ItemContainer>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ItemsView.ItemTemplate>
+                    <ItemsView.Layout>
+                        <StackLayout Spacing="5" />
+                    </ItemsView.Layout>
+                </ItemsView>
             </wuc:SettingsGroup>
         </ScrollView>
 

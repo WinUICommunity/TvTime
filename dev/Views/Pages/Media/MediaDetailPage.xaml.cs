@@ -11,7 +11,7 @@ public sealed partial class MediaDetailPage : Page
         ViewModel = App.GetService<MediaDetailsViewModel>();
         this.InitializeComponent();
         Instance = this;
-        DataContext = this;
+        MediaDetailItemsView.ItemTemplate = GetItemsViewDataTemplate(this);
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -20,5 +20,13 @@ public sealed partial class MediaDetailPage : Page
         var args = (MediaItem) e.Parameter;
         ViewModel.rootTvTimeItem = args;
         ViewModel.BreadcrumbBarList?.Clear();
+    }
+
+    private void ItemUserControl_Loading(FrameworkElement sender, object args)
+    {
+        var item = sender as ItemUserControl;
+        item.ViewModel = ViewModel;
+        item.SettingsCardCommand = ViewModel.SettingsCardCommand;
+        item.SettingsCardDoubleClickCommand = ViewModel.SettingsCardDoubleClickCommand;
     }
 }

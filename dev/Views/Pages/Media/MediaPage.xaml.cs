@@ -14,7 +14,8 @@ public sealed partial class MediaPage : Page
         ViewModel = App.GetService<MediaViewModel>();
         this.InitializeComponent();
         Instance = this;
-        DataContext = this;
+
+        MediaItemsView.ItemTemplate = GetItemsViewDataTemplate(this);
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,5 +42,19 @@ public sealed partial class MediaPage : Page
             var query = (MediaItem) item;
             return Token.SelectedItems.Cast<TokenItem>().Any(x => query.Server.Contains(x.Content.ToString()));
         };
+    }
+
+    private void ItemUserControl_Loading(FrameworkElement sender, object args)
+    {
+        var item = sender as ItemUserControl;
+        item.ViewModel = ViewModel;
+        item.SettingsCardCommand = ViewModel.SettingsCardCommand;
+        item.SettingsCardDoubleClickCommand = ViewModel.SettingsCardDoubleClickCommand;
+        var conv = new MediaHeaderIconConverter();
+        var headerIcon = conv.Convert(PageType, null, null, null);
+        if (headerIcon != null)
+        {
+            item.HeaderIcon = (BitmapIcon) headerIcon;
+        }
     }
 }

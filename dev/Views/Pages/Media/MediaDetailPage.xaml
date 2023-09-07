@@ -5,12 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:local="using:TvTime.Common"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:TvTime.Models"
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
-      x:Name="This"
       x:DefaultBindMode="OneWay"
       mc:Ignorable="d">
 
@@ -18,43 +16,39 @@
 
         <DataTemplate x:Key="TextBlockTemplate"
                       x:DataType="model:MediaItem">
-            <views:ItemUserControl Title="{x:Bind Title}"
-                                   ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
-                                   DateTime="{x:Bind DateTime}"
-                                   FileSize="{x:Bind FileSize}"
-                                   HeaderIcon="{x:Bind Title, Converter={StaticResource DetailHeaderIconConverter}}"
-                                   Server="{x:Bind Server}"
-                                   SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                   SettingsCardDoubleClickCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardDoubleClickCommand}"
-                                   ViewModel="{Binding ElementName=This, Path=DataContext.ViewModel}">
-                <views:ItemUserControl.Description>
-                    <views:DescriptionTextBlockUserControl Text="{x:Bind Server}" />
-                </views:ItemUserControl.Description>
-
-            </views:ItemUserControl>
+            <ItemContainer>
+                <views:ItemUserControl Title="{x:Bind Title}"
+                                       ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
+                                       DateTime="{x:Bind DateTime}"
+                                       FileSize="{x:Bind FileSize}"
+                                       HeaderIcon="{x:Bind Title, Converter={StaticResource DetailHeaderIconConverter}}"
+                                       Loading="ItemUserControl_Loading"
+                                       Server="{x:Bind Server}"
+                                       TvTimeModel="{x:Bind}">
+                    <views:ItemUserControl.Description>
+                        <views:DescriptionTextBlockUserControl Text="{x:Bind Server}" />
+                    </views:ItemUserControl.Description>
+                </views:ItemUserControl>
+            </ItemContainer>
         </DataTemplate>
 
         <DataTemplate x:Key="HyperLinkTemplate"
                       x:DataType="model:MediaItem">
-            <views:ItemUserControl Title="{x:Bind Title}"
-                                   ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
-                                   DateTime="{x:Bind DateTime}"
-                                   FileSize="{x:Bind FileSize}"
-                                   HeaderIcon="{x:Bind Title, Converter={StaticResource DetailHeaderIconConverter}}"
-                                   Server="{x:Bind Server}"
-                                   SettingsCardCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardCommand}"
-                                   SettingsCardDoubleClickCommand="{Binding ElementName=This, Path=DataContext.ViewModel.SettingsCardDoubleClickCommand}"
-                                   ViewModel="{Binding ElementName=This, Path=DataContext.ViewModel}">
-                <views:ItemUserControl.Description>
-                    <views:DescriptionHyperLinkUserControl Text="{x:Bind Server}" />
-                </views:ItemUserControl.Description>
-            </views:ItemUserControl>
-
+            <ItemContainer>
+                <views:ItemUserControl Title="{x:Bind Title}"
+                                       ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
+                                       DateTime="{x:Bind DateTime}"
+                                       FileSize="{x:Bind FileSize}"
+                                       HeaderIcon="{x:Bind Title, Converter={StaticResource DetailHeaderIconConverter}}"
+                                       Loading="ItemUserControl_Loading"
+                                       Server="{x:Bind Server}"
+                                       TvTimeModel="{x:Bind}">
+                    <views:ItemUserControl.Description>
+                        <views:DescriptionHyperLinkUserControl Text="{x:Bind Server}" />
+                    </views:ItemUserControl.Description>
+                </views:ItemUserControl>
+            </ItemContainer>
         </DataTemplate>
-
-        <local:ListViewItemTemplateSelector x:Key="ListViewItemTemplateSelector"
-                                            HyperLinkTemplate="{StaticResource HyperLinkTemplate}"
-                                            TextBlockTemplate="{StaticResource TextBlockTemplate}" />
     </Page.Resources>
 
     <i:Interaction.Behaviors>
@@ -116,14 +110,18 @@
             </BreadcrumbBar.ItemTemplate>
         </BreadcrumbBar>
 
-        <ListView Grid.Row="2"
-                  Margin="5,0,5,5"
-                  HorizontalAlignment="Stretch"
-                  FlowDirection="LeftToRight"
-                  IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
-                  ItemTemplateSelector="{StaticResource ListViewItemTemplateSelector}"
-                  ItemsSource="{x:Bind ViewModel.DataListACV}"
-                  SelectionMode="None" />
+        <ItemsView x:Name="MediaDetailItemsView"
+                   Grid.Row="2"
+                   Margin="5,0,5,5"
+                   HorizontalAlignment="Stretch"
+                   FlowDirection="LeftToRight"
+                   IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
+                   ItemsSource="{x:Bind ViewModel.DataListACV}"
+                   SelectionMode="None">
+            <ItemsView.Layout>
+                <StackLayout Spacing="5" />
+            </ItemsView.Layout>
+        </ItemsView>
 
         <views:NoItemUserControl Grid.Row="2"
                                  HorizontalAlignment="Center"

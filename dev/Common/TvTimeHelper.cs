@@ -348,4 +348,17 @@ public static partial class TvTimeHelper
 
         await contentDialog.ShowAsyncQueue();
     }
+
+    public static DataTemplate GetItemsViewDataTemplate(Page page)
+    {
+        switch (Settings.DescriptionTemplate)
+        {
+            case DescriptionTemplateType.TextBlock:
+                return page.Resources["TextBlockTemplate"] as DataTemplate;
+            case DescriptionTemplateType.HyperLink:
+                return page.Resources["HyperLinkTemplate"] as DataTemplate;
+            default:
+                return page.Resources["HyperLinkTemplate"] as DataTemplate;
+        }
+    }
 }

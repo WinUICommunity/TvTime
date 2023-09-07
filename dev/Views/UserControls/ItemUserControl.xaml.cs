@@ -3,6 +3,15 @@
 namespace TvTime.Views;
 public sealed partial class ItemUserControl : UserControl
 {
+    public event EventHandler<RoutedEventArgs> Click;
+    public event EventHandler<RoutedEventArgs> DoubleClick;
+
+    public ITvTimeModel TvTimeModel
+    {
+        get => (ITvTimeModel) GetValue(TvTimeModelProperty);
+        set => SetValue(TvTimeModelProperty, value);
+    }
+
     public IBaseViewModel ViewModel
     {
         get => (IBaseViewModel) GetValue(ViewModelProperty);
@@ -62,6 +71,9 @@ public sealed partial class ItemUserControl : UserControl
         get => (IconElement) GetValue(ActionIconProperty);
         set => SetValue(ActionIconProperty, value);
     }
+
+    public static readonly DependencyProperty TvTimeModelProperty =
+        DependencyProperty.Register("TvTimeModel", typeof(ITvTimeModel), typeof(ItemUserControl), new PropertyMetadata(default(ITvTimeModel)));
 
     public static readonly DependencyProperty ViewModelProperty =
         DependencyProperty.Register("ViewModel", typeof(IBaseViewModel), typeof(ItemUserControl), new PropertyMetadata(default(IBaseViewModel)));
@@ -126,5 +138,15 @@ public sealed partial class ItemUserControl : UserControl
             SubMenuDownload.FlowDirection = FlowDirection.LeftToRight;
             SubMenuDownloadAll.FlowDirection = FlowDirection.LeftToRight;
         }
+    }
+
+    private void SettingsCard_Click(object sender, RoutedEventArgs e)
+    {
+        Click?.Invoke(sender, e);
+    }
+
+    private void SettingsCard_DoubleTapped(object sender, Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+    {
+        DoubleClick?.Invoke(sender, e);
     }
 }

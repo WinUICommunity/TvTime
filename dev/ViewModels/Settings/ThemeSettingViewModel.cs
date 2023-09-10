@@ -20,7 +20,7 @@ public partial class ThemeSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void OpenWindowsColorSettings()
+    private async Task OpenWindowsColorSettings()
     {
         _ = await Launcher.LaunchUriAsync(new Uri("ms-settings:colors"));
     }

@@ -29,7 +29,7 @@
                 <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
                 <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                         wuc:Localizer.Uid="AppUpdateSettingPage_CheckUpdate"
-                        Command="{x:Bind ViewModel.CheckForUpdateAsyncCommand}"
+                        Command="{x:Bind ViewModel.CheckForUpdateCommand}"
                         IsEnabled="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
                         Style="{ThemeResource AccentButtonStyle}" />
             </StackPanel>
@@ -40,7 +40,7 @@
             <wuc:SettingsCard.Description>
                 <HyperlinkButton Padding="5,0"
                                  wuc:Localizer.Uid="AppUpdateSettingPage_ReleaseNotes"
-                                 Command="{x:Bind ViewModel.GetReleaseNotesAsyncCommand}"
+                                 Command="{x:Bind ViewModel.GetReleaseNotesCommand}"
                                  Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}" />
             </wuc:SettingsCard.Description>
             <StackPanel VerticalAlignment="Center"
@@ -48,7 +48,7 @@
                         Spacing="10">
                 <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                         wuc:Localizer.Uid="AppUpdateSettingPage_DownloadUpdate"
-                        Command="{x:Bind ViewModel.GoToUpdateAsyncCommand}"
+                        Command="{x:Bind ViewModel.GoToUpdateCommand}"
                         Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}" />
             </StackPanel>
         </wuc:SettingsCard>

@@ -13,7 +13,6 @@
       xmlns:wuc="using:WinUICommunity"
       x:DefaultBindMode="OneWay"
       mc:Ignorable="d">
-
     <Page.Resources>
         <DataTemplate x:Key="TextBlockTemplate"
                       x:DataType="model:SubsceneModel">
@@ -29,7 +28,6 @@
                     <views:ItemUserControl.Description>
                         <views:DescriptionTextBlockUserControl Text="{x:Bind Server}" />
                     </views:ItemUserControl.Description>
-
                 </views:ItemUserControl>
             </ItemContainer>
         </DataTemplate>

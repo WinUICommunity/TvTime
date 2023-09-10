@@ -10,7 +10,7 @@ public partial class BackupSettingViewModel : ObservableObject
     public InfoBarSeverity statusSeverity = InfoBarSeverity.Informational;
 
     [RelayCommand]
-    private async void OnBackupServer(object isMediaServer)
+    private async Task OnBackupServer(object isMediaServer)
     {
         try
         {
@@ -55,7 +55,7 @@ public partial class BackupSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void OnRestoreServer(object isMediaServer)
+    private async Task OnRestoreServer(object isMediaServer)
     {
         try
         {
@@ -91,7 +91,7 @@ public partial class BackupSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void OnBackupSettings()
+    private async Task OnBackupSettings()
     {
         try
         {
@@ -122,7 +122,7 @@ public partial class BackupSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void OnRestoreSettings()
+    private async Task OnRestoreSettings()
     {
         try
         {

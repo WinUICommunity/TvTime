@@ -1,4 +1,7 @@
-﻿using Microsoft.UI;
+﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter;
+using Microsoft.UI;
 
 using TvTime.ViewModels;
 
@@ -107,12 +110,15 @@ public partial class App : Application
 
         currentWindow.Activate();
 
+        AppCenter.Start(Constants.AppCenterKey,
+                  typeof(Analytics), typeof(Crashes));
+
         UnhandledException += App_UnhandledException;
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
-        Log(e.Exception.Message);
+        Log(e.Exception.ToString());
     }
 
     public static void Log(string message)

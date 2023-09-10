@@ -21,4 +21,5 @@ public class Constants
     public static readonly string[] FileExtensions = new string[] { ".mp4", ".wav", ".m4a", ".mp3", ".mkv", ".zip", ".rar", ".srt", ".aas" };
 
     public const string SubsceneSearchAPI = "{0}/subtitles/searchbytitle?query={1}&l=";
+    public const string AppCenterKey = "9f0c2c2b-0910-4cf7-bdae-4c1841bdfb0f";
 }

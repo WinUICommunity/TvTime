@@ -123,7 +123,7 @@ public partial class MediaViewModel : BaseViewModel
     #endregion
 
     [RelayCommand]
-    private async void OnServerStatus()
+    private async Task OnServerStatus()
     {
         ContentDialog contentDialog = new ContentDialog();
         contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;

@@ -25,7 +25,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void CheckForUpdateAsync()
+    private async Task CheckForUpdateAsync()
     {
         IsLoading = true;
         IsUpdateAvailable = false;
@@ -62,7 +62,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void GetReleaseNotesAsync()
+    private async Task GetReleaseNotesAsync()
     {
         ContentDialog dialog = new ContentDialog()
         {
@@ -87,7 +87,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void GoToUpdateAsync()
+    private async Task GoToUpdateAsync()
     {
         await Launcher.LaunchUriAsync(new Uri(Constants.TVTIME_REPO));
     }

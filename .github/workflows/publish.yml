@@ -34,14 +34,14 @@ jobs:
       with:
         files: ${{ env.DIR_PATH }}
         recursive: true
-        dest: publish/TvTime-v${{steps.get-version.outputs.version-prefix}}.zip
+        dest: publish/TvTime-v${{steps.get-version.outputs.version}}.zip
   
     - name: Create Github Release
       uses: actions/create-release@v1.1.4
       id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        VersionName: v${{steps.get-version.outputs.version-prefix}}
+        VersionName: v${{steps.get-version.outputs.version}}
       with:
         tag_name: ${{ env.VersionName }}
         release_name: ${{ env.VersionName }}
@@ -50,7 +50,7 @@ jobs:
       uses: csexton/release-asset-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        file: publish/TvTime-v${{steps.get-version.outputs.version-prefix}}.zip
+        file: publish/TvTime-v${{steps.get-version.outputs.version}}.zip
         release-url: ${{ steps.create_release.outputs.upload_url }}
         
   changelog:
@@ -71,7 +71,7 @@ jobs:
       run: npm install -g auto-changelog  
     
     - name: Generate CHANGELOG.md
-      run: auto-changelog --commit-limit false --starting-version v${{steps.get-version.outputs.version-prefix}} --ending-version v${{steps.get-version.outputs.version-prefix}} --hide-credit
+      run: auto-changelog --commit-limit false --starting-version v${{steps.get-version.outputs.version}} --ending-version v${{steps.get-version.outputs.version}} --hide-credit
          
     - name: Get Latest Github Release
       id: latest_release

@@ -6,7 +6,6 @@
              xmlns:i="using:Microsoft.Xaml.Interactivity"
              xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:wuc="using:WinUICommunity"
              x:DefaultBindMode="OneWay"
              mc:Ignorable="d">
 
@@ -22,8 +21,8 @@
                    Margin="20,0,10,10"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   wuc:Localizer.Uid="NoItemUC_NoItem"
-                   Style="{ThemeResource HeaderTextBlockStyle}" />
+                   Style="{ThemeResource HeaderTextBlockStyle}"
+                   Text="{x:Bind Message, Mode=OneWay}" />
         <i:Interaction.Behaviors>
             <ic:DataTriggerBehavior Binding="{x:Bind Count}"
                                     ComparisonCondition="Equal"
@@ -35,21 +34,6 @@
             <ic:DataTriggerBehavior Binding="{x:Bind Count}"
                                     ComparisonCondition="NotEqual"
                                     Value="0">
-                <ic:ChangePropertyAction PropertyName="Visibility"
-                                         TargetObject="{Binding ElementName=NotFoundGrid}"
-                                         Value="Collapsed" />
-            </ic:DataTriggerBehavior>
-
-            <ic:DataTriggerBehavior Binding="{x:Bind IsActive}"
-                                    ComparisonCondition="Equal"
-                                    Value="False">
-                <ic:ChangePropertyAction PropertyName="Visibility"
-                                         TargetObject="{Binding ElementName=NotFoundGrid}"
-                                         Value="Visible" />
-            </ic:DataTriggerBehavior>
-            <ic:DataTriggerBehavior Binding="{x:Bind IsActive}"
-                                    ComparisonCondition="NotEqual"
-                                    Value="True">
                 <ic:ChangePropertyAction PropertyName="Visibility"
                                          TargetObject="{Binding ElementName=NotFoundGrid}"
                                          Value="Collapsed" />

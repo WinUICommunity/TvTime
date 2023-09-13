@@ -1,4 +1,6 @@
-﻿namespace TvTime.ViewModels;
+﻿using Windows.System;
+
+namespace TvTime.ViewModels;
 public partial class ThemeSettingViewModel : ObservableObject
 {
     public IThemeService ThemeService;

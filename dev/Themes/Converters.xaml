@@ -9,6 +9,7 @@
     <common:String2FileSizeConverter x:Key="String2FileSizeConverter" />
     <common:Bool2IconConverter x:Key="Bool2IconConverter" />
     <common:String2StyleConverter x:Key="String2StyleConverter" />
+    <common:Bool2Negation2VisibilityConverter x:Key="Bool2Negation2VisibilityConverter" />
     <common:MediaHeaderIconConverter x:Key="MediaHeaderIconConverter" />
     <common:DetailHeaderIconConverter x:Key="DetailHeaderIconConverter" />
 

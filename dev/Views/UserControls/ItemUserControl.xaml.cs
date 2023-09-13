@@ -1,20 +1,25 @@
 ﻿using System.Windows.Input;
 
+using TvTime.Database.Tables;
+using TvTime.ViewModels;
+
+using Windows.System;
+
 namespace TvTime.Views;
 public sealed partial class ItemUserControl : UserControl
 {
     public event EventHandler<RoutedEventArgs> Click;
     public event EventHandler<RoutedEventArgs> DoubleClick;
 
-    public ITvTimeModel TvTimeModel
+    public BaseMediaTable BaseMedia
     {
-        get => (ITvTimeModel) GetValue(TvTimeModelProperty);
-        set => SetValue(TvTimeModelProperty, value);
+        get => (BaseMediaTable) GetValue(BaseMediaProperty);
+        set => SetValue(BaseMediaProperty, value);
     }
 
-    public IBaseViewModel ViewModel
+    public BaseViewModel ViewModel
     {
-        get => (IBaseViewModel) GetValue(ViewModelProperty);
+        get => (BaseViewModel)GetValue(ViewModelProperty);
         set => SetValue(ViewModelProperty, value);
     }
 
@@ -28,12 +33,6 @@ public sealed partial class ItemUserControl : UserControl
     {
         get => (ICommand) GetValue(SettingsCardDoubleClickCommandProperty);
         set => SetValue(SettingsCardDoubleClickCommandProperty, value);
-    }
-
-    public object Description
-    {
-        get => (object) GetValue(DescriptionProperty);
-        set => SetValue(DescriptionProperty, value);
     }
 
     public string Title
@@ -72,20 +71,17 @@ public sealed partial class ItemUserControl : UserControl
         set => SetValue(ActionIconProperty, value);
     }
 
-    public static readonly DependencyProperty TvTimeModelProperty =
-        DependencyProperty.Register("TvTimeModel", typeof(ITvTimeModel), typeof(ItemUserControl), new PropertyMetadata(default(ITvTimeModel)));
+    public static readonly DependencyProperty BaseMediaProperty =
+        DependencyProperty.Register("BaseMedia", typeof(BaseMediaTable), typeof(ItemUserControl), new PropertyMetadata(default(BaseMediaTable)));
 
     public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register("ViewModel", typeof(IBaseViewModel), typeof(ItemUserControl), new PropertyMetadata(default(IBaseViewModel)));
+        DependencyProperty.Register("ViewModel", typeof(BaseViewModel), typeof(ItemUserControl), new PropertyMetadata(default(BaseViewModel)));
 
     public static readonly DependencyProperty SettingsCardCommandProperty =
        DependencyProperty.Register("SettingsCardCommand", typeof(ICommand), typeof(ItemUserControl), new PropertyMetadata(default(ICommand)));
 
     public static readonly DependencyProperty SettingsCardDoubleClickCommandProperty =
        DependencyProperty.Register("SettingsCardDoubleClickCommand", typeof(ICommand), typeof(ItemUserControl), new PropertyMetadata(default(ICommand)));
-
-    public static readonly DependencyProperty DescriptionProperty =
-        DependencyProperty.Register("Description", typeof(object), typeof(ItemUserControl), new PropertyMetadata(default(object)));
 
     public static readonly DependencyProperty TitleProperty =
         DependencyProperty.Register("Title", typeof(string), typeof(ItemUserControl), new PropertyMetadata(default(string)));
@@ -114,29 +110,26 @@ public sealed partial class ItemUserControl : UserControl
             ActionIcon = new FontIcon { Glyph = "\ue974" };
         }
 
-        if (Settings.TvTimeLanguage.FlowDirection == FlowDirection.RightToLeft)
+        if (Settings.UseTruncateInDescription)
         {
-            MenuDirectory.FlowDirection = FlowDirection.RightToLeft;
-            MenuIMDB.FlowDirection = FlowDirection.RightToLeft;
-            MenuFile.FlowDirection = FlowDirection.RightToLeft;
-            MenuCopy.FlowDirection = FlowDirection.RightToLeft;
-            SubMenuCopy.FlowDirection = FlowDirection.RightToLeft;
-            SubMenuCopyAll.FlowDirection = FlowDirection.RightToLeft;
-            MenuDownload.FlowDirection = FlowDirection.RightToLeft;
-            SubMenuDownload.FlowDirection = FlowDirection.RightToLeft;
-            SubMenuDownloadAll.FlowDirection = FlowDirection.RightToLeft;
+            TxtDesc.TextTrimming = TextTrimming.CharacterEllipsis;
+            TxtDesc.TextWrapping = TextWrapping.NoWrap;
         }
         else
         {
-            MenuDirectory.FlowDirection = FlowDirection.LeftToRight;
-            MenuIMDB.FlowDirection = FlowDirection.LeftToRight;
-            MenuFile.FlowDirection = FlowDirection.LeftToRight;
-            MenuCopy.FlowDirection = FlowDirection.LeftToRight;
-            SubMenuCopy.FlowDirection = FlowDirection.LeftToRight;
-            SubMenuCopyAll.FlowDirection = FlowDirection.LeftToRight;
-            MenuDownload.FlowDirection = FlowDirection.LeftToRight;
-            SubMenuDownload.FlowDirection = FlowDirection.LeftToRight;
-            SubMenuDownloadAll.FlowDirection = FlowDirection.LeftToRight;
+            TxtDesc.TextTrimming = TextTrimming.None;
+            TxtDesc.TextWrapping = TextWrapping.Wrap;
+        }
+
+        if (Settings.UseTruncateInHeader)
+        {
+            TxtHeader.TextTrimming = TextTrimming.CharacterEllipsis;
+            TxtHeader.TextWrapping = TextWrapping.NoWrap;
+        }
+        else
+        {
+            TxtHeader.TextTrimming = TextTrimming.None;
+            TxtHeader.TextWrapping = TextWrapping.Wrap;
         }
     }
 
@@ -148,5 +141,17 @@ public sealed partial class ItemUserControl : UserControl
     private void SettingsCard_DoubleTapped(object sender, Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
     {
         DoubleClick?.Invoke(sender, e);
+    }
+
+    private async void ServerHyperLink_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await Launcher.LaunchUriAsync(new Uri(Server));
+        }
+        catch (Exception ex)
+        {
+            Logger?.Error(ex, "ItemUserControl: Navigate To Uri for Server");
+        }
     }
 }

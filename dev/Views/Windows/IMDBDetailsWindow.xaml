@@ -17,17 +17,17 @@
                       IsPaneButtonVisible="False">
             <wuc:TitleBar.Icon>
                 <BitmapIcon ShowAsMonochrome="False"
-                            UriSource="ms-appx:///Assets/Fluent/icon.png" />
+                            UriSource="ms-appx:///Assets/icon.png" />
             </wuc:TitleBar.Icon>
             <wuc:TitleBar.Content>
                 <AutoSuggestBox x:Name="TxtSearch"
                                 MinWidth="360"
-                                wuc:Localizer.Uid="IMDBDetailWindow_TitleBarSearch"
+                                PlaceholderText="Search your Media"
                                 QueryIcon="Find"
                                 QuerySubmitted="AutoSuggestBox_QuerySubmitted" />
             </wuc:TitleBar.Content>
         </wuc:TitleBar>
-        <views:IMDBDetailsPage x:Name="ImdbDetailsPage"
-                               Grid.Row="1" />
+        <views:IMDBDetailPage x:Name="ImdbDetailsPage"
+                              Grid.Row="1" />
     </Grid>
 </Window>

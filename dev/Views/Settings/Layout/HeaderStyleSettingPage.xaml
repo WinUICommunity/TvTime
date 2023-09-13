@@ -18,7 +18,8 @@
 
             <views:BreadcrumbBarUserControl Items="{x:Bind LayoutSettingViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
-            <wuc:SettingsCard wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTextStyle"
+            <wuc:SettingsCard Description="Specify the style of the header"
+                              Header="Header Text Style"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
                 <ComboBox x:Name="CmbHeader"
                           ItemsSource="{x:Bind ViewModel.TextBlockStyles, Mode=OneWay}"
@@ -33,43 +34,16 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTruncateText"
+            <wuc:SettingsCard Description="Append an ellipsis (...) at the end"
+                              Header="Truncate Header"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
-                <ToggleSwitch wuc:Localizer.Uid="ToggleSwitch"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseTruncateInHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseTruncateInHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
-            <wuc:SettingsExpander wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTextFontSizeExpander"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
-                                  IsExpanded="True">
-                <ToggleSwitch x:Name="TgCustomFontSize"
-                              wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTextCustomFontSize"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseCustomFontSizeForHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="Toggled">
-                            <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.CustomFontSizeToggledCommand}"
-                                                        CommandParameter="{Binding ElementName=TgCustomFontSize}" />
-                            </ic:EventTriggerBehavior.Actions>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ToggleSwitch>
-                <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard wuc:Localizer.Uid="HeaderStyleSettingPage_HeaderTextFontSize"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/fontsize.png}"
-                                      IsEnabled="{x:Bind ViewModel.IsEnabledSettingsCard, Mode=OneWay}">
-                        <NumberBox Minimum="8"
-                                   SpinButtonPlacementMode="Inline"
-                                   ValueChanged="FontSize_ValueChanged"
-                                   Value="{x:Bind local:TvTimeHelper.Settings.HeaderTextBlockFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </wuc:SettingsCard>
-                </wuc:SettingsExpander.Items>
-            </wuc:SettingsExpander>
 
             <TextBlock Margin="10"
                        HorizontalAlignment="Center"
-                       wuc:Localizer.Uid="HeaderStyleSettingPage_PreviewHeader"
-                       FontSize="{x:Bind ViewModel.PreviewFontSize, Mode=OneWay}"
-                       Style="{Binding ElementName=CmbHeader, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}" />
+                       Style="{Binding ElementName=CmbHeader, Path=SelectedItem, Converter={StaticResource String2StyleConverter}}"
+                       Text="Preview Header" />
         </StackPanel>
     </ScrollView>
 </Page>

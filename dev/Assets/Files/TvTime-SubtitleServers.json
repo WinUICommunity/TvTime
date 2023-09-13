@@ -1,14 +1,16 @@
-﻿[
+[
   {
+    "Id": 1,
     "Title": "Delta Leech",
     "Server": "https://sub.deltaleech.com",
-    "ServerType": 0,
-    "IsActive": true
+    "IsActive": true,
+    "ServerType": 3
   },
   {
+    "Id": 2,
     "Title": "Subscene",
     "Server": "https://subscene.com",
-    "ServerType": 0,
-    "IsActive": true
+    "IsActive": true,
+    "ServerType": 3
   }
 ]

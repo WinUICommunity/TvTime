@@ -1,14 +1,14 @@
 ﻿namespace TvTime.Views;
 public sealed partial class NoItemUserControl : UserControl
 {
-    public bool IsActive
+    public string Message
     {
-        get { return (bool) GetValue(IsActiveProperty); }
-        set { SetValue(IsActiveProperty, value); }
+        get { return (string)GetValue(MessageProperty); }
+        set { SetValue(MessageProperty, value); }
     }
 
-    public static readonly DependencyProperty IsActiveProperty =
-        DependencyProperty.Register("IsActive", typeof(bool), typeof(NoItemUserControl), new PropertyMetadata(default(bool)));
+    public static readonly DependencyProperty MessageProperty =
+        DependencyProperty.Register("Message", typeof(string), typeof(NoItemUserControl), new PropertyMetadata("Item not found!"));
 
     public int Count
     {
@@ -18,7 +18,6 @@ public sealed partial class NoItemUserControl : UserControl
 
     public static readonly DependencyProperty CountProperty =
         DependencyProperty.Register("Count", typeof(int), typeof(NoItemUserControl), new PropertyMetadata(0));
-
 
     public NoItemUserControl()
     {

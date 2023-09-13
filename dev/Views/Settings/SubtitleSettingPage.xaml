@@ -16,7 +16,8 @@
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsExpander wuc:Localizer.Uid="SubtitleSettingPage_SubtitleLanguageExpander"
+            <wuc:SettingsExpander Description="Specify the language of the subtitles"
+                                  Header="Subtitle Language"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}"
                                   IsExpanded="True">
                 <wuc:SettingsExpander.Items>
@@ -28,11 +29,11 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsCard wuc:Localizer.Uid="SubtitleSettingPage_IDMDownloadCard"
+            <wuc:SettingsCard Description="Download Subtitles With Internet Download Manager (IDM) [if exist]"
+                              Header="Download with IDM"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"
-                              wuc:Localizer.Uid="ToggleSwitch"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                              IsOn="{x:Bind local:AppHelper.Settings.UseIDMForDownloadSubtitles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
         </StackPanel>
     </ScrollView>

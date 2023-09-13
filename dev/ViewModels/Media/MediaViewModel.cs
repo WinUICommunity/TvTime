@@ -1,430 +1,530 @@
-﻿using CommunityToolkit.Labs.WinUI;
+﻿using System.Text.RegularExpressions;
 
+using CommunityToolkit.Labs.WinUI;
+using CommunityToolkit.WinUI.UI;
+
+using HtmlAgilityPack;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Media.Animation;
 
+using TvTime.Database;
+using TvTime.Database.Tables;
+using TvTime.Views.ContentDialogs;
+
 namespace TvTime.ViewModels;
-public partial class MediaViewModel : BaseViewModel
+public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAware
 {
+    private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+
     [ObservableProperty]
     public ObservableCollection<TokenItem> tokenList;
 
     [ObservableProperty]
-    public int infoBadgeValue;
-
-    [ObservableProperty]
     public bool isServerStatusOpen;
 
-    private PageOrDirectoryType PageType;
+    [ObservableProperty]
+    public int progressBarValue;
+
+    [ObservableProperty]
+    public int progressBarMaxValue;
+
+    [ObservableProperty]
+    public bool progressBarShowError;
+
+    private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+    private ServerType PageType;
     private int totalServerCount = 0;
-
-    JsonSerializerOptions options = new() { WriteIndented = true };
+    private List<ExceptionModel> exceptions;
     public IJsonNavigationViewService JsonNavigationViewService;
+    public IThemeService themeService;
 
-    public MediaViewModel(IJsonNavigationViewService jsonNavigationViewService)
+    public MediaViewModel(IJsonNavigationViewService jsonNavigationViewService, IThemeService themeService)
     {
         JsonNavigationViewService = jsonNavigationViewService;
+        this.themeService = themeService;
     }
 
-    #region Override Methods
-    public override void OnPageLoaded(object param)
+    public override async void OnPageLoaded(object param)
     {
-        PageType = MediaPage.Instance.PageType;
+        IsActive = true;
 
-        var tokens = ServerSettings.TVTimeServers.Where(x => x.IsActive && x.ServerType.ToString().Equals(GetPageType()))
-            .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
-
-        TokenList = new(tokens);
-        TokenList.Insert(0, new TokenItem { Content = App.Current.ResourceHelper.GetString("Constants_AllFilter"), IsSelected = true });
-
-        if (ExistDirectory(PageType))
+        await Task.Run(() =>
         {
-            LoadLocalStorage();
-        }
-        else
-        {
-            DownloadServersOnLocalStorage();
-        }
+            dispatcherQueue.TryEnqueue(async () =>
+            {
+                PageType = MediaPage.Instance.PageType;
+                using var db = new AppDbContext();
+                var tokens = db.MediaServers.Where(x => x.IsActive && x.ServerType == PageType).Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
+                TokenList = new(tokens);
+                TokenList.Insert(0, new TokenItem { Content = "All", IsSelected = true });
+                if (!db.MediaServers.Any())
+                {
+                    IsStatusOpen = true;
+                    StatusTitle = "Server not found";
+                    StatusMessage = "No servers found, please add some servers first";
+                    StatusSeverity = InfoBarSeverity.Warning;
+                    IsServerStatusOpen = false;
+                    var dialog = new GoToServerContentDialog();
+                    dialog.ThemeService = themeService;
+                    dialog.JsonNavigationViewService = JsonNavigationViewService;
+                    await dialog.ShowAsync();
+                }
+                else
+                {
+                    LoadLocalMedia();
+                }
+            });
+        });
 
-        if (ServerSettings.TVTimeServers.Count == 0)
-        {
-            IsStatusOpen = true;
-            StatusTitle = App.Current.ResourceHelper.GetString("MediaViewModel_StatusNoServerTitle");
-            StatusMessage = App.Current.ResourceHelper.GetString("MediaViewModel_StatusNoServerMessage");
-            StatusSeverity = InfoBarSeverity.Warning;
-            IsServerStatusOpen = false;
-            GoToServerPage(JsonNavigationViewService);
-        }
+        IsActive = false;
     }
 
     public override void OnRefresh()
     {
-        DeleteDirectory(PageType);
-        DownloadServersOnLocalStorage();
+        DownloadMediaIntoDatabase();
     }
 
     public override void NavigateToDetails(object sender)
     {
         base.NavigateToDetails(sender);
 
-        var media = new MediaItem
+        var media = new BaseMediaTable
         {
             Server = descriptionText,
             Title = headerText,
-            ServerType = ApplicationHelper.GetEnum<ServerType>(PageType.ToString())
+            ServerType = PageType
         };
+
         JsonNavigationViewService.NavigateTo(typeof(MediaDetailPage), media, false, new DrillInNavigationTransitionInfo());
     }
-
-    public override void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        if (DataList != null && DataList.Any())
-        {
-            var items = MediaPage.Instance.GetTokenSelectedItems();
-
-            if (items.Any(token => token.Content.ToString().Equals(App.Current.ResourceHelper.GetString("Constants_AllFilter"))))
-            {
-                AutoSuggestBoxHelper.LoadSuggestions(sender, args, DataList.Select(x => x.Title).ToList());
-            }
-            else
-            {
-                var filteredList = DataList.Where(x => items.Any(token => x.Server.Contains(token.Content.ToString()))).Select(x => x.Title).ToList();
-                AutoSuggestBoxHelper.LoadSuggestions(sender, args, filteredList);
-            }
-            DataListACV.Filter = _ => true;
-            DataListACV.Filter = DataListFilter;
-        }
-    }
-
-    public override bool DataListFilter(object item)
-    {
-        var query = (MediaItem) item;
-        var name = query.Title ?? "";
-        var server = query.Server ?? "";
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        var items = MediaPage.Instance.GetTokenSelectedItems();
-
-        if (items.Any(token => token.Content.ToString().Equals(App.Current.ResourceHelper.GetString("Constants_AllFilter"))))
-        {
-            return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) ||
-                server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
-        }
-        else
-        {
-            if (!name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase) &&
-                !server.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            return items.Any(token => server.Contains(token.Content.ToString()));
-        }
-    }
-
-    #endregion
 
     [RelayCommand]
     private async Task OnServerStatus()
     {
-        ContentDialog contentDialog = new ContentDialog();
-        contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
-        contentDialog.Title = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_ServerStatus"), existServer.Count);
-        var stck = new StackPanel
-        {
-            Spacing = 10,
-            Margin = new Thickness(10)
-        };
+        var dialog = new ServerErrorsContentDialog();
+        dialog.ThemeService = themeService;
+        dialog.Exceptions = new(exceptions);
 
-        foreach (var item in existServer)
-        {
-            var infoBar = new InfoBar();
-            infoBar.Severity = InfoBarSeverity.Success;
-            infoBar.Title = item;
-            infoBar.IsOpen = true;
-            infoBar.IsClosable = false;
-            stck.Children.Add(infoBar);
-        }
-
-        contentDialog.Content = new ScrollViewer { Content = stck };
-
-        contentDialog.PrimaryButtonText = App.Current.ResourceHelper.GetString("MediaViewModel_ServerStatusPrimaryButton");
-        await contentDialog.ShowAsyncQueue();
+        await dialog.ShowAsync();
     }
 
-    private async void LoadLocalStorage()
+    private async void LoadLocalMedia()
     {
-        IsActive = true;
-        IsStatusOpen = true;
-        StatusSeverity = InfoBarSeverity.Informational;
-        StatusTitle = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_LoadingLocal"), PageType);
-        var files = Directory.GetFiles(Path.Combine(Constants.ServerDirectoryPath, GetPageType()), "*.txt");
-        if (files.Any())
+        await Task.Run(() =>
         {
-            var tasks = files.Select(async file =>
+            dispatcherQueue.TryEnqueue(async () =>
             {
-                using FileStream openStream = File.OpenRead(file);
-                return await System.Text.Json.JsonSerializer.DeserializeAsync<List<MediaItem>>(openStream, options);
-            });
-            var contentsList = await Task.WhenAll(tasks);
-            var contents = contentsList.SelectMany(x => x);
-
-            if (PageType == PageOrDirectoryType.Series)
-            {
-                // Find the items containing "Iranian/Series" and extract the base URL, and Remove duplicates from the filtered list
-                var filteredContents = contents.Where(c => c.Server.Contains("Series/Iranian"))
-                               .Select(c => new MediaItem
-                               {
-                                   Server = GetBaseUrl(c.Server),
-                                   Title = GetBaseTitle(c.Title),
-                                   FileSize = c.FileSize,
-                                   DateTime = c.DateTime,
-                                   ServerType = c.ServerType
-                               }).DistinctBy(x => x.Server);
-
-                // Merge the unique and non-filtered items
-
-                var finalContents = contents.Where(c => !c.Server.Contains("Series/Iranian"))
-                            .Concat(filteredContents.Select(u => new MediaItem
-                            {
-                                Server = u.Server,
-                                Title = u.Title,
-                                FileSize = u.FileSize,
-                                DateTime = u.DateTime,
-                                ServerType = u.ServerType
-                            }));
-
-                // Update the MediaItem list
-                var updatedList = finalContents.Select(c => new MediaItem
+                try
                 {
-                    Server = c.Server,
-                    Title = c.Title,
-                    FileSize = c.FileSize,
-                    DateTime = c.DateTime,
-                    ServerType = ServerType.Series
-                }).ToList();
-                contents = updatedList;
-            }
-            var myDataList = contents.Cast<ITvTimeModel>().Where(x => x.Server != null);
-            DataList = new();
-            DataListACV = new AdvancedCollectionView(DataList, true);
+                    IsActive = true;
+                    IsStatusOpen = true;
+                    StatusSeverity = InfoBarSeverity.Informational;
+                    StatusTitle = "Loading Media, Please Wait...";
 
-            using (DataListACV.DeferRefresh())
-            {
-                DataList.AddRange(myDataList);
-            }
-            currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
-
-            DataListACV.SortDescriptions.Add(currentSortDescription);
-        }
-        if (totalServerCount > 0)
-        {
-            StatusMessage = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_AddedServer"), existServer.Count, totalServerCount);
-        }
-        StatusTitle = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_AddedServer"), DataListACV?.Count, PageType);
-        IsActive = false;
-    }
-
-    private async void DownloadServersOnLocalStorage()
-    {
-        try
-        {
-            if (ServerSettings.TVTimeServers.Count == 0)
-            {
-                GoToServerPage(JsonNavigationViewService);
-                return;
-            }
-
-            IsServerStatusOpen = false;
-            IsActive = true;
-            var urls = ServerSettings.TVTimeServers.Where(x => x.ServerType == ApplicationHelper.GetEnum<ServerType>(GetPageType()) && x.IsActive == true).ToList();
-            IsStatusOpen = true;
-            StatusSeverity = InfoBarSeverity.Informational;
-            StatusTitle = App.Current.ResourceHelper.GetString("MediaViewModel_DownloadServerStatusWait");
-            StatusMessage = "";
-            totalServerCount = urls.Count;
-
-            int index = 0;
-            existServer.Clear();
-            foreach (var item in urls)
-            {
-                index++;
-
-                HtmlWeb web = new HtmlWeb();
-                HtmlDocument doc = await web.LoadFromWebAsync(item.Server);
-
-                StatusMessage = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_DownloadServerStatusWorking"), item.Title, index, urls.Count());
-                if (doc.DocumentNode.InnerHtml is null)
-                {
-                    continue;
-                }
-                string result = doc.DocumentNode?.InnerHtml?.ToString();
-                StatusMessage = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_DownloadServerStatusParsing"), item.Title);
-
-                var details = GetServerDetails(result, item);
-
-                StatusMessage = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_DownloadServerStatusSerializing"), item.Title);
-
-                var filePath = Path.Combine(Constants.ServerDirectoryPath, GetPageType(), $"{ApplicationHelper.GetMD5Hash(item.Server)}.txt");
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
-
-                using FileStream createStream = File.Create(filePath);
-                await System.Text.Json.JsonSerializer.SerializeAsync(createStream, details, options);
-                await createStream.DisposeAsync();
-
-                // make sure data exist
-                if (details.Any())
-                {
-                    existServer.Add(item.Server);
-                }
-
-                StatusMessage = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_DownloadServerStatusSaved"), item.Title);
-            }
-            IsActive = false;
-            StatusTitle = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_DownloadServerStatusUpdated"), existServer.Count, totalServerCount);
-            StatusMessage = App.Current.ResourceHelper.GetString("MediaViewModel_DownloadServerStatusUpdatedLocal");
-            StatusSeverity = InfoBarSeverity.Success;
-            IsServerStatusOpen = true;
-            InfoBadgeValue = existServer.Count;
-        }
-        catch (Exception ex)
-        {
-            InfoBadgeValue = existServer.Count;
-            IsActive = false;
-            StatusTitle = string.Format(App.Current.ResourceHelper.GetString("MediaViewModel_DownloadServerStatusError"), existServer.Count, totalServerCount);
-            StatusMessage = ex.Message;
-            StatusSeverity = InfoBarSeverity.Error;
-            IsServerStatusOpen = true;
-        }
-
-        LoadLocalStorage();
-    }
-
-    public List<MediaItem> GetServerDetails(string content, ServerModel server)
-    {
-        List<MediaItem> list = new List<MediaItem>();
-
-        if (server.Server.Contains("DonyayeSerial"))
-        {
-            var doc = new HtmlDocument();
-            doc.LoadHtml(content);
-            var rows = doc.DocumentNode.SelectNodes("//table[@class='table']/tbody/tr");
-            var ignoreLinks = new List<string> { "../", "Home", "DonyayeSerial", "series", "movie" };
-
-            foreach (var row in rows)
-            {
-                var nameNode = row.SelectSingleNode("./td[@class='n']/a/code");
-                var dateNode = row.SelectSingleNode("./td[@class='m']/code");
-                var linkNode = row.SelectSingleNode("./td[@class='n']/a");
-                var sizeNode = row.SelectSingleNode("./td[@class='s']");
-                if (linkNode != null && !ignoreLinks.Contains(linkNode.Attributes["href"].Value))
-                {
-                    var title = nameNode?.InnerText?.Trim();
-                    var date = dateNode?.InnerText?.Trim();
-                    var serverUrl = $"{server.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
-                    var size = sizeNode?.InnerText?.Trim();
-                    list.Add(new MediaItem { Title = title, DateTime = date, Server = serverUrl, FileSize = size, ServerType = ServerType.Series });
-                }
-            }
-            return list;
-        }
-        else
-        {
-            MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-            Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
-            MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
-
-            int index = 0;
-            foreach (Match m in m1)
-            {
-                string value = m.Groups[1].Value;
-                MediaItem i = new MediaItem();
-
-                Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-                string link = string.Empty;
-
-                if (m2.Success)
-                {
-                    link = m2.Groups[1].Value;
-                    if (server.Server.Contains("freelecher"))
+                    using var db = new AppDbContext();
+                    List<BaseMediaTable> media = null;
+                    switch (PageType)
                     {
-                        var url = new Uri(server.Server).GetLeftPart(UriPartial.Authority);
-                        i.Server = $"{url}{link}";
+                        case ServerType.Anime:
+                            media = new(await db.Animes.ToListAsync());
+                            break;
+                        case ServerType.Movies:
+                            media = new(await db.Movies.ToListAsync());
+                            break;
+                        case ServerType.Series:
+                            media = new(await db.Series.ToListAsync());
+                            break;
                     }
-                    else if (server.Server.Contains("dl3.dl1acemovies") || server.Server.Contains("dl4.dl1acemovies"))
+
+                    if (media != null && media.Any())
                     {
-                        var url = new Uri(server.Server).GetLeftPart(UriPartial.Authority);
-                        i.Server = $"{url}{link}";
+                        var myDataList = media.Where(x => x.Server != null);
+                        DataList = new();
+                        DataListACV = new AdvancedCollectionView(DataList, true);
+
+                        using (DataListACV.DeferRefresh())
+                        {
+                            DataList.AddRange(myDataList);
+                        }
+
+                        DataListACV.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+                    }
+
+                    IsActive = false;
+                    StatusSeverity = InfoBarSeverity.Success;
+                    StatusTitle = $"Done, All Media Loaded! ({DataList.Count})";
+                    StatusMessage = "";
+                    AutoHideStatusInfoBar(new TimeSpan(0, 0, 6));
+                }
+                catch (Exception ex)
+                {
+                    IsActive = false;
+                    StatusSeverity = InfoBarSeverity.Error;
+                    StatusTitle = "Error";
+                    StatusMessage = ex.Message;
+                    Logger?.Error(ex, "MediaViewModel: LoadLocalMedia");
+                }
+            });
+        });
+    }
+
+    private async void DownloadMediaIntoDatabase()
+    {
+        await Task.Run(() =>
+        {
+            dispatcherQueue.TryEnqueue(async () =>
+            {
+                try
+                {
+                    exceptions = new List<ExceptionModel>();
+                    using var db = new AppDbContext();
+                    if (!db.MediaServers.Any())
+                    {
+                        var dialog = new GoToServerContentDialog();
+                        dialog.ThemeService = themeService;
+                        dialog.JsonNavigationViewService = JsonNavigationViewService;
+                        return;
+                    }
+
+                    await db.DeleteAndRecreateMediaTables(PageType.ToString());
+                    IsServerStatusOpen = false;
+                    IsActive = true;
+                    var urls = await db.MediaServers.Where(x => x.ServerType == PageType && x.IsActive == true).ToListAsync();
+                    IsStatusOpen = true;
+                    StatusSeverity = InfoBarSeverity.Informational;
+                    StatusTitle = "Please Wait...";
+                    StatusMessage = "";
+                    totalServerCount = urls.Count;
+                    ProgressBarValue = 0;
+                    ProgressBarMaxValue = urls.Count;
+
+                    int index = 0;
+                    foreach (var item in urls)
+                    {
+                        if (ApplicationHelper.IsNetworkAvailable())
+                        {
+                            try
+                            {
+                                ProgressBarShowError = false;
+                                index++;
+                                ProgressBarValue = index;
+                                HtmlWeb web = new HtmlWeb();
+                                HtmlDocument doc = await web.LoadFromWebAsync(item.Server);
+
+                                StatusMessage = string.Format("Working on {0} - {1}/{2}", item.Title, index, urls.Count());
+                                if (doc.DocumentNode.InnerHtml is null)
+                                {
+                                    continue;
+                                }
+                                string result = doc.DocumentNode?.InnerHtml?.ToString();
+
+                                await GetServerDetails(result, item.Server, item.ServerType);
+
+                                StatusSeverity = InfoBarSeverity.Informational;
+                                StatusMessage = string.Format("{0} Saved", item.Title);
+                            }
+                            catch (Exception ex)
+                            {
+                                ProgressBarShowError = true;
+                                exceptions.Add(new ExceptionModel(ex, item.Title, item.Server));
+                                Logger?.Error(ex, "MediViewModel: DownloadMediaIntoDatabase");
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            IsActive = false;
+                            IsStatusOpen = true;
+                            StatusTitle = "No Network Connection";
+                            StatusMessage = "Please Connect to Internet";
+                            StatusSeverity = InfoBarSeverity.Error;
+                            IsServerStatusOpen = false;
+                            ProgressBarShowError = true;
+                        }
+                    }
+
+                    if (ApplicationHelper.IsNetworkAvailable())
+                    {
+                        IsActive = false;
+                        StatusTitle = "Done, We Updated our Database!";
+                        StatusMessage = string.Format("Added {0}/{1} Servers", totalServerCount - exceptions.Count, totalServerCount);
+                        StatusSeverity = InfoBarSeverity.Success;
+                        if (exceptions.Any())
+                        {
+                            IsServerStatusOpen = true;
+                        }
+                        ProgressBarShowError = false;
+                        ProgressBarValue = 0;
+                        LoadLocalMedia();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    IsActive = false;
+                    StatusTitle = string.Format("Error: Added {0}/{1} Servers", totalServerCount - exceptions.Count, totalServerCount);
+                    StatusMessage = ex.Message;
+                    StatusSeverity = InfoBarSeverity.Error;
+                    if (exceptions.Any())
+                    {
+                        IsServerStatusOpen = true;
+                    }
+                    ProgressBarShowError = true;
+                    Logger?.Error(ex, "MediViewModel: DownloadMediaIntoDatabase2");
+                }
+            });
+        });
+    }
+
+    public async Task GetServerDetails(string content, string server, ServerType serverType)
+    {
+        await Task.Run(() =>
+        {
+            dispatcherQueue.TryEnqueue(async () =>
+            {
+                try
+                {
+                    using var db = new AppDbContext();
+                    if (server.Contains("DonyayeSerial"))
+                    {
+                        var doc = new HtmlDocument();
+                        doc.LoadHtml(content);
+                        var rows = doc.DocumentNode.SelectNodes("//table[@class='table']/tbody/tr");
+                        var ignoreLinks = new List<string> { "../", "Home", "DonyayeSerial", "series", "movie" };
+
+                        foreach (var row in rows)
+                        {
+                            var nameNode = row.SelectSingleNode("./td[@class='n']/a/code");
+                            var dateNode = row.SelectSingleNode("./td[@class='m']/code");
+                            var linkNode = row.SelectSingleNode("./td[@class='n']/a");
+                            var sizeNode = row.SelectSingleNode("./td[@class='s']");
+                            if (linkNode != null && !ignoreLinks.Contains(linkNode.Attributes["href"].Value))
+                            {
+                                var title = nameNode?.InnerText?.Trim();
+                                var date = dateNode?.InnerText?.Trim();
+                                var serverUrl = $"{server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
+                                var size = sizeNode?.InnerText?.Trim();
+
+                                switch (PageType)
+                                {
+                                    case ServerType.Anime:
+                                        await db.Animes.AddAsync(new AnimeTable(title, serverUrl, date, size, ServerType.Anime));
+                                        break;
+                                    case ServerType.Movies:
+                                        await db.Movies.AddAsync(new MovieTable(title, serverUrl, date, size, ServerType.Movies));
+                                        break;
+                                    case ServerType.Series:
+                                        await db.Series.AddAsync(new SeriesTable(title, serverUrl, date, size, ServerType.Series));
+                                        break;
+                                }
+                            }
+                        }
+                        await db.SaveChangesAsync();
                     }
                     else
                     {
-                        string slash = string.Empty;
-                        if (!server.Server.EndsWith("/"))
+                        MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+                        Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
+                        MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
+
+                        int index = 0;
+                        foreach (Match m in m1)
                         {
-                            slash = "/";
+                            string value = m.Groups[1].Value;
+                            BaseMediaTable i = new BaseMediaTable();
+
+                            Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+                            string link = string.Empty;
+
+                            if (m2.Success)
+                            {
+                                link = m2.Groups[1].Value;
+                                if (server.Contains("freelecher"))
+                                {
+                                    var url = new Uri(server).GetLeftPart(UriPartial.Authority);
+                                    i.Server = $"{url}{link}";
+                                }
+                                else if (server.Contains("dl3.dl1acemovies") || server.Contains("dl4.dl1acemovies"))
+                                {
+                                    var url = new Uri(server).GetLeftPart(UriPartial.Authority);
+                                    i.Server = $"{url}{link}";
+                                }
+                                else
+                                {
+                                    string slash = string.Empty;
+                                    if (!server.EndsWith("/"))
+                                    {
+                                        slash = "/";
+                                    }
+                                    i.Server = $"{server}{slash}{link}";
+                                }
+                            }
+
+                            string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
+                            i.Title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(t));
+
+                            if (i.Server.Equals($"{server}/../") || i.Server.Equals($"{server}../") ||
+                                i.Title.Equals("[To Parent Directory]") ||
+                                ((i.Server.Contains("rostam") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
+                            {
+                                continue;
+                            }
+
+                            if (dateTimeMatches.Count > 0 && index <= dateTimeMatches.Count)
+                            {
+                                var matchDate = dateTimeMatches[index].Value;
+                                i.DateTime = matchDate;
+                            }
+
+                            index++;
+                            i.ServerType = serverType;
+                            switch (PageType)
+                            {
+                                case ServerType.Anime:
+                                    await db.Animes.AddAsync(new AnimeTable(i.Title, i.Server, i.DateTime, i.FileSize, ServerType.Anime));
+                                    break;
+                                case ServerType.Movies:
+                                    await db.Movies.AddAsync(new MovieTable(i.Title, i.Server, i.DateTime, i.FileSize, ServerType.Movies));
+                                    break;
+                                case ServerType.Series:
+                                    await db.Series.AddAsync(new SeriesTable(i.Title, i.Server, i.DateTime, i.FileSize, ServerType.Series));
+                                    break;
+                            }
                         }
-                        i.Server = $"{server.Server}{slash}{link}";
+                        await db.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    IsActive = false;
+                    StatusTitle = "Error";
+                    StatusMessage = ex.Message;
+                    StatusSeverity = InfoBarSeverity.Error;
+                    if (exceptions.Any())
+                    {
+                        IsServerStatusOpen = true;
+                    }
+                    Logger?.Error(ex, "MediViewModel: GetServerDetails");
+                }
+            });
+        });
+    }
+
+    private void AutoHideStatusInfoBar(TimeSpan timeSpan)
+    {
+        dispatcherTimer = new DispatcherTimer();
+        dispatcherTimer.Tick += (s, e) =>
+        {
+            dispatcherTimer?.Stop();
+            dispatcherTimer = null;
+            StatusMessage = "";
+            StatusTitle = "";
+            StatusSeverity = InfoBarSeverity.Informational;
+            IsStatusOpen = false;
+        };
+        dispatcherTimer.Interval = timeSpan;
+        dispatcherTimer.Start();
+    }
+
+    public void OnAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        Search(sender, args);
+    }
+
+    public void OnAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        Search(sender, null);
+    }
+
+    private async void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        try
+        {
+            if (DataList != null)
+            {
+                bool useToken = false;
+                using var db = new AppDbContext();
+                var items = MediaPage.Instance.GetTokenViewSelectedItems();
+                if (items.Any(token => token.Content.ToString().Equals("All")))
+                {
+                    if (args != null)
+                    {
+                        AutoSuggestBoxHelper.LoadSuggestions(sender, args, DataList.Select(x => x.Title).ToList());
+                    }
+                }
+                else
+                {
+                    var filteredList = DataList.Where(x => items.Any(token => x.Server.Contains(token.Content.ToString()))).Select(x => x.Title).ToList();
+                    if (args != null)
+                    {
+                        AutoSuggestBoxHelper.LoadSuggestions(sender, args, filteredList);
                     }
                 }
 
-                string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
-                i.Title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(t));
+                List<BaseMediaTable> media = new();
 
-                if (i.Server.Equals($"{server.Server}/../") || i.Server.Equals($"{server.Server}../") ||
-                    i.Title.Equals("[To Parent Directory]") ||
-                    ((i.Server.Contains("aiocdn") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
+                if (items.Any(token => token.Content.ToString().Equals("All")))
                 {
-                    continue;
+                    switch (PageType)
+                    {
+                        case ServerType.Anime:
+                            media = new(await db.Animes.Where(x => x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())).ToListAsync());
+                            break;
+                        case ServerType.Movies:
+                            media = new(await db.Movies.Where(x => x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())).ToListAsync());
+                            break;
+                        case ServerType.Series:
+                            media = new(await db.Series.Where(x => x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())).ToListAsync());
+                            break;
+                    }
+                }
+                else
+                {
+                    useToken = true;
+                    foreach (var token in items)
+                    {
+                        switch (PageType)
+                        {
+                            case ServerType.Anime:
+                                var animeResult = db.Animes.Where(x => x.Server.ToLower().Contains(token.Content.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
+                                media.AddRange(animeResult);
+                                break;
+                            case ServerType.Movies:
+                                var movieResult = db.Movies.Where(x => x.Server.ToLower().Contains(token.Content.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
+                                media.AddRange(movieResult);
+                                break;
+                            case ServerType.Series:
+                                var seriesResult = db.Series.Where(x => x.Server.ToLower().Contains(token.Content.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
+                                media.AddRange(seriesResult);
+                                break;
+                        }
+                    }
                 }
 
-                if (dateTimeMatches.Count > 0 && index <= dateTimeMatches.Count)
+                if (useToken)
                 {
-                    var matchDate = dateTimeMatches[index].Value;
-                    i.DateTime = matchDate;
-                }
+                    var myDataList = media.Where(x => x.Server != null);
+                    DataList = new();
+                    DataListACV = new AdvancedCollectionView(DataList, true);
 
-                index++;
-                i.ServerType = server.ServerType;
-                list.Add(i);
+                    using (DataListACV.DeferRefresh())
+                    {
+                        DataList.AddRange(myDataList);
+                    }
+                }
+                else
+                {
+                    DataList = new(media);
+                    DataListACV = new AdvancedCollectionView(DataList, true);
+                }
             }
-            return list;
         }
-    }
-
-    public async Task<IReadOnlyList<StorageFile>> GetTextFilesAsync()
-    {
-        StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(Path.Combine(Constants.ServerDirectoryPath, GetPageType()));
-        QueryOptions queryOptions = new QueryOptions(CommonFileQuery.OrderBySearchRank, new string[] { ".txt" });
-
-        return await folder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync();
-    }
-
-    public string GetBaseUrl(string url)
-    {
-        string[] qualityValues = { "/1080p/", "/720p/", "/480p/" };
-        string quality = string.Empty;
-        foreach (string value in qualityValues)
+        catch (Exception ex)
         {
-            if (url.Contains(value, StringComparison.OrdinalIgnoreCase))
-            {
-                quality = value;
-                break;
-            }
+            Logger?.Error(ex, "MediaViewModel: Search");
         }
-        int idx = url.IndexOf(quality);
-        return idx >= 0 ? url.Substring(0, idx + quality.Length) : url;
-    }
-
-    public string GetBaseTitle(string title)
-    {
-        return Regex.Replace(title, @"S\d{2}E\d{2}.*", "").Trim();
-    }
-
-    public string GetPageType()
-    {
-        return PageType.ToString();
     }
 }

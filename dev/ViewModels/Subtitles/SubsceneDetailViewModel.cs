@@ -1,10 +1,17 @@
 ﻿using CommunityToolkit.Labs.WinUI;
+using CommunityToolkit.WinUI.UI;
+
+using HtmlAgilityPack;
+
+using TvTime.Database.Tables;
+
+using Windows.System;
 
 namespace TvTime.ViewModels;
-public partial class SubsceneDetailViewModel : BaseViewModel
+public partial class SubsceneDetailViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAware
 {
     [ObservableProperty]
-    public ObservableCollection<ITvTimeModel> breadcrumbBarList = new();
+    public ObservableCollection<BaseMediaTable> breadcrumbBarList = new();
 
     [ObservableProperty]
     public ObservableCollection<TokenItem> languageTokenList;
@@ -12,7 +19,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
     [ObservableProperty]
     public ObservableCollection<TokenItem> qualityTokenList;
 
-    #region Override Methods
+    private DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
     public override void OnPageLoaded(object param)
     {
@@ -27,40 +34,25 @@ public partial class SubsceneDetailViewModel : BaseViewModel
         }
 
         LanguageTokenList = new(languageTokens);
-        LanguageTokenList.Insert(0, new TokenItem { Content = App.Current.ResourceHelper.GetString("Constants_AllFilter"), IsSelected = true });
+        LanguageTokenList.Insert(0, new TokenItem { Content = "All", IsSelected = true });
 
-        DownloadDetails(rootTvTimeItem);
+        DownloadDetails(rootMedia);
     }
 
     public override void OnRefresh()
     {
-        DownloadDetails(rootTvTimeItem);
+        DownloadDetails(rootMedia);
     }
 
     public override void OnIMDBDetail()
     {
-        CreateIMDBDetailsWindow(rootTvTimeItem.Title);
+        CreateIMDBDetailsWindow(rootMedia.Title);
     }
 
     public override void NavigateToDetails(object sender)
     {
         OnNavigateToDetailsOrDownload(sender);
     }
-
-    public override bool DataListFilter(object item)
-    {
-        var query = (SubsceneModel) item;
-        var name = query.Title ?? "";
-        var lang = query.Language ?? "";
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        var languageItems = SubsceneDetailPage.Instance.GetLanguageTokenViewSelectedItems();
-        return languageItems.Any(token => token.Content.ToString().Equals(App.Current.ResourceHelper.GetString("Constants_AllFilter")))
-            ? name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            : (name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)) &&
-                (languageItems.Any(token => lang.Contains(token.Content.ToString())));
-    }
-
-    #endregion
 
     private async void OnNavigateToDetailsOrDownload(object sender)
     {
@@ -92,16 +84,17 @@ public partial class SubsceneDetailViewModel : BaseViewModel
                 }
                 catch (Exception ex)
                 {
-                    StatusTitle = "";
+                    StatusTitle = "Error";
                     StatusMessage = ex.Message;
                     StatusSeverity = InfoBarSeverity.Error;
                     IsStatusOpen = true;
+                    Logger?.Error(ex, "SubsceneDetailViewModel: OnNavigateToDetailsOrDownload");
                 }
             }
             else
             {
                 StatusTitle = "";
-                StatusMessage = App.Current.ResourceHelper.GetString("Constants_InternetNotAvailable");
+                StatusMessage = "Oh no! You're not connected to the internet.";
                 StatusSeverity = InfoBarSeverity.Error;
                 IsStatusOpen = true;
             }
@@ -111,53 +104,54 @@ public partial class SubsceneDetailViewModel : BaseViewModel
     [RelayCommand]
     private void OnBreadCrumbBarItem(BreadcrumbBarItemClickedEventArgs args)
     {
-        var item = (SubsceneModel) args.Item;
+        var item = (SubtitleModel) args.Item;
         BreadcrumbBarList.RemoveAt(args.Index + 1);
         DownloadDetails(item);
     }
 
-    private async void DownloadDetails(ITvTimeModel tvTimeItem)
+    private async void DownloadDetails(BaseMediaTable baseMedia)
     {
         try
         {
-            BreadcrumbBarList.AddIfNotExists(tvTimeItem);
+            BreadcrumbBarList.AddIfNotExists(baseMedia);
             IsActive = true;
             IsStatusOpen = true;
             StatusSeverity = InfoBarSeverity.Informational;
-            StatusTitle = App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusWait");
+            StatusTitle = "Please Wait...";
             StatusMessage = "";
             HtmlWeb web = new HtmlWeb();
-            HtmlDocument doc = await web.LoadFromWebAsync(tvTimeItem.Server);
+            HtmlDocument doc = await web.LoadFromWebAsync(baseMedia.Server);
 
-            StatusMessage = string.Format(App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusWorking"), tvTimeItem.Title);
+            StatusMessage = string.Format("Working on {0}", baseMedia.Title);
 
-            StatusMessage = string.Format(App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusParsing"), tvTimeItem.Title);
+            StatusMessage = string.Format("Parsing {0}", baseMedia.Title);
 
-            var details = GetServerDetails(doc, tvTimeItem);
-            DataList = new(details.Cast<ITvTimeModel>());
+            var details = GetServerDetails(doc, baseMedia);
+            DataList = new(details.Cast<BaseMediaTable>());
             DataListACV = new AdvancedCollectionView(DataList, true);
-            currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
+            var currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
             DataListACV.SortDescriptions.Add(currentSortDescription);
-            suggestList = DataListACV.Select(x => ((SubsceneModel) x).Title).ToList();
 
             IsActive = false;
-            StatusTitle = App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusUpdated");
+            StatusTitle = "Subtitle information received successfully";
             StatusMessage = "";
             StatusSeverity = InfoBarSeverity.Success;
+            AutoHideStatusInfoBar(new TimeSpan(0, 0, 4));
         }
         catch (Exception ex)
         {
             IsStatusOpen = true;
             IsActive = false;
-            StatusTitle = App.Current.ResourceHelper.GetString("SubsceneDetailViewModel_StatusError");
+            StatusTitle = "Error";
             StatusMessage = ex.Message + Environment.NewLine + ex.InnerException;
             StatusSeverity = InfoBarSeverity.Error;
+            Logger?.Error(ex, "SubsceneDetailViewModel: DownloadDetails");
         }
     }
 
-    public List<SubsceneModel> GetServerDetails(HtmlDocument doc, ITvTimeModel tvTimeItem)
+    public List<SubtitleModel> GetServerDetails(HtmlDocument doc, BaseMediaTable baseMedia)
     {
-        List<SubsceneModel> list = new List<SubsceneModel>();
+        List<SubtitleModel> list = new List<SubtitleModel>();
 
         var table = doc.DocumentNode.SelectSingleNode("//table[1]//tbody");
         if (table != null)
@@ -184,15 +178,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel
 
                 if (Name != null)
                 {
-                    var item = new SubsceneModel
-                    {
-                        Name = Name,
-                        Title = Name,
-                        Translator = Translator,
-                        Desc = Comment,
-                        Server = GetServerUrlWithoutRightPart(tvTimeItem.Server) + Link,
-                        Language = Language
-                    };
+                    var item = new SubtitleModel(Name, Name, GetServerUrlWithoutRightPart(baseMedia.Server) + Link, Comment, Language, Translator);
                     list.Add(item);
                 }
             }
@@ -202,10 +188,55 @@ public partial class SubsceneDetailViewModel : BaseViewModel
         {
             IsActive = false;
             IsStatusOpen = true;
-            StatusTitle = App.Current.ResourceHelper.GetString("Constants_SubtitleNotFound");
+            StatusTitle = "Subtitles not found or server is unavailable, please try again!";
             StatusSeverity = InfoBarSeverity.Error;
         }
 
         return null;
+    }
+
+    private void AutoHideStatusInfoBar(TimeSpan timeSpan)
+    {
+        dispatcherTimer = new DispatcherTimer();
+        dispatcherTimer.Tick += (s, e) =>
+        {
+            dispatcherTimer?.Stop();
+            dispatcherTimer = null;
+            StatusMessage = "";
+            StatusTitle = "";
+            StatusSeverity = InfoBarSeverity.Informational;
+            IsStatusOpen = false;
+        };
+        dispatcherTimer.Interval = timeSpan;
+        dispatcherTimer.Start();
+    }
+
+    public void OnAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        Search(sender.Text);
+    }
+
+    public void OnAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        Search(sender.Text);
+    }
+
+    private void Search(string query)
+    {
+        if (DataList != null && DataList.Any())
+        {
+            DataListACV.Filter = _ => true;
+            DataListACV.Filter = item =>
+            {
+                var subtitle = (SubtitleModel)item;
+                var name = subtitle.Title ?? "";
+                var lang = subtitle.Language ?? "";
+                var languageItems = SubsceneDetailPage.Instance.GetTokenViewSelectedItems();
+                return languageItems.Any(token => token.Content.ToString().Equals("All"))
+                    ? name.Contains(query, StringComparison.OrdinalIgnoreCase)
+                    : (name.Contains(query, StringComparison.OrdinalIgnoreCase)) &&
+                        (languageItems.Any(token => lang.Contains(token.Content.ToString())));
+            };
+        }
     }
 }

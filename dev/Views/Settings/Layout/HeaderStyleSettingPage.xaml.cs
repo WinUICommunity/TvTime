@@ -1,6 +1,4 @@
-﻿using TvTime.ViewModels;
-
-namespace TvTime.Views;
+﻿namespace TvTime.Views;
 public sealed partial class HeaderStyleSettingPage : Page
 {
     public HeaderStyleSettingViewModel ViewModel { get; }
@@ -10,7 +8,7 @@ public sealed partial class HeaderStyleSettingPage : Page
     {
         ViewModel = App.GetService<HeaderStyleSettingViewModel>();
         LayoutSettingViewModel = LayoutSettingPage.Instance.ViewModel;
-        LayoutSettingViewModel.BreadCrumbBarCollection.Add(App.Current.ResourceHelper.GetString("HeaderStyleSettingPage_BreadCrumbBar"));
+        LayoutSettingViewModel.BreadCrumbBarCollection.Add("Header Style");
         this.InitializeComponent();
         Loaded += HeaderStyleSettingPage_Loaded;
     }
@@ -19,13 +17,5 @@ public sealed partial class HeaderStyleSettingPage : Page
     {
         var headerStyle = Settings.HeaderTextBlockStyle;
         CmbHeader.SelectedItem = CmbHeader.Items.FirstOrDefault(x => (string) x == headerStyle);
-    }
-
-    private void FontSize_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
-    {
-        if (Settings.UseCustomFontSizeForHeader && !double.IsNaN(sender.Value))
-        {
-            ViewModel.PreviewFontSize = sender.Value;
-        }
     }
 }

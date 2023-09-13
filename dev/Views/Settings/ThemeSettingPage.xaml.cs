@@ -1,6 +1,5 @@
-﻿using TvTime.ViewModels;
+﻿namespace TvTime.Views;
 
-namespace TvTime.Views;
 public sealed partial class ThemeSettingPage : Page
 {
     public ThemeSettingViewModel ViewModel { get; }
@@ -25,3 +24,5 @@ public sealed partial class ThemeSettingPage : Page
         BreadCrumbBarItemText = e.Parameter as string;
     }
 }
+
+

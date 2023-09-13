@@ -1,10 +1,10 @@
-﻿using TvTime.ViewModels;
+﻿namespace TvTime.Views;
 
-namespace TvTime.Views;
 public sealed partial class AboutUsSettingPage : Page
 {
     public AboutUsSettingViewModel ViewModel { get; }
     public string BreadCrumbBarItemText { get; set; }
+
     public AboutUsSettingPage()
     {
         ViewModel = App.GetService<AboutUsSettingViewModel>();
@@ -17,3 +17,5 @@ public sealed partial class AboutUsSettingPage : Page
         BreadCrumbBarItemText = e.Parameter as string;
     }
 }
+
+

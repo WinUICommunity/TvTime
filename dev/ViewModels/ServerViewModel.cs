@@ -1,271 +1,375 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using CommunityToolkit.WinUI.UI;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.UI.Dispatching;
+
+using Newtonsoft.Json;
+
+using TvTime.Database;
+using TvTime.Database.Tables;
+using TvTime.Views.ContentDialogs;
 
 namespace TvTime.ViewModels;
-
-public partial class ServerViewModel : BaseViewModel
+public partial class ServerViewModel : ObservableRecipient, ITitleBarAutoSuggestBoxAware
 {
+    private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+
     [ObservableProperty]
-    public bool isMediaServer;
+    public ObservableCollection<BaseServerTable> serverList;
 
-    public string Title;
+    [ObservableProperty]
+    public AdvancedCollectionView serverListACV;
 
-    public string Server;
+    [ObservableProperty]
+    private int segmentedSelectedIndex = 0;
 
-    public ComboBoxItem ComboBoxSelectedItem;
-    public int ComboBoxSelectedIndex;
-    public bool TgServerIsActive;
+    [ObservableProperty]
+    private string infoBarTitle;
 
-    public async override void OnPageLoaded(object isMediaServer)
+    [ObservableProperty]
+    private bool infoBarIsOpen;
+
+    [ObservableProperty]
+    private InfoBarSeverity infoBarSeverity;
+
+    private string tempQuery;
+    public IThemeService themeService;
+    public ServerViewModel(IThemeService themeService)
     {
-        this.IsMediaServer = Convert.ToBoolean(isMediaServer);
-        IsActive = true;
-        await Task.Delay(150);
-        DataList = IsMediaServer ? new(ServerSettings.TVTimeServers) : new(ServerSettings.SubtitleServers);
-        DataListACV = new AdvancedCollectionView(DataList, true);
-        currentSortDescription = new SortDescription("Title", SortDirection.Ascending);
-        DataListACV.SortDescriptions.Add(currentSortDescription);
-        suggestList = DataListACV.Select(x => ((ServerModel) x).Title).ToList();
-        IsActive = false;
+        this.themeService = themeService;
     }
 
     [RelayCommand]
-    private void OnRemoveItem(object sender)
+    private async Task OnPageLoaded()
     {
-        var btn = sender as Button;
-        if (btn.DataContext != null)
+        try
         {
-            var item = btn.DataContext as ServerModel;
-            if (item != null)
+            IsActive = true;
+            await Task.Run(() =>
             {
-                DataList?.Remove(item);
-
-                if (IsMediaServer)
+                dispatcherQueue.TryEnqueue(async () =>
                 {
-                    ServerSettings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
-                }
-                else
-                {
-                    ServerSettings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
-                }
-
-                StatusSeverity = InfoBarSeverity.Success;
-                StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_RemoveStatus");
-                IsStatusOpen = true;
-            }
-        }
-    }
-
-    [RelayCommand]
-    private async Task OnAddItem()
-    {
-        var inputDialog = CreateContentDialog("", "", -1, null, true);
-
-        inputDialog.Title = App.Current.ResourceHelper.GetString("ServerViewModel_AddStatusTitle");
-        inputDialog.PrimaryButtonClick += (s, e) =>
-        {
-            if (IsMediaServer && ComboBoxSelectedItem == null)
-            {
-                return;
-            }
-
-            if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Server))
-            {
-                var server = new ServerModel
-                {
-                    Title = Title.Trim(),
-                    Server = Server.Trim(),
-                    IsActive = TgServerIsActive,
-                };
-
-                if (IsMediaServer)
-                {
-                    server.ServerType = ApplicationHelper.GetEnum<ServerType>(ComboBoxSelectedItem?.Content?.ToString());
-                }
-
-                DataList?.Add(server);
-
-                if (IsMediaServer)
-                {
-                    ServerSettings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
-
-                }
-                else
-                {
-                    ServerSettings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
-                }
-
-                StatusSeverity = InfoBarSeverity.Success;
-                StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_AddedStatus");
-                IsStatusOpen = true;
-            }
-            else
-            {
-                StatusSeverity = InfoBarSeverity.Error;
-                StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_CanNotAddStatus");
-                IsStatusOpen = true;
-            }
-        };
-
-        await inputDialog.ShowAsyncQueueDraggable();
-    }
-
-    [RelayCommand]
-    private async Task OnUpdateItem(object sender)
-    {
-        var btn = sender as Button;
-        if (btn.DataContext != null)
-        {
-            var item = btn.DataContext as ServerModel;
-            var inputDialog = CreateContentDialog(item.Title, item.Server, (int) item.ServerType, null, item.IsActive);
-            inputDialog.Title = App.Current.ResourceHelper.GetString("ServerViewModel_UpdateStatusTitle");
-            inputDialog.PrimaryButtonClick += (s, e) =>
-            {
-                if (IsMediaServer && ComboBoxSelectedItem == null)
-                {
-                    return;
-                }
-
-                var index = DataList.IndexOf(item);
-
-                if (index > -1 && !string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Server))
-                {
-                    var serverModel = new ServerModel
+                    using var db = new AppDbContext();
+                    if (SegmentedSelectedIndex == 0)
                     {
-                        Title = Title.Trim(),
-                        Server = Server.Trim(),
-                        IsActive = TgServerIsActive
-                    };
-
-                    if (IsMediaServer)
-                    {
-                        serverModel.ServerType = ApplicationHelper.GetEnum<ServerType>(ComboBoxSelectedItem?.Content?.ToString());
-                    }
-
-                    DataList[index] = serverModel;
-
-                    if (IsMediaServer)
-                    {
-                        ServerSettings.TVTimeServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
+                        ServerList = new(await db.MediaServers.ToListAsync());
                     }
                     else
                     {
-                        ServerSettings.SubtitleServers = new ObservableCollection<ServerModel>(DataList.Cast<ServerModel>());
+                        ServerList = new(await db.SubtitleServers.ToListAsync());
                     }
+                    ServerListACV = new AdvancedCollectionView(ServerList, true);
+                    ServerListACV.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+                });
+            });
+            IsActive = false;
+        }
+        catch (Exception ex)
+        {
+            IsActive = false;
+            InfoBarSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarIsOpen = true;
+            Logger?.Error(ex, "ServerViewModel: OnPageLoad");
+        }
+    }
 
-                    StatusSeverity = InfoBarSeverity.Success;
-                    StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_UpdateServerStatus");
-                    IsStatusOpen = true;
+    [RelayCommand]
+    private async Task OnSegmentedSelectionChanged()
+    {
+        await OnPageLoaded();
+    }
+
+    [RelayCommand]
+    private async Task OnAddServer()
+    {
+        var dialog = new ServerContentDialog();
+        dialog.ViewModel = this;
+        dialog.ServerTitle = string.Empty;
+        dialog.ServerUrl = string.Empty;
+        dialog.ServerActivation = true;
+        dialog.CmbServerTypeSelectedItem = null;
+        dialog.Title = "Add new Server";
+        dialog.PrimaryButtonClick += OnAddServerPrimaryButton;
+        
+        await dialog.ShowAsync();
+    }
+
+    private async void OnAddServerPrimaryButton(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+    {
+        try
+        {
+            var dialog = sender as ServerContentDialog;
+            if (!string.IsNullOrEmpty(dialog.ServerTitle) && !string.IsNullOrEmpty(dialog.ServerUrl))
+            {
+                using var db = new AppDbContext();
+
+                var baseServer = new BaseServerTable(dialog.ServerTitle.Trim(), dialog.ServerUrl.Trim(), dialog.ServerActivation);
+
+                if (SegmentedSelectedIndex == 0)
+                {
+                    var type = ApplicationHelper.GetEnum<ServerType>((dialog.CmbServerTypeSelectedItem as ComboBoxItem).Content?.ToString());
+                    baseServer.ServerType = type;
+                    await db.MediaServers.AddAsync(new MediaServerTable(baseServer.Title, baseServer.Server, baseServer.IsActive, baseServer.ServerType));
                 }
                 else
                 {
-                    StatusSeverity = InfoBarSeverity.Error;
-                    StatusMessage = App.Current.ResourceHelper.GetString("ServerViewModel_CanNotUpdateServerStatus");
-                    IsStatusOpen = true;
+                    await db.SubtitleServers.AddAsync(new SubtitleServerTable(baseServer.Title, baseServer.Server, baseServer.IsActive));
                 }
+
+                await db.SaveChangesAsync();
+                InfoBarSeverity = InfoBarSeverity.Success;
+                InfoBarTitle = "New Server Added Successfully";
+                InfoBarIsOpen = true;
+                await OnPageLoaded();
+                Search(tempQuery);
+            }
+            else
+            {
+                InfoBarSeverity = InfoBarSeverity.Error;
+                InfoBarTitle = "Server Can not be Added";
+                InfoBarIsOpen = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            InfoBarSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarIsOpen = true;
+            Logger?.Error(ex, "ServerViewModel: OnAddServerPrimaryButton");
+        }
+    }
+
+    [RelayCommand]
+    private async Task OnUpdateServer(object dataContext)
+    {
+        try
+        {
+            if (dataContext != null)
+            {
+                var dialog = new ServerContentDialog();
+                dialog.ViewModel = this;
+                dialog.Title = "Update Server";
+
+                var server = dataContext as BaseServerTable;
+                dialog.ServerTitle = server.Title;
+                dialog.ServerUrl = server.Server;
+                dialog.ServerActivation = server.IsActive;
+
+                if (SegmentedSelectedIndex == 0)
+                {
+                    dialog.CmbServerTypeSelectedItem = server.ServerType;
+                }
+
+                dialog.PrimaryButtonClick += async (s, e) =>
+                {
+                    if (string.IsNullOrEmpty(dialog.ServerTitle) && string.IsNullOrEmpty(dialog.ServerUrl))
+                    {
+                        InfoBarSeverity = InfoBarSeverity.Error;
+                        InfoBarTitle = "Server Can not be Updated";
+                        InfoBarIsOpen = true;
+                        return;
+                    }
+
+                    using var db = new AppDbContext();
+
+                    if (SegmentedSelectedIndex == 0)
+                    {
+                        var oldMediaServer = await db.MediaServers.Where(x => x.Title == server.Title && x.Server == server.Server && x.ServerType == server.ServerType).FirstOrDefaultAsync();
+                        if (oldMediaServer != null)
+                        {
+                            var type = ApplicationHelper.GetEnum<ServerType>((dialog.CmbServerTypeSelectedItem as ComboBoxItem).Content?.ToString());
+
+                            oldMediaServer.Title = dialog.ServerTitle;
+                            oldMediaServer.Server = dialog.ServerUrl;
+                            oldMediaServer.ServerType = type;
+                            oldMediaServer.IsActive = dialog.ServerActivation;
+                        }
+                    }
+                    else
+                    {
+                        var oldSubtitleServer = await db.SubtitleServers.Where(x => x.Title == server.Title && x.Server == server.Server).FirstOrDefaultAsync();
+                        oldSubtitleServer.Title = dialog.ServerTitle;
+                        oldSubtitleServer.Server = dialog.ServerUrl;
+                        oldSubtitleServer.IsActive = dialog.ServerActivation;
+                    }
+
+                    await db.SaveChangesAsync();
+
+                    InfoBarSeverity = InfoBarSeverity.Success;
+                    InfoBarTitle = "Server Changed Successfully";
+                    InfoBarIsOpen = true;
+                    await OnPageLoaded();
+                    Search(tempQuery);
+                };
+
+                await dialog.ShowAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            InfoBarSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarIsOpen = true;
+            Logger?.Error(ex, "ServerViewModel: OnUpdateServer");
+        }
+    }
+
+    [RelayCommand]
+    private async Task OnDeleteServer(object dataContext)
+    {
+        try
+        {
+            if (dataContext != null)
+            {
+                var server = dataContext as BaseServerTable;
+                using var db = new AppDbContext();
+                if (SegmentedSelectedIndex == 0)
+                {
+                    var delete = await db.MediaServers.Where(x => x.Title == server.Title && x.Server == server.Server && x.ServerType == server.ServerType).FirstOrDefaultAsync();
+                    if (delete != null)
+                    {
+                        db.MediaServers.Remove(delete);
+                    }
+                }
+                else
+                {
+                    var delete = await db.SubtitleServers.Where(x => x.Title == server.Title && x.Server == server.Server && x.ServerType == ServerType.Subtitle).FirstOrDefaultAsync();
+                    if (delete != null)
+                    {
+                        db.SubtitleServers.Remove(delete);
+                    }
+                }
+
+                await db.SaveChangesAsync();
+                InfoBarSeverity = InfoBarSeverity.Success;
+                InfoBarTitle = "Selected Server Deleted Successfully";
+                InfoBarIsOpen = true;
+                await OnPageLoaded();
+                Search(tempQuery);
+            }
+        }
+        catch (Exception ex)
+        {
+            InfoBarSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarIsOpen = true;
+            Logger?.Error(ex, "ServerViewModel: OnDeleteServer");
+        }
+    }
+
+    [RelayCommand]
+    private async Task OnLoadPredefinedServer()
+    {
+        try
+        {
+            var dialog = new LoadPredefinedContentDialog();
+            dialog.ThemeService = themeService;
+            dialog.PrimaryButtonClick += async (s, e) =>
+            {
+                await OnDeleteAllServer();
+
+                var filePath = "Assets/Files/TvTime-MediaServers.json";
+
+                if (SegmentedSelectedIndex != 0)
+                {
+                    filePath = "Assets/Files/TvTime-SubtitleServers.json";
+                }
+
+                using var streamReader = File.OpenText(await FileLoaderHelper.GetPath(filePath));
+                var json = await streamReader.ReadToEndAsync();
+                using var db = new AppDbContext();
+                if (SegmentedSelectedIndex == 0)
+                {
+                    var content = JsonConvert.DeserializeObject<List<MediaServerTable>>(json);
+
+                    if (content is not null)
+                    {
+                        await db.MediaServers.AddRangeAsync(content);
+                    }
+                }
+                else
+                {
+                    var content = JsonConvert.DeserializeObject<List<SubtitleServerTable>>(json);
+                    if (content is not null)
+                    {
+                        await db.SubtitleServers.AddRangeAsync(content);
+                    }
+                }
+
+                await db.SaveChangesAsync();
+                InfoBarTitle = "Predefined Servers Loaded Successfully";
+                InfoBarSeverity = InfoBarSeverity.Success;
+                InfoBarIsOpen = true;
+                await OnPageLoaded();
             };
 
-            await inputDialog.ShowAsyncQueueDraggable();
+            await dialog.ShowAsync();
+        }
+        catch (Exception ex)
+        {
+            InfoBarSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarIsOpen = true;
+            Logger?.Error(ex, "ServerViewModel: OnLoadPredefinedServers");
         }
     }
 
-    public override bool DataListFilter(object item)
+    [RelayCommand]
+    private async Task OnDeleteAllServer()
     {
-        var query = (ServerModel) item;
-        var name = query.Title ?? "";
-        var tName = query.Server ?? "";
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private ContentDialog CreateContentDialog(string title, string server, int cmbSelectedIndex, object cmbSelectedItem, bool isServerActive)
-    {
-        var inputDialog = new ContentDialog
+        try
         {
-            CloseButtonText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogCloseButton"),
-            DefaultButton = ContentDialogButton.Primary,
-            PrimaryButtonText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogPrimaryButton"),
-            XamlRoot = App.currentWindow.Content.XamlRoot,
-            FlowDirection = ApplicationHelper.GetEnum<FlowDirection>(App.Current.ResourceHelper.GetString("MainPage_FlowDirection/FlowDirection"))
-    };
-
-        var grid = new Grid
-        {
-            Padding = new Thickness(10),
-            Style = Application.Current.Resources["GridPanel"] as Style
-        };
-
-        var stck = new StackPanel
-        {
-            Spacing = 16
-        };
-
-        var txtTitle = new TextBox
-        {
-            Width = 360,
-            HorizontalAlignment = HorizontalAlignment.Left,
-            Header = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogServerTitle"),
-            PlaceholderText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogServerPlaceholder"),
-            Text = title
-        };
-
-        var txtServer = new TextBox
-        {
-            Width = 360,
-            HorizontalAlignment = HorizontalAlignment.Left,
-            Header = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogServerHeader"),
-            PlaceholderText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogServerUrlPlaceholder"),
-            Text = server
-        };
-
-        var cmbType = new ComboBox
-        {
-            Width = 360,
-            HorizontalAlignment = HorizontalAlignment.Left,
-            Header = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogComboBoxHeader"),
-            PlaceholderText = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogComboBoxPlaceholder"),
-            SelectedIndex = cmbSelectedIndex,
-            SelectedItem = cmbSelectedItem,
-        };
-
-        cmbType.Items.Add(new ComboBoxItem { Content = "Series" });
-        cmbType.Items.Add(new ComboBoxItem { Content = "Movie" });
-        cmbType.Items.Add(new ComboBoxItem { Content = "Anime" });
-
-        var tgActive = new ToggleSwitch
-        {
-            Width = 360,
-            HorizontalAlignment = HorizontalAlignment.Left,
-            Header = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogToggleSwitchHeader"),
-            OffContent = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogToggleSwitchOffContent"),
-            OnContent = App.Current.ResourceHelper.GetString("ServerViewModel_CreateContentDialogToggleSwitchOnContent"),
-            IsOn = isServerActive
-        };
-
-        stck.Children.Add(txtTitle);
-        stck.Children.Add(txtServer);
-
-        if (IsMediaServer)
-        {
-            stck.Children.Add(cmbType);
-        }
-
-        stck.Children.Add(tgActive);
-        grid.Children.Add(stck);
-        inputDialog.Content = grid;
-        inputDialog.PrimaryButtonClick += (s, e) =>
-        {
-            this.Title = txtTitle.Text;
-            this.Server = txtServer.Text;
-            this.TgServerIsActive = tgActive.IsOn;
-
-            if (IsMediaServer)
+            using var db = new AppDbContext();
+            if (SegmentedSelectedIndex == 0)
             {
-                this.ComboBoxSelectedIndex = cmbType.SelectedIndex;
-                this.ComboBoxSelectedItem = (ComboBoxItem) cmbType.SelectedItem;
+                await db.DeleteAndRecreateServerTables("MediaServer");
             }
-        };
-        return inputDialog;
+            else
+            {
+                await db.DeleteAndRecreateServerTables("SubtitleServer");
+            }
+
+            InfoBarSeverity = InfoBarSeverity.Success;
+            InfoBarTitle = "All Servers Deleted Successfully";
+            InfoBarIsOpen = true;
+            await OnPageLoaded();
+            Search(tempQuery);
+        }
+        catch (Exception ex)
+        {
+            InfoBarSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarIsOpen = true;
+            Logger?.Error(ex, "ServerViewModel: OnDeleteAllServer");
+        }
+    }
+
+    public void OnAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        tempQuery = sender.Text;
+        Search(sender.Text);
+    }
+
+    public void OnAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        tempQuery = sender.Text;
+        Search(sender.Text);
+    }
+
+    private void Search(string query)
+    {
+        if (ServerList != null && ServerList.Any())
+        {
+            ServerListACV.Filter = _ => true;
+            ServerListACV.Filter = item =>
+            {
+                var baseServer = (BaseServerTable)item;
+                var name = baseServer.Title ?? "";
+                var tName = baseServer.Server ?? "";
+                return name.Contains(query, StringComparison.OrdinalIgnoreCase)
+                    || tName.Contains(query, StringComparison.OrdinalIgnoreCase);
+            };
+        }
     }
 }
-

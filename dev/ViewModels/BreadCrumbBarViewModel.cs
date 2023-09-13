@@ -1,4 +1,6 @@
-﻿namespace TvTime.ViewModels;
+﻿using System.Collections.ObjectModel;
+
+namespace TvTime.ViewModels;
 public partial class BreadCrumbBarViewModel : ObservableRecipient
 {
     [ObservableProperty]

@@ -5,28 +5,7 @@
     <x:Double x:Key="TitleBarCompactHeight">48</x:Double>
 
     <Thickness x:Key="ContentPageMargin">40,48,40,0</Thickness>
-    <Thickness x:Key="SettingsCardMargin">0,0,0,4</Thickness>
 
     <x:Double x:Key="ControlContentThemeFontSize">16</x:Double>
 
-    <Style BasedOn="{StaticResource ListViewItemSettingStyle}"
-           TargetType="ListViewItem" />
-
-    <!--
-        Due to the fact that we have overwritten all the styles of the ListViewItem, therefore,
-        the styles of every control that uses the ListView are messed up, like the AutoSuggestBox.
-        So we have to set the default style of ListViewItem for them again
-    -->
-
-    <Style BasedOn="{StaticResource DefaultAutoSuggestBoxStyle}"
-           TargetType="AutoSuggestBox">
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style BasedOn="{StaticResource DefaultListViewItemStyle}"
-                       TargetType="ListViewItem">
-                    <Setter Property="FlowDirection" Value="LeftToRight" />
-                </Style>
-            </Setter.Value>
-        </Setter>
-    </Style>
 </ResourceDictionary>

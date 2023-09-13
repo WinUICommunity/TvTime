@@ -1,4 +1,8 @@
-﻿namespace TvTime.ViewModels;
+﻿using TvTime.Views.ContentDialogs;
+
+using Windows.System;
+
+namespace TvTime.ViewModels;
 public partial class AppUpdateSettingViewModel : ObservableObject
 {
     [ObservableProperty]
@@ -14,14 +18,19 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     public bool isLoading;
 
     [ObservableProperty]
-    public string loadingStatus = App.Current.ResourceHelper.GetString("AppUpdateSettingPage_InfoBarTitle/Title");
+    public bool isCheckButtonEnabled = true;
 
-    private string changeLog = string.Empty;
+    [ObservableProperty]
+    public string loadingStatus = "Status";
 
-    public AppUpdateSettingViewModel()
+    private string ChangeLog = string.Empty;
+
+    private IThemeService themeService;
+    public AppUpdateSettingViewModel(IThemeService themeService)
     {
-        currentVersion = string.Format(App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_CurrentVersion"), App.Current.TvTimeVersion);
-        lastUpdateCheck = Settings.LastUpdateCheck;
+        CurrentVersion = $"Current Version v{App.Current.AppVersion}";
+        LastUpdateCheck = Settings.LastUpdateCheck;
+        this.themeService = themeService;
     }
 
     [RelayCommand]
@@ -29,7 +38,8 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     {
         IsLoading = true;
         IsUpdateAvailable = false;
-        LoadingStatus = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_StatusCheckUpdate");
+        IsCheckButtonEnabled = false;
+        LoadingStatus = "Checking for new version";
         if (ApplicationHelper.IsNetworkAvailable())
         {
             LastUpdateCheck = DateTime.Now.ToShortDateString();
@@ -37,58 +47,49 @@ public partial class AppUpdateSettingViewModel : ObservableObject
 
             try
             {
-                var update = await UpdateHelper.CheckUpdateAsync("WinUICommunity", "TvTime", new Version(App.Current.TvTimeVersion));
+                string username = "WinUICommunity";
+                string repo = "TvTime";
+                var update = await UpdateHelper.CheckUpdateAsync(username, repo, new Version(App.Current.AppVersion));
                 if (update.IsExistNewVersion)
                 {
                     IsUpdateAvailable = true;
-                    changeLog = update.Changelog;
-                    LoadingStatus = string.Format(App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_StatusUpdateFound"), update.TagName, update.CreatedAt, update.PublishedAt);
+                    ChangeLog = update.Changelog;
+                    LoadingStatus = $"We found a new version {update.TagName} Created at {update.CreatedAt} and Published at {update.PublishedAt}";
                 }
                 else
                 {
-                    LoadingStatus = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_StatusLatestVersion");
+                    LoadingStatus = "You are using latest version";
                 }
             }
             catch (Exception ex)
             {
                 LoadingStatus = ex.Message;
+                IsLoading = false;
+                IsCheckButtonEnabled = true;
+                Logger?.Error(ex, "AppUpdateSettingViewModel: CheckForUpdateAsync");
             }
         }
         else
         {
-            LoadingStatus = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_StatusErrorConnection");
+            LoadingStatus = "Error Connection";
         }
         IsLoading = false;
-    }
-
-    [RelayCommand]
-    private async Task GetReleaseNotesAsync()
-    {
-        ContentDialog dialog = new ContentDialog()
-        {
-            Title = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_ReleaseNoteContentDialogTitle"),
-            CloseButtonText = App.Current.ResourceHelper.GetString("AppUpdateSettingViewModel_ReleaseNoteContentDialogCloseButton"),
-            Content = new ScrollViewer
-            {
-                Content = new MarkdownTextBlock
-                {
-                    Text = changeLog,
-                    CornerRadius = new CornerRadius(8),
-                    Margin = new Thickness(10)
-                },
-                Margin = new Thickness(10)
-            },
-            Margin = new Thickness(10),
-            DefaultButton = ContentDialogButton.Close,
-            XamlRoot = App.currentWindow.Content.XamlRoot
-        };
-
-        await dialog.ShowAsyncQueue();
+        IsCheckButtonEnabled = true;
     }
 
     [RelayCommand]
     private async Task GoToUpdateAsync()
     {
-        await Launcher.LaunchUriAsync(new Uri(Constants.TVTIME_REPO));
+        await Launcher.LaunchUriAsync(new Uri("https://github.com/WinUICommunity/TvTime/releases"));
+    }
+
+    [RelayCommand]
+    private async Task GetReleaseNotesAsync()
+    {
+        var dialog = new ChangeLogContentDialog();
+        dialog.ChangeLog = ChangeLog;
+        dialog.ThemeService = themeService;
+
+        await dialog.ShowAsyncQueue();
     }
 }

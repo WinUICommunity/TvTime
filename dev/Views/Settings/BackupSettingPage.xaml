@@ -7,64 +7,77 @@
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
+        <InfoBar Title="{x:Bind ViewModel.InfoBarTitle, Mode=OneWay}"
+                 Grid.Row="1"
+                 IsClosable="False"
+                 IsOpen="True"
+                 Severity="{x:Bind ViewModel.InfoBarSeverity, Mode=OneWay}" />
+        <ScrollView Grid.Row="2">
+            <StackPanel Margin="0,5,15,10"
+                        ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
+                        Spacing="5">
+                <wuc:SettingsExpander Description="backup and restore media servers"
+                                      Header="Backup &amp; Restore TvTime Media Servers"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}">
+                    <wuc:SettingsExpander.Items>
+                        <wuc:SettingsCard Command="{x:Bind ViewModel.BackupServerCommand}"
+                                          CommandParameter="True"
+                                          Description="You can export your saved media servers to any location"
+                                          Header="Backup Media Servers"
+                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}"
+                                          IsClickEnabled="True" />
+                        <wuc:SettingsCard Command="{x:Bind ViewModel.RestoreServerCommand}"
+                                          CommandParameter="True"
+                                          Description="You can import your saved media servers to the app"
+                                          Header="Restore Media Servers"
+                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
+                                          IsClickEnabled="True" />
+                    </wuc:SettingsExpander.Items>
+                </wuc:SettingsExpander>
 
-    <ScrollView>
-        <StackPanel Margin="10"
-                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
-                    Spacing="5">
+                <wuc:SettingsExpander Description="backup and restore subtitle servers"
+                                      Header="Backup &amp; Restore TvTime Subtitle Servers"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}">
+                    <wuc:SettingsExpander.Items>
+                        <wuc:SettingsCard Command="{x:Bind ViewModel.BackupServerCommand}"
+                                          CommandParameter="False"
+                                          Description="You can export your saved subtitle servers to any location"
+                                          Header="Backup Subtitle Servers"
+                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
+                                          IsClickEnabled="True" />
+                        <wuc:SettingsCard Command="{x:Bind ViewModel.RestoreServerCommand}"
+                                          CommandParameter="False"
+                                          Description="You can import your saved subtitle servers to the app"
+                                          Header="Restore Subtitle Servers"
+                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
+                                          IsClickEnabled="True" />
+                    </wuc:SettingsExpander.Items>
+                </wuc:SettingsExpander>
 
-            <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
-
-            <InfoBar Title="{x:Bind ViewModel.StatusText, Mode=OneWay}"
-                     IsClosable="False"
-                     IsOpen="True"
-                     Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
-
-            <wuc:SettingsExpander wuc:Localizer.Uid="BackupSettingPage_MediaExpander"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}">
-                <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_MediaBackup"
-                                      Command="{x:Bind ViewModel.BackupServerCommand}"
-                                      CommandParameter="True"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}"
-                                      IsClickEnabled="True" />
-                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_MediaRestore"
-                                      Command="{x:Bind ViewModel.RestoreServerCommand}"
-                                      CommandParameter="True"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
-                                      IsClickEnabled="True" />
-                </wuc:SettingsExpander.Items>
-            </wuc:SettingsExpander>
-
-            <wuc:SettingsExpander wuc:Localizer.Uid="BackupSettingPage_SubtitleExpander"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}">
-                <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_SubtitleBackup"
-                                      Command="{x:Bind ViewModel.BackupServerCommand}"
-                                      CommandParameter="False"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}"
-                                      IsClickEnabled="True" />
-                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_SubtitleRestore"
-                                      Command="{x:Bind ViewModel.RestoreServerCommand}"
-                                      CommandParameter="False"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
-                                      IsClickEnabled="True" />
-                </wuc:SettingsExpander.Items>
-            </wuc:SettingsExpander>
-
-            <wuc:SettingsExpander wuc:Localizer.Uid="BackupSettingPage_TvTimeExpander"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}">
-                <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_TvTimeBackup"
-                                      Command="{x:Bind ViewModel.BackupSettingsCommand}"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
-                                      IsClickEnabled="True" />
-                    <wuc:SettingsCard wuc:Localizer.Uid="BackupSettingPage_TvTimeRestore"
-                                      Command="{x:Bind ViewModel.RestoreSettingsCommand}"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
-                                      IsClickEnabled="True" />
-                </wuc:SettingsExpander.Items>
-            </wuc:SettingsExpander>
-        </StackPanel>
-    </ScrollView>
+                <wuc:SettingsExpander Description="backup and restore TvTime settings"
+                                      Header="Backup &amp; Restore TvTime Settings"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}">
+                    <wuc:SettingsExpander.Items>
+                        <wuc:SettingsCard Command="{x:Bind ViewModel.BackupSettingsCommand}"
+                                          Description="You can export your saved settings to any location"
+                                          Header="Backup TvTime Settings"
+                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backup.png}"
+                                          IsClickEnabled="True" />
+                        <wuc:SettingsCard Command="{x:Bind ViewModel.RestoreSettingsCommand}"
+                                          Description="You can import your saved settings to the app"
+                                          Header="Restore TvTime Settings"
+                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}"
+                                          IsClickEnabled="True" />
+                    </wuc:SettingsExpander.Items>
+                </wuc:SettingsExpander>
+            </StackPanel>
+        </ScrollView>
+    </Grid>
 </Page>

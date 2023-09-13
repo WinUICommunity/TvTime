@@ -18,11 +18,11 @@
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_OpenFileCard"
+            <wuc:SettingsCard Description="If false is selected, the corresponding web page will be opened instead of the file itself"
+                              Header="Open the file in the browser"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch x:Name="TGOpenFile"
-                              wuc:Localizer.Uid="ToggleSwitch"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                              IsOn="{x:Bind local:AppHelper.Settings.IsFileOpenInBrowser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGOpenFile}"
                                                 ComparisonCondition="Equal"
@@ -35,11 +35,11 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_IDMDownloadCard"
+            <wuc:SettingsCard Description="Download Files With Internet Download Manager (IDM) [if exist]"
+                              Header="Download with IDM"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"
-                              wuc:Localizer.Uid="ToggleSwitch"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseIDMForDownloadFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                              IsOn="{x:Bind local:AppHelper.Settings.UseIDMForDownloadFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <ic:DataTriggerBehavior Binding="{Binding IsOn, ElementName=TGUseIDM}"
                                                 ComparisonCondition="Equal"
@@ -52,54 +52,29 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_FilterTokenViewCard"
+            <wuc:SettingsCard Description="With the help of TokenView, you can see only the media related to the desired server, and with the help of the search, you can search the results more precisely."
+                              Header="Filter using TokenView"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/tokenView.png}">
-                <ToggleSwitch wuc:Localizer.Uid="ToggleSwitch"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_SoundCard"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/audio.png}">
-                <ToggleSwitch x:Name="TGSound"
-                              wuc:Localizer.Uid="ToggleSwitch"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Toggled="Sound_Toggled" />
-            </wuc:SettingsCard>
-            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_DoubleClickNavigationCard"
+            <wuc:SettingsCard Description="Navigate to pages with Mouse Double Click"
+                              Header="Use Double Click for Navigate"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/mouse.png}">
-                <ToggleSwitch wuc:Localizer.Uid="ToggleSwitch"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_RealTimeSearchCard"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/search.png}">
-                <ToggleSwitch wuc:Localizer.Uid="ToggleSwitch"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseRealTimeSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <wuc:SettingsCard Description="By activating this option, if an error or crash occurs, its information will be saved in a file called Log.txt Next to the executable file"
+                              Header="Developer Mode (Restart Required)"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/devMode.png}">
+                <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard wuc:Localizer.Uid="GeneralSettingPage_IconPackCard"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/iconPack.png}">
-                <ComboBox x:Name="CmbIconPack">
-                    <ComboBoxItem wuc:Localizer.Uid="GeneralSettingPage_IconPackGlyph"
-                                  Tag="Glyph" />
-                    <ComboBoxItem wuc:Localizer.Uid="GeneralSettingPage_IconPackFluent"
-                                  Tag="Fluent" />
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.IconPackChangedCommand}"
-                                                        CommandParameter="{Binding ElementName=CmbIconPack}" />
-                            </ic:EventTriggerBehavior.Actions>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ComboBox>
-            </wuc:SettingsCard>
-
-            <wuc:SettingsExpander wuc:Localizer.Uid="GeneralSettingPage_RegexExpander"
+            <wuc:SettingsExpander Description="following keywords will be removed from movie\series file name, if you see a word that can not be removed from file name you can add your keywords here"
+                                  Header="Use Default Regex"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/regex.png}">
                 <ToggleSwitch x:Name="TGRegex"
-                              wuc:Localizer.Uid="ToggleSwitch"
-                              IsOn="{x:Bind local:TvTimeHelper.Settings.UseDefaultRegexEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              IsOn="{x:Bind local:AppHelper.Settings.UseDefaultRegexEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Toggled="TGRegex_Toggled" />
                 <wuc:SettingsExpander.ItemsHeader>
                     <TextBox MinWidth="240"
@@ -110,7 +85,7 @@
                              ScrollViewer.IsVerticalRailEnabled="True"
                              ScrollViewer.VerticalScrollBarVisibility="Visible"
                              ScrollViewer.VerticalScrollMode="Enabled"
-                             Text="{x:Bind local:TvTimeHelper.Settings.FileNameRegex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{x:Bind local:AppHelper.Settings.FileNameRegex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              TextWrapping="Wrap" />
                 </wuc:SettingsExpander.ItemsHeader>
             </wuc:SettingsExpander>

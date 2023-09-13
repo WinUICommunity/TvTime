@@ -8,8 +8,8 @@ public partial class MainViewModel : ObservableObject
     {
         JsonNavigationViewService = jsonNavigationViewService;
         themeService.Initialize(App.currentWindow);
-        themeService.ConfigBackdrop(BackdropType.Mica);
-        themeService.ConfigElementTheme(ElementTheme.Default);
+        themeService.ConfigBackdrop();
+        themeService.ConfigElementTheme();
         themeService.ConfigBackdropFallBackColorForWindow10(Application.Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush);
     }
 }

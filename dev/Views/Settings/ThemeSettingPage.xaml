@@ -9,22 +9,23 @@
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
-
-    <ScrollView>
+    <ScrollView Margin="{ThemeResource ContentPageMargin}"
+                  VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard wuc:Localizer.Uid="ThemeSettingPage_AppearanceCard"
+            <wuc:SettingsCard Description="Select your Application Theme and Material"
+                              Header="Appearance &amp; behavior"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}">
                 <ComboBox x:Name="CmbTheme">
-                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Light"
+                    <ComboBoxItem Content="Light"
                                   Tag="Light" />
-                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Dark"
+                    <ComboBoxItem Content="Dark"
                                   Tag="Dark" />
-                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Default"
+                    <ComboBoxItem Content="Default"
                                   Tag="Default" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
@@ -36,14 +37,15 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard wuc:Localizer.Uid="ThemeSettingPage_MaterialCard"
+            <wuc:SettingsCard Description="Change Application System Backdrop"
+                              Header="Materials"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backdrop.png}">
                 <ComboBox x:Name="CmbBackdrop">
-                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Mica"
+                    <ComboBoxItem Content="Mica"
                                   Tag="Mica" />
-                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_MicaAlt"
+                    <ComboBoxItem Content="Mica Alt"
                                   Tag="MicaAlt" />
-                    <ComboBoxItem wuc:Localizer.Uid="ThemeSettingPage_Acrylic"
+                    <ComboBoxItem Content="Acrylic"
                                   Tag="DesktopAcrylic" />
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="SelectionChanged">
@@ -55,11 +57,13 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard wuc:Localizer.Uid="ThemeSettingPage_WindowColorCard"
-                              ActionIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
+            <wuc:SettingsCard ActionIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
                               Command="{x:Bind ViewModel.OpenWindowsColorSettingsCommand}"
+                              Description="Change Windows Accent Color"
+                              Header="Windows Color Settings"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/color.png}"
                               IsClickEnabled="True" />
         </StackPanel>
     </ScrollView>
 </Page>
+

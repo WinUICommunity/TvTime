@@ -1,6 +1,4 @@
-﻿using TvTime.ViewModels;
-
-namespace TvTime.Views;
+﻿namespace TvTime.Views;
 public sealed partial class LayoutSettingPage : Page
 {
     public static LayoutSettingPage Instance { get; set; }

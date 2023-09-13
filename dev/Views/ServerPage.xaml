@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="TvTime.Views.ServerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:community="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:table="using:TvTime.Database.Tables"
+      xmlns:views="using:TvTime.Views"
+      xmlns:wuc="using:WinUICommunity"
+      mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:EventTriggerBehavior.Actions>
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.PageLoadedCommand}" />
+            </ic:EventTriggerBehavior.Actions>
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid Margin="10,0,10,10"
+          ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <community:Segmented x:Name="SegmentedServer"
+                             Margin="10"
+                             HorizontalAlignment="Center"
+                             SelectedIndex="{x:Bind ViewModel.SegmentedSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedSelectionChangedCommand}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+            <community:SegmentedItem Content="Media Servers" />
+            <community:SegmentedItem Content="Subtitle Server" />
+        </community:Segmented>
+        <wuc:SettingsExpander Grid.Row="1"
+                              Description="Manage Servers that can be used in the TvTime"
+                              Header="Servers"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/save.png}">
+            <Button Click="BtnAdd_Click"
+                    Content="Add new server"
+                    Style="{ThemeResource AccentButtonStyle}" />
+            <wuc:SettingsExpander.Items>
+                <wuc:SettingsCard Description="We have a number of specific and predefined servers, you can load them."
+                                  Header="Load predefined servers"
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/restore.png}">
+                    <Button Command="{x:Bind ViewModel.LoadPredefinedServerCommand}"
+                            Content="Load predefined servers" />
+                </wuc:SettingsCard>
+                <wuc:SettingsCard Description="This will delete all saved servers"
+                                  Header="Clear all servers"
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/trash.png}">
+                    <Button Command="{x:Bind ViewModel.DeleteAllServerCommand}"
+                            Content="Delete all servers" />
+                </wuc:SettingsCard>
+            </wuc:SettingsExpander.Items>
+        </wuc:SettingsExpander>
+
+        <ItemsView Grid.Row="2"
+                   FlowDirection="LeftToRight"
+                   ItemsSource="{x:Bind ViewModel.ServerListACV, Mode=OneWay}"
+                   SelectionMode="None">
+            <ItemsView.ItemTemplate>
+                <DataTemplate x:DataType="table:BaseServerTable">
+                    <ItemContainer>
+                        <wuc:SettingsCard Header="{x:Bind Title, Mode=OneWay}"
+                                          HeaderIcon="{x:Bind IsActive, Converter={StaticResource Bool2IconConverter}}">
+                            <wuc:SettingsCard.Resources>
+                                <x:Double x:Key="SettingsCardLeftIndention">42</x:Double>
+                            </wuc:SettingsCard.Resources>
+                            <wuc:SettingsCard.Description>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,4,0"
+                                               FontWeight="SemiBold"
+                                               Style="{ThemeResource SecondaryTextStyle}"
+                                               Text="{x:Bind ServerType, Mode=OneWay}" />
+                                    <HyperlinkButton Margin="0,0,4,0"
+                                                     Padding="2,1,2,1"
+                                                     BorderThickness="0"
+                                                     Click="BtnNavigateToUri_Click"
+                                                     Tag="{x:Bind Server}">
+                                        <TextBlock Style="{ThemeResource SecondaryTextStyle}"
+                                                   Text="{x:Bind Server}" />
+                                    </HyperlinkButton>
+                                </StackPanel>
+                            </wuc:SettingsCard.Description>
+                            <StackPanel HorizontalAlignment="Right"
+                                        Orientation="Horizontal"
+                                        Spacing="8">
+                                <Button x:Name="BtnUpdate"
+                                        Width="40"
+                                        Height="36"
+                                        Click="BtnUpdate_Click"
+                                        Content="{wuc:BitmapIcon Source=Assets/Fluent/edit.png}"
+                                        DataContext="{x:Bind}"
+                                        Style="{StaticResource SubtleButtonStyle}" />
+                                <Button x:Name="BtnDelete"
+                                        Width="40"
+                                        Height="36"
+                                        Click="BtnDelete_Click"
+                                        Content="{wuc:BitmapIcon Source=Assets/Fluent/trash.png}"
+                                        DataContext="{x:Bind}"
+                                        Style="{StaticResource SubtleButtonStyle}" />
+                            </StackPanel>
+                        </wuc:SettingsCard>
+                    </ItemContainer>
+                </DataTemplate>
+            </ItemsView.ItemTemplate>
+            <ItemsView.Layout>
+                <StackLayout Spacing="5" />
+            </ItemsView.Layout>
+        </ItemsView>
+
+        <views:NoItemUserControl x:Name="NoItemUC"
+                                 Grid.Row="2"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Count="{x:Bind ViewModel.ServerListACV.Count, Mode=OneWay}"
+                                 Message="servers not found, add some servers"
+                                 Visibility="{x:Bind ViewModel.IsActive, Mode=OneWay, Converter={StaticResource Bool2Negation2VisibilityConverter}}">
+            <i:Interaction.Behaviors>
+                <ic:DataTriggerBehavior Binding="{Binding IsExpanded, ElementName=ServerExpander}"
+                                        ComparisonCondition="Equal"
+                                        Value="True">
+                    <ic:ChangePropertyAction PropertyName="VerticalAlignment"
+                                             TargetObject="{Binding ElementName=NoItemUC}"
+                                             Value="Bottom" />
+                    <ic:ChangePropertyAction PropertyName="Margin"
+                                             TargetObject="{Binding ElementName=NoItemUC}"
+                                             Value="10" />
+                </ic:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </views:NoItemUserControl>
+
+        <ProgressRing Grid.Row="2"
+                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <InfoBar x:Name="Status"
+                 Title="{x:Bind ViewModel.InfoBarTitle, Mode=OneWay}"
+                 Grid.Row="3"
+                 CornerRadius="4,4,0,0"
+                 IsClosable="True"
+                 IsOpen="{x:Bind ViewModel.InfoBarIsOpen, Mode=OneWay}"
+                 Severity="{x:Bind ViewModel.InfoBarSeverity, Mode=OneWay}" />
+    </Grid>
+</Page>

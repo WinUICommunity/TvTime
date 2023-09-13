@@ -1,11 +1,10 @@
-﻿using TvTime.ViewModels;
+﻿namespace TvTime.Views;
 
-namespace TvTime.Views;
 public sealed partial class BreadcrumbBarUserControl : UserControl
 {
     public List<string> Items
     {
-        get => (List<string>) GetValue(ItemsProperty);
+        get => (List<string>)GetValue(ItemsProperty);
         set => SetValue(ItemsProperty, value);
     }
 
@@ -14,7 +13,7 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
 
     public string SingleItem
     {
-        get => (string) GetValue(SingleItemProperty);
+        get => (string)GetValue(SingleItemProperty);
         set => SetValue(SingleItemProperty, value);
     }
 
@@ -32,7 +31,7 @@ public sealed partial class BreadcrumbBarUserControl : UserControl
 
     private void BreadcrumbBarUserControl_Loaded(object sender, RoutedEventArgs e)
     {
-        ViewModel.BreadcrumbBarCollection.Add(App.Current.ResourceHelper.GetString("BreadCrumbBarRootText"));
+        ViewModel.BreadcrumbBarCollection.Add("Settings");
         if (Items != null)
         {
             foreach (var item in Items)

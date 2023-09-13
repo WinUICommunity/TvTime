@@ -7,7 +7,6 @@
       xmlns:views="using:TvTime.Views"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
-
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
@@ -15,22 +14,23 @@
                     Spacing="5">
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsExpander wuc:Localizer.Uid="AboutPage_TvTimeExpander"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/icon.png}"
+            <wuc:SettingsExpander Description="TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities."
+                                  Header="TvTime"
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/icon.png}"
                                   IsExpanded="True">
 
                 <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                            IsTextSelectionEnabled="True"
-                           Text="{x:Bind ViewModel.TvTimeVersion, Mode=OneWay}" />
+                           Text="{x:Bind ViewModel.AppInfo, Mode=OneWay}" />
                 <wuc:SettingsExpander.Items>
                     <wuc:SettingsCard HorizontalContentAlignment="Left"
                                       ContentAlignment="Left">
                         <StackPanel Orientation="Vertical"
                                     Spacing="5">
-                            <TextBlock wuc:Localizer.Uid="AboutPage_RelatedLinks" />
-                            <HyperlinkButton wuc:Localizer.Uid="AboutPage_SourceCode"
-                                             NavigateUri="https://github.com/winUICommunity/TvTime" />
-                            <HyperlinkButton wuc:Localizer.Uid="AboutPage_ReleaseNotes"
+                            <TextBlock Text="Related Links" />
+                            <HyperlinkButton Content="Source Code"
+                                             NavigateUri="https://github.com/WinUICommunity/TvTime" />
+                            <HyperlinkButton Content="Release Notes"
                                              NavigateUri="https://github.com/WinUICommunity/TvTime/releases" />
                         </StackPanel>
                     </wuc:SettingsCard>
@@ -39,3 +39,4 @@
         </StackPanel>
     </ScrollView>
 </Page>
+

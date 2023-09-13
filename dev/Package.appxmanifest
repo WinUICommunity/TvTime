@@ -2,14 +2,17 @@
 
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="1b404662-0d3f-4226-ba6e-3cc738af3118"
+    Name="a8ed06f3-8044-4b89-be2b-9a82e292907e"
     Publisher="CN=mahdi"
-    Version="1.0.2.0" />
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="a8ed06f3-8044-4b89-be2b-9a82e292907e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>TvTime</DisplayName>
@@ -23,8 +26,7 @@
   </Dependencies>
 
   <Resources>
-    <Resource Language="en-US"/>
-    <Resource Language="fa-IR"/>
+    <Resource Language="x-generate"/>
   </Resources>
 
   <Applications>

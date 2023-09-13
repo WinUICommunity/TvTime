@@ -2,5 +2,5 @@
 public partial class AboutUsSettingViewModel : ObservableObject
 {
     [ObservableProperty]
-    public string tvTimeVersion = $"TvTime v{App.Current.TvTimeVersion}";
+    public string appInfo = $"{App.Current.AppName} v{App.Current.AppVersion}";
 }

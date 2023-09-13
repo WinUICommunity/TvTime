@@ -1,13 +1,20 @@
-﻿namespace TvTime.ViewModels;
+﻿using Microsoft.EntityFrameworkCore;
+
+using Newtonsoft.Json;
+
+using TvTime.Database;
+using TvTime.Database.Tables;
+
+namespace TvTime.ViewModels;
 public partial class BackupSettingViewModel : ObservableObject
 {
     private bool isMediaServer;
 
     [ObservableProperty]
-    public string statusText = App.Current.ResourceHelper.GetString("BackupSettingPage_InfoBarTitle/Title");
+    public string infoBarTitle;
 
     [ObservableProperty]
-    public InfoBarSeverity statusSeverity = InfoBarSeverity.Informational;
+    public InfoBarSeverity infoBarSeverity = InfoBarSeverity.Informational;
 
     [RelayCommand]
     private async Task OnBackupServer(object isMediaServer)
@@ -30,11 +37,12 @@ public partial class BackupSettingViewModel : ObservableObject
 
             if (file != null)
             {
-                var servers = ServerSettings.TVTimeServers;
+                using var db = new AppDbContext();
+                dynamic servers = await db.MediaServers.ToListAsync();
 
                 if (!this.isMediaServer)
                 {
-                    servers = ServerSettings.SubtitleServers;
+                    servers = await db.SubtitleServers.ToListAsync();
                 }
 
                 var json = JsonConvert.SerializeObject(servers, Formatting.Indented);
@@ -43,14 +51,15 @@ public partial class BackupSettingViewModel : ObservableObject
                     await outfile.WriteAsync(json);
                 }
 
-                StatusText = App.Current.ResourceHelper.GetString("BackupSettingViewModel_BackupServerCompleted");
-                StatusSeverity = InfoBarSeverity.Success;
+                InfoBarTitle = "Backup completed successfully";
+                InfoBarSeverity = InfoBarSeverity.Success;
             }
         }
         catch (Exception ex)
         {
-            StatusText = ex.Message;
-            StatusSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarSeverity = InfoBarSeverity.Error;
+            Logger?.Error(ex, "BackupSettingViewModel: Backup Servers");
         }
     }
 
@@ -66,27 +75,36 @@ public partial class BackupSettingViewModel : ObservableObject
             {
                 using var streamReader = File.OpenText(file.Path);
                 var json = await streamReader.ReadToEndAsync();
-                var content = JsonConvert.DeserializeObject<ObservableCollection<ServerModel>>(json);
+                var content = JsonConvert.DeserializeObject<List<BaseServerTable>>(json);
                 if (content is not null)
                 {
+                    using var db = new AppDbContext();
                     if (this.isMediaServer)
                     {
-                        ServerSettings.TVTimeServers = content;
+                        foreach (var item in content)
+                        {
+                            await db.MediaServers.AddAsync(new MediaServerTable(item.Title, item.Server, item.IsActive, item.ServerType));
+                        }
                     }
                     else
                     {
-                        ServerSettings.SubtitleServers = content;
+                        foreach (var item in content)
+                        {
+                            await db.SubtitleServers.AddAsync(new SubtitleServerTable(item.Title, item.Server, item.IsActive));
+                        }
                     }
 
-                    StatusText = App.Current.ResourceHelper.GetString("BackupSettingViewModel_RestoreServerCompleted");
-                    StatusSeverity = InfoBarSeverity.Success;
+                    await db.SaveChangesAsync();
+                    InfoBarTitle = "Restore completed successfully";
+                    InfoBarSeverity = InfoBarSeverity.Success;
                 }
             }
         }
         catch (Exception ex)
         {
-            StatusText = ex.Message;
-            StatusSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarSeverity = InfoBarSeverity.Error;
+            Logger?.Error(ex, "BackupSettingViewModel: Restore Servers");
         }
     }
 
@@ -110,14 +128,15 @@ public partial class BackupSettingViewModel : ObservableObject
                 {
                     await outfile.WriteAsync(json);
                 }
-                StatusText = App.Current.ResourceHelper.GetString("BackupSettingViewModel_BackupConfigCompleted");
-                StatusSeverity = InfoBarSeverity.Success;
+                InfoBarTitle = "Backup completed successfully";
+                InfoBarSeverity = InfoBarSeverity.Success;
             }
         }
         catch (Exception ex)
         {
-            StatusText = ex.Message;
-            StatusSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarSeverity = InfoBarSeverity.Error;
+            Logger?.Error(ex, "BackupSettingViewModel: Backup Settings");
         }
     }
 
@@ -132,20 +151,21 @@ public partial class BackupSettingViewModel : ObservableObject
             {
                 using var streamReader = File.OpenText(file.Path);
                 var json = await streamReader.ReadToEndAsync();
-                var content = JsonConvert.DeserializeObject<TvTimeConfig>(json);
+                var content = JsonConvert.DeserializeObject<AppConfig>(json);
                 if (content is not null)
                 {
                     Settings = content;
                     Settings.Save();
-                    StatusText = App.Current.ResourceHelper.GetString("BackupSettingViewModel_RestoreConfigCompleted");
-                    StatusSeverity = InfoBarSeverity.Success;
+                    InfoBarTitle = "Restore completed successfully";
+                    InfoBarSeverity = InfoBarSeverity.Success;
                 }
             }
         }
         catch (Exception ex)
         {
-            StatusText = ex.Message;
-            StatusSeverity = InfoBarSeverity.Error;
+            InfoBarTitle = ex.Message;
+            InfoBarSeverity = InfoBarSeverity.Error;
+            Logger?.Error(ex, "BackupSettingViewModel: Restore Settings");
         }
     }
 }

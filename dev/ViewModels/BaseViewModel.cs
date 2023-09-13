@@ -1,15 +1,19 @@
 ﻿using System.Text;
-using System.Windows.Input;
 
-using CommunityToolkit.WinUI.Controls;
+using CommunityToolkit.WinUI.UI;
+
+using TvTime.Database.Tables;
+using TvTime.Views.ContentDialogs;
 
 using Windows.ApplicationModel.DataTransfer;
 
+using Windows.System;
+
 namespace TvTime.ViewModels;
-public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
+public partial class BaseViewModel : ObservableRecipient
 {
     [ObservableProperty]
-    public ObservableCollection<ITvTimeModel> dataList;
+    public ObservableCollection<BaseMediaTable> dataList;
 
     [ObservableProperty]
     public AdvancedCollectionView dataListACV;
@@ -26,110 +30,138 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
     [ObservableProperty]
     public InfoBarSeverity statusSeverity;
 
-    public List<string> suggestList = new();
-    public List<string> existServer = new();
-    public ITvTimeModel rootTvTimeItem = null;
-
-    public SortDescription currentSortDescription;
-
-    public ICommand MenuFlyoutItemCommand { get; }
+    public BaseMediaTable rootMedia = null;
 
     public string headerText = string.Empty;
     public string descriptionText = string.Empty;
 
-    public BaseViewModel()
+    #region MenuFlyoutItems
+    [RelayCommand]
+    private async Task OnOpenWebDirectory(object item)
     {
-        MenuFlyoutItemCommand = new CommunityToolkit.Mvvm.Input.RelayCommand<object>(OnMenuFlyoutItem);
-    }
-
-    #region Virtual Methods
-
-    /// <summary>
-    /// Use base for the default implementation
-    /// </summary>
-    /// <param name="sender"></param>
-    public virtual void OnMenuFlyoutItem(object sender)
-    {
-        var menuFlyout = (sender as MenuFlyoutItem);
-        var tvTimeItem = (ITvTimeModel) menuFlyout?.DataContext;
-        switch (menuFlyout?.Tag?.ToString())
+        try
         {
-            case "OpenWebDirectory":
-                OnOpenDirectory(tvTimeItem, menuFlyout);
-                break;
-
-            case "IMDB":
-                OnGetIMDBDetails(tvTimeItem);
-                break;
-
-            case "OpenFile":
-                OnOpenDirectory(tvTimeItem, menuFlyout);
-                break;
-
-            case "Copy":
-                OnCopy(tvTimeItem);
-                break;
-
-            case "CopyAll":
-                OnCopyAll();
-                break;
-
-            case "Download":
-                OnDownloadWithIDM(tvTimeItem);
-                break;
-
-            case "DownloadAll":
-                OnDownloadAllWithIDM();
-                break;
+            var menuItem = item as MenuFlyoutItem;
+            var media = menuItem.DataContext as BaseMediaTable;
+            var server = media.Server?.ToString();
+            if (menuItem.Text.Contains("File"))
+            {
+                await Launcher.LaunchUriAsync(new Uri(server));
+            }
+            else
+            {
+                if (Constants.FileExtensions.Any(server.Contains))
+                {
+                    var fileName = Path.GetFileName(server);
+                    await Launcher.LaunchUriAsync(new Uri(server.Replace(fileName, "")));
+                }
+                else
+                {
+                    await Launcher.LaunchUriAsync(new Uri(server));
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger?.Error(ex, "BaseViewModel: OnOpenWebDirectory");
         }
     }
 
-    /// <summary>
-    /// Use base for the default implementation
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="args"></param>
-    public virtual void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    [RelayCommand]
+    private void OnGetIMDBDetail(object baseMedia)
     {
-        if (DataList != null && DataList.Any())
+        var media = baseMedia as BaseMediaTable;
+        if (rootMedia == null)
         {
-            AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestList);
-            DataListACV.Filter = _ => true;
-            DataListACV.Filter = DataListFilter;
-        }
-    }
-
-    public virtual bool DataListFilter(object item)
-    {
-        return false;
-    }
-
-    public virtual void OnRefresh()
-    {
-
-    }
-
-    public virtual void OnIMDBDetail()
-    {
-
-    }
-
-    /// <summary>
-    /// Use base for the default implementation, all items will be opened in IDM if UseIDMForDownloadFiles option is enabled in General Settings Page, Otherwise, they will open in the browser
-    /// </summary>
-    public async virtual void OnDownloadAllWithIDMOrOpenInBrowser()
-    {
-        if (Settings.UseIDMForDownloadFiles)
-        {
-            OnDownloadAllWithIDM();
+            CreateIMDBDetailsWindow(media.Title);
         }
         else
         {
+            CreateIMDBDetailsWindow(rootMedia.Title);
+        }
+    }
+
+    [RelayCommand]
+    private void OnCopy(object baseMedia)
+    {
+        var media = baseMedia as BaseMediaTable;
+        var server = media.Server?.ToString();
+        var package = new DataPackage();
+        package.SetText(server);
+        Clipboard.SetContent(package);
+    }
+
+    [RelayCommand]
+    private void OnCopyAll()
+    {
+        if (DataList != null)
+        {
+            var package = new DataPackage();
+            StringBuilder urls = new StringBuilder();
             foreach (var item in DataList)
             {
-                await Launcher.LaunchUriAsync(new Uri(item?.Server));
+                urls.AppendLine(item.Server?.ToString());
+            }
+            package.SetText(urls?.ToString());
+            Clipboard.SetContent(package);
+        }
+    }
+
+    [RelayCommand]
+    private async Task OnDownloadWithIDM(object baseMedia)
+    {
+        var idmPath = GetIDMFilePath();
+        if (string.IsNullOrEmpty(idmPath))
+        {
+            var dialog = new IDMNotFoundDialog();
+            await dialog.ShowAsync();
+        }
+        else
+        {
+            var media = baseMedia as BaseMediaTable;
+            var server = media.Server?.ToString();
+            LaunchIDM(GetIDMFilePath(), server?.ToString());
+        }
+    }
+
+    [RelayCommand]
+    private async Task OnDownloadAllWithIDM()
+    {
+        var idmPath = GetIDMFilePath();
+        if (string.IsNullOrEmpty(idmPath))
+        {
+            var dialog = new IDMNotFoundDialog();
+            await dialog.ShowAsync();
+        }
+        else
+        {
+            if (DataList != null)
+            {
+                foreach (var item in DataList)
+                {
+                    if (IsUrlFile(item?.Server))
+                    {
+                        LaunchIDM(GetIDMFilePath(), item?.Server?.ToString());
+                        await Task.Delay(700);
+                    }
+                }
             }
         }
+    }
+
+    #endregion
+
+    public string GetIDMFilePath()
+    {
+        string idmPathX86 = @"C:\Program Files (x86)\Internet Download Manager\IDMan.exe";
+        string idmPathX64 = @"C:\Program Files\Internet Download Manager\IDMan.exe";
+        return File.Exists(idmPathX64) ? idmPathX64 : File.Exists(idmPathX86) ? idmPathX86 : null;
+    }
+
+    [RelayCommand]
+    public virtual void OnPageLoaded(object param)
+    {
+
     }
 
     /// <summary>
@@ -142,12 +174,6 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
 
         headerText = item.Header;
         descriptionText = item.Description;
-    }
-
-    [RelayCommand]
-    public virtual void OnPageLoaded(object param)
-    {
-
     }
 
     [RelayCommand]
@@ -165,147 +191,47 @@ public partial class BaseViewModel : ObservableRecipient, IBaseViewModel
         NavigateToDetails(sender);
     }
 
-    #endregion
-
-    public (string Header, string Description) GetHeaderAndDescription(object sender)
+    [RelayCommand]
+    public virtual void OnRefresh()
     {
-        var item = sender as SettingsCard;
-        var headerTextBlock = item?.Header as HeaderTextBlockUserControl;
-        var title = headerTextBlock?.Text?.Trim();
-        var server = string.Empty;
-        switch (Settings.DescriptionTemplate)
-        {
-            case DescriptionTemplateType.TextBlock:
-                var descriptionTextBlock = item?.Description as DescriptionTextBlockUserControl;
-                server = descriptionTextBlock?.Text;
-                break;
-            case DescriptionTemplateType.HyperLink:
-                var descriptionHyperLink = item?.Description as DescriptionHyperLinkUserControl;
-                var hyperLink = descriptionHyperLink?.Content as HyperlinkButton;
-                var hyperLinkContent = hyperLink?.Content as TextBlock;
-                server = hyperLinkContent?.Text;
-                break;
-        }
 
-        return (Header: title, Description: server);
     }
 
-    private async void OnOpenDirectory(ITvTimeModel tvTimeItem, MenuFlyoutItem item)
+    [RelayCommand]
+    public virtual void OnIMDBDetail()
     {
-        var server = tvTimeItem.Server?.ToString();
-        if (item.Text.Contains("File"))
-        {
-            await Launcher.LaunchUriAsync(new Uri(server));
-        }
-        else
-        {
-            if (Constants.FileExtensions.Any(server.Contains))
-            {
-                var fileName = System.IO.Path.GetFileName(server);
-                await Launcher.LaunchUriAsync(new Uri(server.Replace(fileName, "")));
-            }
-            else
-            {
-                await Launcher.LaunchUriAsync(new Uri(server));
-            }
-        }
+
     }
 
-    private void OnGetIMDBDetails(ITvTimeModel tvTimeItem)
+    /// <summary>
+    /// Use base for the default implementation, all items will be opened in IDM if UseIDMForDownloadFiles option is enabled in General Settings Page, Otherwise, they will open in the browser
+    /// </summary>
+    [RelayCommand]
+    public async virtual Task OnDownloadAllWithIDMOrOpenInBrowser()
     {
-        if (rootTvTimeItem == null)
+        if (Settings.UseIDMForDownloadFiles)
         {
-            CreateIMDBDetailsWindow(tvTimeItem.Title);
-        }
-        else
-        {
-            CreateIMDBDetailsWindow(rootTvTimeItem.Title);
-        }
-    }
-
-    private void OnCopy(ITvTimeModel tvTimeItem)
-    {
-        var server = tvTimeItem.Server?.ToString();
-        var package = new DataPackage();
-        package.SetText(server);
-        Clipboard.SetContent(package);
-    }
-
-    private void OnCopyAll()
-    {
-        var package = new DataPackage();
-        StringBuilder urls = new StringBuilder();
-        foreach (var item in DataList)
-        {
-            urls.AppendLine(item.Server?.ToString());
-        }
-        package.SetText(urls?.ToString());
-        Clipboard.SetContent(package);
-    }
-
-    private void OnDownloadWithIDM(ITvTimeModel tvTimeItem)
-    {
-        var idmPath = GetIDMFilePath();
-        if (string.IsNullOrEmpty(idmPath))
-        {
-            IDMNotFoundDialog();
-        }
-        else
-        {
-            var server = tvTimeItem.Server?.ToString();
-            LaunchIDM(GetIDMFilePath(), server?.ToString());
-        }
-    }
-
-    private async void OnDownloadAllWithIDM()
-    {
-        var idmPath = GetIDMFilePath();
-        if (string.IsNullOrEmpty(idmPath))
-        {
-            IDMNotFoundDialog();
+           await OnDownloadAllWithIDM();
         }
         else
         {
             foreach (var item in DataList)
             {
-                if (IsUrlFile(item?.Server))
-                {
-                    LaunchIDM(GetIDMFilePath(), item?.Server?.ToString());
-                    await Task.Delay(500);
-                }
+                await Launcher.LaunchUriAsync(new Uri(item?.Server));
             }
         }
     }
 
-    [RelayCommand]
-    public void OnSegmentedItemChanged(object sender)
+    public (string Header, string Description) GetHeaderAndDescription(object sender)
     {
-        var segmented = sender as Segmented;
-        var selectedItem = segmented.SelectedItem as SegmentedItem;
-        if (selectedItem != null)
-        {
-            switch (selectedItem.Tag?.ToString())
-            {
-                case "Refresh":
-                    OnRefresh();
-                    segmented.SelectedIndex = -1;
-                    break;
-                case "IMDBDetails":
-                    OnIMDBDetail();
-                    segmented.SelectedIndex = -1;
-                    break;
-                case "DownloadAll":
-                    OnDownloadAllWithIDMOrOpenInBrowser();
-                    segmented.SelectedIndex = -1;
-                    break;
-            }
-        }
-    }
+        var item = sender as SettingsCard;
+        var headerTextBlock = item?.Header as TextBlock;
+        var title = headerTextBlock?.Text?.Trim();
+        var server = string.Empty;
+        var descriptionHyperLink = item?.Description as HyperlinkButton;
+        var hyperLinkContent = descriptionHyperLink?.Content as TextBlock;
+        server = hyperLinkContent?.Text;
 
-    public string GetIDMFilePath()
-    {
-        string idmPathX86 = @"C:\Program Files (x86)\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable
-        string idmPathX64 = @"C:\Program Files\Internet Download Manager\IDMan.exe"; // Update with the correct path to IDM executable
-        return File.Exists(idmPathX64) ? idmPathX64 : File.Exists(idmPathX86) ? idmPathX86 : null;
+        return (Header: title, Description: server);
     }
 }

@@ -1,16 +1,12 @@
 ﻿using CommunityToolkit.Labs.WinUI;
 
-using TvTime.ViewModels;
-
 namespace TvTime.Views;
 public sealed partial class SubtitleSettingPage : Page
 {
-    public SubtitleSettingViewModel ViewModel { get; }
     public string BreadCrumbBarItemText { get; set; }
 
     public SubtitleSettingPage()
     {
-        ViewModel = App.GetService<SubtitleSettingViewModel>();
         this.InitializeComponent();
         Loaded += SubtitleSettingPage_Loaded;
     }
@@ -27,6 +23,7 @@ public sealed partial class SubtitleSettingPage : Page
             {
                 item.IsSelected = false;
             }
+
             tokenView.Items.Add(item);
         }
     }

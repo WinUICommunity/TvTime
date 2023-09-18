@@ -149,10 +149,17 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                 Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
 
                 Regex fileSizeRegex = new Regex("<br>(.*?)<", RegexOptions.IgnoreCase);
+                Regex freelecherFileSizeRegex = new Regex(@"<\/a>([^<]+)", RegexOptions.IgnoreCase);
                 MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
 
                 var fileSizeContent = content.Replace("<br><br>", "<br>");
                 var fileSizeMatches = fileSizeRegex.Matches(fileSizeContent);
+
+                if (fileSizeMatches.Count == 0)
+                {
+                    fileSizeMatches = freelecherFileSizeRegex.Matches(fileSizeContent);
+                }
+                List<Match> fileSizeMatchesList = new List<Match>(fileSizeMatches.Cast<Match>());
 
                 int index = 0;
                 foreach (Match m in m1)
@@ -165,7 +172,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                     if (m2.Success)
                     {
                         link = m2.Groups[1].Value;
-                        if (baseMedia.Server.Contains("freelecher"))
+                        if (baseMedia.Server.Contains("freelecher") && !baseMedia.Server.Contains("https://dl.freelecher"))
                         {
                             var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
                             i.Server = $"{url}{link}";
@@ -184,7 +191,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                     string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
 
                     i.Title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(t));
-                    if (i.Server.Equals($"{baseMedia.Server}../") || i.Title.Equals("[To Parent Directory]") ||
+                    if (string.IsNullOrEmpty(i.Title) || i.Server.Equals($"{baseMedia.Server}../") || i.Title.Equals("[To Parent Directory]") || t.Equals("../") ||
                         ((i.Server.Contains("rostam") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
                     {
                         continue;
@@ -195,14 +202,21 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                         var matchDate = dateTimeMatches[index].Value;
                         i.DateTime = matchDate;
                     }
-                    if (Constants.FileExtensions.Any(i.Server.Contains) && fileSizeMatches.Count > 0 && index <= fileSizeMatches.Count)
+
+                    if (Constants.FileExtensions.Any(i.Server.Contains) && fileSizeMatchesList.Count > 0 && index <= fileSizeMatchesList.Count)
                     {
-                        var filesize = fileSizeMatches[index].Value;
-                        if (index <= fileSizeMatches.Count)
+                        var filesize = fileSizeMatchesList[index].Value;
+                        if (baseMedia.Server.Contains("https://dl.freelecher"))
+                        {
+                            filesize = fileSizeMatchesList.Where(x=>x.Value.Contains(i.DateTime)).FirstOrDefault().Value;
+                            filesize = filesize.Replace(i.DateTime, "").Replace("</a>","").Trim();
+                        }
+
+                        if (index <= fileSizeMatchesList.Count)
                         {
                             if (filesize.Contains("<br><", StringComparison.OrdinalIgnoreCase))
                             {
-                                filesize = fileSizeMatches[index + 1].Value;
+                                filesize = fileSizeMatchesList[index + 1].Value;
                             }
                             filesize = ReplaceForFileSize(filesize, i.DateTime);
                             i.FileSize = ApplicationHelper.GetFileSize((long)Convert.ToDouble(filesize));

@@ -154,7 +154,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
 
                     IsActive = false;
                     StatusSeverity = InfoBarSeverity.Success;
-                    StatusTitle = $"Done, All Media Loaded! ({DataList.Count})";
+                    StatusTitle = $"Done, All Media Loaded! ({DataList?.Count})";
                     StatusMessage = "";
                     AutoHideStatusInfoBar(new TimeSpan(0, 0, 6));
                 }
@@ -342,7 +342,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                             if (m2.Success)
                             {
                                 link = m2.Groups[1].Value;
-                                if (server.Contains("freelecher"))
+                                if (server.Contains("freelecher") && !server.Contains("https://dl.freelecher"))
                                 {
                                     var url = new Uri(server).GetLeftPart(UriPartial.Authority);
                                     i.Server = $"{url}{link}";
@@ -366,8 +366,8 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                             string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
                             i.Title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(t));
 
-                            if (i.Server.Equals($"{server}/../") || i.Server.Equals($"{server}../") ||
-                                i.Title.Equals("[To Parent Directory]") ||
+                            if (string.IsNullOrEmpty(i.Title) || i.Server.Equals($"{server}/../") || i.Server.Equals($"{server}../") ||
+                                i.Title.Equals("[To Parent Directory]") || t.Equals("../") ||
                                 ((i.Server.Contains("rostam") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
                             {
                                 continue;

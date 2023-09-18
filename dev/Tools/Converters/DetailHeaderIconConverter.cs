@@ -5,6 +5,7 @@ public class DetailHeaderIconConverter : IValueConverter
     private readonly (string, string)[] _subtitles = new[]
     {
         ("softsub","ms-appx:///Assets/Fluent/softsub.png"),
+        ("soft","ms-appx:///Assets/Fluent/softsub.png"),
         ("hardsub","ms-appx:///Assets/Fluent/hardsub.png"),
         ("srt","ms-appx:///Assets/Fluent/subtitle.png"),
         ("aas","ms-appx:///Assets/Fluent/subtitle.png"),
@@ -38,16 +39,37 @@ public class DetailHeaderIconConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         var text = value as string;
-
         if (!string.IsNullOrEmpty(text))
         {
-            var subtitleType = _subtitles.FirstOrDefault(x => text.ToLower().Contains(x.Item1, StringComparison.OrdinalIgnoreCase));
+            var baseText = text.Split("###");
+            var title = baseText[0];
+            var server = baseText[1];
+
+            if (!string.IsNullOrEmpty(server))
+            {
+                if (server.Contains("softsub", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/softsub.png"), ShowAsMonochrome = false };
+                }
+
+                if (server.Contains("hardsub", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/hardsub.png"), ShowAsMonochrome = false };
+                }
+
+                if (server.Contains("srt", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/subtitle.png"), ShowAsMonochrome = false };
+                }
+            }
+
+            var subtitleType = _subtitles.FirstOrDefault(x => title.ToLower().Contains(x.Item1, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(subtitleType.Item2))
             {
                 return new BitmapIcon { UriSource = new Uri(subtitleType.Item2), ShowAsMonochrome = false };
             }
 
-            var seasonNumberGlyph = _seasonGlyph.FirstOrDefault(x => text.ToLower().StartsWith(x.Item1, StringComparison.OrdinalIgnoreCase));
+            var seasonNumberGlyph = _seasonGlyph.FirstOrDefault(x => title.ToLower().StartsWith(x.Item1, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(seasonNumberGlyph.Item2))
             {
                 return new FontIcon { Glyph = seasonNumberGlyph.Item2 };

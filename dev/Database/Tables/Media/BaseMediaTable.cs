@@ -12,7 +12,7 @@ public class BaseMediaTable
     public string FileSize { get; set; }
     public string GroupKey { get; set; }
     public ServerType ServerType { get; set; }
-
+    public string TitleAndServer => $"{Title}###{Server}";
     public BaseMediaTable()
     {
         

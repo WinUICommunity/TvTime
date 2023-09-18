@@ -15,12 +15,13 @@
         <DataTemplate x:Key="HyperLinkTemplate"
                       x:DataType="model:BaseMediaTable">
             <ItemContainer Margin="5,0,15,0">
-                <views:ItemUserControl Title="{x:Bind Title}"
+                <views:ItemUserControl x:Name="BaseItemUserControl"
+                                       Title="{x:Bind Title}"
                                        ActionIcon="{x:Bind Server, Converter={StaticResource FileExtension2IconConverter}}"
                                        BaseMedia="{x:Bind}"
                                        DateTime="{x:Bind DateTime}"
                                        FileSize="{x:Bind FileSize}"
-                                       HeaderIcon="{x:Bind Title, Converter={StaticResource DetailHeaderIconConverter}}"
+                                       HeaderIcon="{x:Bind TitleAndServer, Converter={StaticResource DetailHeaderIconConverter}}"
                                        Loading="ItemUserControl_Loading"
                                        Server="{x:Bind Server}" />
             </ItemContainer>

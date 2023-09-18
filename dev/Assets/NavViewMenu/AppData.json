@@ -68,6 +68,23 @@
           "ImagePath": "ms-appx:///Assets/Fluent/server.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/server.png",
           "IsUpdated": true
+        },
+        {
+          "UniqueId": "TvTime.Views.BoxOfficePage",
+          "Title": "Box Office",
+          "Subtitle": "See new movies or series",
+          "ImagePath": "ms-appx:///Assets/Fluent/box.png",
+          "ImageIconPath": "ms-appx:///Assets/Fluent/box.png",
+          "IsUpdated": true
+        },
+        {
+          "UniqueId": "TvTime.Views.PosterPage",
+          "Title": "Posters",
+          "Subtitle": "Explore and Download Posters",
+          "ImagePath": "ms-appx:///Assets/Fluent/poster.png",
+          "ImageIconPath": "ms-appx:///Assets/Fluent/poster.png",
+          "IncludedInBuild": false,
+          "IsUpdated": true
         }
       ]
     }

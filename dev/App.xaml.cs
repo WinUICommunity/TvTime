@@ -59,6 +59,7 @@ public partial class App : Application
         services.AddTransient<MediaViewModel>();
         services.AddTransient<MediaDetailsViewModel>();
         services.AddTransient<BoxOfficeViewModel>();
+        services.AddTransient<BoxOfficeDetailViewModel>();
 
         services.AddTransient<BackupSettingViewModel>();
         services.AddTransient<LayoutSettingViewModel>();

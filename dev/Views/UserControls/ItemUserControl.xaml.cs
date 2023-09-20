@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
 
 using TvTime.Database.Tables;
-using TvTime.ViewModels;
 
 using Windows.System;
 

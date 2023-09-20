@@ -47,8 +47,15 @@
                    HorizontalAlignment="Stretch"
                    FlowDirection="LeftToRight"
                    IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
-                   ItemsSource="{x:Bind ViewModel.DataListACV}"
-                   SelectionMode="None">
+                   IsItemInvokedEnabled="True"
+                   ItemsSource="{x:Bind ViewModel.DataListACV}">
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="ItemInvoked">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
             <ItemsView.Layout>
                 <LinedFlowLayout LineHeight="280"
                                  LineSpacing="5" />

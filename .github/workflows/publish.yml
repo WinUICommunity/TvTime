@@ -27,7 +27,7 @@ jobs:
         proj-path: ${{ env.PROJECT_PATH }}
         
     - name: Build and Publish TvTime
-      run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x64 -p:Platform=x64 --self-contained true -p:PublishSingleFile=false -p:PublishReadyToRun=true -p:PublishTrimmed=false --output publish
+      run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x64 -p:Platform=x64 --self-contained true -p:PublishSingleFile=false -p:PublishReadyToRun=true -p:PublishTrimmed=true -p:TrimMode=partial --output publish
     
     - name: Zip Publish Folder
       uses: vimtor/action-zip@v1.1

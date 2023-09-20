@@ -10,16 +10,13 @@
 		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
-		<Version>4.0.0-Preview</Version>
+		<Version>4.0.0-Preview2</Version>
 		<ImplicitUsings>true</ImplicitUsings>
 		<LangVersion>Latest</LangVersion>
 		<AccelerateBuildsInVisualStudio>False</AccelerateBuildsInVisualStudio>
 		<ApplicationIcon>Assets\icon.ico</ApplicationIcon>
 		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-    <PublishTrimmed>true</PublishTrimmed>
-    <TrimMode>partial</TrimMode>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<None Include="Assets\**\*">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>

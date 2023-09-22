@@ -20,7 +20,7 @@
                     IsOpen="False">
             <AppBarButton Command="{x:Bind ViewModel.RefreshCommand}"
                           Icon="{wuc:SymbolIcon Symbol=Refresh}"
-                          IsEnabled="{x:Bind ViewModel.IsActive, Converter={StaticResource BoolNegationConverter}}"
+                          IsEnabled="{x:Bind ViewModel.IsActive, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
                           Label="Refresh"
                           Tag="Refresh" />
         </CommandBar>
@@ -44,46 +44,55 @@
                                         Spacing="5">
                                 <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                                            Text="Directed by:" />
-                                <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                <TextBlock Margin="0,5,0,0"
+                                           VerticalAlignment="Center"
+                                           Style="{ThemeResource BaseTextBlockStyle}"
                                            Text="{x:Bind ViewModel.DirectedBy, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal"
                                         Spacing="5">
                                 <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                                            Text="Written by:" />
-                                <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                <TextBlock Margin="0,5,0,0"
+                                           VerticalAlignment="Center"
+                                           Style="{ThemeResource BaseTextBlockStyle}"
                                            Text="{x:Bind ViewModel.WrittenBy, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal"
                                         Spacing="5">
                                 <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                                            Text="Release date:" />
-                                <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                <TextBlock Margin="0,5,0,0"
+                                           VerticalAlignment="Center"
+                                           Style="{ThemeResource BaseTextBlockStyle}"
                                            Text="{x:Bind ViewModel.ReleaseDate, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal"
                                         Spacing="5">
                                 <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                                            Text="Runtime:" />
-                                <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                <TextBlock Margin="0,5,0,0"
+                                           VerticalAlignment="Center"
+                                           Style="{ThemeResource BaseTextBlockStyle}"
                                            Text="{x:Bind ViewModel.Runtime, Mode=OneWay}" />
                             </StackPanel>
                         </StackPanel>
                     </ScrollView>
                 </TabViewItem>
-                <TabViewItem Header="Posters"
-                             IsClosable="False" />
+                <TabViewItem Header="Posters (Soon)"
+                             IsClosable="False"
+                             IsEnabled="False" />
             </TabView.TabItems>
         </TabView>
         <ProgressRing Grid.Row="1"
-                      IsActive="{x:Bind ViewModel.IsActive}" />
-        <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
+                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <InfoBar Title="{x:Bind ViewModel.StatusTitle, Mode=OneWay}"
                  Grid.Row="2"
                  BorderThickness="0"
                  CornerRadius="0"
-                 IsOpen="{x:Bind ViewModel.IsStatusOpen}"
-                 Message="{x:Bind ViewModel.StatusMessage}"
-                 Severity="{x:Bind ViewModel.StatusSeverity}" />
+                 IsOpen="{x:Bind ViewModel.IsStatusOpen, Mode=OneWay}"
+                 Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                 Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
     </Grid>
 
 </Page>

@@ -1,4 +1,6 @@
-﻿using HtmlAgilityPack;
+﻿using System.Web;
+
+using HtmlAgilityPack;
 
 using Microsoft.UI.Dispatching;
 
@@ -57,10 +59,28 @@ public partial class BoxOfficeDetailViewModel : BaseViewModel, INavigationAware
                     HtmlWeb web = new HtmlWeb();
                     if (boxOfficeItem != null && !string.IsNullOrEmpty(boxOfficeItem.Link))
                     {
-                        HtmlDocument doc = await web.LoadFromWebAsync(boxOfficeItem.Link);
-                        Title = doc.DocumentNode.SelectSingleNode("//meta[@name='title']").Attributes["content"].Value;
-                        var description = doc.DocumentNode.SelectSingleNode("//meta[@name='description']").Attributes["content"].Value;
-                        Synopsis = description.TextAfter("Synopsis:").Trim();
+                        string boxOfficeItemLink = boxOfficeItem.Link;
+                        if (!boxOfficeItem.Link.EndsWith("/info"))
+                        {
+                            boxOfficeItemLink = boxOfficeItem.Link + "/info";
+                        }
+                        HtmlDocument doc = await web.LoadFromWebAsync(boxOfficeItemLink);
+                        if (doc != null)
+                        {
+                            var titleContent = doc.DocumentNode.SelectSingleNode("//meta[@name='title']").Attributes["content"]?.Value?.Trim();
+                            Title = HttpUtility.HtmlDecode(titleContent);
+                            var description = doc.DocumentNode.SelectSingleNode("//meta[@name='description']")?.Attributes["content"]?.Value;
+                            var synopsisContent = description.TextAfter("Synopsis:")?.Trim();
+                            Synopsis = HttpUtility.HtmlDecode(synopsisContent);
+                            var directedByContent = doc.DocumentNode.SelectSingleNode("//th[contains(text(),'Directed by:')]/following-sibling::td")?.InnerText?.Trim();
+                            DirectedBy = HttpUtility.HtmlDecode(directedByContent)?.Trim()?.Replace("\t", "")?.Replace("\n", "");
+                            var writtenByContent = doc.DocumentNode.SelectSingleNode("//th[contains(text(),'Written by:')]/following-sibling::td")?.InnerText?.Trim();
+                            WrittenBy = HttpUtility.HtmlDecode(writtenByContent)?.Trim()?.Replace("\t","")?.Replace("\n","");
+                            var releaseDateContent = doc.DocumentNode.SelectSingleNode("//th[contains(text(),'Release date:')]/following-sibling::td")?.InnerText?.Trim();
+                            ReleaseDate = HttpUtility.HtmlDecode(releaseDateContent);
+                            var runtimeContent = doc.DocumentNode.SelectSingleNode("//th[contains(text(),'Runtime:')]/following-sibling::td")?.InnerText?.Trim();
+                            Runtime = HttpUtility.HtmlDecode(runtimeContent);
+                        }
                     }
                     IsActive = false;
                 }

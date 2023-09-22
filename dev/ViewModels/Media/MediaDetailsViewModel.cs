@@ -219,7 +219,9 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                                 filesize = fileSizeMatchesList[index + 1].Value;
                             }
                             filesize = ReplaceForFileSize(filesize, i.DateTime);
-                            i.FileSize = ApplicationHelper.GetFileSize((long)Convert.ToDouble(filesize));
+                            long fSize;
+                            long.TryParse(filesize, out fSize);
+                            i.FileSize = ApplicationHelper.GetFileSize(fSize);
                         }
                     }
                     index++;

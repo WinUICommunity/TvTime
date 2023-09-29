@@ -62,7 +62,8 @@
             </ItemsView.Layout>
             <ItemsView.ItemTemplate>
                 <DataTemplate x:DataType="models:BoxOfficeModel">
-                    <ItemContainer DataContext="{x:Bind}">
+                    <ItemContainer Margin="5,0"
+                                   DataContext="{x:Bind}">
                         <ItemContainer.ContextFlyout>
                             <MenuFlyout />
                         </ItemContainer.ContextFlyout>
@@ -71,10 +72,11 @@
                                 <RowDefinition />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <wuc:ImageEx Margin="5"
-                                         CacheMode="BitmapCache"
+                            <wuc:ImageEx CacheMode="BitmapCache"
                                          CornerRadius="{ThemeResource OverlayCornerRadius}"
                                          IsCacheEnabled="True"
+                                         PlaceholderSource="ms-appx:///Assets/Cover/placeholder.jpg"
+                                         PlaceholderStretch="UniformToFill"
                                          Source="{x:Bind ImageSrc}"
                                          Stretch="UniformToFill" />
                             <TextBlock Grid.Row="1"

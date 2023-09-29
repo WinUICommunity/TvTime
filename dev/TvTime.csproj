@@ -10,7 +10,7 @@
 		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
-		<Version>4.0.0-Preview2</Version>
+		<Version>4.0.0-Preview3</Version>
 		<ImplicitUsings>true</ImplicitUsings>
 		<LangVersion>Latest</LangVersion>
 		<AccelerateBuildsInVisualStudio>False</AccelerateBuildsInVisualStudio>
@@ -34,7 +34,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.53" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.Labs.WinUI.TokenView" Version="0.1.230830" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />

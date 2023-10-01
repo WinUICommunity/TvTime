@@ -60,6 +60,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
         {
             var baseMedia = new BaseMediaTable(headerText, descriptionText, null, null, rootMedia.ServerType);
             DownloadDetails(baseMedia);
+            rootMedia.Server = descriptionText;
         }
     }
 

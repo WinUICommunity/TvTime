@@ -71,7 +71,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                 }
                 else
                 {
-                    LoadLocalMedia();
+                    await LoadLocalMedia();
                 }
             });
         });
@@ -108,7 +108,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
         await dialog.ShowAsync();
     }
 
-    private async void LoadLocalMedia()
+    private async Task LoadLocalMedia()
     {
         await Task.Run(() =>
         {
@@ -154,7 +154,6 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                     StatusSeverity = InfoBarSeverity.Success;
                     StatusTitle = $"Done, All Media Loaded! ({DataList?.Count})";
                     StatusMessage = "";
-                    AutoHideStatusInfoBar(new TimeSpan(0, 0, 6));
                 }
                 catch (Exception ex)
                 {
@@ -166,6 +165,8 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                 }
             });
         });
+
+        AutoHideStatusInfoBar(new TimeSpan(0, 0, 8));
     }
 
     private async void DownloadMediaIntoDatabase()
@@ -255,7 +256,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                         }
                         ProgressBarShowError = false;
                         ProgressBarValue = 0;
-                        LoadLocalMedia();
+                        await LoadLocalMedia();
                     }
                 }
                 catch (Exception ex)

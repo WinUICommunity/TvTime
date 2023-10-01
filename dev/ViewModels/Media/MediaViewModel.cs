@@ -277,6 +277,102 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
         });
     }
 
+    public async Task GetDonyayeSerialServerDetails(string content, string server, ServerType serverType)
+    {
+        var doc = new HtmlDocument();
+        doc.LoadHtml(content);
+        var rows = doc.DocumentNode.SelectNodes("//table[@class='table']/tbody/tr");
+        var ignoreLinks = new List<string> { "../", "Home", "DonyayeSerial", "series", "movie" };
+        using var db = new AppDbContext();
+
+        foreach (var row in rows)
+        {
+            var nameNode = row.SelectSingleNode("./td[@class='n']/a/code");
+            var dateNode = row.SelectSingleNode("./td[@class='m']/code");
+            var linkNode = row.SelectSingleNode("./td[@class='n']/a");
+            var sizeNode = row.SelectSingleNode("./td[@class='s']");
+            if (linkNode != null && !ignoreLinks.Contains(linkNode.Attributes["href"].Value))
+            {
+                var title = nameNode?.InnerText?.Trim();
+                var date = dateNode?.InnerText?.Trim();
+                var serverUrl = $"{server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
+                var size = sizeNode?.InnerText?.Trim();
+
+                switch (PageType)
+                {
+                    case ServerType.Anime:
+                        await db.Animes.AddAsync(new AnimeTable(title, serverUrl, date, size, ServerType.Anime));
+                        break;
+                    case ServerType.Movies:
+                        await db.Movies.AddAsync(new MovieTable(title, serverUrl, date, size, ServerType.Movies));
+                        break;
+                    case ServerType.Series:
+                        await db.Series.AddAsync(new SeriesTable(title, serverUrl, date, size, ServerType.Series));
+                        break;
+                }
+            }
+        }
+        await db.SaveChangesAsync();
+    }
+
+    public async Task GetAllServerDetails(string content, string server)
+    {
+        HtmlDocument doc = new HtmlDocument();
+        doc.LoadHtml(content);
+        var nodes = doc?.DocumentNode?.SelectNodes("//a[@href]");
+
+        if (nodes != null)
+        {
+            using var db = new AppDbContext();
+
+            foreach (var node in nodes)
+            {
+                var href = node?.GetAttributeValue("href", "");
+
+                var title = node?.InnerText;
+                var date = node?.NextSibling?.InnerText?.Trim();
+                if (string.IsNullOrEmpty(date))
+                {
+                    date = node?.PreviousSibling?.InnerText?.Trim();
+                }
+
+                var dateAndSize = date?.Split("  ");
+                if (dateAndSize?.Length > 1)
+                {
+                    date = dateAndSize[0];
+                }
+
+                if (ContinueIfWrongData(title, href, server, null))
+                {
+                    continue;
+                }
+
+                server = $"{server}{href}";
+                if (server.Contains("dl1acemovies") ||
+                    (server.Contains("freelecher") && !server.Contains("dl.freelecher") &&
+                    !server.Contains("dl4.freelecher") && !server.Contains("dl3.freelecher")))
+                {
+                    var url = new Uri(server).GetLeftPart(UriPartial.Authority);
+                    server = $"{url}{href}";
+                }
+
+                switch (PageType)
+                {
+                    case ServerType.Anime:
+                        await db.Animes.AddAsync(new AnimeTable(FixTitle(title), server, date, null, ServerType.Anime));
+                        break;
+                    case ServerType.Movies:
+                        await db.Movies.AddAsync(new MovieTable(FixTitle(title), server, date, null, ServerType.Movies));
+                        break;
+                    case ServerType.Series:
+                        await db.Series.AddAsync(new SeriesTable(FixTitle(title), server, date, null, ServerType.Series));
+                        break;
+                }
+            }
+            await db.SaveChangesAsync();
+        }
+    }
+
     public async Task GetServerDetails(string content, string server, ServerType serverType)
     {
         await Task.Run(() =>
@@ -285,116 +381,13 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
             {
                 try
                 {
-                    using var db = new AppDbContext();
                     if (server.Contains("DonyayeSerial"))
                     {
-                        var doc = new HtmlDocument();
-                        doc.LoadHtml(content);
-                        var rows = doc.DocumentNode.SelectNodes("//table[@class='table']/tbody/tr");
-                        var ignoreLinks = new List<string> { "../", "Home", "DonyayeSerial", "series", "movie" };
-
-                        foreach (var row in rows)
-                        {
-                            var nameNode = row.SelectSingleNode("./td[@class='n']/a/code");
-                            var dateNode = row.SelectSingleNode("./td[@class='m']/code");
-                            var linkNode = row.SelectSingleNode("./td[@class='n']/a");
-                            var sizeNode = row.SelectSingleNode("./td[@class='s']");
-                            if (linkNode != null && !ignoreLinks.Contains(linkNode.Attributes["href"].Value))
-                            {
-                                var title = nameNode?.InnerText?.Trim();
-                                var date = dateNode?.InnerText?.Trim();
-                                var serverUrl = $"{server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
-                                var size = sizeNode?.InnerText?.Trim();
-
-                                switch (PageType)
-                                {
-                                    case ServerType.Anime:
-                                        await db.Animes.AddAsync(new AnimeTable(title, serverUrl, date, size, ServerType.Anime));
-                                        break;
-                                    case ServerType.Movies:
-                                        await db.Movies.AddAsync(new MovieTable(title, serverUrl, date, size, ServerType.Movies));
-                                        break;
-                                    case ServerType.Series:
-                                        await db.Series.AddAsync(new SeriesTable(title, serverUrl, date, size, ServerType.Series));
-                                        break;
-                                }
-                            }
-                        }
-                        await db.SaveChangesAsync();
+                        await GetDonyayeSerialServerDetails(content, server, serverType);
                     }
                     else
                     {
-                        MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-                        Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
-                        MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
-
-                        int index = 0;
-                        foreach (Match m in m1)
-                        {
-                            string value = m.Groups[1].Value;
-                            BaseMediaTable i = new BaseMediaTable();
-
-                            Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-                            string link = string.Empty;
-
-                            if (m2.Success)
-                            {
-                                link = m2.Groups[1].Value;
-                                if (server.Contains("freelecher") && !server.Contains("https://dl.freelecher"))
-                                {
-                                    var url = new Uri(server).GetLeftPart(UriPartial.Authority);
-                                    i.Server = $"{url}{link}";
-                                }
-                                else if (server.Contains("dl3.dl1acemovies") || server.Contains("dl4.dl1acemovies"))
-                                {
-                                    var url = new Uri(server).GetLeftPart(UriPartial.Authority);
-                                    i.Server = $"{url}{link}";
-                                }
-                                else
-                                {
-                                    string slash = string.Empty;
-                                    if (!server.EndsWith("/"))
-                                    {
-                                        slash = "/";
-                                    }
-                                    i.Server = $"{server}{slash}{link}";
-                                }
-                            }
-
-                            string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
-                            i.Title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(t));
-
-                            if (string.IsNullOrEmpty(i.Title) || i.Server.Equals($"{server}/../") || i.Server.Equals($"{server}../") ||
-                                i.Title.Equals("[To Parent Directory]") || t.Equals("../") ||
-                                ((i.Server.Contains("rostam") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
-                            {
-                                continue;
-                            }
-
-                            if (dateTimeMatches.Count > 0 && index <= dateTimeMatches.Count)
-                            {
-                                var matchDate = dateTimeMatches[index].Value;
-                                i.DateTime = matchDate;
-                            }
-
-                            index++;
-                            i.ServerType = serverType;
-                            switch (PageType)
-                            {
-                                case ServerType.Anime:
-                                    await db.Animes.AddAsync(new AnimeTable(i.Title, i.Server, i.DateTime, i.FileSize, ServerType.Anime));
-                                    break;
-                                case ServerType.Movies:
-                                    await db.Movies.AddAsync(new MovieTable(i.Title, i.Server, i.DateTime, i.FileSize, ServerType.Movies));
-                                    break;
-                                case ServerType.Series:
-                                    await db.Series.AddAsync(new SeriesTable(i.Title, i.Server, i.DateTime, i.FileSize, ServerType.Series));
-                                    break;
-                            }
-                        }
-                        await db.SaveChangesAsync();
+                        await GetAllServerDetails(content, server);
                     }
                 }
                 catch (Exception ex)

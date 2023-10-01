@@ -209,7 +209,7 @@ public static partial class AppHelper
 
     public static bool ContinueIfWrongData(string title, string server, string link, BaseMediaTable baseMedia)
     {
-        if (string.IsNullOrEmpty(title) || server.Equals($"{baseMedia.Server}../") ||
+        if (string.IsNullOrEmpty(title) || server.Equals($"{baseMedia?.Server}../") ||
             title.Equals("[To Parent Directory]") || title.Equals("../") || server.Contains("?C=") ||
             ((server.Contains("fbserver")) && link.Contains("?C=")))
         {

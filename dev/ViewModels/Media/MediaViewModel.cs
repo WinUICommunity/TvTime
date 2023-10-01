@@ -347,7 +347,13 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                     continue;
                 }
 
-                server = $"{server}{href}";
+                string slash = string.Empty;
+                if (!server.EndsWith("/"))
+                {
+                    slash = "/";
+                }
+                server = $"{server}{slash}{href}";
+                
                 if (server.Contains("dl1acemovies") ||
                     (server.Contains("freelecher") && !server.Contains("dl.freelecher") &&
                     !server.Contains("dl4.freelecher") && !server.Contains("dl3.freelecher")))

@@ -56,7 +56,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
             {
                 PageType = MediaPage.Instance.PageType;
                 using var db = new AppDbContext();
-                var tokens = db.MediaServers.Where(x => x.IsActive && x.ServerType == PageType).Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
+                var tokens = db.MediaServers.Where(x => x.IsActive && x.ServerType == PageType).Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server), Tag = x.Server });
                 TokenList = new(tokens);
                 TokenList.Insert(0, new TokenItem { Content = "All", IsSelected = true });
                 if (!db.MediaServers.Any())
@@ -456,7 +456,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                 }
                 else
                 {
-                    var filteredList = DataList.Where(x => items.Any(token => x.Server.Contains(token.Content.ToString()))).Select(x => x.Title).ToList();
+                    var filteredList = DataList.Where(x => items.Any(token => x.Server.Contains(token.Tag.ToString()))).Select(x => x.Title).ToList();
                     if (args != null)
                     {
                         AutoSuggestBoxHelper.LoadSuggestions(sender, args, filteredList);
@@ -488,15 +488,15 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                         switch (PageType)
                         {
                             case ServerType.Anime:
-                                var animeResult = db.Animes.Where(x => x.Server.ToLower().Contains(token.Content.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
+                                var animeResult = db.Animes.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
                                 media.AddRange(animeResult);
                                 break;
                             case ServerType.Movies:
-                                var movieResult = db.Movies.Where(x => x.Server.ToLower().Contains(token.Content.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
+                                var movieResult = db.Movies.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
                                 media.AddRange(movieResult);
                                 break;
                             case ServerType.Series:
-                                var seriesResult = db.Series.Where(x => x.Server.ToLower().Contains(token.Content.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
+                                var seriesResult = db.Series.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
                                 media.AddRange(seriesResult);
                                 break;
                         }

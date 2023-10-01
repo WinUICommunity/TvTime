@@ -29,7 +29,7 @@ public sealed partial class MediaPage : Page
 
     public List<TokenItem> GetTokenViewSelectedItems()
     {
-        return Token.SelectedItems.Cast<TokenItem>().ToList();
+        return Token.SelectedItems?.Cast<TokenItem>()?.ToList();
     }
 
     private void token_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -43,9 +43,9 @@ public sealed partial class MediaPage : Page
 
             if (Token != null)
             {
-                dynamic selectedItem = e.AddedItems.Count > 0 ? e.AddedItems[0] as TokenItem : null;
+                dynamic selectedItem = e.AddedItems?.Count > 0 ? e.AddedItems[0] as TokenItem : null;
 
-                selectedItem ??= e.RemovedItems.Count > 0 ? e.RemovedItems[0] as TokenItem : null;
+                selectedItem ??= e.RemovedItems?.Count > 0 ? e.RemovedItems[0] as TokenItem : null;
 
                 if (selectedItem == null)
                 {
@@ -59,7 +59,7 @@ public sealed partial class MediaPage : Page
                     selectedItem = allItem;
                 }
 
-                if (selectedItem.Content.ToString().Equals("All") && selectedItem.IsSelected)
+                if (selectedItem.Content?.ToString().Equals("All") && selectedItem.IsSelected)
                 {
                     foreach (TokenItem item in Token.Items)
                     {
@@ -72,7 +72,7 @@ public sealed partial class MediaPage : Page
 
                     OnTokenFilterAll();
                 }
-                else if (!selectedItem.Content.ToString().Equals("All"))
+                else if (!selectedItem.Content?.ToString()?.Equals("All"))
                 {
                     foreach (TokenItem item in Token.Items)
                     {
@@ -136,15 +136,15 @@ public sealed partial class MediaPage : Page
             switch (PageType)
             {
                 case ServerType.Anime:
-                    var animeResult = db.Animes.Where(x => x.Server.ToLower().Contains(token.Content.ToString().ToLower()));
+                    var animeResult = db.Animes.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
                     media.AddRange(animeResult);
                     break;
                 case ServerType.Movies:
-                    var movieResult = db.Movies.Where(x => x.Server.ToLower().Contains(token.Content.ToString().ToLower()));
+                    var movieResult = db.Movies.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
                     media.AddRange(movieResult);
                     break;
                 case ServerType.Series:
-                    var seriesResult = db.Series.Where(x => x.Server.ToLower().Contains(token.Content.ToString().ToLower()));
+                    var seriesResult = db.Series.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
                     media.AddRange(seriesResult);
                     break;
             }

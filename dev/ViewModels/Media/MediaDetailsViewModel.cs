@@ -13,15 +13,16 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
     public ObservableCollection<BaseMediaTable> breadcrumbBarList = new();
 
     private DispatcherTimer dispatcherTimer = new DispatcherTimer();
-
+    private BaseMediaTable dynamicMediaTable;
     public override void OnPageLoaded(object param)
     {
+        dynamicMediaTable = rootMedia;
         DownloadDetails(rootMedia);
     }
 
     public override void OnRefresh()
     {
-        DownloadDetails(rootMedia);
+        DownloadDetails(dynamicMediaTable);
     }
 
     public override void OnIMDBDetail()
@@ -29,12 +30,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
         CreateIMDBDetailsWindow(rootMedia.Title);
     }
 
-    public override void NavigateToDetails(object sender)
-    {
-        OnNavigateToDetailsOrDownload(sender);
-    }
-
-    private async void OnNavigateToDetailsOrDownload(object sender)
+    public override async void NavigateToDetails(object sender)
     {
         base.NavigateToDetails(sender);
 
@@ -58,7 +54,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
         {
             var baseMedia = new BaseMediaTable(headerText, descriptionText, null, null, rootMedia.ServerType);
             DownloadDetails(baseMedia);
-            rootMedia.Server = descriptionText;
+            dynamicMediaTable = baseMedia;
         }
     }
 
@@ -67,6 +63,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
     {
         var item = (BaseMediaTable) args.Item;
         BreadcrumbBarList.RemoveAt(args.Index + 1);
+        dynamicMediaTable = item;
         DownloadDetails(item);
     }
 

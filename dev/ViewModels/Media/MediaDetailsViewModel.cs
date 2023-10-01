@@ -111,6 +111,36 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
         }
     }
 
+    public List<BaseMediaTable> GetRostamServerDetails(string content, BaseMediaTable baseMedia)
+    {
+        List<BaseMediaTable> list = new List<BaseMediaTable>();
+        HtmlDocument doc = new HtmlDocument();
+        doc.LoadHtml(content);
+        var nodes = doc.DocumentNode.SelectNodes("//tr[td[@class='link']]");
+
+        foreach (var node in nodes)
+        {
+            var href = node.SelectSingleNode("td[@class='link']/a").GetAttributeValue("href", "");
+
+            var title = node.SelectSingleNode("td[@class='link']/a").GetAttributeValue("title", "");
+            title = Regex.Replace(title, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
+            title = title.Replace(".E..&gt;", "");
+            title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(title));
+
+            var size = node.SelectSingleNode("td[@class='size']").InnerText;
+
+            var date = node.SelectSingleNode("td[@class='date']").InnerText;
+
+            if (string.IsNullOrEmpty(title) || href.Equals($"{baseMedia.Server}../") || title.Equals("[To Parent Directory]") || title.Equals("../") || href.Contains("?C="))
+            {
+                continue;
+            }
+
+            list.Add(new BaseMediaTable { Server = $"{baseMedia.Server}{href}", Title = title, FileSize = size, DateTime = date, ServerType = baseMedia.ServerType });
+        }
+        return list;
+    }
+
     public List<BaseMediaTable> GetServerDetails(string content, BaseMediaTable baseMedia)
     {
         List<BaseMediaTable> list = new List<BaseMediaTable>();
@@ -142,6 +172,10 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                 }
                 return list;
             }
+            if (baseMedia.Server.Contains("rostam"))
+            {
+                return GetRostamServerDetails(content, baseMedia);
+            }
             else
             {
                 MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
@@ -172,7 +206,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                     if (m2.Success)
                     {
                         link = m2.Groups[1].Value;
-                        if (baseMedia.Server.Contains("freelecher") && !baseMedia.Server.Contains("https://dl.freelecher"))
+                        if (baseMedia.Server.Contains("freelecher") && !baseMedia.Server.Contains("https://dl.freelecher") && !baseMedia.Server.Contains("https://dl4.freelecher"))
                         {
                             var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
                             i.Server = $"{url}{link}";
@@ -188,11 +222,11 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                         }
                     }
 
-                    string t = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
-
-                    i.Title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(t));
-                    if (string.IsNullOrEmpty(i.Title) || i.Server.Equals($"{baseMedia.Server}../") || i.Title.Equals("[To Parent Directory]") || t.Equals("../") ||
-                        ((i.Server.Contains("rostam") || i.Server.Contains("fbserver")) && link.Contains("?C=")))
+                    string title = Regex.Replace(value, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
+                    title = title.Replace(".E..&gt;", "");
+                    i.Title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(title));
+                    if (string.IsNullOrEmpty(i.Title) || i.Server.Equals($"{baseMedia.Server}../") || i.Title.Equals("[To Parent Directory]") || title.Equals("../") ||
+                        ((i.Server.Contains("fbserver")) && link.Contains("?C=")))
                     {
                         continue;
                     }
@@ -206,7 +240,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                     if (Constants.FileExtensions.Any(i.Server.Contains) && fileSizeMatchesList.Count > 0 && index <= fileSizeMatchesList.Count)
                     {
                         var filesize = fileSizeMatchesList[index].Value;
-                        if (baseMedia.Server.Contains("https://dl.freelecher"))
+                        if (baseMedia.Server.Contains("https://dl.freelecher") || baseMedia.Server.Contains("https://dl4.freelecher"))
                         {
                             filesize = fileSizeMatchesList.Where(x=>x.Value.Contains(i.DateTime)).FirstOrDefault().Value;
                             filesize = filesize.Replace(i.DateTime, "").Replace("</a>","").Trim();

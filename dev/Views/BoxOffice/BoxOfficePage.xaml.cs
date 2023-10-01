@@ -8,4 +8,9 @@ public sealed partial class BoxOfficePage : Page
         ViewModel = App.GetService<BoxOfficeViewModel>();
         this.InitializeComponent();
     }
+
+    private void MenuGoToInfo_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.MenuGoToInfoCommand.Execute((sender as MenuFlyoutItem).Tag);
+    }
 }

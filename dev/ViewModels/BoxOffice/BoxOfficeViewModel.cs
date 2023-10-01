@@ -105,6 +105,18 @@ public partial class BoxOfficeViewModel : BaseViewModel
     private void OnItemInvoked(ItemsViewItemInvokedEventArgs args)
     {
         var item = args.InvokedItem as BoxOfficeModel;
+        GoToBoxOfficeDetail(item);
+    }
+
+    [RelayCommand]
+    private void OnMenuGoToInfo(object args)
+    {
+        var item = args as BoxOfficeModel;
+        GoToBoxOfficeDetail(item);
+    }
+
+    private void GoToBoxOfficeDetail(BoxOfficeModel item)
+    {
         if (item != null)
         {
             JsonNavigationViewService.NavigateTo(typeof(BoxOfficeDetailPage), item, false, new DrillInNavigationTransitionInfo());

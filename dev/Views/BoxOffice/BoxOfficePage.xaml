@@ -65,7 +65,13 @@
                     <ItemContainer Margin="5,0"
                                    DataContext="{x:Bind}">
                         <ItemContainer.ContextFlyout>
-                            <MenuFlyout />
+                            <MenuFlyout>
+                                <MenuFlyoutItem x:Name="MenuGoToInfo"
+                                                Click="MenuGoToInfo_Click"
+                                                Icon="{wuc:BitmapIcon Source=Assets/Fluent/info.png}"
+                                                Tag="{x:Bind}"
+                                                Text="Go To Info" />
+                            </MenuFlyout>
                         </ItemContainer.ContextFlyout>
                         <Grid>
                             <Grid.RowDefinitions>

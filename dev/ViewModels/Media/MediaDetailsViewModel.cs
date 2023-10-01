@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-using CommunityToolkit.WinUI.UI;
+﻿using CommunityToolkit.WinUI.UI;
 
 using HtmlAgilityPack;
 
@@ -115,107 +113,147 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
     public List<BaseMediaTable> GetAllServerDetails(string content, BaseMediaTable baseMedia)
     {
         List<BaseMediaTable> list = new List<BaseMediaTable>();
-        HtmlDocument doc = new HtmlDocument();
-        doc.LoadHtml(content);
-        var nodes = doc?.DocumentNode?.SelectNodes("//a[@href]");
 
-        if (nodes != null)
+        try
         {
-            foreach (var node in nodes)
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(content);
+            var nodes = doc?.DocumentNode?.SelectNodes("//a[@href]");
+
+            if (nodes != null)
             {
-                var href = node?.GetAttributeValue("href", "");
-
-                var title = node?.InnerText;
-                var date = node?.NextSibling?.InnerText?.Trim();
-                if (string.IsNullOrEmpty(date))
+                foreach (var node in nodes)
                 {
-                    date = node?.PreviousSibling?.InnerText?.Trim();
-                }
+                    var href = node?.GetAttributeValue("href", "");
 
-                long fSize = 0;
-                var dateAndSize = date?.Split("  ");
-                if (dateAndSize?.Length > 1)
-                {
-                    date = dateAndSize[0];
-                    long.TryParse(dateAndSize[dateAndSize.Length - 1], out fSize);
-                }
+                    var title = node?.InnerText;
+                    var date = node?.NextSibling?.InnerText?.Trim();
+                    if (string.IsNullOrEmpty(date))
+                    {
+                        date = node?.PreviousSibling?.InnerText?.Trim();
+                    }
 
-                if (ContinueIfWrongData(title, href, href, baseMedia))
-                {
-                    continue;
-                }
+                    long fSize = 0;
+                    var dateAndSize = date?.Split("  ");
+                    if (dateAndSize?.Length > 1)
+                    {
+                        date = dateAndSize[0];
+                        long.TryParse(dateAndSize[dateAndSize.Length - 1], out fSize);
+                    }
 
-                string server = $"{baseMedia.Server}{href}";
-                if(server.Contains("dl1acemovies") ||
-                    (server.Contains("freelecher") && !server.Contains("dl.freelecher") &&
-                    !server.Contains("dl4.freelecher") && !server.Contains("dl3.freelecher")))
-                {
-                    var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
-                    server = $"{url}{href}";
-                }
+                    if (ContinueIfWrongData(title, href, href, baseMedia))
+                    {
+                        continue;
+                    }
 
-                list.Add(new BaseMediaTable(FixTitle(title), server, date, ApplicationHelper.GetFileSize(fSize), baseMedia.ServerType));
+                    string server = $"{baseMedia.Server}{href}";
+                    if (server.Contains("dl1acemovies") ||
+                        (server.Contains("freelecher") && !server.Contains("dl.freelecher") &&
+                        !server.Contains("dl4.freelecher") && !server.Contains("dl3.freelecher")))
+                    {
+                        var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
+                        server = $"{url}{href}";
+                    }
+
+                    list.Add(new BaseMediaTable(FixTitle(title), server, date, ApplicationHelper.GetFileSize(fSize), baseMedia.ServerType));
+                }
             }
         }
+        catch (Exception ex)
+        {
+            Logger?.Error(ex, "MediaDetailsViewModel: GetAllServerDetails");
+            IsStatusOpen = true;
+            IsActive = false;
+            StatusTitle = "Error";
+            StatusMessage = ex.Message;
+            StatusSeverity = InfoBarSeverity.Error;
+        }
+        
         return list;
     }
 
     public List<BaseMediaTable> GetRostamAndFbServerServerDetails(string content, BaseMediaTable baseMedia)
     {
         List<BaseMediaTable> list = new List<BaseMediaTable>();
-        HtmlDocument doc = new HtmlDocument();
-        doc.LoadHtml(content);
-        var nodes = doc?.DocumentNode?.SelectNodes("//tr[td[@class='link']]");
 
-        if (nodes != null)
+        try
         {
-            foreach (var node in nodes)
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(content);
+            var nodes = doc?.DocumentNode?.SelectNodes("//tr[td[@class='link']]");
+
+            if (nodes != null)
             {
-                var href = node?.SelectSingleNode("td[@class='link']/a")?.GetAttributeValue("href", "");
-
-                var title = node?.SelectSingleNode("td[@class='link']/a")?.GetAttributeValue("title", "");
-
-                var size = node?.SelectSingleNode("td[@class='size']")?.InnerText;
-
-                var date = node?.SelectSingleNode("td[@class='date']")?.InnerText;
-
-                if (ContinueIfWrongData(FixTitle(title), href, href, baseMedia))
+                foreach (var node in nodes)
                 {
-                    continue;
-                }
+                    var href = node?.SelectSingleNode("td[@class='link']/a")?.GetAttributeValue("href", "");
 
-                list.Add(new BaseMediaTable(FixTitle(title), $"{baseMedia.Server}{href}", date, size, baseMedia.ServerType));
+                    var title = node?.SelectSingleNode("td[@class='link']/a")?.GetAttributeValue("title", "");
+
+                    var size = node?.SelectSingleNode("td[@class='size']")?.InnerText;
+
+                    var date = node?.SelectSingleNode("td[@class='date']")?.InnerText;
+
+                    if (ContinueIfWrongData(FixTitle(title), href, href, baseMedia))
+                    {
+                        continue;
+                    }
+
+                    list.Add(new BaseMediaTable(FixTitle(title), $"{baseMedia.Server}{href}", date, size, baseMedia.ServerType));
+                }
             }
         }
+        catch (Exception ex)
+        {
+            Logger?.Error(ex, "MediaDetailsViewModel: GetRostamAndFbServerServerDetails");
+            IsStatusOpen = true;
+            IsActive = false;
+            StatusTitle = "Error";
+            StatusMessage = ex.Message;
+            StatusSeverity = InfoBarSeverity.Error;
+        }
+        
         return list;
     }
 
     public List<BaseMediaTable> GetDonyayeSerialServerDetails(string content, BaseMediaTable baseMedia)
     {
         List<BaseMediaTable> list = new List<BaseMediaTable>();
-        var doc = new HtmlDocument();
-        doc.LoadHtml(content);
-        var rows = doc.DocumentNode.SelectNodes("//table[@class='table']/tbody/tr");
-        var ignoreLinks = new List<string> { "../" };
-
-        if (rows != null)
+        try
         {
-            foreach (var row in rows)
-            {
-                var nameNode = row?.SelectSingleNode("./td[@class='n']/a/code");
-                var dateNode = row?.SelectSingleNode("./td[@class='m']/code");
-                var linkNode = row?.SelectSingleNode("./td[@class='n']/a");
-                var sizeNode = row?.SelectSingleNode("./td[@class='s']");
-                if (linkNode != null && !ignoreLinks.Contains(linkNode?.Attributes["href"]?.Value))
-                {
-                    var title = nameNode?.InnerText?.Trim();
-                    var date = dateNode?.InnerText?.Trim();
-                    var serverUrl = $"{baseMedia.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
-                    var size = sizeNode?.InnerText?.Trim();
+            var doc = new HtmlDocument();
+            doc.LoadHtml(content);
+            var rows = doc.DocumentNode.SelectNodes("//table[@class='table']/tbody/tr");
+            var ignoreLinks = new List<string> { "../" };
 
-                    list.Add(new BaseMediaTable(title, serverUrl, date, size, ServerType.Series));
+            if (rows != null)
+            {
+                foreach (var row in rows)
+                {
+                    var nameNode = row?.SelectSingleNode("./td[@class='n']/a/code");
+                    var dateNode = row?.SelectSingleNode("./td[@class='m']/code");
+                    var linkNode = row?.SelectSingleNode("./td[@class='n']/a");
+                    var sizeNode = row?.SelectSingleNode("./td[@class='s']");
+                    if (linkNode != null && !ignoreLinks.Contains(linkNode?.Attributes["href"]?.Value))
+                    {
+                        var title = nameNode?.InnerText?.Trim();
+                        var date = dateNode?.InnerText?.Trim();
+                        var serverUrl = $"{baseMedia.Server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
+                        var size = sizeNode?.InnerText?.Trim();
+
+                        list.Add(new BaseMediaTable(title, serverUrl, date, size, ServerType.Series));
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            Logger?.Error(ex, "MediaDetailsViewModel: GetDonyayeSerialServerDetails");
+            IsStatusOpen = true;
+            IsActive = false;
+            StatusTitle = "Error";
+            StatusMessage = ex.Message;
+            StatusSeverity = InfoBarSeverity.Error;
         }
         return list;
     }

@@ -89,77 +89,105 @@ public sealed partial class MediaPage : Page
         }
         catch (Exception ex)
         {
+            ViewModel.IsServerStatusOpen = true;
+            ViewModel.StatusTitle = "Error";
+            ViewModel.StatusMessage = ex.Message;
+            ViewModel.StatusSeverity = InfoBarSeverity.Error;
             Logger?.Error(ex, "MediaPage: TokenView SelectionChanged");
         }
     }
 
     private async void OnTokenFilterAll()
     {
-        ViewModel.IsActive = true;
-        using var db = new AppDbContext();
-        List<BaseMediaTable> media = new();
-        switch (PageType)
+        try
         {
-            case ServerType.Anime:
-                media = new(await db.Animes.ToListAsync());
-                break;
-            case ServerType.Movies:
-                media = new(await db.Movies.ToListAsync());
-                break;
-            case ServerType.Series:
-                media = new(await db.Series.ToListAsync());
-                break;
+            ViewModel.IsActive = true;
+            using var db = new AppDbContext();
+            List<BaseMediaTable> media = new();
+            switch (PageType)
+            {
+                case ServerType.Anime:
+                    media = new(await db.Animes.ToListAsync());
+                    break;
+                case ServerType.Movies:
+                    media = new(await db.Movies.ToListAsync());
+                    break;
+                case ServerType.Series:
+                    media = new(await db.Series.ToListAsync());
+                    break;
+            }
+
+            var myDataList = media.Where(x => x.Server != null);
+            ViewModel.DataList = new();
+            ViewModel.DataListACV = new AdvancedCollectionView(ViewModel.DataList, true);
+
+            using (ViewModel.DataListACV.DeferRefresh())
+            {
+                ViewModel.DataList.AddRange(myDataList);
+            }
+
+            ViewModel.IsActive = false;
         }
-
-        var myDataList = media.Where(x => x.Server != null);
-        ViewModel.DataList = new();
-        ViewModel.DataListACV = new AdvancedCollectionView(ViewModel.DataList, true);
-
-        using (ViewModel.DataListACV.DeferRefresh())
+        catch (Exception ex)
         {
-            ViewModel.DataList.AddRange(myDataList);
+            ViewModel.IsServerStatusOpen = true;
+            ViewModel.StatusTitle = "Error";
+            ViewModel.StatusMessage = ex.Message;
+            ViewModel.StatusSeverity = InfoBarSeverity.Error;
+            Logger?.Error(ex, "MediaPage: OnTokenFilterAll");
+            ViewModel.IsActive = false;
         }
-
-        ViewModel.IsActive = false;
     }
 
     private void OnTokenFilter()
     {
-        ViewModel.IsActive = true;
-        var items = GetTokenViewSelectedItems().ToList();
-
-        List<BaseMediaTable> media = new();
-
-        using var db = new AppDbContext();
-        foreach (var token in items)
+        try
         {
-            switch (PageType)
+            ViewModel.IsActive = true;
+            var items = GetTokenViewSelectedItems().ToList();
+
+            List<BaseMediaTable> media = new();
+
+            using var db = new AppDbContext();
+            foreach (var token in items)
             {
-                case ServerType.Anime:
-                    var animeResult = db.Animes.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
-                    media.AddRange(animeResult);
-                    break;
-                case ServerType.Movies:
-                    var movieResult = db.Movies.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
-                    media.AddRange(movieResult);
-                    break;
-                case ServerType.Series:
-                    var seriesResult = db.Series.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
-                    media.AddRange(seriesResult);
-                    break;
+                switch (PageType)
+                {
+                    case ServerType.Anime:
+                        var animeResult = db.Animes.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
+                        media.AddRange(animeResult);
+                        break;
+                    case ServerType.Movies:
+                        var movieResult = db.Movies.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
+                        media.AddRange(movieResult);
+                        break;
+                    case ServerType.Series:
+                        var seriesResult = db.Series.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
+                        media.AddRange(seriesResult);
+                        break;
+                }
             }
+
+            var myDataList = media.Where(x => x.Server != null);
+            ViewModel.DataList = new();
+            ViewModel.DataListACV = new AdvancedCollectionView(ViewModel.DataList, true);
+
+            using (ViewModel.DataListACV.DeferRefresh())
+            {
+                ViewModel.DataList.AddRange(myDataList);
+            }
+
+            ViewModel.IsActive = false;
         }
-
-        var myDataList = media.Where(x => x.Server != null);
-        ViewModel.DataList = new();
-        ViewModel.DataListACV = new AdvancedCollectionView(ViewModel.DataList, true);
-
-        using (ViewModel.DataListACV.DeferRefresh())
+        catch (Exception ex)
         {
-            ViewModel.DataList.AddRange(myDataList);
+            ViewModel.IsServerStatusOpen = true;
+            ViewModel.StatusTitle = "Error";
+            ViewModel.StatusMessage = ex.Message;
+            ViewModel.StatusSeverity = InfoBarSeverity.Error;
+            Logger?.Error(ex, "MediaPage: OnTokenFilter");
+            ViewModel.IsActive = false;
         }
-
-        ViewModel.IsActive = false;
     }
 
     private void ItemUserControl_Loading(FrameworkElement sender, object args)

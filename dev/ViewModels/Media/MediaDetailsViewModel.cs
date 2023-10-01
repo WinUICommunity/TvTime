@@ -133,7 +133,8 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
         return title;
     }
 
-    public List<BaseMediaTable> GetFilmbbinServerDetails(string content, BaseMediaTable baseMedia)
+
+    public List<BaseMediaTable> GetAllServerDetails(string content, BaseMediaTable baseMedia)
     {
         List<BaseMediaTable> list = new List<BaseMediaTable>();
         HtmlDocument doc = new HtmlDocument();
@@ -148,6 +149,11 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
 
                 var title = node?.InnerText;
                 var date = node?.NextSibling?.InnerText?.Trim();
+                if (string.IsNullOrEmpty(date))
+                {
+                    date = node?.PreviousSibling?.InnerText?.Trim();
+                }
+
                 long fSize = 0;
                 var dateAndSize = date?.Split("  ");
                 if (dateAndSize?.Length > 1)
@@ -161,13 +167,22 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                     continue;
                 }
 
-                list.Add(new BaseMediaTable(FixTitle(title), $"{baseMedia.Server}{href}", date, ApplicationHelper.GetFileSize(fSize), baseMedia.ServerType));
+                string server = $"{baseMedia.Server}{href}";
+                if(server.Contains("dl1acemovies") ||
+                    (server.Contains("freelecher") && !server.Contains("dl.freelecher") &&
+                    !server.Contains("dl4.freelecher") && !server.Contains("dl3.freelecher")))
+                {
+                    var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
+                    server = $"{url}{href}";
+                }
+
+                list.Add(new BaseMediaTable(FixTitle(title), server, date, ApplicationHelper.GetFileSize(fSize), baseMedia.ServerType));
             }
         }
         return list;
     }
 
-    public List<BaseMediaTable> GetRostamServerDetails(string content, BaseMediaTable baseMedia)
+    public List<BaseMediaTable> GetRostamAndFbServerServerDetails(string content, BaseMediaTable baseMedia)
     {
         List<BaseMediaTable> list = new List<BaseMediaTable>();
         HtmlDocument doc = new HtmlDocument();
@@ -237,100 +252,13 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
             {
                 return GetDonyayeSerialServerDetails(content, baseMedia);
             }
-            else if (baseMedia.Server.Contains("rostam"))
+            else if (baseMedia.Server.Contains("rostam") || baseMedia.Server.Contains("fbserver"))
             {
-                return GetRostamServerDetails(content, baseMedia);
-            }
-            else if (baseMedia.Server.Contains("filmbbin"))
-            {
-                return GetFilmbbinServerDetails(content, baseMedia);
+                return GetRostamAndFbServerServerDetails(content, baseMedia);
             }
             else
             {
-                MatchCollection m1 = Regex.Matches(content, @"(<a.*?>.*?</a>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-                Regex dateTimeRegex = new Regex(Constants.DateTimeRegex, RegexOptions.IgnoreCase);
-
-                Regex fileSizeRegex = new Regex("<br>(.*?)<", RegexOptions.IgnoreCase);
-                Regex freelecherFileSizeRegex = new Regex(@"<\/a>([^<]+)", RegexOptions.IgnoreCase);
-                MatchCollection dateTimeMatches = dateTimeRegex.Matches(content);
-
-                var fileSizeContent = content.Replace("<br><br>", "<br>");
-                var fileSizeMatches = fileSizeRegex.Matches(fileSizeContent);
-
-                if (fileSizeMatches.Count == 0)
-                {
-                    fileSizeMatches = freelecherFileSizeRegex.Matches(fileSizeContent);
-                }
-                List<Match> fileSizeMatchesList = new List<Match>(fileSizeMatches.Cast<Match>());
-
-                int index = 0;
-                foreach (Match m in m1)
-                {
-                    string value = m.Groups[1].Value;
-                    BaseMediaTable i = new BaseMediaTable();
-
-                    Match m2 = Regex.Match(value, @"href=\""(.*?)\""", RegexOptions.Singleline);
-                    string link = string.Empty;
-                    if (m2.Success)
-                    {
-                        link = m2.Groups[1].Value;
-                        if (baseMedia.Server.Contains("freelecher") && !baseMedia.Server.Contains("https://dl.freelecher") && !baseMedia.Server.Contains("https://dl4.freelecher") && !baseMedia.Server.Contains("https://dl3.freelecher"))
-                        {
-                            var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
-                            i.Server = $"{url}{link}";
-                        }
-                        else if (baseMedia.Server.Contains("dl3.dl1acemovies") || baseMedia.Server.Contains("dl4.dl1acemovies"))
-                        {
-                            var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
-                            i.Server = $"{url}{link}";
-                        }
-                        else
-                        {
-                            i.Server = $"{baseMedia.Server}{link}";
-                        }
-                    }
-
-                    string title = FixTitle(value);
-
-                    if (ContinueIfWrongData(title, i.Server, link, baseMedia))
-                    {
-                        continue;
-                    }
-
-                    if (dateTimeMatches.Count > 0 && index <= dateTimeMatches.Count)
-                    {
-                        var matchDate = dateTimeMatches[index].Value;
-                        i.DateTime = matchDate;
-                    }
-
-                    if (Constants.FileExtensions.Any(i.Server.Contains) && fileSizeMatchesList.Count > 0 && index <= fileSizeMatchesList.Count)
-                    {
-                        var filesize = fileSizeMatchesList[index].Value;
-                        if (baseMedia.Server.Contains("https://dl.freelecher") || baseMedia.Server.Contains("https://dl4.freelecher") || baseMedia.Server.Contains("https://dl3.freelecher"))
-                        {
-                            filesize = fileSizeMatchesList.Where(x=>x.Value.Contains(i.DateTime)).FirstOrDefault().Value;
-                            filesize = filesize.Replace(i.DateTime, "").Replace("</a>","").Trim();
-                        }
-
-                        if (index <= fileSizeMatchesList.Count)
-                        {
-                            if (filesize.Contains("<br><", StringComparison.OrdinalIgnoreCase))
-                            {
-                                filesize = fileSizeMatchesList[index + 1].Value;
-                            }
-                            filesize = ReplaceForFileSize(filesize, i.DateTime);
-                            long fSize;
-                            long.TryParse(filesize, out fSize);
-                            i.FileSize = ApplicationHelper.GetFileSize(fSize);
-                        }
-                    }
-                    index++;
-
-                    i.ServerType = baseMedia.ServerType;
-                    list.Add(i);
-                }
-                return list;
+                return GetAllServerDetails(content, baseMedia);
             }
         }
         catch (Exception ex)
@@ -338,21 +266,6 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
             Logger?.Error(ex, "MediaDetailsViewModel: GetServerDetails");
         }
         return list;
-    }
-
-    private string ReplaceForFileSize(string fileSize, string dateTime)
-    {
-        return fileSize.Replace(dateTime, "")
-            .Replace("<br>", "")
-            .Replace("<", "")
-            .Replace("Monday", "")
-            .Replace("Tuesday", "")
-            .Replace("Wednesday", "")
-            .Replace("Thursday", "")
-            .Replace("Friday", "")
-            .Replace("Saturday", "")
-            .Replace("Sunday", "")
-            .Replace(",", "").Trim();
     }
 
     private void AutoHideStatusInfoBar(TimeSpan timeSpan)

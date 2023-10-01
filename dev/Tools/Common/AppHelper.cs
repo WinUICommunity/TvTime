@@ -9,6 +9,8 @@ using Nucs.JsonSettings.Modulation.Recovery;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
+using TvTime.Database.Tables;
+
 namespace TvTime.Common;
 public static partial class AppHelper
 {
@@ -203,6 +205,28 @@ public static partial class AppHelper
 
             viewModel.DataListACV.RefreshFilter();
         }
+    }
+
+    public static bool ContinueIfWrongData(string title, string server, string link, BaseMediaTable baseMedia)
+    {
+        if (string.IsNullOrEmpty(title) || server.Equals($"{baseMedia.Server}../") ||
+            title.Equals("[To Parent Directory]") || title.Equals("../") || server.Contains("?C=") ||
+            ((server.Contains("fbserver")) && link.Contains("?C=")))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static string FixTitle(string title)
+    {
+        if (string.IsNullOrEmpty(title))
+            return title;
+
+        title = Regex.Replace(title, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
+        title = title.Replace(".E..&gt;", "").Replace(">", "");
+        title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(title));
+        return title;
     }
 }
 

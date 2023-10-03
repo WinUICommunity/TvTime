@@ -368,26 +368,27 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                     {
                         slash = "/";
                     }
-                    server = $"{server}{slash}{href}";
+
+                    var finalServer = $"{server}{slash}{href}";
 
                     if (server.Contains("dl1acemovies") ||
                         (server.Contains("freelecher") && !server.Contains("dl.freelecher") &&
                         !server.Contains("dl4.freelecher") && !server.Contains("dl3.freelecher")))
                     {
                         var url = new Uri(server).GetLeftPart(UriPartial.Authority);
-                        server = $"{url}{href}";
+                        finalServer = $"{url}{href}";
                     }
 
                     switch (PageType)
                     {
                         case ServerType.Anime:
-                            await db.Animes.AddAsync(new AnimeTable(FixTitle(title), server, date, null, ServerType.Anime));
+                            await db.Animes.AddAsync(new AnimeTable(FixTitle(title), finalServer, date, null, ServerType.Anime));
                             break;
                         case ServerType.Movies:
-                            await db.Movies.AddAsync(new MovieTable(FixTitle(title), server, date, null, ServerType.Movies));
+                            await db.Movies.AddAsync(new MovieTable(FixTitle(title), finalServer, date, null, ServerType.Movies));
                             break;
                         case ServerType.Series:
-                            await db.Series.AddAsync(new SeriesTable(FixTitle(title), server, date, null, ServerType.Series));
+                            await db.Series.AddAsync(new SeriesTable(FixTitle(title), finalServer, date, null, ServerType.Series));
                             break;
                     }
                 }

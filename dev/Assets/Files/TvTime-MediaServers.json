@@ -10,7 +10,7 @@
     "Id": 2,
     "Title": "Freelecher Series 2",
     "Server": "https://dl2.freelecher.xyz/English/Series/",
-    "IsActive": false,
+    "IsActive": true,
     "ServerType": 2
   },
   {
@@ -52,7 +52,7 @@
     "Id": 8,
     "Title": "Freelecher Movie 2",
     "Server": "https://dl2.freelecher.xyz/English/Movies/",
-    "IsActive": false,
+    "IsActive": true,
     "ServerType": 1
   },
   {

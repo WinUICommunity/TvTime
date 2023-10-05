@@ -144,9 +144,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                     }
 
                     string server = $"{baseMedia.Server}{href}";
-                    if (server.Contains("dl1acemovies") ||
-                        (server.Contains("freelecher") && !server.Contains("dl.freelecher") &&
-                        !server.Contains("dl4.freelecher") && !server.Contains("dl3.freelecher")))
+                    if (server.Contains("acemovies"))
                     {
                         var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
                         server = $"{url}{href}";
@@ -169,7 +167,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
         return list;
     }
 
-    public List<BaseMediaTable> GetRostamAndFbServerServerDetails(string content, BaseMediaTable baseMedia)
+    public List<BaseMediaTable> GetRostamAndFbServerAndFreeLecherServerDetails(string content, BaseMediaTable baseMedia)
     {
         List<BaseMediaTable> list = new List<BaseMediaTable>();
 
@@ -265,9 +263,12 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
             {
                 return GetDonyayeSerialServerDetails(content, baseMedia);
             }
-            else if (baseMedia.Server.Contains("rostam") || baseMedia.Server.Contains("fbserver"))
+            else if (baseMedia.Server.Contains("rostam") || baseMedia.Server.Contains("fbserver") ||
+                baseMedia.Server.Contains("dl1.freelecher") ||
+                baseMedia.Server.Contains("dl2.freelecher") ||
+                baseMedia.Server.Contains("dl5.freelecher"))
             {
-                return GetRostamAndFbServerServerDetails(content, baseMedia);
+                return GetRostamAndFbServerAndFreeLecherServerDetails(content, baseMedia);
             }
             else
             {

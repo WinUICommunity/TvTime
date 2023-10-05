@@ -371,9 +371,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
 
                     var finalServer = $"{server}{slash}{href}";
 
-                    if (server.Contains("dl1acemovies") ||
-                        (server.Contains("freelecher") && !server.Contains("dl.freelecher") &&
-                        !server.Contains("dl4.freelecher") && !server.Contains("dl3.freelecher")))
+                    if (server.Contains("acemovies"))
                     {
                         var url = new Uri(server).GetLeftPart(UriPartial.Authority);
                         finalServer = $"{url}{href}";

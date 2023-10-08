@@ -334,5 +334,26 @@
     "Server": "https://dl.freelecher.xyz/English/Series/",
     "IsActive": true,
     "ServerType": 2
+  },
+  {
+    "Id": 56,
+    "Title": "AceMovies Anime 5",
+    "Server": "http://dl5.dl1acemovies.xyz/dl/English/Anime/",
+    "IsActive": true,
+    "ServerType": 0
+  },
+  {
+    "Id": 57,
+    "Title": "AceMovies Movie 5",
+    "Server": "http://dl5.dl1acemovies.xyz/dl/English/Movie",
+    "IsActive": true,
+    "ServerType": 1
+  },
+  {
+    "Id": 58,
+    "Title": "AceMovies Series 5",
+    "Server": "http://dl5.dl1acemovies.xyz/dl/English/Series/",
+    "IsActive": true,
+    "ServerType": 2
   }
 ]

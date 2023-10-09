@@ -155,15 +155,24 @@ public sealed partial class MediaPage : Page
                 {
                     case ServerType.Anime:
                         var animeResult = db.Animes.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
-                        media.AddRange(animeResult);
+                        if (animeResult != null)
+                        {
+                            media.AddRange(animeResult);
+                        }
                         break;
                     case ServerType.Movies:
                         var movieResult = db.Movies.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
-                        media.AddRange(movieResult);
+                        if (movieResult != null)
+                        {
+                            media.AddRange(movieResult);
+                        }
                         break;
                     case ServerType.Series:
                         var seriesResult = db.Series.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()));
-                        media.AddRange(seriesResult);
+                        if (seriesResult != null)
+                        {
+                            media.AddRange(seriesResult);
+                        }
                         break;
                 }
             }

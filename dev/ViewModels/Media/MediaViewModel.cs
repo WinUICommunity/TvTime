@@ -371,10 +371,17 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
 
                     var finalServer = $"{server}{slash}{href}";
 
-                    if (server.Contains("acemovies"))
+                    if (server.Contains("acemovies") && !server.Contains("dl5.dl1acemovies"))
                     {
                         var url = new Uri(server).GetLeftPart(UriPartial.Authority);
                         finalServer = $"{url}{href}";
+                    }
+
+                    if (server.Contains("dl5.dl1acemovies") && (title.Equals("Home") ||
+                        title.Equals("dl") || title.Equals("English") || title.Equals("Series") ||
+                        title.Equals("Movie") || title.Contains("Parent Directory")))
+                    {
+                        continue;
                     }
 
                     switch (PageType)

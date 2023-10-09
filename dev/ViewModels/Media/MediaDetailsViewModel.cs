@@ -144,12 +144,23 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                     }
 
                     string server = $"{baseMedia.Server}{href}";
-                    if (server.Contains("acemovies"))
+                    if (server.Contains("acemovies") && !server.Contains("dl5.dl1acemovies"))
                     {
                         var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
                         server = $"{url}{href}";
                     }
 
+                    if (server.Contains("dl5.dl1acemovies"))
+                    {
+                        if (title.Equals("Home") || title.Equals("dl") ||
+                            title.Equals("English") || title.Equals("Series") ||
+                            title.Equals("Movie") || title.Contains("Parent Directory") ||
+                            BreadcrumbBarList.Any(x=>x.Title.Equals(FixTitle(title))))
+                        {
+                            continue;
+                        }
+                    }
+                    
                     list.Add(new BaseMediaTable(FixTitle(title), server, date, ApplicationHelper.GetFileSize(fSize), baseMedia.ServerType));
                 }
             }
@@ -264,9 +275,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                 return GetDonyayeSerialServerDetails(content, baseMedia);
             }
             else if (baseMedia.Server.Contains("rostam") || baseMedia.Server.Contains("fbserver") ||
-                baseMedia.Server.Contains("dl1.freelecher") ||
-                baseMedia.Server.Contains("dl2.freelecher") ||
-                baseMedia.Server.Contains("dl5.freelecher"))
+                baseMedia.Server.Contains("freelecher"))
             {
                 return GetRostamAndFbServerAndFreeLecherServerDetails(content, baseMedia);
             }

@@ -30,17 +30,31 @@
                                 TextChanged="AutoSuggestBox_TextChanged" />
             </wuc:TitleBar.Content>
             <wuc:TitleBar.Footer>
-                <Button x:Name="ThemeButton"
-                        Height="32"
-                        Margin="0,0,4,0"
-                        Click="ThemeButton_Click"
-                        Style="{ThemeResource SubtleButtonStyle}"
-                        ToolTipService.ToolTip="Toggle Theme">
-                    <Button.Content>
-                        <FontIcon FontSize="16"
-                                  Glyph="&#xE793;" />
-                    </Button.Content>
-                </Button>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="5">
+                    <Button x:Name="NavViewPaneDisplayModeButton"
+                            Width="38"
+                            Height="32"
+                            Click="NavViewPaneDisplayModeButton_Click"
+                            Style="{ThemeResource SubtleButtonStyle}"
+                            ToolTipService.ToolTip="Change NavigationView Pane Display Mode">
+                        <Button.Content>
+                            <FontIcon FontSize="16"
+                                      Glyph="&#xF594;" />
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="ThemeButton"
+                            Height="32"
+                            Margin="0,0,4,0"
+                            Click="ThemeButton_Click"
+                            Style="{ThemeResource SubtleButtonStyle}"
+                            ToolTipService.ToolTip="Toggle Theme">
+                        <Button.Content>
+                            <FontIcon FontSize="16"
+                                      Glyph="&#xE793;" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
             </wuc:TitleBar.Footer>
         </wuc:TitleBar>
         <NavigationView x:Name="NavView"

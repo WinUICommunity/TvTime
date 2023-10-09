@@ -64,6 +64,23 @@
                 <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
+            <wuc:SettingsCard Description="Choose how and where the NavigationView pane is shown"
+                              Header="NavigationView Display Mode"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/displayMode.png}">
+                <ComboBox xmlns:enums="using:Microsoft.UI.Xaml.Controls"
+                          xmlns:ui="using:CommunityToolkit.WinUI"
+                          ItemsSource="{ui:EnumValues Type=enums:NavigationViewPaneDisplayMode}"
+                          SelectedItem="{x:Bind local:AppHelper.Settings.NavigationViewPaneDisplayMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="SelectionChanged">
+                            <ic:EventTriggerBehavior.Actions>
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.NavigationViewPaneDisplayModeChangedCommand}" />
+                            </ic:EventTriggerBehavior.Actions>
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+            </wuc:SettingsCard>
+
             <wuc:SettingsCard Description="By activating this option, if an error or crash occurs, its information will be saved in a file called Log{YYYYMMDD}.txt on A folder named TvTimeVx.x.x, on the desktop"
                               Header="Developer Mode (Restart Required)"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/devMode.png}">

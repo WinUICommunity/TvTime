@@ -3,10 +3,12 @@
 public sealed partial class MainPage : Page
 {
     public MainViewModel ViewModel { get; }
+    public static MainPage Instance { get; set; }
     public MainPage()
     {
         ViewModel = App.GetService<MainViewModel>();
         this.InitializeComponent();
+        Instance = this;
         appTitleBar.Window = App.currentWindow;
         ViewModel.JsonNavigationViewService.Initialize(NavView, NavFrame);
         ViewModel.JsonNavigationViewService.ConfigJson("Assets/NavViewMenu/AppData.json");
@@ -88,6 +90,35 @@ public sealed partial class MainPage : Page
         {
             titleBarAutoSuggestBoxAware.OnAutoSuggestBoxQuerySubmitted(sender, args);
         }
+    }
+
+    public void RefreshNavigationViewPaneDisplayMode()
+    {
+        NavView.PaneDisplayMode = Settings.NavigationViewPaneDisplayMode;
+    }
+
+    private void NavViewPaneDisplayModeButton_Click(object sender, RoutedEventArgs e)
+    {
+        switch (NavView.PaneDisplayMode)
+        {
+            case NavigationViewPaneDisplayMode.Auto:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
+                break;
+            case NavigationViewPaneDisplayMode.Left:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Top;
+                break;
+            case NavigationViewPaneDisplayMode.Top:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
+                break;
+            case NavigationViewPaneDisplayMode.LeftCompact:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
+                break;
+            case NavigationViewPaneDisplayMode.LeftMinimal:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Auto;
+                break;
+        }
+
+        Settings.NavigationViewPaneDisplayMode = NavView.PaneDisplayMode;
     }
 }
 

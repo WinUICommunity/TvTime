@@ -38,5 +38,6 @@ public class AppConfig : NotifiyingJsonSettings, IVersionable
     public virtual string DescriptionTextBlockStyle { get; set; } = "BaseTextBlockStyle";
     public virtual string HeaderTextBlockStyle { get; set; } = "SubtitleTextBlockStyle";
     public virtual string FileNameRegex { get; set; } = Constants.FileNameRegex;
+    public virtual NavigationViewPaneDisplayMode NavigationViewPaneDisplayMode { get; set; } = NavigationViewPaneDisplayMode.Left;
 }
 

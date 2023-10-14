@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:TvTime"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:settings="using:TvTime.Common"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
     <Grid>
@@ -59,8 +60,10 @@
         </wuc:TitleBar>
         <NavigationView x:Name="NavView"
                         Grid.Row="1"
+                        DisplayModeChanged="NavView_DisplayModeChanged"
                         IsBackButtonVisible="Collapsed"
-                        IsPaneToggleButtonVisible="False">
+                        IsPaneToggleButtonVisible="False"
+                        PaneDisplayMode="{x:Bind settings:AppHelper.Settings.NavigationViewPaneDisplayMode, Mode=OneWay}">
 
             <Frame x:Name="NavFrame"
                    Navigated="NavFrame_Navigated" />

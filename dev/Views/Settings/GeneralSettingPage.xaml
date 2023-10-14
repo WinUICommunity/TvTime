@@ -81,11 +81,17 @@
                 </ComboBox>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="By activating this option, if an error or crash occurs, its information will be saved in a file called Log{YYYYMMDD}.txt on A folder named TvTimeVx.x.x, on the desktop"
-                              Header="Developer Mode (Restart Required)"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/devMode.png}">
+            <wuc:SettingsExpander Description="By activating this option, if an error or crash occurs, its information will be saved in a file called Log{YYYYMMDD}.txt"
+                                  Header="Developer Mode (Restart Required)"
+                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/devMode.png}">
                 <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </wuc:SettingsCard>
+                <wuc:SettingsExpander.ItemsHeader>
+                    <HyperlinkButton HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Left"
+                                     Click="NavigateToLogPath_Click"
+                                     Content="{x:Bind local:Constants.LogDirectoryPath}" />
+                </wuc:SettingsExpander.ItemsHeader>
+            </wuc:SettingsExpander>
 
             <wuc:SettingsExpander Description="following keywords will be removed from movie\series file name, if you see a word that can not be removed from file name you can add your keywords here"
                                   Header="Use Default Regex"

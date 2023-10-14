@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Labs.WinUI;
 using CommunityToolkit.WinUI.UI;
-
 using HtmlAgilityPack;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Media.Animation;

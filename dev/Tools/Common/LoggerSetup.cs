@@ -7,17 +7,14 @@ public static class LoggerSetup
 
     public static void ConfigureLogger()
     {
-        var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        var logFileDirPath = Path.Combine(desktopPath, Constants.AppName);
-        var logFilePath = Path.Combine(logFileDirPath, "Log.txt");
-        if (!Directory.Exists(logFileDirPath))
+        if (!Directory.Exists(Constants.LogDirectoryPath))
         {
-            Directory.CreateDirectory(logFileDirPath);
+            Directory.CreateDirectory(Constants.LogDirectoryPath);
         }
 
         Logger = new LoggerConfiguration()
             .Enrich.WithProperty("Version", App.Current.AppVersion)
-            .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+            .WriteTo.File(Constants.LogFilePath, rollingInterval: RollingInterval.Day)
             .WriteTo.Debug()
             .CreateLogger();
     }

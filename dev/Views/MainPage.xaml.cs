@@ -97,6 +97,18 @@ public sealed partial class MainPage : Page
         NavView.PaneDisplayMode = Settings.NavigationViewPaneDisplayMode;
     }
 
+    private void NavView_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
+    {
+        if (NavView.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
+        {
+            appTitleBar.IsPaneButtonVisible = false;
+        }
+        else
+        {
+            appTitleBar.IsPaneButtonVisible = true;
+        }
+    }
+
     private void NavViewPaneDisplayModeButton_Click(object sender, RoutedEventArgs e)
     {
         switch (NavView.PaneDisplayMode)
@@ -119,6 +131,11 @@ public sealed partial class MainPage : Page
         }
 
         Settings.NavigationViewPaneDisplayMode = NavView.PaneDisplayMode;
+
+        if (HomeLandingPage.Instance != null)
+        {
+            HomeLandingPage.Instance.UpdateHomeLandingPageCornerRadius();
+        }
     }
 }
 

@@ -26,6 +26,7 @@
                         HeaderText="{x:Bind AppInfo}">
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="OnItemClick">
+
                 <ic:EventTriggerBehavior.Actions>
                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand}" />
                 </ic:EventTriggerBehavior.Actions>
@@ -33,4 +34,3 @@
         </i:Interaction.Behaviors>
     </wuc:AllLandingPage>
 </Page>
-

@@ -10,7 +10,7 @@ public partial class App : Application
     public static Window currentWindow = Window.Current;
     public IServiceProvider Services { get; }
     public new static App Current => (App)Application.Current;
-    public string AppVersion { get; set; } = VersionHelper.GetVersion();
+    public string AppVersion { get; set; } = ApplicationHelper.GetAppVersion();
     public string AppName { get; set; } = "TvTime";
 
     public static T GetService<T>() where T : class
@@ -88,8 +88,7 @@ public partial class App : Application
 
         currentWindow.Activate();
 
-        AppCenter.Start(Constants.AppCenterKey,
-                  typeof(Analytics), typeof(Crashes));
+        AppCenter.Start(Constants.AppCenterKey, typeof(Analytics), typeof(Crashes));
 
         if (Settings.UseDeveloperMode)
         {

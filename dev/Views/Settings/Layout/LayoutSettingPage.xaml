@@ -10,14 +10,14 @@
 
     <ScrollView>
         <StackPanel Margin="10"
-                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
+                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
+                    Spacing="4">
 
             <views:BreadcrumbBarUserControl Items="{x:Bind ViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
             <wuc:SettingsCard x:Name="HeaderStyleSetting"
                               Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
                               CommandParameter="{Binding ElementName=HeaderStyleSetting}"
-                              CornerRadius="4,4,0,0"
                               Description="Customize header according to your needs, such as font style"
                               Header="Header Styles"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}"
@@ -26,7 +26,6 @@
             <wuc:SettingsCard x:Name="DescriptionStyleSetting"
                               Command="{x:Bind ViewModel.GoToStyleSettingPageCommand}"
                               CommandParameter="{Binding ElementName=DescriptionStyleSetting}"
-                              CornerRadius="0,0,4,4"
                               Description="Customize description according to your needs, such as font style and control type"
                               Header="Description Styles"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}"

@@ -72,7 +72,7 @@
                    ItemsSource="{x:Bind ViewModel.DataListACV}"
                    SelectionMode="None">
             <ItemsView.Layout>
-                <StackLayout Spacing="5" />
+                <StackLayout />
             </ItemsView.Layout>
         </ItemsView>
 

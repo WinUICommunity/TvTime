@@ -21,9 +21,9 @@
                  Severity="{x:Bind ViewModel.InfoBarSeverity, Mode=OneWay}" />
         <ScrollView Grid.Row="2">
             <StackPanel Margin="0,5,15,10"
-                        ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
-                        Spacing="5">
-                <wuc:SettingsExpander Description="backup and restore media servers"
+                        ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
+                <wuc:SettingsExpander CornerRadius="4,4,0,0"
+                                      Description="backup and restore media servers"
                                       Header="Backup &amp; Restore TvTime Media Servers"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/server.png}">
                     <wuc:SettingsExpander.Items>
@@ -42,7 +42,8 @@
                     </wuc:SettingsExpander.Items>
                 </wuc:SettingsExpander>
 
-                <wuc:SettingsExpander Description="backup and restore subtitle servers"
+                <wuc:SettingsExpander CornerRadius="0"
+                                      Description="backup and restore subtitle servers"
                                       Header="Backup &amp; Restore TvTime Subtitle Servers"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/subtitle.png}">
                     <wuc:SettingsExpander.Items>
@@ -61,7 +62,8 @@
                     </wuc:SettingsExpander.Items>
                 </wuc:SettingsExpander>
 
-                <wuc:SettingsExpander Description="backup and restore TvTime settings"
+                <wuc:SettingsExpander CornerRadius="0,0,4,4"
+                                      Description="backup and restore TvTime settings"
                                       Header="Backup &amp; Restore TvTime Settings"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/settings.png}">
                     <wuc:SettingsExpander.Items>

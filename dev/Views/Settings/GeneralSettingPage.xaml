@@ -13,12 +13,12 @@
 
     <ScrollView>
         <StackPanel Margin="10"
-                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
-                    Spacing="5">
+                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard Description="If false is selected, the corresponding web page will be opened instead of the file itself"
+            <wuc:SettingsCard CornerRadius="4,4,0,0"
+                              Description="If false is selected, the corresponding web page will be opened instead of the file itself"
                               Header="Open the file in the browser"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch x:Name="TGOpenFile"
@@ -35,7 +35,8 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="Download Files With Internet Download Manager (IDM) [if exist]"
+            <wuc:SettingsCard CornerRadius="0"
+                              Description="Download Files With Internet Download Manager (IDM) [if exist]"
                               Header="Download with IDM"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"
@@ -52,19 +53,22 @@
                 </ToggleSwitch>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="With the help of TokenView, you can see only the media related to the desired server, and with the help of the search, you can search the results more precisely."
+            <wuc:SettingsCard CornerRadius="0"
+                              Description="With the help of TokenView, you can see only the media related to the desired server, and with the help of the search, you can search the results more precisely."
                               Header="Filter using TokenView"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/tokenView.png}">
                 <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="Navigate to pages with Mouse Double Click"
+            <wuc:SettingsCard CornerRadius="0"
+                              Description="Navigate to pages with Mouse Double Click"
                               Header="Use Double Click for Navigate"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/mouse.png}">
                 <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseDoubleClickForNavigate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="Choose how and where the NavigationView pane is shown"
+            <wuc:SettingsCard CornerRadius="0"
+                              Description="Choose how and where the NavigationView pane is shown"
                               Header="NavigationView Display Mode"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/displayMode.png}">
                 <ComboBox xmlns:enums="using:Microsoft.UI.Xaml.Controls"
@@ -81,7 +85,8 @@
                 </ComboBox>
             </wuc:SettingsCard>
 
-            <wuc:SettingsExpander Description="By activating this option, if an error or crash occurs, its information will be saved in a file called Log{YYYYMMDD}.txt"
+            <wuc:SettingsExpander CornerRadius="0"
+                                  Description="By activating this option, if an error or crash occurs, its information will be saved in a file called Log{YYYYMMDD}.txt"
                                   Header="Developer Mode (Restart Required)"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/devMode.png}">
                 <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -93,7 +98,8 @@
                 </wuc:SettingsExpander.ItemsHeader>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsExpander Description="following keywords will be removed from movie\series file name, if you see a word that can not be removed from file name you can add your keywords here"
+            <wuc:SettingsExpander CornerRadius="0,0,4,4"
+                                  Description="following keywords will be removed from movie\series file name, if you see a word that can not be removed from file name you can add your keywords here"
                                   Header="Use Default Regex"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/regex.png}">
                 <ToggleSwitch x:Name="TGRegex"

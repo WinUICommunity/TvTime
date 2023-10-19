@@ -10,11 +10,11 @@
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
-                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
-                    Spacing="5">
+                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard Header="{x:Bind ViewModel.CurrentVersion}"
+            <wuc:SettingsCard CornerRadius="4,4,0,0"
+                              Header="{x:Bind ViewModel.CurrentVersion}"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/update.png}">
                 <wuc:SettingsCard.Description>
                     <StackPanel Orientation="Horizontal"
@@ -37,7 +37,8 @@
                 </StackPanel>
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Header="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
+            <wuc:SettingsCard CornerRadius="0,0,4,4"
+                              Header="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/info.png}">
                 <wuc:SettingsCard.Description>
                     <HyperlinkButton Padding="5,0"

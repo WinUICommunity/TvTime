@@ -124,27 +124,26 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                     switch (PageType)
                     {
                         case ServerType.Anime:
-                            media = new(await db.Animes.ToListAsync());
+                            media = new(await db.Animes.Where(x => x.Server != null).ToListAsync());
                             break;
                         case ServerType.Movies:
-                            media = new(await db.Movies.ToListAsync());
+                            media = new(await db.Movies.Where(x => x.Server != null).ToListAsync());
                             break;
                         case ServerType.Series:
-                            media = new(await db.Series.ToListAsync());
+                            media = new(await db.Series.Where(x => x.Server != null).ToListAsync());
                             break;
                     }
 
                     if (media != null && media.Any())
                     {
-                        var myDataList = media.Where(x => x.Server != null);
                         DataList = new();
                         DataListACV = new AdvancedCollectionView(DataList, true);
 
                         using (DataListACV.DeferRefresh())
                         {
-                            DataList.AddRange(myDataList);
+                            DataList.AddRange(media);
                         }
-
+                        
                         DataListACV.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
                     }
 

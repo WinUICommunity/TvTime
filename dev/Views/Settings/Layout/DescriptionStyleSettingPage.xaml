@@ -13,12 +13,12 @@
 
     <ScrollView>
         <StackPanel Margin="10"
-                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
-                    Spacing="5">
+                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
 
             <views:BreadcrumbBarUserControl Items="{x:Bind LayoutSettingViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
-            <wuc:SettingsCard Description="Specify the style of the description"
+            <wuc:SettingsCard CornerRadius="4,4,0,0"
+                              Description="Specify the style of the description"
                               Header="Description Text Style"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
                 <ComboBox x:Name="CmbDescription"
@@ -33,13 +33,15 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard Description="Append an ellipsis (...) at the end"
+            <wuc:SettingsCard CornerRadius="0"
+                              Description="Append an ellipsis (...) at the end"
                               Header="Truncate Description"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseTruncateInDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="Specify the borderThickness of the hyperlink"
+            <wuc:SettingsCard CornerRadius="0,0,4,4"
+                              Description="Specify the borderThickness of the hyperlink"
                               Header="HyperLink BorderThickness"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/border.png}">
                 <ToggleSwitch x:Name="TgHyperLinkBorderThickness"
@@ -47,6 +49,7 @@
             </wuc:SettingsCard>
 
             <HyperlinkButton x:Name="ServerHyperLink"
+                             Margin="0,5,0,0"
                              Padding="5"
                              HorizontalAlignment="Center">
                 <HyperlinkButton.Content>

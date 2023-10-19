@@ -13,12 +13,12 @@
 
     <ScrollView>
         <StackPanel Margin="10"
-                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
-                    Spacing="5">
+                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
 
             <views:BreadcrumbBarUserControl Items="{x:Bind LayoutSettingViewModel.BreadCrumbBarCollection, Mode=OneWay}" />
 
-            <wuc:SettingsCard Description="Specify the style of the header"
+            <wuc:SettingsCard CornerRadius="4,4,0,0"
+                              Description="Specify the style of the header"
                               Header="Header Text Style"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/style.png}">
                 <ComboBox x:Name="CmbHeader"
@@ -34,7 +34,8 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard Description="Append an ellipsis (...) at the end"
+            <wuc:SettingsCard CornerRadius="0,0,4,4"
+                              Description="Append an ellipsis (...) at the end"
                               Header="Truncate Header"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}">
                 <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseTruncateInHeader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

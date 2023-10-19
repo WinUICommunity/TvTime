@@ -10,6 +10,11 @@ public sealed partial class ItemUserControl : UserControl
     public event EventHandler<RoutedEventArgs> Click;
     public event EventHandler<RoutedEventArgs> DoubleClick;
 
+    public CornerRadius SettingsCardCornerRadius
+    {
+        get => (CornerRadius) GetValue(SettingsCardCornerRadiusProperty);
+        set => SetValue(SettingsCardCornerRadiusProperty, value);
+    }
     public BaseMediaTable BaseMedia
     {
         get => (BaseMediaTable) GetValue(BaseMediaProperty);
@@ -99,6 +104,9 @@ public sealed partial class ItemUserControl : UserControl
 
     public static readonly DependencyProperty ActionIconProperty =
         DependencyProperty.Register("ActionIcon", typeof(IconElement), typeof(ItemUserControl), new PropertyMetadata(default(IconElement)));
+
+    public static readonly DependencyProperty SettingsCardCornerRadiusProperty =
+        DependencyProperty.Register("SettingsCardCornerRadius", typeof(CornerRadius), typeof(ItemUserControl), new PropertyMetadata(default(CornerRadius)));
 
     public ItemUserControl()
     {

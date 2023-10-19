@@ -11,12 +11,12 @@
       mc:Ignorable="d">
     <ScrollView>
         <StackPanel Margin="10"
-                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
-                    Spacing="5">
+                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsExpander Description="Specify the language of the subtitles"
+            <wuc:SettingsExpander CornerRadius="4,4,0,0"
+                                  Description="Specify the language of the subtitles"
                                   Header="Subtitle Language"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/language.png}"
                                   IsExpanded="True">
@@ -29,7 +29,8 @@
                 </wuc:SettingsExpander.Items>
             </wuc:SettingsExpander>
 
-            <wuc:SettingsCard Description="Download Subtitles With Internet Download Manager (IDM) [if exist]"
+            <wuc:SettingsCard CornerRadius="0,0,4,4"
+                              Description="Download Subtitles With Internet Download Manager (IDM) [if exist]"
                               Header="Download with IDM"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/idm.png}">
                 <ToggleSwitch x:Name="TGUseIDM"

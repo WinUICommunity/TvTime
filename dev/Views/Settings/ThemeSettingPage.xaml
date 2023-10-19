@@ -10,14 +10,14 @@
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
-                  VerticalScrollBarVisibility="Auto">
+                VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
-                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
-                    Spacing="5">
+                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
 
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard Description="Select your Application Theme and Material"
+            <wuc:SettingsCard CornerRadius="4,4,0,0"
+                              Description="Select your Application Theme and Material"
                               Header="Appearance &amp; behavior"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/theme.png}">
                 <ComboBox x:Name="CmbTheme">
@@ -37,7 +37,8 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
-            <wuc:SettingsCard Description="Change Application System Backdrop"
+            <wuc:SettingsCard CornerRadius="0"
+                              Description="Change Application System Backdrop"
                               Header="Materials"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/backdrop.png}">
                 <ComboBox x:Name="CmbBackdrop">
@@ -59,6 +60,7 @@
             </wuc:SettingsCard>
             <wuc:SettingsCard ActionIcon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
                               Command="{x:Bind ViewModel.OpenWindowsColorSettingsCommand}"
+                              CornerRadius="0,0,4,4"
                               Description="Change Windows Accent Color"
                               Header="Windows Color Settings"
                               HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/color.png}"

@@ -10,7 +10,7 @@
 		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
-		<Version>4.5.0</Version>
+		<Version>4.6.0</Version>
 		<ImplicitUsings>true</ImplicitUsings>
 		<LangVersion>Latest</LangVersion>
 		<AccelerateBuildsInVisualStudio>False</AccelerateBuildsInVisualStudio>

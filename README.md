@@ -12,12 +12,20 @@
 TV Time helps you find and search movies, series and anime from different servers and download them easily with different qualities.
 
 ## Install
-```
+### Recommended
+Install from MS Store
+
+### Github Release
+you can download from Github Release Section:
 - Download frome Release
 - Run TvTime
 - (Optional) Restore Servers Backup
-```
-`
+
+<a href="https://apps.microsoft.com/detail/TvTimes/9N8HTFJ7PVKB?launch=true
+	&mode=mini">
+	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
+</a>
+
 ![TvTime](https://raw.githubusercontent.com/ghost1372/Resources/main/TvTime/1.png)
 
 ![TvTime](https://raw.githubusercontent.com/ghost1372/Resources/main/TvTime/2.png)

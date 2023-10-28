@@ -16,7 +16,7 @@
 		<AccelerateBuildsInVisualStudio>False</AccelerateBuildsInVisualStudio>
 		<ApplicationIcon>Assets\icon.ico</ApplicationIcon>
 		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-    <PublishMode>partial</PublishMode>
+    <TrimMode>partial</TrimMode>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="Assets\**\*">

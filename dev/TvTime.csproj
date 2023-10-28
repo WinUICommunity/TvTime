@@ -10,13 +10,12 @@
 		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
-		<Version>4.6.0</Version>
+		<Version>4.7.0</Version>
 		<ImplicitUsings>true</ImplicitUsings>
 		<LangVersion>Latest</LangVersion>
 		<AccelerateBuildsInVisualStudio>False</AccelerateBuildsInVisualStudio>
 		<ApplicationIcon>Assets\icon.ico</ApplicationIcon>
 		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-    <TrimMode>partial</TrimMode>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="Assets\**\*">
@@ -28,14 +27,14 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
-    <PackageReference Include="WinUICommunity.Components" Version="5.3.2" />
+    <PackageReference Include="WinUICommunity.Components" Version="5.3.3" />
     <PackageReference Include="WinUICommunity.Core" Version="5.3.1" />
     <PackageReference Include="WinUICommunity.LandingPages" Version="5.3.1" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.13" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.Labs.WinUI.TokenView" Version="0.1.230830" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />

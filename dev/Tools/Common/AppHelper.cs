@@ -93,6 +93,11 @@ public static partial class AppHelper
 
     public static void LaunchIDM(string idmPath, string link)
     {
+        if (string.IsNullOrEmpty(idmPath) || string.IsNullOrEmpty(link))
+        {
+            return;
+        }
+
         Process.Start(idmPath, $"/d \"{link}\"");
     }
 

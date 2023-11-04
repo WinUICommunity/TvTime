@@ -4,8 +4,8 @@ using Nucs.JsonSettings.Modulation;
 namespace TvTime.Common;
 public class AppConfig : NotifiyingJsonSettings, IVersionable
 {
-    [EnforcedVersion("4.4.0.0")]
-    public virtual Version Version { get; set; } = new Version(4, 4, 0, 0);
+    [EnforcedVersion("4.7.0.0")]
+    public virtual Version Version { get; set; } = new Version(4, 7, 0, 0);
     public override string FileName { get; set; } = Constants.AppConfigPath;
 
     private ObservableCollection<string> _SubtitleLanguagesCollection = new();

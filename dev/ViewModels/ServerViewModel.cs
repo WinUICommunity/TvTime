@@ -359,17 +359,24 @@ public partial class ServerViewModel : ObservableRecipient, ITitleBarAutoSuggest
 
     private void Search(string query)
     {
-        if (ServerList != null && ServerList.Any())
+        try
         {
-            ServerListACV.Filter = _ => true;
-            ServerListACV.Filter = item =>
+            if (ServerList != null && ServerList.Any())
             {
-                var baseServer = (BaseServerTable)item;
-                var name = baseServer.Title ?? "";
-                var tName = baseServer.Server ?? "";
-                return name.Contains(query, StringComparison.OrdinalIgnoreCase)
-                    || tName.Contains(query, StringComparison.OrdinalIgnoreCase);
-            };
+                ServerListACV.Filter = _ => true;
+                ServerListACV.Filter = item =>
+                {
+                    var baseServer = (BaseServerTable) item;
+                    var name = baseServer.Title ?? "";
+                    var tName = baseServer.Server ?? "";
+                    return name.Contains(query, StringComparison.OrdinalIgnoreCase)
+                        || tName.Contains(query, StringComparison.OrdinalIgnoreCase);
+                };
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger?.Error(ex, "ServerViewModel:Search");
         }
     }
 }

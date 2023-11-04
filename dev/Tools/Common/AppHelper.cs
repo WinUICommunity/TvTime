@@ -122,9 +122,9 @@ public static partial class AppHelper
 
     public static string GetServerUrlWithoutLeftAndRightPart(string url)
     {
-        if (string.IsNullOrEmpty(url))
+        if (string.IsNullOrEmpty(url) || !IsValidUri(url))
         {
-            return url;
+            return null;
         }
         else
         {
@@ -135,11 +135,17 @@ public static partial class AppHelper
         }
     }
 
+    public static bool IsValidUri(string uriString)
+    {
+        Uri uriResult;
+        return Uri.TryCreate(uriString, UriKind.Absolute, out uriResult);
+    }
+
     public static string GetServerUrlWithoutRightPart(string url)
     {
-        if (string.IsNullOrEmpty(url))
+        if (string.IsNullOrEmpty(url) || !IsValidUri(url))
         {
-            return url;
+            return null;
         }
         else
         {

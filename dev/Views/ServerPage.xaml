@@ -43,7 +43,8 @@
         <wuc:SettingsExpander Grid.Row="1"
                               Description="Manage Servers that can be used in the TvTime"
                               Header="Servers"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/save.png}">
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/save.png}"
+                              IsExpanded="True">
             <Button Click="BtnAdd_Click"
                     Content="Add new server"
                     Style="{ThemeResource AccentButtonStyle}" />

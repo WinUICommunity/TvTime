@@ -38,25 +38,32 @@ public partial class SubsceneViewModel : BaseViewModel, ITitleBarAutoSuggestBoxA
         {
             dispatcherQueue.TryEnqueue(async () =>
             {
-                using var db = new AppDbContext();
-                var tokens = db.SubtitleServers.Where(x => x.IsActive)
-                    .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
-
-                TokenList = new(tokens);
-
-                var defaultTokenItem = TokenList.FirstOrDefault(x => x.Content.ToString().Contains("subscene", StringComparison.OrdinalIgnoreCase));
-                TokenItemSelectedIndex = TokenList.IndexOf(defaultTokenItem);
-
-                if (!db.SubtitleServers.Any())
+                try
                 {
-                    IsStatusOpen = true;
-                    StatusTitle = "No servers found, please add some servers first";
-                    StatusMessage = "Server not found";
-                    StatusSeverity = InfoBarSeverity.Warning;
-                    var dialog = new GoToServerContentDialog();
-                    dialog.JsonNavigationViewService = jsonNavigationViewService;
-                    dialog.ThemeService = themeService;
-                    await dialog.ShowAsync();
+                    using var db = new AppDbContext();
+                    var tokens = db.SubtitleServers.Where(x => x.IsActive)
+                        .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
+
+                    TokenList = new(tokens);
+
+                    var defaultTokenItem = TokenList.FirstOrDefault(x => x.Content.ToString().Contains("subscene", StringComparison.OrdinalIgnoreCase));
+                    TokenItemSelectedIndex = TokenList.IndexOf(defaultTokenItem);
+
+                    if (!db.SubtitleServers.Any())
+                    {
+                        IsStatusOpen = true;
+                        StatusTitle = "No servers found, please add some servers first";
+                        StatusMessage = "Server not found";
+                        StatusSeverity = InfoBarSeverity.Warning;
+                        var dialog = new GoToServerContentDialog();
+                        dialog.JsonNavigationViewService = jsonNavigationViewService;
+                        dialog.ThemeService = themeService;
+                        await dialog.ShowAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger?.Error(ex, "SubsceneViewModel:Ctor");
                 }
             });
         });

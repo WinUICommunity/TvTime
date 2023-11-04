@@ -151,45 +151,52 @@ public partial class SubsceneDetailViewModel : BaseViewModel, ITitleBarAutoSugge
 
     public List<SubtitleModel> GetServerDetails(HtmlDocument doc, BaseMediaTable baseMedia)
     {
-        List<SubtitleModel> list = new List<SubtitleModel>();
-
-        var table = doc.DocumentNode.SelectSingleNode("//table[1]//tbody");
-        if (table != null)
+        try
         {
-            foreach (var cell in table.SelectNodes(".//tr"))
+            List<SubtitleModel> list = new List<SubtitleModel>();
+
+            var table = doc.DocumentNode.SelectSingleNode("//table[1]//tbody");
+            if (table != null)
             {
-                if (cell.InnerText.Contains("There are no subtitles"))
-                    break;
-
-                var Language = cell.SelectSingleNode(".//td[@class='a1']//a//span[1]")?.InnerText.Trim();
-
-                // respect Subtitle Language Settings
-                if (!string.IsNullOrEmpty(Language) && !Settings.SubtitleLanguagesCollection.Any(x=> Language.Contains(x, StringComparison.OrdinalIgnoreCase)))
+                foreach (var cell in table.SelectNodes(".//tr"))
                 {
-                    continue;
+                    if (cell.InnerText.Contains("There are no subtitles"))
+                        break;
+
+                    var Language = cell.SelectSingleNode(".//td[@class='a1']//a//span[1]")?.InnerText.Trim();
+
+                    // respect Subtitle Language Settings
+                    if (!string.IsNullOrEmpty(Language) && !Settings.SubtitleLanguagesCollection.Any(x => Language.Contains(x, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        continue;
+                    }
+
+                    var Name = cell.SelectSingleNode(".//td[@class='a1']//a//span[2]")?.InnerText.Trim();
+                    var Translator = cell.SelectSingleNode(".//td[@class='a5']//a")?.InnerText.Trim();
+                    var Comment = cell.SelectSingleNode(".//td[@class='a6']//div")?.InnerText.Trim();
+                    if (Comment != null && Comment.Contains("&nbsp;")) Comment = Comment.Replace("&nbsp;", "");
+
+                    var Link = cell.SelectSingleNode(".//td[@class='a1']//a")?.Attributes["href"]?.Value.Trim();
+
+                    if (Name != null)
+                    {
+                        var item = new SubtitleModel(Name, Name, GetServerUrlWithoutRightPart(baseMedia.Server) + Link, Comment, Language, Translator);
+                        list.Add(item);
+                    }
                 }
-
-                var Name = cell.SelectSingleNode(".//td[@class='a1']//a//span[2]")?.InnerText.Trim();
-                var Translator = cell.SelectSingleNode(".//td[@class='a5']//a")?.InnerText.Trim();
-                var Comment = cell.SelectSingleNode(".//td[@class='a6']//div")?.InnerText.Trim();
-                if (Comment != null && Comment.Contains("&nbsp;")) Comment = Comment.Replace("&nbsp;", "");
-
-                var Link = cell.SelectSingleNode(".//td[@class='a1']//a")?.Attributes["href"]?.Value.Trim();
-
-                if (Name != null)
-                {
-                    var item = new SubtitleModel(Name, Name, GetServerUrlWithoutRightPart(baseMedia.Server) + Link, Comment, Language, Translator);
-                    list.Add(item);
-                }
+                return list;
             }
-            return list;
+            else
+            {
+                IsActive = false;
+                IsStatusOpen = true;
+                StatusTitle = "Subtitles not found or server is unavailable, please try again!";
+                StatusSeverity = InfoBarSeverity.Error;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            IsActive = false;
-            IsStatusOpen = true;
-            StatusTitle = "Subtitles not found or server is unavailable, please try again!";
-            StatusSeverity = InfoBarSeverity.Error;
+            Logger?.Error(ex, "SubsceneDetailsViewModel:GetServerDetails");
         }
 
         return null;

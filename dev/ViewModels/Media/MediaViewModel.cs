@@ -50,26 +50,33 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
         {
             dispatcherQueue.TryEnqueue(async () =>
             {
-                PageType = MediaPage.Instance.PageType;
-                using var db = new AppDbContext();
-                var tokens = db.MediaServers.Where(x => x.IsActive && x.ServerType == PageType).Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server), Tag = x.Server });
-                TokenList = new(tokens);
-                TokenList.Insert(0, new TokenItem { Content = "All", IsSelected = true });
-                if (!db.MediaServers.Any())
+                try
                 {
-                    IsStatusOpen = true;
-                    StatusTitle = "Server not found";
-                    StatusMessage = "No servers found, please add some servers first";
-                    StatusSeverity = InfoBarSeverity.Warning;
-                    IsServerStatusOpen = false;
-                    var dialog = new GoToServerContentDialog();
-                    dialog.ThemeService = themeService;
-                    dialog.JsonNavigationViewService = JsonNavigationViewService;
-                    await dialog.ShowAsync();
+                    PageType = MediaPage.Instance.PageType;
+                    using var db = new AppDbContext();
+                    var tokens = db.MediaServers.Where(x => x.IsActive && x.ServerType == PageType).Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server), Tag = x.Server });
+                    TokenList = new(tokens);
+                    TokenList.Insert(0, new TokenItem { Content = "All", IsSelected = true });
+                    if (!db.MediaServers.Any())
+                    {
+                        IsStatusOpen = true;
+                        StatusTitle = "Server not found";
+                        StatusMessage = "No servers found, please add some servers first";
+                        StatusSeverity = InfoBarSeverity.Warning;
+                        IsServerStatusOpen = false;
+                        var dialog = new GoToServerContentDialog();
+                        dialog.ThemeService = themeService;
+                        dialog.JsonNavigationViewService = JsonNavigationViewService;
+                        await dialog.ShowAsync();
+                    }
+                    else
+                    {
+                        await LoadLocalMedia();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    await LoadLocalMedia();
+                    Logger?.Error(ex, "MediaViewModel:OnPageLoaded");
                 }
             });
         });

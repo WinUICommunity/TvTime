@@ -31,13 +31,12 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
     [ObservableProperty]
     public bool progressBarShowError;
 
-    private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+    private DispatcherTimer dispatcherTimer;
     private ServerType PageType;
     private int totalServerCount = 0;
     private List<ExceptionModel> exceptions;
     public IJsonNavigationViewService JsonNavigationViewService;
     public IThemeService themeService;
-
     public MediaViewModel(IJsonNavigationViewService jsonNavigationViewService, IThemeService themeService)
     {
         JsonNavigationViewService = jsonNavigationViewService;
@@ -88,6 +87,8 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
 
     public override void OnRefresh()
     {
+        dispatcherTimer?.Stop();
+        dispatcherTimer = null;
         DownloadMediaIntoDatabase();
     }
 
@@ -170,9 +171,10 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                     Logger?.Error(ex, "MediaViewModel: LoadLocalMedia");
                 }
             });
+        }).ContinueWith(x =>
+        {
+            AutoHideStatusInfoBar();
         });
-
-        AutoHideStatusInfoBar(new TimeSpan(0, 0, 30));
     }
 
     private async void DownloadMediaIntoDatabase()
@@ -438,20 +440,25 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
         });
     }
 
-    private void AutoHideStatusInfoBar(TimeSpan timeSpan)
+    private void AutoHideStatusInfoBar()
     {
-        dispatcherTimer = new DispatcherTimer();
-        dispatcherTimer.Tick += (s, e) =>
+        dispatcherQueue.TryEnqueue(() =>
         {
-            dispatcherTimer?.Stop();
-            dispatcherTimer = null;
-            StatusMessage = "";
-            StatusTitle = "";
-            StatusSeverity = InfoBarSeverity.Informational;
-            IsStatusOpen = false;
-        };
-        dispatcherTimer.Interval = timeSpan;
-        dispatcherTimer.Start();
+            dispatcherTimer = new DispatcherTimer();
+            TimeSpan timeSpan = new TimeSpan(0, 0, 20);
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += (s, e) =>
+            {
+                dispatcherTimer?.Stop();
+                dispatcherTimer = null;
+                StatusMessage = "";
+                StatusTitle = "";
+                StatusSeverity = InfoBarSeverity.Informational;
+                IsStatusOpen = false;
+            };
+            dispatcherTimer.Interval = timeSpan;
+            dispatcherTimer.Start();
+        });
     }
 
     public void OnAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)

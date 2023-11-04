@@ -355,5 +355,26 @@
     "Server": "http://dl5.dl1acemovies.xyz/dl/English/Series/",
     "IsActive": true,
     "ServerType": 2
+  },
+  {
+    "Id": 59,
+    "Title": "EBTV Series",
+    "Server": "https://dl.ebtv.xyz/English/Series",
+    "IsActive": true,
+    "ServerType": 2
+  },
+  {
+    "Id": 60,
+    "Title": "EBTV Movies",
+    "Server": "https://dl.ebtv.xyz/English/Movies",
+    "IsActive": true,
+    "ServerType": 1
+  },
+  {
+    "Id": 61,
+    "Title": "EBTV Anime",
+    "Server": "https://dl.ebtv.xyz/English/Anime",
+    "IsActive": true,
+    "ServerType": 0
   }
 ]

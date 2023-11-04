@@ -143,14 +143,9 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                         continue;
                     }
 
-                    string server = $"{baseMedia.Server}{href}";
-                    if (server.Contains("ebtv", StringComparison.OrdinalIgnoreCase) || (server.Contains("acemovies", StringComparison.OrdinalIgnoreCase) && !server.Contains("dl5.dl1acemovies", StringComparison.OrdinalIgnoreCase)))
-                    {
-                        var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
-                        server = $"{url}{href}";
-                    }
+                    var finalServer = ConcatenateUrls(baseMedia.Server, href);
 
-                    if (server.Contains("dl5.dl1acemovies", StringComparison.OrdinalIgnoreCase))
+                    if (finalServer.Contains("dl5.dl1acemovies", StringComparison.OrdinalIgnoreCase))
                     {
                         if (title.Equals("Home") || title.Equals("dl") ||
                             title.Equals("English") || title.Equals("Series") ||
@@ -161,7 +156,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                         }
                     }
                     
-                    list.Add(new BaseMediaTable(FixTitle(title), server, date, ApplicationHelper.GetFileSize(fSize), baseMedia.ServerType));
+                    list.Add(new BaseMediaTable(FixTitle(title), finalServer, date, ApplicationHelper.GetFileSize(fSize), baseMedia.ServerType));
                 }
             }
         }

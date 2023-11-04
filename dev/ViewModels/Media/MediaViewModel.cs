@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Labs.WinUI;
+﻿using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using CommunityToolkit.Labs.WinUI;
 using CommunityToolkit.WinUI.UI;
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
@@ -170,7 +172,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
             });
         });
 
-        AutoHideStatusInfoBar(new TimeSpan(0, 0, 8));
+        AutoHideStatusInfoBar(new TimeSpan(0, 0, 30));
     }
 
     private async void DownloadMediaIntoDatabase()
@@ -179,10 +181,11 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
         {
             dispatcherQueue.TryEnqueue(async () =>
             {
+                using var db = new AppDbContext();
+
                 try
                 {
                     exceptions = new List<ExceptionModel>();
-                    using var db = new AppDbContext();
                     if (!db.MediaServers.Any())
                     {
                         var dialog = new GoToServerContentDialog();
@@ -194,74 +197,6 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                     await db.DeleteAndRecreateMediaTables(PageType.ToString());
                     IsServerStatusOpen = false;
                     IsActive = true;
-                    var urls = await db.MediaServers.Where(x => x.ServerType == PageType && x.IsActive == true).ToListAsync();
-                    IsStatusOpen = true;
-                    StatusSeverity = InfoBarSeverity.Informational;
-                    StatusTitle = "Please Wait...";
-                    StatusMessage = "";
-                    totalServerCount = urls.Count;
-                    ProgressBarValue = 0;
-                    ProgressBarMaxValue = urls.Count;
-
-                    int index = 0;
-                    foreach (var item in urls)
-                    {
-                        if (ApplicationHelper.IsNetworkAvailable())
-                        {
-                            try
-                            {
-                                ProgressBarShowError = false;
-                                index++;
-                                ProgressBarValue = index;
-                                HtmlWeb web = new HtmlWeb();
-                                HtmlDocument doc = await web.LoadFromWebAsync(item.Server);
-
-                                StatusMessage = string.Format("Working on {0} - {1}/{2}", item.Title, index, urls.Count());
-                                if (doc.DocumentNode.InnerHtml is null)
-                                {
-                                    continue;
-                                }
-                                string result = doc.DocumentNode?.InnerHtml?.ToString();
-
-                                await GetServerDetails(result, item.Server, item.ServerType);
-
-                                StatusSeverity = InfoBarSeverity.Informational;
-                                StatusMessage = string.Format("{0} Saved", item.Title);
-                            }
-                            catch (Exception ex)
-                            {
-                                ProgressBarShowError = true;
-                                exceptions.Add(new ExceptionModel(ex, item.Title, item.Server));
-                                Logger?.Error(ex, "MediViewModel: DownloadMediaIntoDatabase");
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            IsActive = false;
-                            IsStatusOpen = true;
-                            StatusTitle = "No Network Connection";
-                            StatusMessage = "Please Connect to Internet";
-                            StatusSeverity = InfoBarSeverity.Error;
-                            IsServerStatusOpen = false;
-                            ProgressBarShowError = true;
-                        }
-                    }
-
-                    if (ApplicationHelper.IsNetworkAvailable())
-                    {
-                        IsActive = false;
-                        StatusTitle = "Done, We Updated our Database!";
-                        StatusMessage = string.Format("Added {0}/{1} Servers", totalServerCount - exceptions.Count, totalServerCount);
-                        StatusSeverity = InfoBarSeverity.Success;
-                        if (exceptions.Any())
-                        {
-                            IsServerStatusOpen = true;
-                        }
-                        ProgressBarShowError = false;
-                        ProgressBarValue = 0;
-                        await LoadLocalMedia();
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -274,13 +209,90 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                         IsServerStatusOpen = true;
                     }
                     ProgressBarShowError = true;
-                    Logger?.Error(ex, "MediViewModel: DownloadMediaIntoDatabase2");
+                    Logger?.Error(ex, "MediViewModel: DownloadMediaIntoDatabase");
                 }
+
+                var urls = await db.MediaServers.Where(x => x.ServerType == PageType && x.IsActive == true).ToListAsync();
+                IsStatusOpen = true;
+                StatusSeverity = InfoBarSeverity.Informational;
+                StatusTitle = "Please Wait...";
+                StatusMessage = "";
+                totalServerCount = urls.Count;
+                ProgressBarValue = 0;
+                ProgressBarMaxValue = urls.Count;
+                int index = 0;
+                foreach (var item in urls)
+                {
+                    if (ApplicationHelper.IsNetworkAvailable())
+                    {
+                        try
+                        {
+                            ProgressBarShowError = false;
+                            index++;
+                            ProgressBarValue = index;
+                            HtmlWeb web = new HtmlWeb();
+                            HtmlDocument doc = await web.LoadFromWebAsync(item.Server);
+
+                            StatusMessage = string.Format("Working on {0} - {1}/{2}", item.Title, index, urls.Count());
+                            if (doc.DocumentNode.InnerHtml is null)
+                            {
+                                continue;
+                            }
+                            string result = doc.DocumentNode?.InnerHtml?.ToString();
+
+                            await GetServerDetails(result, item.Server, item.ServerType);
+
+                            StatusSeverity = InfoBarSeverity.Informational;
+                            StatusMessage = string.Format("{0} Saved", item.Title);
+                        }
+                        catch (HttpRequestException)
+                        {
+                            continue;
+                        }
+                        catch (SocketException)
+                        {
+                            continue;
+                        }
+                        catch (PingException)
+                        {
+                            continue;
+                        }
+                        catch (Exception ex)
+                        {
+                            ProgressBarShowError = true;
+                            exceptions.Add(new ExceptionModel(ex, item.Title, item.Server));
+                            Logger?.Error(ex, "MediViewModel: DownloadMediaIntoDatabase");
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        IsActive = false;
+                        IsStatusOpen = true;
+                        StatusTitle = "No Network Connection";
+                        StatusMessage = "Please Connect to Internet";
+                        StatusSeverity = InfoBarSeverity.Error;
+                        IsServerStatusOpen = false;
+                        ProgressBarShowError = true;
+                    }
+                }
+
+                IsActive = false;
+                StatusTitle = "Done, We Updated our Database!";
+                StatusMessage = string.Format("Added {0}/{1} Servers", totalServerCount - exceptions.Count, totalServerCount);
+                StatusSeverity = InfoBarSeverity.Success;
+                if (exceptions.Any())
+                {
+                    IsServerStatusOpen = true;
+                }
+                ProgressBarShowError = false;
+                ProgressBarValue = 0;
+                await LoadLocalMedia();
             });
         });
     }
 
-    public async Task GetDonyayeSerialServerDetails(string content, string server, ServerType serverType)
+    public async Task GetDonyayeSerialServerDetails(string content, string server)
     {
         try
         {
@@ -289,7 +301,10 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
             var rows = doc.DocumentNode.SelectNodes("//table[@class='table']/tbody/tr");
             var ignoreLinks = new List<string> { "../", "Home", "DonyayeSerial", "series", "movie" };
             using var db = new AppDbContext();
-
+            if (rows == null)
+            {
+                return;
+            }
             foreach (var row in rows)
             {
                 var nameNode = row.SelectSingleNode("./td[@class='n']/a/code");
@@ -366,19 +381,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                         continue;
                     }
 
-                    string slash = string.Empty;
-                    if (!server.EndsWith("/"))
-                    {
-                        slash = "/";
-                    }
-
-                    var finalServer = $"{server}{slash}{href}";
-
-                    if (server.Contains("ebtv", StringComparison.OrdinalIgnoreCase) || (server.Contains("acemovies", StringComparison.OrdinalIgnoreCase) && !server.Contains("dl5.dl1acemovies", StringComparison.OrdinalIgnoreCase)))
-                    {
-                        var url = new Uri(server).GetLeftPart(UriPartial.Authority);
-                        finalServer = $"{url}{href}";
-                    }
+                    var finalServer = ConcatenateUrls(server, href);
 
                     if (server.Contains("dl5.dl1acemovies") && (title.Equals("Home") ||
                         title.Equals("dl") || title.Equals("English") || title.Equals("Series") ||
@@ -425,7 +428,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
             {
                 if (server.Contains("DonyayeSerial", StringComparison.OrdinalIgnoreCase))
                 {
-                    await GetDonyayeSerialServerDetails(content, server, serverType);
+                    await GetDonyayeSerialServerDetails(content, server);
                 }
                 else
                 {

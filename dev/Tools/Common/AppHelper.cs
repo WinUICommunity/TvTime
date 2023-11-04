@@ -7,6 +7,8 @@ using Nucs.JsonSettings.Modulation;
 using Nucs.JsonSettings.Modulation.Recovery;
 
 using System.Diagnostics;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text.RegularExpressions;
 
 using TvTime.Database.Tables;
@@ -238,6 +240,32 @@ public static partial class AppHelper
         title = title.Replace(".E..&gt;", "").Replace(">", "");
         title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(title));
         return title;
+    }
+
+    public static string ConcatenateUrls(string baseUrl, string relativeUrl)
+    {
+        // Ensure baseUrl ends with a slash
+        if (!baseUrl.EndsWith("/"))
+        {
+            baseUrl += "/";
+        }
+
+        // Ensure relativeUrl starts with a slash
+        if (!relativeUrl.StartsWith("/"))
+        {
+            relativeUrl = "/" + relativeUrl;
+        }
+
+        // Create a base URI from the baseUrl string
+        Uri baseUri = new Uri(baseUrl);
+
+        // Create a new URI by combining the base URI with the relativeUrl
+        Uri combinedUri = new Uri(baseUri, relativeUrl);
+
+        // Get the combined URL as a string
+        string resultUrl = combinedUri.ToString();
+
+        return resultUrl;
     }
 }
 

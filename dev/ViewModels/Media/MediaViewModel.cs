@@ -1,4 +1,4 @@
-﻿using System.Net.NetworkInformation;
+﻿using System.Net;
 using System.Net.Sockets;
 using CommunityToolkit.Labs.WinUI;
 using CommunityToolkit.WinUI.UI;
@@ -229,15 +229,35 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                     {
                         try
                         {
+                            Uri uri = new Uri(item.Server);
+                            IPHostEntry hostEntry = Dns.GetHostEntry(uri.Host);
+                            using (TcpClient client = new TcpClient())
+                            {
+                                var task = client.ConnectAsync(hostEntry.AddressList[0], uri.Port);
+                                int timeout = 5000;
+                                if (await Task.WhenAny(task, Task.Delay(timeout)) == task)
+                                {
+                                    await task;
+
+                                }
+                                else
+                                {
+                                    exceptions.Add(new ExceptionModel(null, item.Title, item.Server));
+                                    continue;
+                                }
+                            }
+
                             ProgressBarShowError = false;
                             index++;
                             ProgressBarValue = index;
+                            StatusMessage = string.Format("Working on {0} - {1}/{2}", item.Title, index, urls.Count());
+
                             HtmlWeb web = new HtmlWeb();
                             HtmlDocument doc = await web.LoadFromWebAsync(item.Server);
 
-                            StatusMessage = string.Format("Working on {0} - {1}/{2}", item.Title, index, urls.Count());
-                            if (doc.DocumentNode.InnerHtml is null)
+                            if (doc.DocumentNode.InnerHtml is null || doc.DocumentNode.InnerHtml.Contains("404 not found", StringComparison.OrdinalIgnoreCase))
                             {
+                                exceptions.Add(new ExceptionModel(null, item.Title, item.Server));
                                 continue;
                             }
                             string result = doc.DocumentNode?.InnerHtml?.ToString();
@@ -247,23 +267,11 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                             StatusSeverity = InfoBarSeverity.Informational;
                             StatusMessage = string.Format("{0} Saved", item.Title);
                         }
-                        catch (HttpRequestException)
-                        {
-                            continue;
-                        }
-                        catch (SocketException)
-                        {
-                            continue;
-                        }
-                        catch (PingException)
-                        {
-                            continue;
-                        }
-                        catch (Exception ex)
+                        catch
                         {
                             ProgressBarShowError = true;
-                            exceptions.Add(new ExceptionModel(ex, item.Title, item.Server));
-                            Logger?.Error(ex, "MediViewModel: DownloadMediaIntoDatabase");
+                            exceptions.Add(new ExceptionModel(null, item.Title, item.Server));
+                            Logger?.Error("MediViewModel: DownloadMediaIntoDatabase");
                             continue;
                         }
                     }

@@ -27,6 +27,7 @@ public partial class App : Application
     {
         Services = ConfigureServices();
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+        ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
         this.InitializeComponent();
     }
 

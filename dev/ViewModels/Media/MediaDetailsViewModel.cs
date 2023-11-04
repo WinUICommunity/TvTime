@@ -144,13 +144,13 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                     }
 
                     string server = $"{baseMedia.Server}{href}";
-                    if (server.Contains("acemovies") && !server.Contains("dl5.dl1acemovies"))
+                    if (server.Contains("ebtv", StringComparison.OrdinalIgnoreCase) || (server.Contains("acemovies", StringComparison.OrdinalIgnoreCase) && !server.Contains("dl5.dl1acemovies", StringComparison.OrdinalIgnoreCase)))
                     {
                         var url = new Uri(baseMedia.Server).GetLeftPart(UriPartial.Authority);
                         server = $"{url}{href}";
                     }
 
-                    if (server.Contains("dl5.dl1acemovies"))
+                    if (server.Contains("dl5.dl1acemovies", StringComparison.OrdinalIgnoreCase))
                     {
                         if (title.Equals("Home") || title.Equals("dl") ||
                             title.Equals("English") || title.Equals("Series") ||
@@ -270,12 +270,12 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
 
         try
         {
-            if (baseMedia.Server.Contains("DonyayeSerial"))
+            if (baseMedia.Server.Contains("DonyayeSerial", StringComparison.OrdinalIgnoreCase))
             {
                 return GetDonyayeSerialServerDetails(content, baseMedia);
             }
-            else if (baseMedia.Server.Contains("rostam") || baseMedia.Server.Contains("fbserver") ||
-                baseMedia.Server.Contains("freelecher"))
+            else if (baseMedia.Server.Contains("rostam", StringComparison.OrdinalIgnoreCase) || baseMedia.Server.Contains("fbserver", StringComparison.OrdinalIgnoreCase) ||
+                baseMedia.Server.Contains("freelecher", StringComparison.OrdinalIgnoreCase))
             {
                 return GetRostamAndFbServerAndFreeLecherServerDetails(content, baseMedia);
             }

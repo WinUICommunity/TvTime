@@ -302,7 +302,6 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                     var date = dateNode?.InnerText?.Trim();
                     var serverUrl = $"{server}{linkNode?.Attributes["href"]?.Value?.Trim()}";
                     var size = sizeNode?.InnerText?.Trim();
-
                     switch (PageType)
                     {
                         case ServerType.Anime:
@@ -375,7 +374,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
 
                     var finalServer = $"{server}{slash}{href}";
 
-                    if (server.Contains("acemovies") && !server.Contains("dl5.dl1acemovies"))
+                    if (server.Contains("ebtv", StringComparison.OrdinalIgnoreCase) || (server.Contains("acemovies", StringComparison.OrdinalIgnoreCase) && !server.Contains("dl5.dl1acemovies", StringComparison.OrdinalIgnoreCase)))
                     {
                         var url = new Uri(server).GetLeftPart(UriPartial.Authority);
                         finalServer = $"{url}{href}";
@@ -424,7 +423,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
         {
             dispatcherQueue.TryEnqueue(async () =>
             {
-                if (server.Contains("DonyayeSerial"))
+                if (server.Contains("DonyayeSerial", StringComparison.OrdinalIgnoreCase))
                 {
                     await GetDonyayeSerialServerDetails(content, server, serverType);
                 }

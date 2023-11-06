@@ -5,8 +5,9 @@ using HtmlAgilityPack;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.UI.Dispatching;
-
+using Newtonsoft.Json;
 using TvTime.Database;
+using TvTime.Database.Tables;
 using TvTime.Views.ContentDialogs;
 
 namespace TvTime.ViewModels;
@@ -33,7 +34,6 @@ public partial class SubsceneViewModel : BaseViewModel, ITitleBarAutoSuggestBoxA
     {
         this.themeService = themeService;
         JsonNavigationViewService = jsonNavigationViewService;
-
         Task.Run(() =>
         {
             dispatcherQueue.TryEnqueue(async () =>
@@ -41,6 +41,17 @@ public partial class SubsceneViewModel : BaseViewModel, ITitleBarAutoSuggestBoxA
                 try
                 {
                     using var db = new AppDbContext();
+                    if (!db.SubtitleServers.Any())
+                    {
+                        using var streamReader = File.OpenText(await FileLoaderHelper.GetPath(Constants.DEFAULT_SUBTITLE_SERVER_PATH));
+                        var json = await streamReader.ReadToEndAsync();
+                        var content = JsonConvert.DeserializeObject<List<SubtitleServerTable>>(json);
+                        if (content is not null)
+                        {
+                            await db.SubtitleServers.AddRangeAsync(content);
+                        }
+                        await db.SaveChangesAsync();
+                    }
                     var tokens = db.SubtitleServers.Where(x => x.IsActive)
                         .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
 

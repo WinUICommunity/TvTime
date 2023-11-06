@@ -392,8 +392,8 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                     }
 
                     var finalServer = ConcatenateUrls(server, href);
-
-                    if (server.Contains("dl5.dl1acemovies") && (title.Equals("Home") ||
+                    if (finalServer.Contains("directadmin.com", StringComparison.OrdinalIgnoreCase) ||
+                        finalServer.Contains("dl5.dl1acemovies") && (title.Equals("Home") ||
                         title.Equals("dl") || title.Equals("English") || title.Equals("Series") ||
                         title.Equals("Movie") || title.Contains("Parent Directory")))
                     {

@@ -269,11 +269,11 @@ public partial class ServerViewModel : ObservableRecipient, ITitleBarAutoSuggest
             {
                 await OnDeleteAllServer();
 
-                var filePath = "Assets/Files/TvTime-MediaServers.json";
+                var filePath = Constants.DEFAULT_MEDIA_SERVER_PATH;
 
                 if (SegmentedSelectedIndex != 0)
                 {
-                    filePath = "Assets/Files/TvTime-SubtitleServers.json";
+                    filePath = Constants.DEFAULT_SUBTITLE_SERVER_PATH;
                 }
 
                 using var streamReader = File.OpenText(await FileLoaderHelper.GetPath(filePath));

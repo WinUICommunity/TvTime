@@ -6,6 +6,8 @@ public static class Constants
     public static readonly string LogDirectoryPath = Path.Combine(RootDirectoryPath, "Log");
     public static readonly string LogFilePath = Path.Combine(LogDirectoryPath, "Log.txt");
     public static readonly string AppConfigPath = Path.Combine(RootDirectoryPath, "AppConfig.json");
+    public static readonly string DEFAULT_SUBTITLE_SERVER_PATH = "Assets/Files/TvTime-SubtitleServers.json";
+    public static readonly string DEFAULT_MEDIA_SERVER_PATH = "Assets/Files/TvTime-MediaServers.json";
 
     public const string FileNameRegex = @"(?:hd(?:tv|cam|r)|-|/720p/|/480p/|/1080p/|- -|-  -|/|EmpireBestTv|AceMovies|AvaMovie|@Parsi_Ser|mp4|mkv|@Gemovies|GM|AvaMovie|FB|M3|\.)";
     public const string IMDBTitleAPI = "http://www.omdbapi.com/?t={0}&apikey=2a59a17e";

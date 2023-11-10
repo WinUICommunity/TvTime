@@ -248,10 +248,9 @@ public static partial class AppHelper
             baseUrl += "/";
         }
 
-        // Ensure relativeUrl starts with a slash
-        if (!relativeUrl.StartsWith("/"))
+        if (relativeUrl.StartsWith("/"))
         {
-            relativeUrl = "/" + relativeUrl;
+            relativeUrl = relativeUrl.Substring(1);
         }
 
         // Create a base URI from the baseUrl string

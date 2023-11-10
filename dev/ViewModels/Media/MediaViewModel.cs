@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using CommunityToolkit.Labs.WinUI;
 using CommunityToolkit.WinUI.UI;
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +14,6 @@ namespace TvTime.ViewModels;
 public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAware
 {
     private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-
-    [ObservableProperty]
-    public ObservableCollection<TokenItem> tokenList;
 
     [ObservableProperty]
     public bool isServerStatusOpen;
@@ -55,9 +51,6 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                 {
                     PageType = MediaPage.Instance.PageType;
                     using var db = new AppDbContext();
-                    var tokens = db.MediaServers.Where(x => x.IsActive && x.ServerType == PageType).Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server), Tag = x.Server });
-                    TokenList = new(tokens);
-                    TokenList.Insert(0, new TokenItem { Content = "All", IsSelected = true });
                     if (!db.MediaServers.Any())
                     {
                         IsStatusOpen = true;
@@ -485,81 +478,29 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
         {
             if (DataList != null)
             {
-                bool useToken = false;
                 using var db = new AppDbContext();
-                var items = MediaPage.Instance.GetTokenViewSelectedItems();
-                if (items.Any(token => token.Content.ToString().Equals("All")))
+                if (args != null)
                 {
-                    if (args != null)
-                    {
-                        AutoSuggestBoxHelper.LoadSuggestions(sender, args, DataList.Select(x => x.Title).ToList());
-                    }
-                }
-                else
-                {
-                    var filteredList = DataList.Where(x => items.Any(token => x.Server.Contains(token.Tag.ToString()))).Select(x => x.Title).ToList();
-                    if (args != null)
-                    {
-                        AutoSuggestBoxHelper.LoadSuggestions(sender, args, filteredList);
-                    }
+                    AutoSuggestBoxHelper.LoadSuggestions(sender, args, DataList.Select(x => x.Title).ToList());
                 }
 
                 List<BaseMediaTable> media = new();
 
-                if (items.Any(token => token.Content.ToString().Equals("All")))
+                switch (PageType)
                 {
-                    switch (PageType)
-                    {
-                        case ServerType.Anime:
-                            media = new(await db.Animes.Where(x => x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())).ToListAsync());
-                            break;
-                        case ServerType.Movies:
-                            media = new(await db.Movies.Where(x => x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())).ToListAsync());
-                            break;
-                        case ServerType.Series:
-                            media = new(await db.Series.Where(x => x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())).ToListAsync());
-                            break;
-                    }
-                }
-                else
-                {
-                    useToken = true;
-                    foreach (var token in items)
-                    {
-                        switch (PageType)
-                        {
-                            case ServerType.Anime:
-                                var animeResult = db.Animes.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
-                                media.AddRange(animeResult);
-                                break;
-                            case ServerType.Movies:
-                                var movieResult = db.Movies.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
-                                media.AddRange(movieResult);
-                                break;
-                            case ServerType.Series:
-                                var seriesResult = db.Series.Where(x => x.Server.ToLower().Contains(token.Tag.ToString().ToLower()) && (x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())));
-                                media.AddRange(seriesResult);
-                                break;
-                        }
-                    }
+                    case ServerType.Anime:
+                        media = new(await db.Animes.Where(x => x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())).ToListAsync());
+                        break;
+                    case ServerType.Movies:
+                        media = new(await db.Movies.Where(x => x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())).ToListAsync());
+                        break;
+                    case ServerType.Series:
+                        media = new(await db.Series.Where(x => x.Title.ToLower().Contains(sender.Text.ToLower()) || x.Server.ToLower().Contains(sender.Text.ToLower())).ToListAsync());
+                        break;
                 }
 
-                if (useToken)
-                {
-                    var myDataList = media.Where(x => x.Server != null);
-                    DataList = new();
-                    DataListACV = new AdvancedCollectionView(DataList, true);
-
-                    using (DataListACV.DeferRefresh())
-                    {
-                        DataList.AddRange(myDataList);
-                    }
-                }
-                else
-                {
-                    DataList = new(media);
-                    DataListACV = new AdvancedCollectionView(DataList, true);
-                }
+                DataList = new(media);
+                DataListACV = new AdvancedCollectionView(DataList, true);
             }
         }
         catch (Exception ex)

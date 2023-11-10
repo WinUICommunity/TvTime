@@ -2,8 +2,8 @@
 <Page x:Class="TvTime.Views.SubscenePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:community="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:labs="using:CommunityToolkit.Labs.WinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:TvTime.Models"
       xmlns:views="using:TvTime.Views"
@@ -32,12 +32,10 @@
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <labs:TokenView x:Name="Token"
-                        Margin="10,10,10,0"
-                        ItemsSource="{x:Bind ViewModel.TokenList}"
-                        SelectedIndex="{x:Bind ViewModel.TokenItemSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedItem="{x:Bind ViewModel.TokenItemSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SelectionMode="Single" />
+        <community:Segmented Margin="10,10,0,0"
+                             ItemsSource="{x:Bind ViewModel.SegmentedItems}"
+                             SelectedIndex="{x:Bind ViewModel.SegmentedItemSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             SelectedItem="{x:Bind ViewModel.SegmentedItemSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <ItemsView x:Name="SubsceneItemsView"
                    Grid.Row="1"

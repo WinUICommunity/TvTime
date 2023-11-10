@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Labs.WinUI;
+﻿using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.WinUI.UI;
 
 using HtmlAgilityPack;
@@ -16,16 +16,16 @@ public partial class SubsceneViewModel : BaseViewModel, ITitleBarAutoSuggestBoxA
     private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
     [ObservableProperty]
-    public ObservableCollection<TokenItem> tokenList;
+    public ObservableCollection<SegmentedItem> segmentedItems;
 
     [ObservableProperty]
     public string queryText;
 
     [ObservableProperty]
-    public int tokenItemSelectedIndex = -1;
+    public int segmentedItemSelectedIndex = -1;
 
     [ObservableProperty]
-    public object tokenItemSelectedItem = null;
+    public object segmentedItemSelectedItem = null;
 
     public IJsonNavigationViewService JsonNavigationViewService;
 
@@ -52,13 +52,13 @@ public partial class SubsceneViewModel : BaseViewModel, ITitleBarAutoSuggestBoxA
                         }
                         await db.SaveChangesAsync();
                     }
-                    var tokens = db.SubtitleServers.Where(x => x.IsActive)
-                        .Select(x => new TokenItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
+                    var segments = db.SubtitleServers.Where(x => x.IsActive)
+                        .Select(x => new SegmentedItem { Content = GetServerUrlWithoutLeftAndRightPart(x.Server) });
 
-                    TokenList = new(tokens);
+                    SegmentedItems = new(segments);
 
-                    var defaultTokenItem = TokenList.FirstOrDefault(x => x.Content.ToString().Contains("subscene", StringComparison.OrdinalIgnoreCase));
-                    TokenItemSelectedIndex = TokenList.IndexOf(defaultTokenItem);
+                    var defaultTokenItem = SegmentedItems.FirstOrDefault(x => x.Content.ToString().Contains("subscene", StringComparison.OrdinalIgnoreCase));
+                    SegmentedItemSelectedIndex = SegmentedItems.IndexOf(defaultTokenItem);
 
                     if (!db.SubtitleServers.Any())
                     {
@@ -105,7 +105,7 @@ public partial class SubsceneViewModel : BaseViewModel, ITitleBarAutoSuggestBoxA
                 if (!string.IsNullOrEmpty(QueryText))
                 {
                     DataList = new();
-                    var baseUrl = await db.SubtitleServers.Where(x => x.Server.Contains(((TokenItem)TokenItemSelectedItem).Content.ToString())).FirstOrDefaultAsync();
+                    var baseUrl = await db.SubtitleServers.Where(x => x.Server.Contains(((SegmentedItem)SegmentedItemSelectedItem).Content.ToString())).FirstOrDefaultAsync();
                     var url = string.Format(Constants.SubsceneSearchAPI, baseUrl?.Server, QueryText);
                     var web = new HtmlWeb();
                     var doc = await web.LoadFromWebAsync(url);

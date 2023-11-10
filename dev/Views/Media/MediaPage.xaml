@@ -5,8 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:labs="using:CommunityToolkit.Labs.WinUI"
-      xmlns:local="using:TvTime.Common"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:TvTime.Database.Tables"
       xmlns:views="using:TvTime.Views"
@@ -40,18 +38,10 @@
     <Grid ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <labs:TokenView x:Name="Token"
-                        Margin="10,10,10,0"
-                        ItemsSource="{x:Bind ViewModel.TokenList}"
-                        SelectionChanged="token_SelectionChanged"
-                        SelectionMode="Multiple"
-                        Visibility="{x:Bind local:AppHelper.Settings.UseTokenViewFilter, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <CommandBar Grid.Row="1"
-                    Margin="10,10,0,0"
+        <CommandBar Margin="10,10,0,0"
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     DefaultLabelPosition="Right"
@@ -63,7 +53,7 @@
                           Tag="Refresh" />
         </CommandBar>
         <ItemsView x:Name="MediaItemsView"
-                   Grid.Row="2"
+                   Grid.Row="1"
                    Margin="5,0,5,5"
                    HorizontalAlignment="Stretch"
                    FlowDirection="LeftToRight"
@@ -76,17 +66,17 @@
             </ItemsView.Layout>
         </ItemsView>
 
-        <views:NoItemUserControl Grid.Row="2"
+        <views:NoItemUserControl Grid.Row="1"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
                                  Count="{x:Bind ViewModel.DataListACV.Count}"
                                  Message="Media not found, Please Refresh!"
                                  Visibility="{x:Bind ViewModel.IsActive, Mode=OneWay, Converter={StaticResource Bool2Negation2VisibilityConverter}}" />
 
-        <ProgressRing Grid.Row="2"
+        <ProgressRing Grid.Row="1"
                       IsActive="{x:Bind ViewModel.IsActive}" />
         <InfoBar Title="{x:Bind ViewModel.StatusTitle}"
-                 Grid.Row="3"
+                 Grid.Row="2"
                  BorderThickness="0"
                  CornerRadius="0"
                  IsOpen="{x:Bind ViewModel.IsStatusOpen}"

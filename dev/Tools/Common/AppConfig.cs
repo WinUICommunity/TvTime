@@ -4,8 +4,8 @@ using Nucs.JsonSettings.Modulation;
 namespace TvTime.Common;
 public class AppConfig : NotifiyingJsonSettings, IVersionable
 {
-    [EnforcedVersion("4.7.0.0")]
-    public virtual Version Version { get; set; } = new Version(4, 7, 0, 0);
+    [EnforcedVersion("4.8.0.0")]
+    public virtual Version Version { get; set; } = new Version(4, 8, 0, 0);
     public override string FileName { get; set; } = Constants.AppConfigPath;
 
     private ObservableCollection<string> _SubtitleLanguagesCollection = new();
@@ -28,7 +28,6 @@ public class AppConfig : NotifiyingJsonSettings, IVersionable
     public virtual bool HasHyperLinkBorderThickness { get; set; }
     public virtual bool UseTruncateInHeader { get; set; }
     public virtual bool UseTruncateInDescription { get; set; } = true;
-    public virtual bool UseTokenViewFilter { get; set; } = true;
     public virtual bool UseDoubleClickForNavigate { get; set; }
     public virtual bool UseIDMForDownloadFiles { get; set; }
     public virtual bool UseIDMForDownloadSubtitles { get; set; }

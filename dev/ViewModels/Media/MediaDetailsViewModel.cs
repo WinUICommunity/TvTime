@@ -173,7 +173,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
         return list;
     }
 
-    public List<BaseMediaTable> GetRostamAndFbServerAndFreeLecherServerDetails(string content, BaseMediaTable baseMedia)
+    public List<BaseMediaTable> GetServerDetails2(string content, BaseMediaTable baseMedia)
     {
         List<BaseMediaTable> list = new List<BaseMediaTable>();
 
@@ -270,9 +270,9 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                 return GetDonyayeSerialServerDetails(content, baseMedia);
             }
             else if (baseMedia.Server.Contains("rostam", StringComparison.OrdinalIgnoreCase) || baseMedia.Server.Contains("fbserver", StringComparison.OrdinalIgnoreCase) ||
-                baseMedia.Server.Contains("freelecher", StringComparison.OrdinalIgnoreCase))
+                baseMedia.Server.Contains("tabar", StringComparison.OrdinalIgnoreCase))
             {
-                return GetRostamAndFbServerAndFreeLecherServerDetails(content, baseMedia);
+                return GetServerDetails2(content, baseMedia);
             }
             else
             {

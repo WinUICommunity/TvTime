@@ -62,11 +62,6 @@
             <wuc:SettingsGroup Description="Customize how you view the media files on your screen. You can also change the navigationview display mode."
                                Header="View Options">
                 <wuc:SettingsGroup.Items>
-                    <wuc:SettingsCard Description="With the help of TokenView, you can see only the media related to the desired server, and with the help of the search, you can search the results more precisely."
-                                      Header="Filter using TokenView"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/tokenView.png}">
-                        <ToggleSwitch IsOn="{x:Bind local:AppHelper.Settings.UseTokenViewFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </wuc:SettingsCard>
                     <wuc:SettingsCard Description="Choose how and where the NavigationView pane is shown"
                                       Header="NavigationView Display Mode"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/displayMode.png}">

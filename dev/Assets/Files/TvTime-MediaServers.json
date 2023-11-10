@@ -1,29 +1,29 @@
-[
+﻿[
   {
     "Id": 1,
-    "Title": "Freelecher Series 1",
-    "Server": "https://dl1.freelecher.xyz/English/Series/",
+    "Title": "Tabar Series 1",
+    "Server": "https://dl1.tabar.sbs/English/Series/",
     "IsActive": true,
     "ServerType": 2
   },
   {
     "Id": 2,
-    "Title": "Freelecher Series 2",
-    "Server": "https://dl2.freelecher.xyz/English/Series/",
+    "Title": "Tabar Series 2",
+    "Server": "https://dl2.tabar.sbs/English/Series/",
     "IsActive": true,
     "ServerType": 2
   },
   {
     "Id": 3,
-    "Title": "Freelecher Series 3",
-    "Server": "https://dl3.freelecher.xyz/English/Series/",
+    "Title": "Tabar Series 3",
+    "Server": "https://dl3.tabar.sbs/English/Series/",
     "IsActive": true,
     "ServerType": 2
   },
   {
     "Id": 4,
-    "Title": "Freelecher Series 4",
-    "Server": "https://dl4.freelecher.xyz/English/Series/",
+    "Title": "Tabar Series 4",
+    "Server": "https://dl4.tabar.sbs/English/Series/",
     "IsActive": true,
     "ServerType": 2
   },
@@ -36,36 +36,36 @@
   },
   {
     "Id": 6,
-    "Title": "Freelecher Anime 2",
-    "Server": "https://dl2.freelecher.xyz/English/Anime/",
+    "Title": "Tabar Anime 2",
+    "Server": "https://dl2.tabar.sbs/English/Anime/",
     "IsActive": false,
     "ServerType": 0
   },
   {
     "Id": 7,
-    "Title": "Freelecher Movie 1",
-    "Server": "https://dl1.freelecher.xyz/English/Movies/",
+    "Title": "Tabar Movie 1",
+    "Server": "https://dl1.tabar.sbs/English/Movies/",
     "IsActive": true,
     "ServerType": 1
   },
   {
     "Id": 8,
-    "Title": "Freelecher Movie 2",
-    "Server": "https://dl2.freelecher.xyz/English/Movies/",
+    "Title": "Tabar Movie 2",
+    "Server": "https://dl2.tabar.sbs/English/Movies/",
     "IsActive": true,
     "ServerType": 1
   },
   {
     "Id": 9,
-    "Title": "Freelecher Movie 3",
-    "Server": "https://dl3.freelecher.xyz/English/Movies/",
+    "Title": "Tabar Movie 3",
+    "Server": "https://dl3.tabar.sbs/English/Movies/",
     "IsActive": true,
     "ServerType": 1
   },
   {
     "Id": 10,
-    "Title": "Freelecher Movie 4",
-    "Server": "https://dl4.freelecher.xyz/English/Movies/",
+    "Title": "Tabar Movie 4",
+    "Server": "https://dl4.tabar.sbs/English/Movies/",
     "IsActive": true,
     "ServerType": 1
   },
@@ -78,8 +78,8 @@
   },
   {
     "Id": 12,
-    "Title": "Freelecher Anime 1",
-    "Server": "https://dl1.freelecher.xyz/English/Anime/",
+    "Title": "Tabar Anime 1",
+    "Server": "https://dl1.tabar.sbs/English/Anime/",
     "IsActive": true,
     "ServerType": 0
   },
@@ -127,36 +127,36 @@
   },
   {
     "Id": 19,
-    "Title": "Freelecher Series 5",
-    "Server": "https://dl5.freelecher.xyz/English/Series/",
+    "Title": "Tabar Series 5",
+    "Server": "https://dl5.tabar.sbs/English/Series/",
     "IsActive": true,
     "ServerType": 2
   },
   {
     "Id": 20,
-    "Title": "Freelecher Movie 5",
-    "Server": "https://dl5.freelecher.xyz/English/Movies/",
+    "Title": "Tabar Movie 5",
+    "Server": "https://dl5.tabar.sbs/English/Movies/",
     "IsActive": true,
     "ServerType": 1
   },
   {
     "Id": 21,
-    "Title": "Freelecher Anime 3",
-    "Server": "https://dl3.freelecher.xyz/English/Anime/",
+    "Title": "Tabar Anime 3",
+    "Server": "https://dl3.tabar.sbs/English/Anime/",
     "IsActive": true,
     "ServerType": 0
   },
   {
     "Id": 22,
-    "Title": "Freelecher Anime 4",
-    "Server": "https://dl4.freelecher.xyz/English/Anime/",
+    "Title": "Tabar Anime 4",
+    "Server": "https://dl4.tabar.sbs/English/Anime/",
     "IsActive": true,
     "ServerType": 0
   },
   {
     "Id": 23,
-    "Title": "Freelecher Anime 5",
-    "Server": "https://dl5.freelecher.xyz/English/Anime/",
+    "Title": "Tabar Anime 5",
+    "Server": "https://dl5.tabar.sbs/English/Anime/",
     "IsActive": true,
     "ServerType": 0
   },
@@ -316,22 +316,22 @@
   },
   {
     "Id": 53,
-    "Title": "Freelecher Anime 0",
-    "Server": "https://dl.freelecher.xyz/English/Anime/",
+    "Title": "Tabar Anime 0",
+    "Server": "https://dl.tabar.sbs/English/Anime/",
     "IsActive": true,
     "ServerType": 0
   },
   {
     "Id": 54,
-    "Title": "Freelecher Movie 0",
-    "Server": "https://dl.freelecher.xyz/English/Movies/",
+    "Title": "Tabar Movie 0",
+    "Server": "https://dl.tabar.sbs/English/Movies/",
     "IsActive": true,
     "ServerType": 1
   },
   {
     "Id": 55,
-    "Title": "Freelecher Series 0",
-    "Server": "https://dl.freelecher.xyz/English/Series/",
+    "Title": "Tabar Series 0",
+    "Server": "https://dl.tabar.sbs/English/Series/",
     "IsActive": true,
     "ServerType": 2
   },
@@ -358,23 +358,9 @@
   },
   {
     "Id": 59,
-    "Title": "EBTV Series",
-    "Server": "https://dl.ebtv.xyz/English/Series",
+    "Title": "Tabar Series 02",
+    "Server": "https://dl.tabar.sbs/English/Series2",
     "IsActive": true,
     "ServerType": 2
-  },
-  {
-    "Id": 60,
-    "Title": "EBTV Movies",
-    "Server": "https://dl.ebtv.xyz/English/Movies",
-    "IsActive": true,
-    "ServerType": 1
-  },
-  {
-    "Id": 61,
-    "Title": "EBTV Anime",
-    "Server": "https://dl.ebtv.xyz/English/Anime",
-    "IsActive": true,
-    "ServerType": 0
   }
 ]

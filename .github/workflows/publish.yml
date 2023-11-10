@@ -34,7 +34,7 @@ jobs:
       with:
         files: ${{ env.DIR_PATH }}
         recursive: true
-        dest: publish/TvTime-v${{steps.get-version.outputs.version}}.zip
+        dest: publish/TvTime-v${{steps.get-version.outputs.version}}-x64.zip
   
     - name: Create Github Release
       uses: actions/create-release@v1.1.4

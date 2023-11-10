@@ -384,7 +384,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                         continue;
                     }
 
-                    var finalServer = ConcatenateUrls(server, href);
+                    var finalServer = FixUriDuplication(server, href);
                     if (finalServer.Contains("directadmin.com", StringComparison.OrdinalIgnoreCase) ||
                         finalServer.Contains("dl5.dl1acemovies") && (title.Equals("Home") ||
                         title.Equals("dl") || title.Equals("English") || title.Equals("Series") ||

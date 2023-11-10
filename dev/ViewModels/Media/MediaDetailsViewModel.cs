@@ -143,7 +143,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                         continue;
                     }
 
-                    var finalServer = ConcatenateUrls(baseMedia.Server, href);
+                    var finalServer = FixUriDuplication(baseMedia.Server, href);
 
                     if (finalServer.Contains("dl5.dl1acemovies", StringComparison.OrdinalIgnoreCase))
                     {

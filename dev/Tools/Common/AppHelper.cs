@@ -240,7 +240,7 @@ public static partial class AppHelper
         return title;
     }
 
-    public static string ConcatenateUrls(string baseUrl, string relativeUrl)
+    private static string ConcatenateUrls(string baseUrl, string relativeUrl)
     {
         // Ensure baseUrl ends with a slash
         if (!baseUrl.EndsWith("/"))
@@ -263,6 +263,24 @@ public static partial class AppHelper
         string resultUrl = combinedUri.ToString();
 
         return resultUrl;
+    }
+
+    public static string FixUriDuplication(string baseUrl, string relativeUrl)
+    {
+        var baseUrlUri = new Uri(baseUrl);
+
+        var baseUrlLeftPart = baseUrlUri.GetLeftPart(UriPartial.Authority);
+        var duplicateSection = baseUrl.Replace(baseUrlLeftPart, "");
+
+        if (duplicateSection.StartsWith("/"))
+        {
+            duplicateSection = duplicateSection.Substring(1);
+        }
+        if (relativeUrl.Contains(duplicateSection))
+        {
+            baseUrl = baseUrl.Replace(duplicateSection, "");
+        }
+        return ConcatenateUrls(baseUrl, relativeUrl);
     }
 }
 

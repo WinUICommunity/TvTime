@@ -108,7 +108,7 @@ public partial class ServerViewModel : ObservableRecipient, ITitleBarAutoSuggest
 
                 if (SegmentedSelectedIndex == 0)
                 {
-                    var type = ApplicationHelper.GetEnum<ServerType>((dialog.CmbServerTypeSelectedItem as ComboBoxItem).Content?.ToString());
+                    var type = GeneralHelper.GetEnum<ServerType>((dialog.CmbServerTypeSelectedItem as ComboBoxItem).Content?.ToString());
                     baseServer.ServerType = type;
                     await db.MediaServers.AddAsync(new MediaServerTable(baseServer.Title, baseServer.Server, baseServer.IsActive, baseServer.ServerType));
                 }
@@ -178,7 +178,7 @@ public partial class ServerViewModel : ObservableRecipient, ITitleBarAutoSuggest
                         var oldMediaServer = await db.MediaServers.Where(x => x.Title == server.Title && x.Server == server.Server && x.ServerType == server.ServerType).FirstOrDefaultAsync();
                         if (oldMediaServer != null)
                         {
-                            var type = ApplicationHelper.GetEnum<ServerType>((dialog.CmbServerTypeSelectedItem as ComboBoxItem).Content?.ToString());
+                            var type = GeneralHelper.GetEnum<ServerType>((dialog.CmbServerTypeSelectedItem as ComboBoxItem).Content?.ToString());
 
                             oldMediaServer.Title = dialog.ServerTitle;
                             oldMediaServer.Server = dialog.ServerUrl;
@@ -276,7 +276,7 @@ public partial class ServerViewModel : ObservableRecipient, ITitleBarAutoSuggest
                     filePath = Constants.DEFAULT_SUBTITLE_SERVER_PATH;
                 }
 
-                using var streamReader = File.OpenText(await FileLoaderHelper.GetPath(filePath));
+                using var streamReader = File.OpenText(await PathHelper.GetFilePath(filePath));
                 var json = await streamReader.ReadToEndAsync();
                 using var db = new AppDbContext();
                 if (SegmentedSelectedIndex == 0)

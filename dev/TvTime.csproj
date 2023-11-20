@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>TvTime</RootNamespace>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<Platforms>x86;x64</Platforms>
-		<RuntimeIdentifiers>win10-x86;win10-x64</RuntimeIdentifiers>
-		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
+		<RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
+		<PublishProfile>win-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<Version>4.8.1</Version>
@@ -16,6 +16,7 @@
 		<AccelerateBuildsInVisualStudio>False</AccelerateBuildsInVisualStudio>
 		<ApplicationIcon>Assets\icon.ico</ApplicationIcon>
 		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <UseRidGraph>true</UseRidGraph>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="Assets\**\*">
@@ -24,12 +25,12 @@
 	</ItemGroup>
   
 	<ItemGroup>
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231115000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.2428" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
-    <PackageReference Include="WinUICommunity.Components" Version="5.3.5" />
-    <PackageReference Include="WinUICommunity.Core" Version="5.3.1" />
-    <PackageReference Include="WinUICommunity.LandingPages" Version="5.3.1" />
+    <PackageReference Include="WinUICommunity.Components" Version="5.5.0" />
+    <PackageReference Include="WinUICommunity.Core" Version="5.5.1" />
+    <PackageReference Include="WinUICommunity.LandingPages" Version="5.5.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />

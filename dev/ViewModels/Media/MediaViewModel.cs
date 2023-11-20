@@ -218,7 +218,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
                 int index = 0;
                 foreach (var item in urls)
                 {
-                    if (ApplicationHelper.IsNetworkAvailable())
+                    if (NetworkHelper.IsNetworkAvailable())
                     {
                         try
                         {
@@ -386,7 +386,7 @@ public partial class MediaViewModel : BaseViewModel, ITitleBarAutoSuggestBoxAwar
 
                     var finalServer = FixUriDuplication(server, href);
                     if (finalServer.Contains("directadmin.com", StringComparison.OrdinalIgnoreCase) ||
-                        finalServer.Contains("dl5.dl1acemovies") && (title.Equals("Home") ||
+                        finalServer.Contains("acemovies") && (title.Equals("Home") ||
                         title.Equals("dl") || title.Equals("English") || title.Equals("Series") ||
                         title.Equals("Movie") || title.Contains("Parent Directory")))
                     {

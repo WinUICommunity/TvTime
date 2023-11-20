@@ -64,7 +64,7 @@ public partial class SubsceneDetailViewModel : BaseViewModel, ITitleBarAutoSugge
         }
         else
         {
-            if (ApplicationHelper.IsNetworkAvailable())
+            if (NetworkHelper.IsNetworkAvailable())
             {
                 try
                 {

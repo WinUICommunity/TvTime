@@ -78,7 +78,7 @@ public partial class IMDBDetailViewModel : ObservableRecipient, ITitleBarAutoSug
     {
         try
         {
-            if (ApplicationHelper.IsNetworkAvailable())
+            if (NetworkHelper.IsNetworkAvailable())
             {
                 IsActive = false;
 

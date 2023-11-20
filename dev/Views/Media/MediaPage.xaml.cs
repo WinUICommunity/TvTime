@@ -16,7 +16,7 @@ public sealed partial class MediaPage : Page
     {
         base.OnNavigatedTo(e);
         var pageType = (e.Parameter as DataItem).Parameter?.ToString();
-        this.PageType = ApplicationHelper.GetEnum<ServerType>(pageType);
+        this.PageType = GeneralHelper.GetEnum<ServerType>(pageType);
     }
 
     private void ItemUserControl_Loading(FrameworkElement sender, object args)

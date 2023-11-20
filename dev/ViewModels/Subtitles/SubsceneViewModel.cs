@@ -43,7 +43,7 @@ public partial class SubsceneViewModel : BaseViewModel, ITitleBarAutoSuggestBoxA
                     using var db = new AppDbContext();
                     if (!db.SubtitleServers.Any())
                     {
-                        using var streamReader = File.OpenText(await FileLoaderHelper.GetPath(Constants.DEFAULT_SUBTITLE_SERVER_PATH));
+                        using var streamReader = File.OpenText(await PathHelper.GetFilePath(Constants.DEFAULT_SUBTITLE_SERVER_PATH));
                         var json = await streamReader.ReadToEndAsync();
                         var content = JsonConvert.DeserializeObject<List<SubtitleServerTable>>(json);
                         if (content is not null)
@@ -82,7 +82,7 @@ public partial class SubsceneViewModel : BaseViewModel, ITitleBarAutoSuggestBoxA
 
     public async void OnQuerySubmitted()
     {
-        if (ApplicationHelper.IsNetworkAvailable())
+        if (NetworkHelper.IsNetworkAvailable())
         {
             try
             {
@@ -137,7 +137,7 @@ public partial class SubsceneViewModel : BaseViewModel, ITitleBarAutoSuggestBoxA
                                         }
 
                                         var name = subNode?.InnerText?.Trim();
-                                        var server = ApplicationHelper.GetDecodedStringFromHtml(baseUrl.Server + subNode?.Attributes["href"]?.Value?.Trim());
+                                        var server = GeneralHelper.GetDecodedStringFromHtml(baseUrl.Server + subNode?.Attributes["href"]?.Value?.Trim());
                                         var subtitle = new SubtitleModel(name, server);
                                         subtitle.Description = count?.InnerText?.Trim();
                                         subtitle.GroupKey = GetSubtitleKey(i);

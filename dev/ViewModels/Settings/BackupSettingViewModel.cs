@@ -33,7 +33,7 @@ public partial class BackupSettingViewModel : ObservableObject
             {
                 { "Json", new List<string>() { ".json" } }
             };
-            var file = await ApplicationHelper.PickSaveFileAsync(App.currentWindow, fileTypeChoices, fileName);
+            var file = await FileAndFolderPickerHelper.PickSaveFileAsync(App.currentWindow, fileTypeChoices, fileName);
 
             if (file != null)
             {
@@ -70,7 +70,7 @@ public partial class BackupSettingViewModel : ObservableObject
         {
             this.isMediaServer = Convert.ToBoolean(isMediaServer);
 
-            var file = await ApplicationHelper.PickSingleFileAsync(App.currentWindow, new string[] { ".json" });
+            var file = await FileAndFolderPickerHelper.PickSingleFileAsync(App.currentWindow, new string[] { ".json" });
             if (file != null)
             {
                 using var streamReader = File.OpenText(file.Path);
@@ -119,7 +119,7 @@ public partial class BackupSettingViewModel : ObservableObject
             };
             var suggestedFileName = $"TvTime-Settings-{DateTime.Now:yyyy-MM-dd HH-mm-ss}";
 
-            var file = await ApplicationHelper.PickSaveFileAsync(App.currentWindow, fileTypeChoices, suggestedFileName);
+            var file = await FileAndFolderPickerHelper.PickSaveFileAsync(App.currentWindow, fileTypeChoices, suggestedFileName);
 
             if (file != null)
             {
@@ -145,7 +145,7 @@ public partial class BackupSettingViewModel : ObservableObject
     {
         try
         {
-            var file = await ApplicationHelper.PickSingleFileAsync(App.currentWindow, new string[] { ".json" });
+            var file = await FileAndFolderPickerHelper.PickSingleFileAsync(App.currentWindow, new string[] { ".json" });
 
             if (file != null)
             {

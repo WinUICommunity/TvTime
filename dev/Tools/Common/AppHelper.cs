@@ -236,7 +236,7 @@ public static partial class AppHelper
 
         title = Regex.Replace(title, @"\s*<.*?>\s*", "", RegexOptions.Singleline);
         title = title.Replace(".E..&gt;", "").Replace(">", "");
-        title = RemoveSpecialWords(ApplicationHelper.GetDecodedStringFromHtml(title));
+        title = RemoveSpecialWords(GeneralHelper.GetDecodedStringFromHtml(title));
         return title;
     }
 

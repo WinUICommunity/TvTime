@@ -145,7 +145,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
 
                     var finalServer = FixUriDuplication(baseMedia.Server, href);
 
-                    if (finalServer.Contains("dl5.dl1acemovies", StringComparison.OrdinalIgnoreCase))
+                    if (finalServer.Contains("acemovies", StringComparison.OrdinalIgnoreCase))
                     {
                         if (title.Equals("Home") || title.Equals("dl") ||
                             title.Equals("English") || title.Equals("Series") ||
@@ -156,7 +156,7 @@ public partial class MediaDetailsViewModel : BaseViewModel, ITitleBarAutoSuggest
                         }
                     }
                     
-                    list.Add(new BaseMediaTable(FixTitle(title), finalServer, date, ApplicationHelper.GetFileSize(fSize), baseMedia.ServerType));
+                    list.Add(new BaseMediaTable(FixTitle(title), finalServer, date, FileHelper.GetFileSize(fSize), baseMedia.ServerType));
                 }
             }
         }

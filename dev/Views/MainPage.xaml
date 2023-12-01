@@ -34,7 +34,7 @@
                 <StackPanel Orientation="Horizontal"
                             Spacing="5">
                     <Button x:Name="NavViewPaneDisplayModeButton"
-                            Width="38"
+                            Width="42"
                             Height="32"
                             Click="NavViewPaneDisplayModeButton_Click"
                             Style="{ThemeResource SubtleButtonStyle}"

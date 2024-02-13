@@ -12,6 +12,6 @@ public sealed partial class LoadPredefinedContentDialog : ContentDialog
 
     private void LoadPredefinedContentDialog_Loaded(object sender, RoutedEventArgs e)
     {
-        RequestedTheme = ThemeService.GetCurrentTheme();
+        RequestedTheme = ThemeService.GetElementTheme();
     }
 }

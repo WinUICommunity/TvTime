@@ -13,6 +13,6 @@ public sealed partial class ServerErrorsContentDialog : ContentDialog
 
     private void ServerErrorsContentDialog_Loaded(object sender, RoutedEventArgs e)
     {
-        RequestedTheme = ThemeService.GetCurrentTheme();
+        RequestedTheme = ThemeService.GetElementTheme();
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.UI.Dispatching;
 using TvTime.Tools.Common;
 
 namespace TvTime.ViewModels;
-public partial class BoxOfficeDetailViewModel : BaseViewModel, INavigationAware
+public partial class BoxOfficeDetailViewModel : BaseViewModel, INavigationAwareEx
 {
     private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 

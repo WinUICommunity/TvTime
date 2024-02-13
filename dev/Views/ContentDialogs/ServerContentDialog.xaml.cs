@@ -22,7 +22,7 @@ public sealed partial class ServerContentDialog : ContentDialog
     {
         if (ViewModel != null)
         {
-            RequestedTheme = ViewModel.themeService.GetCurrentTheme();
+            RequestedTheme = ViewModel.themeService.GetElementTheme();
         }
 
         if (CmbServerTypeSelectedItem != null)

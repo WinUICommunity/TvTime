@@ -10,6 +10,6 @@ public partial class MainViewModel : ObservableObject
         themeService.Initialize(App.currentWindow);
         themeService.ConfigBackdrop();
         themeService.ConfigElementTheme();
-        themeService.ConfigBackdropFallBackColorForWindow10(Application.Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush);
+        themeService.ConfigBackdropFallBackColorForUnSupportedOS(Application.Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush);
     }
 }

@@ -13,7 +13,7 @@ public sealed partial class GoToServerContentDialog : ContentDialog
 
     private void GoToServerContentDialog_Loaded(object sender, RoutedEventArgs e)
     {
-        RequestedTheme = ThemeService.GetCurrentTheme();
+        RequestedTheme = ThemeService.GetElementTheme();
     }
 
     private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

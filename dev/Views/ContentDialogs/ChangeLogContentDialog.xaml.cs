@@ -13,6 +13,6 @@ public sealed partial class ChangeLogContentDialog : ContentDialog
 
     private void ChangeLogContentDialog_Loaded(object sender, RoutedEventArgs e)
     {
-        RequestedTheme = ThemeService.GetCurrentTheme();
+        RequestedTheme = ThemeService.GetElementTheme();
     }
 }
